@@ -1,9 +1,11 @@
 import 'dotenv/config';
 import NotionApi from './NotionApi.js';
+import * as config from './config.js';
+import parseNotion from './NotionParser.js';
+import { saveResponseJson } from './utils.js';
 
-const databaseKeys = Object.keys(process.env).filter(key => key.includes('DATABASE'));
-const syncType = process.argv[2] || 'partial';
-
+const syncType = config.syncType;
+const databases = config.databases;
 
 async function getData() {
   const filepath = process.argv[3] || './data/raw';
@@ -26,9 +28,14 @@ async function getData() {
       console.log('Getting new data');
   }
 
-  databaseKeys.forEach(async (database) => {
+  databases.forEach(async (database) => {
     const databaseId = process.env[database];
-    const data = await syncFunction(databaseId, database);
+    database = database.split('_')[0].toLocaleLowerCase();
+    const filenameRaw = null;
+    const filenameParsed = `${database}/${database}`;
+    const data = await syncFunction(databaseId, filenameRaw);
+    const parsedData = await parseNotion(data);
+    await saveResponseJson(parsedData, `./data/${filenameParsed}_parsed`)
   })
   // console.log('\ndata:\n', data);
 }
