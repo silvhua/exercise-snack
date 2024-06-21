@@ -7,14 +7,10 @@ const syncType = process.argv[2] || 'partial';
 
 async function getData() {
   const filepath = process.argv[3] || './data/raw';
-  console.log(filepath);
-  // const filepath = null;
-  const databaseId = process.env.EXERCISE_DATABASE;
-  // const databaseId = process.env.MOVEMENT_DATABASE;
+  console.log(`Save to filepath ${filepath}`);
   const trackingFile = './utils/tracking.json';
 
   const client = new NotionApi(
-    databaseId,
     trackingFile,
     filepath
   );
@@ -22,21 +18,19 @@ async function getData() {
   let syncFunction;
   switch (syncType) {
     case 'full':
-      syncFunction = client.getData;
+      syncFunction = async (databaseId, filename) => client.getData(databaseId, filename);
       console.log('Performing full sync');
       break;
     default:
-      syncFunction = client.getNewData;
+      syncFunction = async (databaseId, filename) => client.getNewData(databaseId, filename);
       console.log('Getting new data');
   }
-  const lastUpdate = await client.getLastUpdate();
-  console.log(lastUpdate);
-  // const data = await syncFunction(filepath);
 
-
-  const data = await client.getNewData('data');
-  // const data = await client.getData(filepath);
-  console.log('\ndata:\n', data);
+  databaseKeys.forEach(async (database) => {
+    const databaseId = process.env[database];
+    const data = await syncFunction(databaseId, database);
+  })
+  // console.log('\ndata:\n', data);
 }
 
 getData();

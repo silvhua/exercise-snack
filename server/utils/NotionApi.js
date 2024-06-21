@@ -5,11 +5,10 @@ import { getIsoTimestamp, saveResponseJson, loadJsonFile } from './utils.js';
 import fs from 'fs';
 
 class NotionApi {
-  constructor(databaseId, trackingFile=null, filepath=null) {
+  constructor(trackingFile=null, filepath=null) {
     this.notionApiKey = process.env.notion_secret;
     this.filepath = filepath || '';
     this.notion = new Client({ auth: this.notionApiKey });
-    this.databaseId = databaseId;
     this.trackingFile = trackingFile;
   }
 
@@ -26,11 +25,11 @@ class NotionApi {
     return lastUpdated;
   }
 
-  async getData(filename=null, appendTimestamp=true, filter=null) {
+  async getData(databaseId, filename=null, appendTimestamp=true, filter=null) {
     const pages = [];
     let cursor = undefined;
     const requestObject = {
-      database_id: this.databaseId,
+      database_id: databaseId,
       start_cursor: cursor
     }
     if (filter) {
@@ -57,9 +56,8 @@ class NotionApi {
     return pages;
   }
 
-  async getNewData(filename = null, appendTimestamp = true, filter = null) {
+  async getNewData(databaseId, filename = null, appendTimestamp = true, filter = null) {
     const lastUpdated = await this.getLastUpdate();
-    console.log('getNewData lastUpdated', lastUpdated);
 
     const filterArray = [
       { property: 'Last edited time', date: { after: lastUpdated } }
@@ -70,7 +68,7 @@ class NotionApi {
     filter = {
       and: filterArray
     }
-    const data = await this.getData(filename, appendTimestamp, filter);
+    const data = await this.getData(databaseId, filename, appendTimestamp, filter);
     return data;
   }
 }
