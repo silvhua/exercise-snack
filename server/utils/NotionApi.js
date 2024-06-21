@@ -5,21 +5,21 @@ import { getIsoTimestamp, saveResponseJson, loadJsonFile } from './utils.js';
 import fs from 'fs';
 
 class NotionApi {
-  constructor(filepath, databaseId, trackingFile=null) {
+  constructor(databaseId, trackingFile=null, filepath=null) {
     this.notionApiKey = process.env.notion_secret;
-    console.log(process.env.notion_secret);
-    this.filepath = filepath;
+    this.filepath = filepath || '';
     this.notion = new Client({ auth: this.notionApiKey });
     this.databaseId = databaseId;
     this.trackingFile = trackingFile;
   }
 
-  async save(object, filename, appendTimestamp=true) {
-    await saveResponseJson(object, filename, appendTimestamp);
+  async save(object, filename, appendTimestamp = true) {
+    const fullPath = `${this.filepath}/${filename}` || filename;
+    await saveResponseJson(object, fullPath, appendTimestamp);
   }
 
-  async getLastUpdate(trackingFile) {
-    this.trackingFile = this.trackingFile || trackingFile;
+  async getLastUpdate() {
+    this.trackingFile = this.trackingFile;
     this.trackingObject = await loadJsonFile(this.trackingFile);
     const lastUpdated = this.trackingObject[this.databaseId] || "2024-01-01T00:00:00-08:00";
     console.log(`Data last fetched ${lastUpdated}`);
@@ -58,7 +58,7 @@ class NotionApi {
   }
 
   async getNewData(filename = null, appendTimestamp = true, filter = null) {
-    const lastUpdated = await this.getLastUpdate(filename);
+    const lastUpdated = await this.getLastUpdate();
     console.log('getNewData lastUpdated', lastUpdated);
 
     const filterArray = [
@@ -75,16 +75,4 @@ class NotionApi {
   }
 }
 
-async function getData() {
-  const filepath = process.argv[2];
-  const databaseId = process.env.EXERCISE_DATABASE;
-  // const databaseId = process.env.MOVEMENT_DATABASE;
-  const trackingFile = './utils/tracking.json';
-  const client = new NotionApi(filepath, databaseId);
-  client.getLastUpdate(trackingFile);
-  const data = await client.getNewData(filepath);
-  // const data = await client.getData(filepath);
-  // console.log('\ndata:\n', data);
-}
-
-getData();
+export default NotionApi;

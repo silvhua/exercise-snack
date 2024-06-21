@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "node utils/notionApi.js",
-    "save": "node utils/notionApi.js ./data/raw" 
+    "save": "node utils/notionApi.js ./data/raw",
+    "dev": "node utils/syncNotionToDb.js"
   },
   "keywords": [],
   "author": "",
