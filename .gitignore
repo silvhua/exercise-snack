@@ -1,6 +1,7 @@
 **/node_modules
 .env
 data
+*.css.map
 
 # Logs
 logs

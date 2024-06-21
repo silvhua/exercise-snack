@@ -7,6 +7,7 @@ import fs from 'fs';
 class NotionApi {
   constructor(filepath, databaseId, trackingFile=null) {
     this.notionApiKey = process.env.notion_secret;
+    console.log(process.env.notion_secret);
     this.filepath = filepath;
     this.notion = new Client({ auth: this.notionApiKey });
     this.databaseId = databaseId;
