@@ -4,36 +4,36 @@
  */
 export function up(knex) {
   return knex.schema.createTable('exercise', (table) => {
-    table.binary('id', 16).primary();
+    table.binary('id', 128).primary();
     table.string('name').notNullable();
-    table.binary('databaseId', 16).notNullable();
+    table.binary('database_id', 128).notNullable();
     table.string('url');
-    table.timestamp('createdTime').defaultTo(knex.fn.now());
-    table.foreign('muscles')
+    table.timestamp('created_time').defaultTo(knex.fn.now());
+    table.foreign('muscles_id')
       .references('id').inTable('muscles')
       .onUpdate('CASCADE').onDelete('CASCADE');
-    table.foreign('movementCategory')
+    table.foreign('movement_category_id')
       .references('id').inTable('movement_category')
       .onUpdate('CASCADE').onDelete('CASCADE');
     table.integer('strength').notNullable();
-    table.foreign('modifier')
+    table.foreign('modifier_id')
       .references('id').inTable('modifier')
       .onUpdate('CASCADE').onDelete('CASCADE');
-    table.foreign('condition')
+    table.foreign('condition_id')
       .references('id').inTable('condition')
       .onUpdate('CASCADE').onDelete('CASCADE');
-    table.foreign('discreetness')
+    table.foreign('discreetness_id')
       .references('id').inTable('discreetness')
       .onUpdate('CASCADE').onDelete('CASCADE');
     table.integer('exertion').notNullable();
-    table.foreign('environment')
+    table.foreign('environment_id')
       .references('id').inTable('environment')
       .onUpdate('CASCADE').onDelete('CASCADE');
-    table.foreign('focus')
+    table.foreign('focus_id')
       .references('id').inTable('focus')
       .onUpdate('CASCADE').onDelete('CASCADE');
     table.timestamp('lastEditedTime').defaultTo(knex.fn.now());
-    table.index('databaseId');
+    table.index('id');
   });
 };
 

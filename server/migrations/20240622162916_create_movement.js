@@ -1,9 +1,9 @@
 export function up(knex) {
   return knex.schema.createTable('movement_category', (table) => {
-    table.binary('id', 16).primary();
-    table.binary('databaseId', 36).notNullable();
+    table.binary('id', 128).primary();
+    table.binary('database_id', 128).notNullable();
     table.string('url');
-    table.timestamp('lastEditedTime').notNullable().defaultTo(knex.fn.now());
+    table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
     table.string('name').notNullable();
   });
 }
