@@ -2,17 +2,14 @@ import 'dotenv/config';
 import NotionApi from './NotionApi.js';
 import parseNotion from './NotionParser.js';
 import { saveResponseJson } from './utils.js';
-import { databases, syncType, filepath } from './config.js';
+import { databases, syncType, filepath, saveRawData } from './config.js';
 
 
 async function getData() {
   console.log(`Save to filepath ${filepath}`);
   const trackingFile = './utils/tracking.json';
 
-  const client = new NotionApi(
-    trackingFile,
-    filepath
-  );
+  const client = new NotionApi(trackingFile, filepath);
 
   let syncFunction;
   switch (syncType) {
@@ -31,11 +28,13 @@ async function getData() {
       const databaseId = process.env[database];
       database = database.split('_')[0].toLocaleLowerCase();
       const parseRelations = database === 'exercise'; // whether or not to parse properties that are relations
-      const filenameRaw = null; // set to a string to save raw data to JSON; otherwise, it is not saved.
+      const filenameRaw = saveRawData && `raw/${database}`; // Raw data is only saved if this is a non-empty string.
       const filenameParsed = `${database}/${database}`;
       const data = await syncFunction(databaseId, filenameRaw);
-      const parsedData = await parseNotion(data, parseRelations);
-      await saveResponseJson(parsedData, `${filepath}/${filenameParsed}`, true)
+      const savePath = `${filepath}/${filenameParsed}`;
+      const parsedData = await parseNotion(data, savePath, databaseId, trackingFile, parseRelations);
+      
+      // await saveResponseJson(parsedData, `${filepath}/${filenameParsed}`, true)
     } catch (error) {
       console.error(error);
     }

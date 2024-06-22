@@ -1,7 +1,7 @@
 
 import { Client } from '@notionhq/client';
 import 'dotenv/config';
-import { getIsoTimestamp, saveResponseJson, loadJsonFile } from './utils.js';
+import { getIsoTimestamp, saveResponseJson, getLastUpdate, loadJsonFile } from './utils.js';
 import fs from 'fs';
 
 class NotionApi {
@@ -18,10 +18,8 @@ class NotionApi {
   }
 
   async getLastUpdate(databaseId) {
-    this.trackingFile = this.trackingFile;
-    this.trackingObject = await loadJsonFile(this.trackingFile);
-    const lastUpdated = this.trackingObject[databaseId] || "2024-01-01T00:00:00-08:00";
-    console.log(`Data last fetched ${lastUpdated}`);
+    const [lastUpdated, trackingObject] = await getLastUpdate(databaseId, this.trackingFile, 'last_notion_pull');
+    this.trackingObject = trackingObject;
     return lastUpdated;
   }
 
@@ -48,8 +46,9 @@ class NotionApi {
 
     if (filename) {
       await this.save(pages, filename, appendTimestamp);
-      const currentTimestamp = getIsoTimestamp();
-      this.trackingObject[`test_${this.databaseId}`] = currentTimestamp;
+      this.trackingObject[`${databaseId}`] = this.trackingObject[`${databaseId}`] || {};
+      const currentTimestamp = getIsoTimestamp() || '';
+      this.trackingObject[`${databaseId}`]['last_notion_pull'] = currentTimestamp;
       fs.writeFileSync(this.trackingFile, JSON.stringify(this.trackingObject, null, 2));
       console.log(`Updated ${this.trackingFile} with current timestamp: ${currentTimestamp}`);
     }

@@ -1,1 +1,30 @@
-{}
+{
+  "0cd8a690439846b192487772744d23ac": {
+    "newest_json": "./data/condition/condition_2024-06-22_0004.json",
+    "last_notion_pull": "2024-06-22T07:04:16.936Z"
+  },
+  "7755088c62af4959a225c39cb9cc5491": {
+    "newest_json": "./data/discreetness/discreetness_2024-06-22_0004.json",
+    "last_notion_pull": "2024-06-22T07:04:17.797Z"
+  },
+  "a810f8ebca8a4b6c9ef8fd5d7fad863c": {
+    "newest_json": "./data/movement/movement_2024-06-22_0004.json",
+    "last_notion_pull": "2024-06-22T07:04:16.417Z"
+  },
+  "d95f2286659140d5af2337846243abbd": {
+    "newest_json": "./data/focus/focus_2024-06-22_0004.json",
+    "last_notion_pull": "2024-06-22T07:04:17.596Z"
+  },
+  "0848d62720584c65b9ca255e6f1141ff": {
+    "newest_json": "./data/muscle/muscle_2024-06-22_0004.json",
+    "last_notion_pull": "2024-06-22T07:04:16.385Z"
+  },
+  "0ca4ecfc05bb4636af0d6ee2bbe6a421": {
+    "newest_json": "./data/modifier/modifier_2024-06-22_0004.json",
+    "last_notion_pull": "2024-06-22T07:04:16.316Z"
+  },
+  "a2e922c6e98a4071bfda445014f351b2": {
+    "newest_json": "./data/exercise/exercise_2024-06-22_0004.json",
+    "last_notion_pull": "2024-06-22T07:04:17.671Z"
+  }
+}

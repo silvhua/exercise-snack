@@ -1,4 +1,5 @@
-import { loadJsonFile } from './utils.js';
+import { loadJsonFile, saveResponseJson, getLastUpdate, getIsoTimestamp } from './utils.js';
+import fs from 'fs';
 
 /* 
   EXERCISES TABLE
@@ -43,17 +44,22 @@ class NotionParser {
     this.parseRelations = parseRelations;
   }
 
-  async parseData() {
+  async parseData(path, databaseId, trackingFile) {
+    this.trackingFile = trackingFile;
+    let updateDate;
     if (typeof this.data === 'string') {
       await this.loadJson(this.data);
+      updateDate = false;
     } else {
       this.rawDataArray = this.data;
+      updateDate = true;
     }
     await this.parseProperties();
     const parsedData = [];
     for (let i = 0; i < this.rawDataArray.length; i++) {
       parsedData.push(await this.parsePage(this.rawDataArray[i]));
     }
+    this.save(parsedData, path, databaseId, updateDate);
     return parsedData;
   }
 
@@ -88,8 +94,32 @@ class NotionParser {
     }
     return parsedPageObject;
   }
+
+  async save(object, path, databaseId, updateDate, appendTimestamp = true) {
+    // Save the parsed data
+    const savedFilename = await saveResponseJson(object, path, appendTimestamp);
+    await this.loadTrackingFile(databaseId, this.trackingFile);
+    
+    // Update the tracking file with the filename of the newest filename
+    this.trackingObject[databaseId] = await this.trackingObject[databaseId] || {};
+    this.trackingObject[databaseId]['newest_json'] = savedFilename;
+
+    if (updateDate) {
+      const currentTimestamp = getIsoTimestamp() || '';
+      this.trackingObject[`${databaseId}`]['last_notion_pull'] = currentTimestamp;
+    }
+    await saveResponseJson(this.trackingObject, this.trackingFile, false);
+    console.log(`Updated ${this.trackingFile} with newest filename: ${savedFilename}`);
+  }
+
+  async loadTrackingFile(databaseId, trackingFile) {
+    this.trackingObject = await loadJsonFile(trackingFile);
+    const [_lastUpdated, trackingObject] = await getLastUpdate(databaseId, trackingFile, 'last_notion_pull');
+    this.trackingObject = trackingObject;
+  }
 }
-async function parseNotion(filenameOrArray, parseRelations) {
+
+async function parseNotion(filenameOrArray, savePath, databaseId, trackingFile, parseRelations=false) {
   /**
    * Parses the Notion data from either a filename or an array.
    *
@@ -98,7 +128,7 @@ async function parseNotion(filenameOrArray, parseRelations) {
    * @return {Promise<Array>} - A promise that resolves to an array of parsed data.
    */
   const parser = new NotionParser(filenameOrArray, parseRelations);
-  const parsedData = await parser.parseData();
+  const parsedData = await parser.parseData(savePath, databaseId, trackingFile);
   return parsedData;
 }
 export default parseNotion;

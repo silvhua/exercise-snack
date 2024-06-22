@@ -11,3 +11,4 @@ export const databases = [
 
 export const syncType = process.argv[2] || 'partial';
 export const filepath = './data';
+export const saveRawData = false;

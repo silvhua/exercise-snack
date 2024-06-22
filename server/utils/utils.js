@@ -22,21 +22,29 @@ export function getCurrentTimestamp() {
   return formattedTimestamp;
 }
 
-export async function saveResponseJson(data, jsonFileName, appendTimestamp) {
+export async function saveResponseJson(data, jsonFilename, appendTimestamp) {
   try {
     if (appendTimestamp) {
+      // remove extension if present before adding timestamp
+      if (jsonFilename.endsWith('.json')) {
+        jsonFilename = jsonFilename.split('.json')[0];
+      } 
       const timestamp = getCurrentTimestamp();
-      jsonFileName = `${jsonFileName}_${timestamp}`
+      jsonFilename = `${jsonFilename}_${timestamp}`;
     }
-    await fs.promises.writeFile(`${jsonFileName}.json`, JSON.stringify(data, null, 2));
-    console.log(`Saved response to ${jsonFileName}.json`);
+    if (!jsonFilename.endsWith('.json')) {
+      jsonFilename += '.json';
+    }
+    await fs.promises.writeFile(jsonFilename, JSON.stringify(data, null, 2));
+    console.log(`Saved response to ${jsonFilename}`);
   } catch (error) {
     console.error(error);
     throw error;
   }
+  return jsonFilename;
 }
 
-export function loadJsonFile(filename, path = '') {
+export function loadJsonFile(filename, path = '', verbose=false) {
   /**
    * Loads a JSON file from the specified path and returns the parsed data.
    *
@@ -46,7 +54,9 @@ export function loadJsonFile(filename, path = '') {
    */
   try {
     const filePath = `${path}${filename}`;
-    console.log(`Loading JSON file: ${filePath}`);
+    if (verbose) {
+      console.log(`Loading JSON file: ${filePath}`);
+    }
     const jsonData = fs.readFileSync(filePath, 'utf8');
     const data = JSON.parse(jsonData);
     return data;
@@ -54,4 +64,11 @@ export function loadJsonFile(filename, path = '') {
     console.error('Error loading JSON file:', error);
     return null;
   }
+}
+
+export async function getLastUpdate(databaseId, trackingFile, key) {
+  const trackingObject = await loadJsonFile(trackingFile);
+  const lastUpdated = trackingObject?.[databaseId]?.[key] || "2024-01-01T00:00:00-08:00";
+  console.log(`Data last fetched ${lastUpdated}`);
+  return [lastUpdated, trackingObject];
 }
