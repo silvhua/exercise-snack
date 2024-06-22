@@ -44,8 +44,9 @@ class NotionParser {
     this.parseRelations = parseRelations;
   }
 
-  async parseData(path, databaseId, trackingFile) {
+  async parseData(path, databaseId, trackingFile, propertiesToDestructure=null) {
     this.trackingFile = trackingFile;
+    this.propertiesToDestructure = propertiesToDestructure;
     let updateDate;
     if (typeof this.data === 'string') {
       await this.loadJson(this.data);
@@ -84,6 +85,9 @@ class NotionParser {
       const typeValue = await pageProperties[property][type];
       if (type === 'relation' && this.parseRelations) {
         parsedPageObject[property] = await typeValue.map(typeObject => typeObject.id);
+        if (this.propertiesToDestructure.includes(property)) {
+          parsedPageObject[property] = parsedPageObject[property][0];
+        }
       } else if (['number', 'last_edited_time', 'created_time'].includes(type)) {
         parsedPageObject[property] = await typeValue;
       } else if (type === 'multi_select') {
@@ -119,7 +123,7 @@ class NotionParser {
   }
 }
 
-async function parseNotion(filenameOrArray, savePath, databaseId, trackingFile, parseRelations=false) {
+async function parseNotion(filenameOrArray, savePath, databaseId, trackingFile, parseRelations = false) {
   /**
    * Parses the Notion data from either a filename or an array.
    *
@@ -128,7 +132,8 @@ async function parseNotion(filenameOrArray, savePath, databaseId, trackingFile, 
    * @return {Promise<Array>} - A promise that resolves to an array of parsed data.
    */
   const parser = new NotionParser(filenameOrArray, parseRelations);
-  const parsedData = await parser.parseData(savePath, databaseId, trackingFile);
+  const propertiesToDestructure = ['discreetness']
+  const parsedData = await parser.parseData(savePath, databaseId, trackingFile, propertiesToDestructure);
   return parsedData;
 }
 export default parseNotion;
