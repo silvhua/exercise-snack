@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import NotionApi from './NotionApi.js';
 import parseNotion from './NotionParser.js';
-import { saveResponseJson } from './utils.js';
 import { databases, syncType, filepath, saveRawData } from './config.js';
 
 
