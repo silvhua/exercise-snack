@@ -17,10 +17,10 @@ class NotionApi {
     await saveResponseJson(object, fullPath, appendTimestamp);
   }
 
-  async getLastUpdate() {
+  async getLastUpdate(databaseId) {
     this.trackingFile = this.trackingFile;
     this.trackingObject = await loadJsonFile(this.trackingFile);
-    const lastUpdated = this.trackingObject[this.databaseId] || "2024-01-01T00:00:00-08:00";
+    const lastUpdated = this.trackingObject[databaseId] || "2024-01-01T00:00:00-08:00";
     console.log(`Data last fetched ${lastUpdated}`);
     return lastUpdated;
   }
@@ -50,14 +50,14 @@ class NotionApi {
       await this.save(pages, filename, appendTimestamp);
       const currentTimestamp = getIsoTimestamp();
       this.trackingObject[`test_${this.databaseId}`] = currentTimestamp;
-      fs.writeFileSync(this.trackingFile, JSON.stringify(this.trackingObject));
+      fs.writeFileSync(this.trackingFile, JSON.stringify(this.trackingObject, null, 2));
       console.log(`Updated ${this.trackingFile} with current timestamp: ${currentTimestamp}`);
     }
     return pages;
   }
 
   async getNewData(databaseId, filename = null, appendTimestamp = true, filter = null) {
-    const lastUpdated = await this.getLastUpdate();
+    const lastUpdated = await this.getLastUpdate(databaseId);
 
     const filterArray = [
       { property: 'Last edited time', date: { after: lastUpdated } }

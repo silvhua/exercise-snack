@@ -1,14 +1,11 @@
 import 'dotenv/config';
 import NotionApi from './NotionApi.js';
-import * as config from './config.js';
 import parseNotion from './NotionParser.js';
 import { saveResponseJson } from './utils.js';
+import { databases, syncType, filepath } from './config.js';
 
-const syncType = config.syncType;
-const databases = config.databases;
 
 async function getData() {
-  const filepath = process.argv[3] || './data/raw';
   console.log(`Save to filepath ${filepath}`);
   const trackingFile = './utils/tracking.json';
 
@@ -21,23 +18,28 @@ async function getData() {
   switch (syncType) {
     case 'full':
       syncFunction = async (databaseId, filename) => client.getData(databaseId, filename);
-      console.log('Performing full sync');
+      console.log('Performing full sync for these databases:');
       break;
     default:
       syncFunction = async (databaseId, filename) => client.getNewData(databaseId, filename);
-      console.log('Getting new data');
+      console.log('Getting new data for these databases:');
   }
 
   databases.forEach(async (database) => {
-    const databaseId = process.env[database];
-    database = database.split('_')[0].toLocaleLowerCase();
-    const filenameRaw = null;
-    const filenameParsed = `${database}/${database}`;
-    const data = await syncFunction(databaseId, filenameRaw);
-    const parsedData = await parseNotion(data);
-    await saveResponseJson(parsedData, `./data/${filenameParsed}_parsed`)
+    console.log(`\n${database}`);
+    try {
+      const databaseId = process.env[database];
+      database = database.split('_')[0].toLocaleLowerCase();
+      const parseRelations = database === 'exercise'; // whether or not to parse properties that are relations
+      const filenameRaw = null; // set to a string to save raw data to JSON; otherwise, it is not saved.
+      const filenameParsed = `${database}/${database}`;
+      const data = await syncFunction(databaseId, filenameRaw);
+      const parsedData = await parseNotion(data, parseRelations);
+      await saveResponseJson(parsedData, `${filepath}/${filenameParsed}`, true)
+    } catch (error) {
+      console.error(error);
+    }
   })
-  // console.log('\ndata:\n', data);
 }
 
 getData();

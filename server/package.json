@@ -4,9 +4,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "node utils/notionApi.js",
-    "save": "node utils/notionApi.js ./data/raw",
-    "dev": "node utils/syncNotionToDb.js"
+    "pull": "node utils/syncNotionToDb.js full",
+    "partial": "node utils/syncNotionToDb.js partial"
   },
   "keywords": [],
   "author": "",

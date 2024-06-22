@@ -1,13 +1,13 @@
 
 export const databases = [
-  // 'EXERCISE_DATABASE',
-  // 'MOVEMENT_DATABASE',
-  // 'MUSCLES_DATABASE',
-  // 'MODIFIERS_DATABASE',
-  // 'FOCUS_DATABASE',
-  // 'DISCREETNESS_DATABASE',
+  'EXERCISE_DATABASE',
+  'MOVEMENT_DATABASE',
+  'MUSCLE_DATABASE',
+  'MODIFIER_DATABASE',
+  'FOCUS_DATABASE',
+  'DISCREETNESS_DATABASE',
   'CONDITION_DATABASE'
 ]
 
-const syncType = 'partial';
-const filepath = './data';
+export const syncType = process.argv[2] || 'partial';
+export const filepath = './data';

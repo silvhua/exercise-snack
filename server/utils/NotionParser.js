@@ -1,4 +1,4 @@
-import { loadJsonFile, saveResponseJson } from './utils.js';
+import { loadJsonFile } from './utils.js';
 
 /* 
   EXERCISES TABLE
@@ -32,19 +32,15 @@ import { loadJsonFile, saveResponseJson } from './utils.js';
       'Last edited time'
 */
 class NotionParser {
-  constructor(filenameOrArray) {
+  constructor(filenameOrArray, parseRelations = false) {
+    /**
+     * Initializes a new instance of the NotionParser class.
+     *
+     * @param {string | Array} filenameOrArray - The filename or array of data to be parsed.
+     * @param {boolean} [parseRelations=false] - Whether to parse relation properties or not. Defaults to false.
+     */
     this.data = filenameOrArray;
-  }
-
-  async loadJson(filename) {
-    this.rawDataArray = await loadJsonFile(filename);
-  }
-
-  async parseProperties() {
-    const { properties } = await this.rawDataArray[0];
-    this.propertyNames = Object.keys(properties);
-    this.propertyTypes = [...new Set(this.propertyNames.map(name => properties[name].type))];
-    // this.propertyTypes.forEach(type => { console.log(type) });
+    this.parseRelations = parseRelations;
   }
 
   async parseData() {
@@ -61,6 +57,16 @@ class NotionParser {
     return parsedData;
   }
 
+  async loadJson(filename) {
+    this.rawDataArray = await loadJsonFile(filename);
+  }
+
+  async parseProperties() {
+    const { properties } = await this.rawDataArray[0];
+    this.propertyNames = Object.keys(properties);
+    this.propertyTypes = [...new Set(this.propertyNames.map(name => properties[name].type))];
+  }
+
   async parsePage(pageObject) {
     const parsedPageObject = {};
     parsedPageObject.id = pageObject.id;
@@ -70,7 +76,7 @@ class NotionParser {
       const pageProperties = await pageObject.properties
       const type = await pageProperties[property].type;
       const typeValue = await pageProperties[property][type];
-      if (type === 'relation') {
+      if (type === 'relation' && this.parseRelations) {
         parsedPageObject[property] = await typeValue.map(typeObject => typeObject.id);
       } else if (['number', 'last_edited_time', 'created_time'].includes(type)) {
         parsedPageObject[property] = await typeValue;
@@ -83,9 +89,15 @@ class NotionParser {
     return parsedPageObject;
   }
 }
-async function parseNotion(filenameOrArray) {
-  const filename = 'raw_movement_2024-06-20_2117';
-  const parser = new NotionParser(filenameOrArray);
+async function parseNotion(filenameOrArray, parseRelations) {
+  /**
+   * Parses the Notion data from either a filename or an array.
+   *
+   * @param {string|Array} filenameOrArray - The filename or array of data to be parsed.
+   * @param {boolean} [parseRelations=false] - Whether to parse relation properties or not. Defaults to false.
+   * @return {Promise<Array>} - A promise that resolves to an array of parsed data.
+   */
+  const parser = new NotionParser(filenameOrArray, parseRelations);
   const parsedData = await parser.parseData();
   return parsedData;
 }
