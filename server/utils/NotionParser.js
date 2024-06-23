@@ -79,6 +79,7 @@ class NotionParser {
     parsedPageObject.id = pageObject.id;
     parsedPageObject.databaseId = pageObject.parent.database_id || null;
     parsedPageObject.url = pageObject.url;
+    parsedPageObject.created_time = pageObject.created_time;
     for (let property of this.propertyNames) {
       const pageProperties = await pageObject.properties
       const type = await pageProperties[property].type;

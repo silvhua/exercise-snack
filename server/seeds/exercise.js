@@ -13,8 +13,9 @@ function processData(notionDbName) {
   // import data files (arrays of objects)
   let data = loadJsonFile(newestJsonFilename);
   data = convertToSnakeCase(data);
-  let timestampKeys;
-  notionDbName !== 'EXERCISE_DATABASE' ? timestampKeys = ['last_edited_time'] : timestampKeys = ['last_edited_time', 'created_time']
+  // let timestampKeys;
+  // notionDbName !== 'EXERCISE_DATABASE' ? timestampKeys = ['last_edited_time'] : timestampKeys = ['last_edited_time', 'created_time']
+  const timestampKeys = ['last_edited_time', 'created_time'];
   data = transformArrayValues(data, timestampKeys);
   return data;
 }

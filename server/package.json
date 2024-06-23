@@ -6,6 +6,7 @@
   "scripts": {
     "pull": "node utils/syncNotionToDb.js full",
     "partial": "node utils/syncNotionToDb.js partial",
+    "migrate": "npx knex migrate:latest",
     "seed": "npx knex seed:run"
   },
   "keywords": [],
