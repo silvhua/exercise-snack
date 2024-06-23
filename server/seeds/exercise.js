@@ -13,7 +13,9 @@ function processData(notionDbName) {
   // import data files (arrays of objects)
   let data = loadJsonFile(newestJsonFilename);
   data = convertToSnakeCase(data);
-  data = transformArrayValues(data, 'last_edited_time');
+  let timestampKeys;
+  notionDbName !== 'EXERCISE_DATABASE' ? timestampKeys = ['last_edited_time'] : timestampKeys = ['last_edited_time', 'created_time']
+  data = transformArrayValues(data, timestampKeys);
   return data;
 }
 
@@ -52,7 +54,21 @@ arrayProperties.forEach(property => {
   allData[`${mainTableName}_${property}`] = createManyToManyObject(mainTableName, exerciseDataArray, property)
 })
 
+// Remove relation properties
+allData[mainTableName] = allData[mainTableName].map(object => {
+  const { muscle, movement, modifier, condition, discreetness, environment, focus, ...filteredObject } = object;
+  return filteredObject;
+})
+
+console.log(Object.keys(allData));
+
 export async function seed(knex) {
-  await knex(tableName).del();
-  await knex(tableName).insert(data);
+  const allTables = Object.keys(allData);
+  for (let i = 0; i < allTables.length; i++) {
+    const table = allTables[i];
+    console.log(`Seeding ${table}`);
+    await knex(table).del();
+    await knex(table).insert(allData[table]);
+    console.log(allData[table]);
+  }
 }

@@ -91,7 +91,9 @@ class NotionParser {
       } else if (['number', 'last_edited_time', 'created_time'].includes(type)) {
         parsedPageObject[property] = await typeValue;
       } else if (type === 'multi_select') {
-        parsedPageObject[property] = await typeValue.map(typeObject => typeObject.name);
+        parsedPageObject[property] = await typeValue.map(typeObject =>
+          typeObject.name
+        );
       } else if (type === 'title') {
         parsedPageObject[property] = await typeValue[0]?.plain_text || '?';
       }

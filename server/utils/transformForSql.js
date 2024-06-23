@@ -37,7 +37,7 @@ export function transformArrayValues(array, timestampKeys) {
   
   const newArray = array.map(object => {
     for (let i = 0; i < timestampKeys.length; i++) {
-      const currentKey = timestampKeys[i]
+      const currentKey = timestampKeys[i];
       const formattedTimestamp = convertISO8601ToMySQL(object[currentKey]);
       object[currentKey] = formattedTimestamp;
     }

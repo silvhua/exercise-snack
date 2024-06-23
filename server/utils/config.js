@@ -1,6 +1,7 @@
 
 export const databases = [
   'EXERCISE_DATABASE',
+  // 'ENVIRONMENT_DATABASE',
   // 'MOVEMENT_DATABASE',
   // 'MUSCLE_DATABASE',
   // 'MODIFIER_DATABASE',

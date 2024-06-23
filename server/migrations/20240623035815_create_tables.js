@@ -3,21 +3,25 @@ export function up(knex) {
     .createTable('exercise', (table) => {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
-      table.binary('database_id', 128).notNullable();
       table.string('url');
       table.timestamp('created_time').defaultTo(knex.fn.now());
       table.integer('strength').notNullable();
       table.integer('exertion').notNullable();
       table.timestamp('last_edited_time').defaultTo(knex.fn.now());
+      table.binary('database_id', 128).notNullable();
     })
     .createTable('environment', (table) => {
       table.binary('id', 128).primary();
+      table.binary('database_id', 128).notNullable();
+      table.string('url');
+      table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.string('name').notNullable();
     })
     .createTable('discreetness', (table) => {
       table.binary('id', 128).primary();
       table.binary('database_id', 128).notNullable();
       table.string('url');
+      table.float('level');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.string('name').notNullable();
     })
