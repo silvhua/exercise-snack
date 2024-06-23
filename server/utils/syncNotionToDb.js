@@ -40,4 +40,5 @@ async function getData() {
   })
 }
 
-getData();
+// getData();
+setTimeout(getData, 2000);

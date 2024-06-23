@@ -2,7 +2,7 @@ import { loadJsonFile } from "../utils/utils.js";
 import 'dotenv/config';
 import { convertToSnakeCase, transformArrayValues } from "../utils/transformForSql.js";
 
-const tableName = 'condition';
+const tableName = 'focus';
 
 // Get the filename of the most updated JSON file
 const databaseName = `${tableName.toUpperCase()}_DATABASE`;

@@ -79,11 +79,12 @@ class NotionParser {
     parsedPageObject.id = pageObject.id;
     parsedPageObject.databaseId = pageObject.parent.database_id || null;
     parsedPageObject.url = pageObject.url;
-    for (const property of this.propertyNames) {
+    for (let property of this.propertyNames) {
       const pageProperties = await pageObject.properties
       const type = await pageProperties[property].type;
       const typeValue = await pageProperties[property][type];
       if (type === 'relation' && this.parseRelations) {
+        property = `${property}_id`;
         parsedPageObject[property] = await typeValue.map(typeObject => typeObject.id);
         if (this.propertiesToDestructure.includes(property)) {
           parsedPageObject[property] = parsedPageObject[property][0];
