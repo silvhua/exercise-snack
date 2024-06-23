@@ -11,7 +11,7 @@ export function up(knex) {
       table.timestamp('last_edited_time').defaultTo(knex.fn.now());
     })
     .createTable('environment', (table) => {
-      table.increments('id').primary();
+      table.binary('id', 128).primary();
       table.string('name').notNullable();
     })
     .createTable('discreetness', (table) => {
@@ -21,7 +21,7 @@ export function up(knex) {
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.string('name').notNullable();
     })
-    .createTable('.binary(128)', (table) => {
+    .createTable('movement', (table) => {
       table.binary('id', 128).primary();
       table.binary('database_id', 128).notNullable();
       table.string('url');
@@ -59,17 +59,17 @@ export function up(knex) {
     .createTable('exercise_environment', (table) => {
       table.increments('id').primary();
       table.binary('exercise_id', 128).references('id').inTable('exercise').onDelete('CASCADE');
-      table.integer('environment_id', 128).references('id').inTable('environment').onDelete('CASCADE');
+      table.binary('environment_id', 128).references('id').inTable('environment').onDelete('CASCADE');
     })
     .createTable('exercise_discreetness', (table) => {
       table.increments('id').primary();
       table.binary('exercise_id', 128).references('id').inTable('exercise').onDelete('CASCADE');
       table.binary('discreetness_id', 128).references('id').inTable('discreetness').onDelete('CASCADE');
     })
-    .createTable('exercise_.binary(128)', (table) => {
+    .createTable('exercise_movement', (table) => {
       table.increments('id').primary();
       table.binary('exercise_id', 128).references('id').inTable('exercise').onDelete('CASCADE');
-      table.binary('movement_category_id', 128).references('id').inTable('.binary(128)').onDelete('CASCADE');
+      table.binary('movement_id', 128).references('id').inTable('movement').onDelete('CASCADE');
     })
     .createTable('exercise_condition', (table) => {
       table.increments('id').primary();
