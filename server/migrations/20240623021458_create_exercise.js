@@ -9,34 +9,48 @@ export function up(knex) {
     table.binary('database_id', 128).notNullable();
     table.string('url');
     table.timestamp('created_time').defaultTo(knex.fn.now());
-    table.foreign('muscles_id')
-      .references('id').inTable('muscles')
+    table
+      .binary('muscles_id', 128)
+    table
+      .foreign('muscles_id')
+      .references('id').inTable('muscle')
       .onUpdate('CASCADE').onDelete('CASCADE');
-    table.foreign('movement_category_id')
+    table
+      .binary('movement_category_id', 128)
+    table
+      .foreign('movement_category_id')
       .references('id').inTable('movement_category')
       .onUpdate('CASCADE').onDelete('CASCADE');
     table.integer('strength').notNullable();
-    table.foreign('modifier_id')
+    table
+      .binary('modifier_id', 128)
+    table
+      .foreign('modifier_id')
       .references('id').inTable('modifier')
       .onUpdate('CASCADE').onDelete('CASCADE');
-    table.foreign('condition_id')
+    table
+      .binary('condition_id', 128)
+    table
+      .foreign('condition_id')
       .references('id').inTable('condition')
       .onUpdate('CASCADE').onDelete('CASCADE');
-    table.foreign('discreetness_id')
+    table
+      .binary('discreetness_id', 128)
+    table
+      .foreign('discreetness_id')
       .references('id').inTable('discreetness')
       .onUpdate('CASCADE').onDelete('CASCADE');
     table.integer('exertion').notNullable();
-    table.foreign('environment_id')
-      .references('id').inTable('environment')
-      .onUpdate('CASCADE').onDelete('CASCADE');
-    table.foreign('focus_id')
+    table
+      .binary('environment_id', 128);
+    table.binary('focus_id', 128);
+    table
+      .foreign('focus_id')
       .references('id').inTable('focus')
       .onUpdate('CASCADE').onDelete('CASCADE');
-    table.timestamp('lastEditedTime').defaultTo(knex.fn.now());
-    table.index('id');
+    table.timestamp('last_edited_time').defaultTo(knex.fn.now());
   });
 };
-
 
 /**
  * @param { import("knex").Knex } knex

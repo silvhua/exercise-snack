@@ -34,7 +34,6 @@ export function convertISO8601ToMySQL(timestampString) {
 
 export function transformArrayValues(array, timestampKeys) {
   typeof timestampKeys === 'string' ? timestampKeys = [timestampKeys] : timestampKeys = timestampKeys;
-  console.log(`Formatting these properties: ${timestampKeys}`);
   
   const newArray = array.map(object => {
     for (let i = 0; i < timestampKeys.length; i++) {

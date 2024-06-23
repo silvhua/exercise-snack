@@ -2,7 +2,7 @@ import { loadJsonFile } from "../utils/utils.js";
 import 'dotenv/config';
 import { convertToSnakeCase, transformArrayValues } from "../utils/transformForSql.js";
 
-const tableName = 'movement';
+const tableName = 'exercise';
 
 // Get the filename of the most updated JSON file
 const databaseName = `${tableName.toUpperCase()}_DATABASE`;
@@ -16,6 +16,6 @@ data = convertToSnakeCase(data);
 data = transformArrayValues(data, 'last_edited_time');
 
 export async function seed(knex) {
-  await knex('movement_category').del();
-  await knex('movement_category').insert(data);
+  await knex(tableName).del();
+  await knex(tableName).insert(data);
 }

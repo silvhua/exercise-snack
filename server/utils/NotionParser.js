@@ -133,7 +133,7 @@ async function parseNotion(filenameOrArray, savePath, databaseId, trackingFile, 
    * @return {Promise<Array>} - A promise that resolves to an array of parsed data.
    */
   const parser = new NotionParser(filenameOrArray, parseRelations);
-  const propertiesToDestructure = ['discreetness']
+  const propertiesToDestructure = ['discreetness_id']
   const parsedData = await parser.parseData(savePath, databaseId, trackingFile, propertiesToDestructure);
   return parsedData;
 }
