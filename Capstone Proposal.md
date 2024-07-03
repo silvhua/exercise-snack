@@ -8,8 +8,6 @@ The gamification and structure of the Movement Snack App make it so easy so that
 
 ### Problem
 
-Why is your app needed? Background information around any pain points or other reasons.
-
 As people get older, they experience the effects of age and desk work on their bodies. People accept that this is a normal part of aging, which becomes a self-fulfilling prophecy. However, a true fountain of youth exists: exercise.
 
 Everyone knows about the importance of exercise for healthy, yet very few people exercise at all, let alone strength train, which improves the most aspects of fitness. Common reasons that prevent people from strength training include:
@@ -21,8 +19,6 @@ Exercise, including muscle strengthening exercise, is not simply something to do
 
 
 ### User Profile
-
-Who will use your app? How will they use it? Any special considerations that your app must take into account.
 
 The Movement Snack App is targeted to people in the workforce who struggle to strength train consistently due to lack of time or motivation. The selection of exercises was curated to allow people to fit in exercise during their daily routine, whether it be at the workplace or while watching shows. There is no need to change into workout gear or block off extra time.
 
@@ -82,16 +78,14 @@ Exercise log | Shows the user’s training history in reverse chronological orde
 
 Better mockups to come. Below are examples of similar apps:
 
-<img src="./documentation/sample-dashboard.PNG" width="45%" alt="sample dashboard" />
-<img src="./documentation/sample-training-page.PNG" width="45%" alt=sample training page />
+<img src="./documentation/sample-dashboard.PNG" width="40%" alt="sample dashboard" />
+<img src="./documentation/sample-training-page.PNG" width="40%" alt=sample training page />
 
 ### Data
-
+Below is the entity relationship diagram of the database:
 <img src="./documentation/ERD.svg" alt="entity relationship diagram" />
 
 ### Endpoints
-
-List endpoints that your server will implement, including HTTP methods, parameters, and example responses.
 
 Route | Method | Description
 --- | ---- | ---
@@ -102,14 +96,13 @@ Route | Method | Description
 `/users/sessions` | POST, PUT | Log and update a user's exercise sessions.
 `/users/activities` | POST, PUT | Log and update a user's activity.
 
-
 ### Auth
 
 The user will login with their username and password. 
 
 ## Roadmap
 
-Scope your project as a sprint. Break down the tasks that will need to be completed and map out timeframes for implementation. Think about what you can reasonably complete before the due date. The more detail you provide, the easier it will be to build.
+Here is the roadmap of the project. Backend and front end tasks will be performed concurrently to facilitate testing throughout the project.
 
 <img src="./documentation/roadmap-2024-07-02 162707.png" alt="project roadmap">
 
