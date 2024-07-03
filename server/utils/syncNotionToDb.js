@@ -21,7 +21,8 @@ async function getData() {
       console.log('Getting new data for these databases:');
   }
 
-  databases.forEach(async (database) => {
+  for (let i = 0; i < databases.length; i++) {
+    let database = databases[i];
     console.log(`\n${database}`);
     try {
       const databaseId = process.env[database];
@@ -32,13 +33,25 @@ async function getData() {
       const data = await syncFunction(databaseId, filenameRaw);
       const savePath = `${filepath}/${filenameParsed}`;
       const parsedData = await parseNotion(data, savePath, databaseId, trackingFile, parseRelations);
-      
-      // await saveResponseJson(parsedData, `${filepath}/${filenameParsed}`, true)
     } catch (error) {
       console.error(error);
     }
-  })
+    if (i < databases.length - 1) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
 }
 
 // getData();
-setTimeout(getData, 2000);
+setTimeout(getData, 4000);
+
+
+/* 
+Steps for pulling data
+1. Modify `config.js` as needed;
+
+Run these commands in terminal (scripts defined in `package.json`)
+2. `npm run pull` to pull all data. `npm run partial` to pull only new data.
+3. `npm run migrate`.
+4. `npm run seed`
+*/
