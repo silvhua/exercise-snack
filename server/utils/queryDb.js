@@ -3,17 +3,34 @@ import configuration from "../knexfile.js";
 const knex = initKnex(configuration);
 
 async function selectData(tableName) {
-  const data = await knex(tableName);
+  // const data = await knex(tableName);
+  const data = await knex.select('*').from('exercise');
+  console.log('inside the function')
+
+  await knex.destroy();
   return data;
 }
 
+// function run() {
+
+//   const data = selectData('exercise');
+//   console.log('done.')
+
+// }
 async function run() {
-  const data = await selectData('exercise');
-  console.log('data fetched');
+
+  const data = await selectData('environment');
   console.log(data);
+  console.log(typeof data);
+  console.log('done.')
+  return data
 }
 
-run();
+const data = run();
+// data.push({'a': 'b'})
+data['z'] = 'zzz';
+console.log(data);
+console.log('end')
 
 // router.get("/", async (_req, res) => {
 //   try {

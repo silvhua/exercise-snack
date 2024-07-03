@@ -22,10 +22,9 @@ async function getData() {
   }
   const tablesWhereTitleDropped = [ 
     // For these tables, drop the Notion property that is the "title" data type
-    // 'discreetness', 'activity', 'session'
-  'DISCREETNESS_DATABASE',
-  'ACTIVITY_DATABASE',
-  'SESSION_DATABASE',
+    'DISCREETNESS_DATABASE',
+    'ACTIVITY_DATABASE',
+    'SESSION_DATABASE',
   ]
   for (let i = 0; i < databases.length; i++) {
     let database = databases[i];
@@ -34,7 +33,9 @@ async function getData() {
       const dropTitle = tablesWhereTitleDropped.includes(database);
       const databaseId = process.env[database];
       database = database.split('_')[0].toLocaleLowerCase();
-      const parseRelations = database === 'exercise'; // whether or not to parse properties that are relations
+
+      // whether or not to parse properties that are relations; only do it for the `exercise` and `activity` tables
+      const parseRelations = ['exercise', 'activity'].includes(database);
       const filenameRaw = saveRawData && `raw/${database}`; // Raw data is only saved if this is a non-empty string.
       const filenameParsed = `${database}/${database}`;
       const data = await syncFunction(databaseId, filenameRaw);
