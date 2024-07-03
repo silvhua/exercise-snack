@@ -96,7 +96,7 @@ class NotionParser {
         if (this.propertiesToDestructure.includes(property)) {
           parsedPageObject[property] = parsedPageObject[property][0];
         }
-      } else if (['number', 'last_edited_time', 'created_time'].includes(type)) {
+      } else if (['number', 'last_edited_time', 'created_time', 'email'].includes(type)) {
         parsedPageObject[property] = await typeValue;
       } else if (type === 'multi_select') {
         parsedPageObject[property] = await typeValue.map(typeObject =>
