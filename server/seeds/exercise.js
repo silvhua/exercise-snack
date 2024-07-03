@@ -46,7 +46,7 @@ notionDbNames.forEach(dbName => {
 
 // Create the one to many & many to many tables branching from `exercise` table
 const oneToManyTables = [
-  'movement', 'muscle', 'modifier', 'focus', 'condition', 'environment'
+  'movement', 'muscle', 'modifier', 'focus', 'condition', 'environment', 'tip'
 ]
 
 const multiselectProperties = ['environment'];
@@ -60,7 +60,7 @@ arrayProperties.forEach(property => {
 
 // Remove relation properties
 allData[mainTableName] = allData[mainTableName].map(object => {
-  const { muscle, movement, modifier, condition, discreetness, environment, focus, ...filteredObject } = object;
+  const { muscle, movement, modifier, condition, discreetness, environment, focus, tip, ...filteredObject } = object;
   return filteredObject;
 })
 
@@ -76,7 +76,7 @@ allData['activity'] = allData['activity'].map(object => {
   const { exercise, session, ...filteredObject } = object;
   return filteredObject;
 })
-
+// console.log(allData['exercise_tip'])
 console.log(Object.keys(allData));
 
 export async function seed(knex) {
@@ -89,6 +89,6 @@ export async function seed(knex) {
     console.log(`Seeding ${table}`);
     await knex(table).del();
     await knex(table).insert(allData[table]);
-    console.log(allData[table]);
+    // console.log(allData[table]);
   }
 }
