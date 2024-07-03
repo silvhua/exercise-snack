@@ -13,14 +13,15 @@ function processData(notionDbName) {
   // import data files (arrays of objects)
   let data = loadJsonFile(newestJsonFilename);
   data = convertToSnakeCase(data);
-  // let timestampKeys;
-  // notionDbName !== 'EXERCISE_DATABASE' ? timestampKeys = ['last_edited_time'] : timestampKeys = ['last_edited_time', 'created_time']
   const timestampKeys = ['last_edited_time', 'created_time'];
   data = transformArrayValues(data, timestampKeys);
   return data;
 }
 
 function createManyToManyObject(tableName, originalArray, arrayProperty) {
+  /* 
+  Create the many to many table for each pair of tables that has a many to many relationship
+  */
   const expandedArray = [];
   for (let i = 0; i < originalArray.length; i++) {
     const currentObject = originalArray[i];
@@ -37,17 +38,19 @@ function createManyToManyObject(tableName, originalArray, arrayProperty) {
 
 const notionDbNames = Object.keys(process.env).filter(key => key.endsWith('_DATABASE'));
 
-const allData = {};
+const allData = {}; // Object where each property contains all the data for a given table
 notionDbNames.forEach(dbName => {
   const tableName = dbName.split('_DATABASE')[0].toLocaleLowerCase();
   allData[tableName] = processData(dbName);
 })
 
-const relatedTables = Object.keys(allData).filter(
-  key => key !== mainTableName && key != 'discreetness'
-)
+// Create the one to many & many to many tables branching from `exercise` table
+const oneToManyTables = [
+  'movement', 'muscle', 'modifier', 'focus', 'condition', 'environment'
+]
+
 const multiselectProperties = ['environment'];
-const arrayProperties = [...relatedTables, ...multiselectProperties];
+const arrayProperties = [...oneToManyTables, ...multiselectProperties];
 
 const exerciseDataArray = allData[mainTableName];
 
@@ -58,6 +61,19 @@ arrayProperties.forEach(property => {
 // Remove relation properties
 allData[mainTableName] = allData[mainTableName].map(object => {
   const { muscle, movement, modifier, condition, discreetness, environment, focus, ...filteredObject } = object;
+  return filteredObject;
+})
+
+// Process the `activity` seed data to take only the first element of the properties with array values
+allData['activity'] = allData['activity'].map(object => {
+  const arrayProperties = ['exercise', 'sessions'];
+  arrayProperties.forEach(key => {
+    object[`${key}_id`] = object[key][0];
+  })
+  return object;
+})
+allData['activity'] = allData['activity'].map(object => {
+  const { exercise, sessions, ...filteredObject } = object;
   return filteredObject;
 })
 
