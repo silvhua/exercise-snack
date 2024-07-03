@@ -1,6 +1,6 @@
 
 export const databases = [
-  'EXERCISE_DATABASE',
+  // 'EXERCISE_DATABASE',
   // 'ENVIRONMENT_DATABASE',
   // 'MOVEMENT_DATABASE',
   // 'MUSCLE_DATABASE',
@@ -10,8 +10,8 @@ export const databases = [
   // 'CONDITION_DATABASE',
   // 'USER_DATABASE', 
   // 'ACTIVITY_DATABASE',
-  // 'SESSION_DATABASE',
-  'TIP_DATABASE',
+  'SESSION_DATABASE',
+  // 'TIP_DATABASE',
   // 'VIDEO_DATABASE'
 ]
 

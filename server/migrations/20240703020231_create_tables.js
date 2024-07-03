@@ -16,18 +16,32 @@ export function up(knex) {
     .dropTableIfExists('modifier')
     .dropTableIfExists('movement')
     .dropTableIfExists('muscle')
-    .dropTableIfExists('video')
     .dropTableIfExists('tip')
-    .dropTableIfExists('user')
     .dropTableIfExists('activity')
     .dropTableIfExists('session')
     .dropTableIfExists('exercise')
+    .dropTableIfExists('video')
+    .dropTableIfExists('user')
+    .createTable('video', (table) => {
+      table.binary('id', 128).primary();
+      table.string('name').notNullable();
+      table.string('src');
+      table.string('thumbnail');
+      table.binary('database_id', 128).notNullable();
+      table.string('url');
+      table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
+      table.timestamp('created_time').defaultTo(knex.fn.now());
+    })
     .createTable('exercise', (table) => {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
       table.integer('strength').notNullable();
       table.integer('exertion').notNullable();
-      table.binary('video', 128);
+      table
+        .binary('video_id', 128)
+        .references('id').inTable('video')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
       table.string('url');
       table.timestamp('created_time').defaultTo(knex.fn.now());
       table.timestamp('last_edited_time').defaultTo(knex.fn.now());
@@ -94,16 +108,6 @@ export function up(knex) {
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
     })
-    .createTable('video', (table) => {
-      table.binary('id', 128).primary();
-      table.string('name').notNullable();
-      table.string('src');
-      table.string('thumbnail');
-      table.binary('database_id', 128).notNullable();
-      table.string('url');
-      table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
-      table.timestamp('created_time').defaultTo(knex.fn.now());
-    })
     .createTable('tip', (table) => {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
@@ -128,6 +132,11 @@ export function up(knex) {
     })
     .createTable('session', (table) => {
       table.binary('id', 128).primary();
+      table
+        .binary('user', 128)
+        .references('id').inTable('user')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
       table.binary('database_id', 128).notNullable();
@@ -142,13 +151,11 @@ export function up(knex) {
         .references('id').inTable('exercise')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-        .notNullable()
       table
         .binary('session_id', 128)
         .references('id').inTable('session')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-        .notNullable()
       table.binary('database_id', 128).notNullable();
       table.string('notes');
       table.string('url');
@@ -233,11 +240,11 @@ export function down(knex) {
     .dropTableIfExists('modifier')
     .dropTableIfExists('movement')
     .dropTableIfExists('muscle')
-    .dropTableIfExists('video')
     .dropTableIfExists('tip')
-    .dropTableIfExists('user')
     .dropTableIfExists('activity')
-    .dropTableIfExists('exercise')
     .dropTableIfExists('session')
+    .dropTableIfExists('exercise')
+    .dropTableIfExists('video')
+    .dropTableIfExists('user')
 };
 

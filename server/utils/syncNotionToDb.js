@@ -34,8 +34,12 @@ async function getData() {
       const databaseId = process.env[database];
       database = database.split('_')[0].toLocaleLowerCase();
 
-      // whether or not to parse properties that are relations; only do it for the `exercise` and `activity` tables
-      const parseRelations = ['exercise', 'activity'].includes(database);
+      // whether or not to parse properties that are relations; only do it for the `exercise`, `activity`, and `session` tables
+      const parseRelations = [
+        'exercise',
+        'activity',
+        'session' 
+      ].includes(database);
       const filenameRaw = saveRawData && `raw/${database}`; // Raw data is only saved if this is a non-empty string.
       const filenameParsed = `${database}/${database}`;
       const data = await syncFunction(databaseId, filenameRaw);

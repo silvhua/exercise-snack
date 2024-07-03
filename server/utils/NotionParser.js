@@ -83,7 +83,7 @@ class NotionParser {
     parsedPageObject.id = pageObject.id;
     parsedPageObject.databaseId = pageObject.parent.database_id || null;
     parsedPageObject.url = pageObject.url;
-    if (!this.propertyNames.includes('created_time')) {
+    if (!this.propertyNames.includes('Created time')) {
       // parse this meta data if it is not explicitely included in the notion table as property
       parsedPageObject.created_time = pageObject.created_time;
     }
@@ -149,7 +149,13 @@ async function parseNotion(
   const parser = new NotionParser(filenameOrArray, parseRelations);
 
   // These are properties stored in arrays where only the first element is required
-  const propertiesToDestructure = ['discreetness', 'video']
+  const propertiesToDestructure = [
+    'discreetness', // exercise table
+    'video', // exercise table
+    'user', // session table
+    'exercise', // actvity table
+    'session' // actvity table
+  ]
   const parsedData = await parser.parseData(
     savePath, databaseId, trackingFile, propertiesToDestructure,
     dropTitle

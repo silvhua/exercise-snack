@@ -23,6 +23,7 @@ function createManyToManyObject(tableName, originalArray, arrayProperty) {
   Create the many to many table for each pair of tables that has a many to many relationship
   */
   const expandedArray = [];
+  
   for (let i = 0; i < originalArray.length; i++) {
     const currentObject = originalArray[i];
     const valueArray = currentObject[arrayProperty];
@@ -44,9 +45,9 @@ notionDbNames.forEach(dbName => {
   allData[tableName] = processData(dbName);
 })
 
-// Create the one to many & many to many tables branching from `exercise` table
+// Create the one to many & many to many tables branching from `exercise`table
 const oneToManyTables = [
-  'movement', 'muscle', 'modifier', 'focus', 'condition', 'environment', 'tip'
+  'movement', 'muscle', 'modifier', 'focus', 'condition', 'environment', 'tip', 
 ]
 
 const multiselectProperties = ['environment'];
@@ -60,24 +61,32 @@ arrayProperties.forEach(property => {
 
 // Remove relation properties
 allData[mainTableName] = allData[mainTableName].map(object => {
-  const { muscle, movement, modifier, condition, discreetness, environment, focus, tip, ...filteredObject } = object;
+  const {
+    muscle, movement, modifier, condition, discreetness, environment, focus, tip, video,
+    ...filteredObject } = object;
   return filteredObject;
 })
 
-// Process the `activity` seed data to take only the first element of the properties with array values
-allData['activity'] = allData['activity'].map(object => {
-  const arrayProperties = ['exercise', 'session'];
-  arrayProperties.forEach(key => {
-    object[`${key}_id`] = object[key]?.[0];
-  })
-  return object;
-})
+// // Process the `activity` seed data to take only the first element of the properties with array values
+// allData['activity'] = allData['activity'].map(object => {
+//   const arrayProperties = ['exercise', 'session'];
+//   arrayProperties.forEach(key => {
+//     object[`${key}_id`] = object[key]?.[0];
+//   })
+//   return object;
+// })
 allData['activity'] = allData['activity'].map(object => {
   const { exercise, session, ...filteredObject } = object;
   return filteredObject;
 })
-// console.log(allData['exercise_tip'])
-console.log(Object.keys(allData));
+allData['session'] = allData['session'].map(object => {
+  const { user, ...filteredObject } = object;
+  return filteredObject;
+})
+
+
+// console.log(allData['exercise'][0]);
+// console.log(Object.keys(allData));
 
 export async function seed(knex) {
   let allTables = Object.keys(allData);
