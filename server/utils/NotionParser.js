@@ -83,7 +83,10 @@ class NotionParser {
     parsedPageObject.id = pageObject.id;
     parsedPageObject.databaseId = pageObject.parent.database_id || null;
     parsedPageObject.url = pageObject.url;
-    parsedPageObject.created_time = pageObject.created_time;
+    if (!this.propertyNames.includes('created_time')) {
+      // parse this meta data if it is not explicitely included in the notion table as property
+      parsedPageObject.created_time = pageObject.created_time;
+    }
     for (let property of this.propertyNames) {
       const pageProperties = await pageObject.properties
       const type = await pageProperties[property].type;
@@ -93,7 +96,7 @@ class NotionParser {
         if (this.propertiesToDestructure.includes(property)) {
           parsedPageObject[property] = parsedPageObject[property][0];
         }
-      } else if (['number', 'last_edited_time', 'created_time', 'select'].includes(type)) {
+      } else if (['number', 'last_edited_time', 'created_time'].includes(type)) {
         parsedPageObject[property] = await typeValue;
       } else if (type === 'multi_select') {
         parsedPageObject[property] = await typeValue.map(typeObject =>
@@ -101,6 +104,8 @@ class NotionParser {
         );
       } else if (type === 'rich_text' || (type === 'title' && !this.dropTitle)) {
         parsedPageObject[property] = await typeValue[0]?.plain_text || '?';
+      } else if (type === 'select') {
+        parsedPageObject[property] = await typeValue?.name;
       }
     }
     return parsedPageObject;
@@ -142,7 +147,9 @@ async function parseNotion(
    * @return {Promise<Array>} - A promise that resolves to an array of parsed data.
    */
   const parser = new NotionParser(filenameOrArray, parseRelations);
-  const propertiesToDestructure = ['discreetness']
+
+  // These are properties stored in arrays where only the first element is required
+  const propertiesToDestructure = ['discreetness', 'video']
   const parsedData = await parser.parseData(
     savePath, databaseId, trackingFile, propertiesToDestructure,
     dropTitle
