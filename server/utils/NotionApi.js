@@ -1,35 +1,33 @@
 
 import { Client } from '@notionhq/client';
 import 'dotenv/config';
-import { getIsoTimestamp, saveResponseJson, loadJsonFile } from './utils.js';
+import { getIsoTimestamp, saveResponseJson, getLastUpdate, loadJsonFile } from './utils.js';
 import fs from 'fs';
 
 class NotionApi {
-  constructor(filepath, databaseId, trackingFile=null) {
+  constructor(trackingFile=null, filepath=null) {
     this.notionApiKey = process.env.notion_secret;
-    this.filepath = filepath;
+    this.filepath = filepath || '';
     this.notion = new Client({ auth: this.notionApiKey });
-    this.databaseId = databaseId;
     this.trackingFile = trackingFile;
   }
 
-  async save(object, filename, appendTimestamp=true) {
-    await saveResponseJson(object, filename, appendTimestamp);
+  async save(object, filename, appendTimestamp = true) {
+    const fullPath = `${this.filepath}/${filename}` || filename;
+    await saveResponseJson(object, fullPath, appendTimestamp);
   }
 
-  async getLastUpdate(trackingFile) {
-    this.trackingFile = this.trackingFile || trackingFile;
-    this.trackingObject = await loadJsonFile(this.trackingFile);
-    const lastUpdated = this.trackingObject[this.databaseId] || "2024-01-01T00:00:00-08:00";
-    console.log(`Data last fetched ${lastUpdated}`);
+  async getLastUpdate(databaseId) {
+    const [lastUpdated, trackingObject] = await getLastUpdate(databaseId, this.trackingFile, 'last_notion_pull');
+    this.trackingObject = trackingObject;
     return lastUpdated;
   }
 
-  async getData(filename=null, appendTimestamp=true, filter=null) {
+  async getData(databaseId, filename=null, appendTimestamp=true, filter=null) {
     const pages = [];
     let cursor = undefined;
     const requestObject = {
-      database_id: this.databaseId,
+      database_id: databaseId,
       start_cursor: cursor
     }
     if (filter) {
@@ -48,17 +46,17 @@ class NotionApi {
 
     if (filename) {
       await this.save(pages, filename, appendTimestamp);
-      const currentTimestamp = getIsoTimestamp();
-      this.trackingObject[`test_${this.databaseId}`] = currentTimestamp;
-      fs.writeFileSync(this.trackingFile, JSON.stringify(this.trackingObject));
+      this.trackingObject[`${databaseId}`] = this.trackingObject[`${databaseId}`] || {};
+      const currentTimestamp = getIsoTimestamp() || '';
+      this.trackingObject[`${databaseId}`]['last_notion_pull'] = currentTimestamp;
+      fs.writeFileSync(this.trackingFile, JSON.stringify(this.trackingObject, null, 2));
       console.log(`Updated ${this.trackingFile} with current timestamp: ${currentTimestamp}`);
     }
     return pages;
   }
 
-  async getNewData(filename = null, appendTimestamp = true, filter = null) {
-    const lastUpdated = await this.getLastUpdate(filename);
-    console.log('getNewData lastUpdated', lastUpdated);
+  async getNewData(databaseId, filename = null, appendTimestamp = true, filter = null) {
+    const lastUpdated = await this.getLastUpdate(databaseId);
 
     const filterArray = [
       { property: 'Last edited time', date: { after: lastUpdated } }
@@ -69,21 +67,9 @@ class NotionApi {
     filter = {
       and: filterArray
     }
-    const data = await this.getData(filename, appendTimestamp, filter);
+    const data = await this.getData(databaseId, filename, appendTimestamp, filter);
     return data;
   }
 }
 
-async function getData() {
-  const filepath = process.argv[2];
-  const databaseId = process.env.EXERCISE_DATABASE;
-  // const databaseId = process.env.MOVEMENT_DATABASE;
-  const trackingFile = './utils/tracking.json';
-  const client = new NotionApi(filepath, databaseId);
-  client.getLastUpdate(trackingFile);
-  const data = await client.getNewData(filepath);
-  // const data = await client.getData(filepath);
-  // console.log('\ndata:\n', data);
-}
-
-getData();
+export default NotionApi;

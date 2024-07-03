@@ -4,8 +4,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "node utils/notionApi.js",
-    "save": "node utils/notionApi.js ./data/raw" 
+    "pull": "node utils/syncNotionToDb.js full",
+    "partial": "node utils/syncNotionToDb.js partial",
+    "migrate": "npx knex migrate:latest",
+    "rollback": "npx knex migrate:rollback",
+    "seed": "npx knex seed:run"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +16,8 @@
   "description": "",
   "dependencies": {
     "@notionhq/client": "^2.2.15",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "knex": "^3.1.0",
+    "mysql2": "^3.10.1"
   }
 }
