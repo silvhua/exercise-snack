@@ -44,9 +44,13 @@ class NotionParser {
     this.parseRelations = parseRelations;
   }
 
-  async parseData(path, databaseId, trackingFile, propertiesToDestructure=null) {
+  async parseData(
+    path, databaseId, trackingFile, propertiesToDestructure = null,
+    dropTitle=false
+  ) {
     this.trackingFile = trackingFile;
     this.propertiesToDestructure = propertiesToDestructure;
+    this.dropTitle = dropTitle;
     let updateDate;
     if (typeof this.data === 'string') {
       await this.loadJson(this.data);
@@ -89,13 +93,13 @@ class NotionParser {
         if (this.propertiesToDestructure.includes(property)) {
           parsedPageObject[property] = parsedPageObject[property][0];
         }
-      } else if (['number', 'last_edited_time', 'created_time'].includes(type)) {
+      } else if (['number', 'last_edited_time', 'created_time', 'select'].includes(type)) {
         parsedPageObject[property] = await typeValue;
       } else if (type === 'multi_select') {
         parsedPageObject[property] = await typeValue.map(typeObject =>
           typeObject.name
         );
-      } else if (type === 'title') {
+      } else if (type === 'rich_text' || (type === 'title' && !this.dropTitle)) {
         parsedPageObject[property] = await typeValue[0]?.plain_text || '?';
       }
     }
@@ -126,7 +130,10 @@ class NotionParser {
   }
 }
 
-async function parseNotion(filenameOrArray, savePath, databaseId, trackingFile, parseRelations = false) {
+async function parseNotion(
+  filenameOrArray, savePath, databaseId, trackingFile, dropTitle,
+  parseRelations = false
+) {
   /**
    * Parses the Notion data from either a filename or an array.
    *
@@ -136,7 +143,10 @@ async function parseNotion(filenameOrArray, savePath, databaseId, trackingFile, 
    */
   const parser = new NotionParser(filenameOrArray, parseRelations);
   const propertiesToDestructure = ['discreetness']
-  const parsedData = await parser.parseData(savePath, databaseId, trackingFile, propertiesToDestructure);
+  const parsedData = await parser.parseData(
+    savePath, databaseId, trackingFile, propertiesToDestructure,
+    dropTitle
+  );
   return parsedData;
 }
 export default parseNotion;

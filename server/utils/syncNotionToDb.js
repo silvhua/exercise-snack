@@ -20,11 +20,18 @@ async function getData() {
       syncFunction = async (databaseId, filename) => client.getNewData(databaseId, filename);
       console.log('Getting new data for these databases:');
   }
-
+  const tablesWhereTitleDropped = [ 
+    // For these tables, drop the Notion property that is the "title" data type
+    // 'discreetness', 'activity', 'session'
+  'DISCREETNESS_DATABASE',
+  'ACTIVITY_DATABASE',
+  'SESSION_DATABASE',
+  ]
   for (let i = 0; i < databases.length; i++) {
     let database = databases[i];
     console.log(`\n${database}`);
     try {
+      const dropTitle = tablesWhereTitleDropped.includes(database);
       const databaseId = process.env[database];
       database = database.split('_')[0].toLocaleLowerCase();
       const parseRelations = database === 'exercise'; // whether or not to parse properties that are relations
@@ -32,7 +39,9 @@ async function getData() {
       const filenameParsed = `${database}/${database}`;
       const data = await syncFunction(databaseId, filenameRaw);
       const savePath = `${filepath}/${filenameParsed}`;
-      const parsedData = await parseNotion(data, savePath, databaseId, trackingFile, parseRelations);
+      const parsedData = await parseNotion(
+        data, savePath, databaseId, trackingFile, dropTitle, parseRelations
+      );
     } catch (error) {
       console.error(error);
     }
