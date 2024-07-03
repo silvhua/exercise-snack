@@ -87,14 +87,7 @@ Better mockups to come. Below are examples of similar apps:
 
 ### Data
 
-Describe your data and the relationships between them. You can show this visually using diagrams, or write it out. 
-
-Table | Description
---- | ---
-
-
-
-
+<img src="./documentation/ERD.svg" alt="entity relationship diagram" />
 
 ### Endpoints
 
