@@ -7,6 +7,7 @@ export function up(knex) {
     .dropTableIfExists('exercise_focus')
     .dropTableIfExists('exercise_modifier')
     .dropTableIfExists('exercise_muscle')
+    .dropTableIfExists('exercise_tip')
     .dropTableIfExists('environment')
     .dropTableIfExists('created_time')
     .dropTableIfExists('discreetness')
@@ -24,13 +25,13 @@ export function up(knex) {
     .createTable('exercise', (table) => {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
-      table.string('url');
-      table.timestamp('created_time').defaultTo(knex.fn.now());
       table.integer('strength').notNullable();
       table.integer('exertion').notNullable();
+      table.binary('video', 128);
+      table.string('url');
+      table.timestamp('created_time').defaultTo(knex.fn.now());
       table.timestamp('last_edited_time').defaultTo(knex.fn.now());
       table.binary('database_id', 128).notNullable();
-      table.binary('video', 128);
     })
     .createTable('environment', (table) => {
       table.binary('id', 128).primary();
@@ -106,6 +107,7 @@ export function up(knex) {
     .createTable('tip', (table) => {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
+      table.string('text');
       table.binary('database_id', 128).notNullable();
       table.string('url');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
@@ -202,6 +204,13 @@ export function up(knex) {
       table.binary('muscle_id', 128).references('id').inTable('muscle')
         .onDelete('CASCADE').onUpdate('CASCADE');
     })
+    .createTable('exercise_tip', (table) => {
+      table.increments('id').primary();
+      table.binary('exercise_id', 128).references('id').inTable('exercise')
+        .onDelete('CASCADE').onUpdate('CASCADE');
+      table.binary('tip_id', 128).references('id').inTable('tip')
+        .onDelete('CASCADE').onUpdate('CASCADE');
+    })
 };
 
 
@@ -215,6 +224,7 @@ export function down(knex) {
     .dropTableIfExists('exercise_focus')
     .dropTableIfExists('exercise_modifier')
     .dropTableIfExists('exercise_muscle')
+    .dropTableIfExists('exercise_tip')
     .dropTableIfExists('environment')
     .dropTableIfExists('created_time')
     .dropTableIfExists('discreetness')

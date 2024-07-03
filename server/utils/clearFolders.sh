@@ -7,3 +7,6 @@ mkdir ./data/focus
 mkdir ./data/discreetness
 mkdir ./data/condition
 mkdir ./data/raw
+mkdir ./data/user
+mkdir ./data/session
+mkdir ./data/activity
