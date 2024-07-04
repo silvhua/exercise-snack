@@ -59,10 +59,10 @@ arrayProperties.forEach(property => {
   allData[`${mainTableName}_${property}`] = createManyToManyObject(mainTableName, exerciseDataArray, property)
 })
 
-// Remove relation properties
+// Remove relation properties that have many to many relationship
 allData[mainTableName] = allData[mainTableName].map(object => {
   const {
-    muscle, movement, modifier, condition, discreetness, environment, focus, tip, video,
+    muscle, movement, modifier, condition, environment, focus, tip, video,
     ...filteredObject } = object;
   return filteredObject;
 })
