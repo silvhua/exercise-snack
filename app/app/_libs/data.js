@@ -38,16 +38,20 @@ export async function getExerciseDetails(exerciseId) {
   SELECT
     exercise.id, exercise.name AS name,
     movement.name AS "movement category",
-    video.src
+    video.src,
+    level AS "discreetness level"
   FROM exercise
   LEFT JOIN exercise_movement em ON (exercise.id = em.exercise_id)
     JOIN movement ON (movement_id = movement.id)
   LEFT JOIN video ON (video_id = video.id)
-  LEFT JOIN discreetness ON (discreetness_id = discreetness.id)
+  LEFT JOIN discreetness ON (discreetness = discreetness.id)
   WHERE exercise.id = "${exerciseId}"
   `
   const data = await sqlSelect(query);
-  return data[0];
+  const exerciseObject = data[0];
+  // exerciseObject.discreetness = exerciseObject.discreetness.toString('ascii')
+  
+  return exerciseObject;
 }
 
 export async function getFocus(exerciseId) {
