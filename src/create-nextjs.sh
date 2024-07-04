@@ -1,5 +1,5 @@
 
-npx create-next-app app --eslint --no-import-alias --ts --no-tailwind --src-dir --app
+npx create-next-app app --eslint --no-import-alias --ts --no-tailwind --app
  
 # Options:
 #   -V, --version                        output the version number
