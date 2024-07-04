@@ -10,7 +10,6 @@ export function up(knex) {
     .dropTableIfExists('exercise_tip')
     .dropTableIfExists('environment')
     .dropTableIfExists('created_time')
-    .dropTableIfExists('discreetness')
     .dropTableIfExists('focus')
     .dropTableIfExists('condition')
     .dropTableIfExists('modifier')
@@ -21,6 +20,7 @@ export function up(knex) {
     .dropTableIfExists('session')
     .dropTableIfExists('exercise')
     .dropTableIfExists('video')
+    .dropTableIfExists('discreetness')
     .dropTableIfExists('user')
     .createTable('video', (table) => {
       table.binary('id', 128).primary();
@@ -32,16 +32,30 @@ export function up(knex) {
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
     })
+    .createTable('discreetness', (table) => {
+      table.binary('id', 128).primary();
+      table.float('level');
+      table.string('description');
+      table.string('url');
+      table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
+      table.timestamp('created_time').defaultTo(knex.fn.now());
+      table.binary('database_id', 128).notNullable();
+    })
     .createTable('exercise', (table) => {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
       table.integer('strength').notNullable();
       table.integer('exertion').notNullable();
       table
+        .binary('discreetness', 128)
+        .references('id').inTable('discreetness')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
+      table
         .binary('video_id', 128)
         .references('id').inTable('video')
         .onUpdate('CASCADE')
-        .onDelete('CASCADE')
+        .onDelete('CASCADE');
       table.string('url');
       table.timestamp('created_time').defaultTo(knex.fn.now());
       table.timestamp('last_edited_time').defaultTo(knex.fn.now());
@@ -54,15 +68,6 @@ export function up(knex) {
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
       table.string('name').notNullable();
-    })
-    .createTable('discreetness', (table) => {
-      table.binary('id', 128).primary();
-      table.float('level');
-      table.string('description');
-      table.string('url');
-      table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
-      table.timestamp('created_time').defaultTo(knex.fn.now());
-      table.binary('database_id', 128).notNullable();
     })
     .createTable('movement', (table) => {
       table.binary('id', 128).primary();
@@ -170,13 +175,13 @@ export function up(knex) {
       table.binary('environment_id', 128).references('id').inTable('environment')
         .onDelete('CASCADE').onUpdate('CASCADE');
     })
-    .createTable('exercise_discreetness', (table) => {
-      table.increments('id').primary();
-      table.binary('exercise_id', 128).references('id').inTable('exercise')
-        .onDelete('CASCADE').onUpdate('CASCADE');
-      table.binary('discreetness_id', 128).references('id').inTable('discreetness')
-        .onDelete('CASCADE').onUpdate('CASCADE');
-    })
+    // .createTable('exercise_discreetness', (table) => {
+    //   table.increments('id').primary();
+    //   table.binary('exercise_id', 128).references('id').inTable('exercise')
+    //     .onDelete('CASCADE').onUpdate('CASCADE');
+    //   table.binary('discreetness_id', 128).references('id').inTable('discreetness')
+    //     .onDelete('CASCADE').onUpdate('CASCADE');
+    // })
     .createTable('exercise_movement', (table) => {
       table.increments('id').primary();
       table.binary('exercise_id', 128).references('id').inTable('exercise')
@@ -235,7 +240,6 @@ export function down(knex) {
     .dropTableIfExists('exercise_tip')
     .dropTableIfExists('environment')
     .dropTableIfExists('created_time')
-    .dropTableIfExists('discreetness')
     .dropTableIfExists('focus')
     .dropTableIfExists('condition')
     .dropTableIfExists('modifier')
@@ -246,6 +250,7 @@ export function down(knex) {
     .dropTableIfExists('session')
     .dropTableIfExists('exercise')
     .dropTableIfExists('video')
+    .dropTableIfExists('discreetness')
     .dropTableIfExists('user')
 };
 
