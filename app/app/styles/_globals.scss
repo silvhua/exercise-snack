@@ -42,8 +42,8 @@ main {
     }
 }
 
-div, section, article {
-    @include flex-mixin--row(100%);
+main, div, section, article {
+    @include flex-mixin--column(100%);
 }
 
 a {

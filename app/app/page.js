@@ -5,9 +5,6 @@ import Dashboard from './dashboard/page';
 export default function Home() {
   return (
     <main>
-      <header>
-        <p>Movement Snack App</p>
-      </header>
       <Dashboard />
     </main>
     // <main className={styles.main}>
