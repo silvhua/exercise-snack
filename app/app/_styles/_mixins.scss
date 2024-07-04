@@ -81,9 +81,9 @@
 }
 
 @mixin heading-margin() {
-    margin: 1.5rem 0 $spacing--mobile;
+    margin: 1.5rem 0 0.5em;
     @include tablet {
-        margin: 2.25rem 0 $spacing--tablet;
+        margin: 2.25rem 0 0.5em;
     }
 }
 

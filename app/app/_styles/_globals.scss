@@ -45,6 +45,7 @@ li {
 
 h2, h3, h4, h5 {
   @include heading-margin();
+  text-transform: capitalize;
 }
 
 article {

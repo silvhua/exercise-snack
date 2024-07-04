@@ -34,25 +34,48 @@ WHERE movement.name = "${movementCategory}"
 }
 
 export async function getExerciseDetails(exerciseId) {
-
-  const conditionTableName = "`condition`"; // backticks required around `condition` in SQL queries as it is a SQL keyword
   const query = `
   SELECT
     exercise.id, exercise.name AS name,
     movement.name AS "movement category",
-    video.src,
-    focus.name as focus,
-    ${conditionTableName}.name as context
+    video.src
   FROM exercise
   LEFT JOIN exercise_movement em ON (exercise.id = em.exercise_id)
     JOIN movement ON (movement_id = movement.id)
   LEFT JOIN video ON (video_id = video.id)
-  LEFT JOIN exercise_focus ef ON (exercise.id = ef.exercise_id)
-    LEFT JOIN focus ON (focus_id = focus.id)
-  LEFT JOIN exercise_condition ec ON (exercise.id = ec.exercise_id)
-    LEFT JOIN ${conditionTableName} ON (condition_id = ${conditionTableName}.id)
+  LEFT JOIN discreetness ON (discreetness_id = discreetness.id)
   WHERE exercise.id = "${exerciseId}"
   `
   const data = await sqlSelect(query);
   return data[0];
 }
+
+export async function getFocus(exerciseId) {
+  const query = `
+    SELECT
+    exercise.id, exercise.name AS name,
+    focus.name as focus
+  FROM exercise
+  LEFT JOIN exercise_focus ef ON (exercise.id = ef.exercise_id)
+    LEFT JOIN focus ON (focus_id = focus.id)
+  WHERE exercise.id = "${exerciseId}"
+  `
+  const data = await sqlSelect(query);
+  return data;
+}
+
+export async function getCondition(exerciseId) {
+  const conditionTableName = "`condition`"; // backticks required around `condition` in SQL queries as it is a SQL keyword
+  const query = `
+  SELECT
+    exercise.id, exercise.name AS name,
+    condition.name as "condition"
+  FROM exercise
+  LEFT JOIN exercise_condition ec ON (exercise.id = ec.exercise_id)
+    LEFT JOIN ${conditionTableName} ON (condition_id = ${conditionTableName}.id)
+  WHERE exercise.id = "${exerciseId}"
+  `
+  const data = await sqlSelect(query);
+  return data;
+}
+
