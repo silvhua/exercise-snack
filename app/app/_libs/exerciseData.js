@@ -1,22 +1,15 @@
-import pool from "@/app/_libs/mysql";
+import sqlSelect from "./utils";
 
-export async function sqlSelect(query, getFirst) {
-  try {
-    const db = await pool.getConnection();
-    const result = await db.execute(query);
-    let [rows] = result;
-    rows.map(row => {
-      row.id = row.id.toString('ascii');
-    })
-    // if (getFirst) {
-    //   rows = rows[0];
-    // }
-    db.release();
-    return rows;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+export async function getMovements() {
+  const query = `
+  SELECT
+    id,
+    name,
+    body_region
+  FROM movement
+  `
+  let rows = sqlSelect(query);
+  return rows;
 }
 
 export async function getExercises(movementCategory) {
@@ -33,13 +26,33 @@ WHERE movement.name = "${movementCategory}"
   return rows;
 }
 
+export async function getExercisePerMovement() {
+  const query = `
+    WITH randomized AS (
+    select
+      exercise.id, exercise.name,
+      movement.name AS "movement category",
+      ROW_NUMBER() OVER (PARTITION BY movement.name ORDER BY RAND()) AS random_number
+    FROM exercise
+    JOIN exercise_movement ON (exercise.id = exercise_id)
+    JOIN movement ON (movement_id = movement.id)
+    )
+    -- SELECT FIRST_VALUE(random_number), *
+    SELECT *
+    FROM randomized
+    WHERE random_number = 1
+  `;
+  let rows = sqlSelect(query);
+  return rows;
+}
+
 export async function getExerciseDetails(exerciseId) {
   const query = `
   SELECT
     exercise.id, exercise.name AS name,
     movement.name AS "movement category",
     video.src,
-    level AS "discreetness level"
+    level AS "discreetness"
   FROM exercise
   LEFT JOIN exercise_movement em ON (exercise.id = em.exercise_id)
     JOIN movement ON (movement_id = movement.id)
@@ -49,7 +62,6 @@ export async function getExerciseDetails(exerciseId) {
   `
   const data = await sqlSelect(query);
   const exerciseObject = data[0];
-  // exerciseObject.discreetness = exerciseObject.discreetness.toString('ascii')
   
   return exerciseObject;
 }

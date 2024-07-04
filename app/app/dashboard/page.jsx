@@ -1,6 +1,6 @@
 import ExerciseDetails from "../_components/ExerciseDetails/ExerciseDetails";
 import ItemCard from "../_components/ItemCard/ItemCard";
-import { getExercises, getExerciseDetails, getFocus, getCondition } from "../_libs/data";
+import { getExercises, getExerciseDetails, getFocus, getCondition } from "../_libs/exerciseData";
 
 export default async function Dashboard() {
 
