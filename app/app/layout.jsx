@@ -1,4 +1,4 @@
-
+import Header from "./_components/Header/Header";
 import "./globals.scss";
 
 
@@ -11,10 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        
-        <header>
-          <p>Movement Snack App header</p>
-        </header>
+        <Header />
         {children}
       </body>
     </html>

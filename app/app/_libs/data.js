@@ -1,4 +1,4 @@
-import pool from "@/app/libs/mysql";
+import pool from "@/app/_libs/mysql";
 
 export async function sqlSelect(query) {
   try {
@@ -22,7 +22,7 @@ export async function getExercises(movementCategory) {
   const query = `
 select
   exercise.id, exercise.name,
-  movement.name AS movement_category
+  movement.name AS "movement category"
 FROM exercise
 JOIN exercise_movement ON (exercise.id = exercise_id)
 JOIN movement ON (movement_id = movement.id)

@@ -10,7 +10,6 @@
 main {
   padding: 1rem $page-margin--tablet;
   display: flex;
-  background-color: $test-color;
 }
 
 
@@ -19,26 +18,13 @@ h1 {
 }
 
 header, footer {
-    @include flex-mixin--row(100%);
-    background-color: black;
-    color: white;
-    font-weight: bold;
-}
-
-header {
-    position: fixed;
-    top: 0;
-    z-index: 3;
-    height: $header-height--tablet;
-    padding: 1rem $page-margin--tablet;
-    box-sizing: border-box;
 }
 
 main {
     // shift the page content down according to header height
     position: relative;
+    top: $header-height--tablet;
     @include tablet {
-        top: $header-height--tablet;
     }
 }
 

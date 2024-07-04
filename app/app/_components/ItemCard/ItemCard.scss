@@ -1,0 +1,9 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+.card {
+  flex-direction: row;
+  background-color: $test-color;
+
+}

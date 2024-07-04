@@ -1,6 +1,8 @@
-@use './styles/globals.scss' as *;
+@use './_styles/globals.scss' as *;
 
-
+.list {
+  gap: 1rem;
+}
 
 // :root {
 //   --max-width: 1100px;
