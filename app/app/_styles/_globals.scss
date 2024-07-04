@@ -15,31 +15,38 @@ main {
 
 h1 {
   color: blue;
+  font-size: 2rem;
+  text-transform: capitalize;
+  @include heading-margin;
 }
 
 header, footer {
 }
 
 main {
-    // shift the page content down according to header height
-    position: relative;
-    top: $header-height--tablet;
-    @include tablet {
-    }
+  // shift the page content down according to header height
+  position: relative;
+  top: $header-height--tablet;
+  @include tablet {
+  }
 }
 
 main, div, section, article {
-    @include flex-mixin--column(100%);
+  @include flex-mixin--column(100%);
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 h2, h3, h4, h5 {
-    @include heading-margin();
+  @include heading-margin();
+}
+
+article {
+  @include flex-mixin--column(100%);
 }

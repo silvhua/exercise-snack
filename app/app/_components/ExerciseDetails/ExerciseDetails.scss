@@ -1,0 +1,9 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+.exercise {
+  flex-direction: column;
+  background-color: pink;
+
+}

@@ -5,10 +5,9 @@ const ItemCard = ({data}) => {
   return (
     <div className='card'>
       {
-        Object.entries(data).map(([key, value]) => {
-          console.log(key, value)
+        Object.entries(data).map(([key, value], index) => {
           return (
-            <div className='card__property'>
+            <div className='card__property' key={index}>
               <h3>{key}</h3>
               <p>{value}</p>
             </div>
