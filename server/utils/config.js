@@ -1,4 +1,6 @@
-
+/* 
+This file is used to customize the pipeline for migrating data from Notion to the SQL database.
+*/
 export const databases = [
   // 'EXERCISE_DATABASE',
   // 'ENVIRONMENT_DATABASE',
@@ -8,9 +10,9 @@ export const databases = [
   // 'FOCUS_DATABASE',
   // 'DISCREETNESS_DATABASE',
   // 'CONDITION_DATABASE',
-  // 'USER_DATABASE', 
+  'USER_DATABASE', 
   // 'ACTIVITY_DATABASE',
-  'SESSION_DATABASE',
+  // 'SESSION_DATABASE',
   // 'TIP_DATABASE',
   // 'VIDEO_DATABASE'
 ]

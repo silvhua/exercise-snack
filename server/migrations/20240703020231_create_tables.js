@@ -119,7 +119,8 @@ export function up(knex) {
     })
     .createTable('user', (table) => {
       table.binary('id', 128).primary();
-      table.string('username');
+      table.string('username').unique();
+      table.string('email').unique();
       table.string('password');
       table.string('first_name');
       table.string('last_name');
