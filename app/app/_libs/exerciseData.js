@@ -32,7 +32,7 @@ export async function getExercisePerMovement() {
     WITH randomized AS (
   SELECT
     exercise.id, exercise.name,
-    movement.name AS "movement category",
+    movement.name AS "movement",
     ${conditionTableName}.name AS "condition",
     discreetness.level AS discreetness,
     focus.name AS focus,

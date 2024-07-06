@@ -7,4 +7,9 @@
 .exercise-card {
   @include card;
   background-color: $turquoise;
+
+  &__title {
+    // font-size: $card-title-font-size--mobile;
+    @extend p;
+  }
 }

@@ -113,4 +113,5 @@
     @include flex-mixin--column(100%);
     padding: $spacing--mobile;
     width: 100%;
+    border-radius: $border-radius;
 }

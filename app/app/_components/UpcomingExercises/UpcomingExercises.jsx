@@ -1,14 +1,14 @@
-import { getExercisePerMovement, getExercises, getMovements } from '@/app/_libs/exerciseData';
+// import { getExercisePerMovement, getExercises, getMovements } from '@/app/_libs/exerciseData';
+import program from '@/app/_libs/processData';
 import './UpcomingExercises.scss';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
-import ItemCard from '../ItemCard/ItemCard';
 
 const UpcomingExercises = async () => {
-  const exerciseArray = await getExercisePerMovement();
+  const exerciseArray = await program.getExercises();
 
   return (
     <article className='upcoming-exercises'>
-      <h1>Upcoming Exercises</h1>
+      <h2  className='headline6'>Upcoming Exercises</h2>
       <section className='card-container'>
         {
           exerciseArray.map(exerciseObject => {
