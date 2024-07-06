@@ -74,6 +74,7 @@ export async function getExerciseDetails(exerciseId) {
   LEFT JOIN discreetness ON (discreetness = discreetness.id)
   WHERE exercise.id = "${exerciseId}"
   `
+
   const data = await sqlSelect(query);
   const exerciseObject = data[0];
   
@@ -84,14 +85,23 @@ export async function getExerciseProperty(exerciseId, tableName) {
   /* 
   Get an exercise property value contained in a related table
   */
-  const intermediateTable = `exercise_${tableName}`;
+  let columnName = `${tableName}_id`;
+  let intermediateTable = `exercise_${tableName}`;
+  let aliasColumn = tableName;
+  if (tableName === 'condition') {
+    // backticks required around `condition` in SQL queries as it is an SQL keyword
+    tableName = "`condition`";
+    columnName = "condition_id";
+    intermediateTable = 'exercise_condition';
+    aliasColumn = "condition";
+  }
   const query = `
   SELECT
     exercise.id, exercise.name,
-    ${tableName}.name AS "${tableName}"
+    ${tableName}.name AS "${aliasColumn}"
   FROM exercise
-  LEFT JOIN exercise_${tableName} ON (exercise.id = ${intermediateTable}.exercise_id)
-    JOIN ${tableName} ON (${tableName}_id = ${tableName}.id)
+  LEFT JOIN ${intermediateTable} ON (exercise.id = ${intermediateTable}.exercise_id)
+    JOIN ${tableName} ON (${columnName} = ${tableName}.id)
   WHERE exercise.id = "${exerciseId}"
   `
   const data = await sqlSelect(query);
