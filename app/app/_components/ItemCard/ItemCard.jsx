@@ -8,8 +8,8 @@ const ItemCard = ({data}) => {
         Object.entries(data).map(([key, value], index) => {
           return (
             <div className='card__property' key={index}>
-              <h3>{key}</h3>
-              <p className='card__value'>{value}</p>
+              <h3 className='card__property-key'>{key}</h3>
+              <p className='card__property-value'>{value}</p>
             </div>
           )
         })

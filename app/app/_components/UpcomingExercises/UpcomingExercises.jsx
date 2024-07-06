@@ -13,14 +13,14 @@ const UpcomingExercises = async () => {
         exerciseArray.map(exerciseObject => {
           const { id } = exerciseObject;
           return (
-            // <ItemCard
-            //   data={exerciseObject}
-            //   key={id}
-            // />
-            <ExerciseCard
-              exerciseObject={exerciseObject}
+            <ItemCard
+              data={exerciseObject}
               key={id}
             />
+            // <ExerciseCard
+            //   exerciseObject={exerciseObject}
+            //   key={id}
+            // />
           )
         })
       }

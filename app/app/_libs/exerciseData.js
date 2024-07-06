@@ -27,21 +27,42 @@ WHERE movement.name = "${movementCategory}"
 }
 
 export async function getExercisePerMovement() {
+  // const query = `
+  //   WITH randomized AS (
+  //   select
+  //     exercise.id, exercise.name,
+  //     movement.name AS "movement category",
+  //     ROW_NUMBER() OVER (PARTITION BY movement.name ORDER BY RAND()) AS random_number
+  //   FROM exercise
+  //   JOIN exercise_movement ON (exercise.id = exercise_id)
+  //   JOIN movement ON (movement_id = movement.id)
+  //   )
+  //   -- SELECT FIRST_VALUE(random_number), *
+  //   SELECT *
+  //   FROM randomized
+  //   WHERE random_number = 1
+  // `;
+  const conditionTableName = "`condition`"; // backticks required around `condition` in SQL queries as it is a SQL keyword
   const query = `
     WITH randomized AS (
-    select
-      exercise.id, exercise.name,
-      movement.name AS "movement category",
-      ROW_NUMBER() OVER (PARTITION BY movement.name ORDER BY RAND()) AS random_number
-    FROM exercise
-    JOIN exercise_movement ON (exercise.id = exercise_id)
-    JOIN movement ON (movement_id = movement.id)
-    )
-    -- SELECT FIRST_VALUE(random_number), *
-    SELECT *
-    FROM randomized
+  select
+    exercise.id, exercise.name,
+    movement.name AS "movement category",
+    ${conditionTableName}.name AS "condition",
+    ROW_NUMBER() OVER (PARTITION BY movement.name ORDER BY RAND()) AS random_number
+  FROM exercise
+  LEFT JOIN exercise_movement ON (exercise.id = exercise_id)
+  LEFT JOIN movement ON (movement_id = movement.id)
+  LEFT JOIN exercise_condition ec ON (exercise.id = ec.exercise_id)
+    LEFT JOIN ${conditionTableName} ON (condition_id = ${conditionTableName}.id)
+  )
+  SELECT * FROM randomized
+  WHERE name IN (
+    SELECT name FROM randomized
     WHERE random_number = 1
-  `;
+  )
+  ORDER BY name
+  `
   let rows = await sqlSelect(query);
   return rows;
 }
