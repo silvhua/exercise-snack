@@ -1,0 +1,17 @@
+$tablet-breakpoint: 768px;
+$desktop-breakpoint: 1280px;
+
+$header-height--tablet: 5rem;
+
+$page-margin--tablet: 2rem;
+$max-content-width: calc(1280px - 8 * $page-margin--tablet);
+$spacing--tablet: 1.5rem;
+$spacing--mobile: 1rem;
+
+$form-spacing--mobile: 1.5rem;
+$form-spacing--tablet: 1.5rem;
+
+$form-padding--mobile: 0.75rem;
+$form-padding--tablet: 1rem;
+
+$test-color: rgb(159, 230, 243);

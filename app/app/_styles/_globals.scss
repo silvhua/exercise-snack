@@ -1,0 +1,57 @@
+@use './variables' as *;
+@use './mixins' as *;
+// @use './fonts' as *;
+
+* {
+  @include zero-spacing;
+  font-size: 1rem;
+}
+
+main {
+  padding: 1rem $page-margin--tablet;
+  display: flex;
+}
+
+
+h1 {
+  color: blue;
+  font-size: 2rem;
+  text-transform: capitalize;
+  @include heading-margin;
+}
+
+header, footer {
+}
+
+main {
+  // shift the page content down according to header height
+  position: relative;
+  top: $header-height--tablet;
+  @include tablet {
+  }
+}
+
+main, div, section, article {
+  @include flex-mixin--column(100%);
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+h2, h3, h4, h5 {
+  @include heading-margin();
+  text-transform: capitalize;
+}
+
+article {
+  @include flex-mixin--column(100%);
+}
+
+p {
+  padding: 0.5em 0;
+}
