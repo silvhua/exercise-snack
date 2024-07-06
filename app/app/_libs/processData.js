@@ -9,19 +9,18 @@ class CreateProgram {
       'movement',
       'environment', 'tip'
     ]
-    this.result = [];
   }
 
   async getExercises() {
-    this.exerciseArray = await getExercisePerMovement();
-    const exercisesIds = this.exerciseArray.map(object => object.id);
+    this.rawExerciseArray = await getExercisePerMovement();
+    const exercisesIds = this.rawExerciseArray.map(object => object.id);
     this.uniqueExerciseIds = Array.from(new Set(exercisesIds));
     this.consolidateExerciseArray();
-    return this.result;
+    return this.exercises;
   }
 
   consolidateExerciseArray() {
-    this.result = this.uniqueExerciseIds.map(id => this.consolidateId(id));
+    this.exercises = this.uniqueExerciseIds.map(id => this.consolidateId(id));
   }
 
   consolidateId(exerciseId) {
@@ -30,7 +29,7 @@ class CreateProgram {
     For properties with one-to-many relationships, the multiple values
     of the same property are consolidated into an array of unique values.
     */
-    const relevantExerciseObjects = this.exerciseArray.filter(
+    const relevantExerciseObjects = this.rawExerciseArray.filter(
       object => object.id === exerciseId
     );
     const consolidatedExerciseObject = relevantExerciseObjects[0];
