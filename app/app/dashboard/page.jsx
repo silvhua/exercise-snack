@@ -6,7 +6,8 @@ import {
   getExerciseProperty
 } from "../_libs/exerciseData";
 
-export default async function Dashboard() {
+export default async function Dashboard({userObject}) {
+  const { id, first_name, last_name, password } = userObject;
 
   const exercises = await getExercises('push');
 
@@ -21,16 +22,14 @@ export default async function Dashboard() {
   for (let i = 0; i < arrayProperties.length; i++) {
     const property = arrayProperties[i];
     exerciseObject[property] = await getExerciseProperty(exerciseId, property);
-    console.log(property, exerciseObject[property])
   }
-
 
   return (
     <>
-      <h1>Dashboard</h1>
+      <h1 className="heading2">Hi, {first_name}</h1>
       <UpcomingExercises />
       <ExerciseDetails exerciseObject={exerciseObject} />
-      <article key='cards' className='list'>
+      <article key='item-cards' className='list'>
         {exercises.map(object => {
           const { id, ...data } = object;
           return (

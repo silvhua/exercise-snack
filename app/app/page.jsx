@@ -1,11 +1,15 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import Dashboard from './dashboard/page';
+import getUser from "./_libs/userData";
 
-export default function Home() {
+export default async function Home() {
+
+  const username = 'silvhua'
+  const userObject = await getUser(username);
   return (
-    <main>
-      <Dashboard />
+    <main className="main">
+      <Dashboard userObject={userObject} />
     </main>
     // <main className={styles.main}>
     //   <div className={styles.description}>

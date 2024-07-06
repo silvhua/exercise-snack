@@ -7,24 +7,26 @@ const UpcomingExercises = async () => {
   const exerciseArray = await getExercisePerMovement();
 
   return (
-    <>
+    <article className='upcoming-exercises'>
       <h1>Upcoming Exercises</h1>
-      {
-        exerciseArray.map(exerciseObject => {
-          const { id, random_number, ...filteredObject } = exerciseObject;
-          return (
-            <ItemCard
-              data={filteredObject}
-              key={id}
-            />
-            // <ExerciseCard
-            //   exerciseObject={exerciseObject}
-            //   key={id}
-            // />
-          )
-        })
-      }
-    </>
+      <section className='card-container'>
+        {
+          exerciseArray.map(exerciseObject => {
+            const { id, random_number, ...filteredObject } = exerciseObject;
+            return (
+              // <ItemCard
+              //   data={filteredObject}
+              //   key={id}
+              // />
+              <ExerciseCard
+                exerciseObject={exerciseObject}
+                key={id}
+              />
+            )
+          })
+        }
+      </section>
+    </article>
   )
 }
 

@@ -8,9 +8,9 @@ export default async function sqlSelect(query, getFirst) {
     rows.map(row => {
       row.id = row.id.toString('ascii');
     })
-    // if (getFirst) {
-    //   rows = rows[0];
-    // }
+    if (getFirst) {
+      rows = rows[0];
+    }
     db.release();
     return rows;
   } catch (error) {

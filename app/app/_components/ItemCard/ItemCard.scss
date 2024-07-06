@@ -2,9 +2,9 @@
 @use '../../_styles/globals' as *;
 @use '../../_styles/mixins' as *;
 
-.card {
+.item-card {
   flex-direction: row;
-  background-color: $test-color;
+  background-color: $turquoise;
 
   &__property-key {
     display: none;

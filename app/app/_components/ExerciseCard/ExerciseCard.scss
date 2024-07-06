@@ -1,0 +1,10 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+
+
+.exercise-card {
+  @include card;
+  background-color: $turquoise;
+}
