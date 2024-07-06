@@ -11,10 +11,10 @@ const UpcomingExercises = async () => {
       <h1>Upcoming Exercises</h1>
       {
         exerciseArray.map(exerciseObject => {
-          const { id } = exerciseObject;
+          const { id, random_number, ...filteredObject } = exerciseObject;
           return (
             <ItemCard
-              data={exerciseObject}
+              data={filteredObject}
               key={id}
             />
             // <ExerciseCard

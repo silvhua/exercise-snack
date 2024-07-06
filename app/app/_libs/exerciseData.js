@@ -27,21 +27,6 @@ WHERE movement.name = "${movementCategory}"
 }
 
 export async function getExercisePerMovement() {
-  // const query = `
-  //   WITH randomized AS (
-  //   select
-  //     exercise.id, exercise.name,
-  //     movement.name AS "movement category",
-  //     ROW_NUMBER() OVER (PARTITION BY movement.name ORDER BY RAND()) AS random_number
-  //   FROM exercise
-  //   JOIN exercise_movement ON (exercise.id = exercise_id)
-  //   JOIN movement ON (movement_id = movement.id)
-  //   )
-  //   -- SELECT FIRST_VALUE(random_number), *
-  //   SELECT *
-  //   FROM randomized
-  //   WHERE random_number = 1
-  // `;
   const conditionTableName = "`condition`"; // backticks required around `condition` in SQL queries as it is a SQL keyword
   const query = `
     WITH randomized AS (
@@ -49,12 +34,27 @@ export async function getExercisePerMovement() {
     exercise.id, exercise.name,
     movement.name AS "movement category",
     ${conditionTableName}.name AS "condition",
+    discreetness.level AS discreetness,
+    focus.name AS focus,
+    environment.name AS environment,
+    muscle.name AS muscle,
+    tip.name AS tip,
+    tip.text,
     ROW_NUMBER() OVER (PARTITION BY movement.name ORDER BY RAND()) AS random_number
   FROM exercise
   LEFT JOIN exercise_movement ON (exercise.id = exercise_id)
   LEFT JOIN movement ON (movement_id = movement.id)
   LEFT JOIN exercise_condition ec ON (exercise.id = ec.exercise_id)
     LEFT JOIN ${conditionTableName} ON (condition_id = ${conditionTableName}.id)
+  LEFT JOIN discreetness ON (discreetness = discreetness.id)
+  LEFT JOIN exercise_muscle em ON (exercise.id = em.exercise_id)
+    LEFT JOIN muscle ON (muscle_id = muscle.id)
+  LEFT JOIN exercise_focus ef ON (exercise.id = ef.exercise_id)
+    LEFT JOIN focus ON (focus_id = focus.id)
+  LEFT JOIN exercise_environment ee ON (exercise.id = ee.exercise_id)
+    LEFT JOIN environment ON (environment_id = environment.id)
+  LEFT JOIN exercise_tip et ON (exercise.id = ee.exercise_id)
+    LEFT JOIN tip ON (tip_id = tip.id)
   )
   SELECT * FROM randomized
   WHERE name IN (
