@@ -30,7 +30,7 @@ export async function getExercisePerMovement() {
   const conditionTableName = "`condition`"; // backticks required around `condition` in SQL queries as it is a SQL keyword
   const query = `
     WITH randomized AS (
-  select
+  SELECT
     exercise.id, exercise.name,
     movement.name AS "movement category",
     ${conditionTableName}.name AS "condition",
@@ -38,8 +38,6 @@ export async function getExercisePerMovement() {
     focus.name AS focus,
     environment.name AS environment,
     muscle.name AS muscle,
-    tip.name AS tip,
-    tip.text,
     ROW_NUMBER() OVER (PARTITION BY movement.name ORDER BY RAND()) AS random_number
   FROM exercise
   LEFT JOIN exercise_movement ON (exercise.id = exercise_id)
@@ -53,8 +51,6 @@ export async function getExercisePerMovement() {
     LEFT JOIN focus ON (focus_id = focus.id)
   LEFT JOIN exercise_environment ee ON (exercise.id = ee.exercise_id)
     LEFT JOIN environment ON (environment_id = environment.id)
-  LEFT JOIN exercise_tip et ON (exercise.id = ee.exercise_id)
-    LEFT JOIN tip ON (tip_id = tip.id)
   )
   SELECT * FROM randomized
   WHERE name IN (
@@ -71,12 +67,9 @@ export async function getExerciseDetails(exerciseId) {
   const query = `
   SELECT
     exercise.id, exercise.name AS name,
-    movement.name AS "movement category",
     video.src,
     level AS "discreetness"
   FROM exercise
-  LEFT JOIN exercise_movement em ON (exercise.id = em.exercise_id)
-    JOIN movement ON (movement_id = movement.id)
   LEFT JOIN video ON (video_id = video.id)
   LEFT JOIN discreetness ON (discreetness = discreetness.id)
   WHERE exercise.id = "${exerciseId}"
@@ -87,32 +80,24 @@ export async function getExerciseDetails(exerciseId) {
   return exerciseObject;
 }
 
-export async function getFocus(exerciseId) {
-  const query = `
-    SELECT
-    exercise.id, exercise.name AS name,
-    focus.name as focus
-  FROM exercise
-  LEFT JOIN exercise_focus ef ON (exercise.id = ef.exercise_id)
-    LEFT JOIN focus ON (focus_id = focus.id)
-  WHERE exercise.id = "${exerciseId}"
-  `
-  const data = await sqlSelect(query);
-  return data;
-}
-
-export async function getCondition(exerciseId) {
-  const conditionTableName = "`condition`"; // backticks required around `condition` in SQL queries as it is a SQL keyword
+export async function getExerciseProperty(exerciseId, tableName) {
+  /* 
+  Get an exercise property value contained in a related table
+  */
+  const intermediateTable = `exercise_${tableName}`;
   const query = `
   SELECT
-    exercise.id, exercise.name AS name,
-    condition.name as "condition"
+    exercise.id, exercise.name,
+    ${tableName}.name AS "${tableName}"
   FROM exercise
-  LEFT JOIN exercise_condition ec ON (exercise.id = ec.exercise_id)
-    LEFT JOIN ${conditionTableName} ON (condition_id = ${conditionTableName}.id)
+  LEFT JOIN exercise_${tableName} ON (exercise.id = ${intermediateTable}.exercise_id)
+    JOIN ${tableName} ON (${tableName}_id = ${tableName}.id)
   WHERE exercise.id = "${exerciseId}"
   `
   const data = await sqlSelect(query);
-  return data;
+  const exerciseObject = data;
+  
+  return exerciseObject;
 }
+
 

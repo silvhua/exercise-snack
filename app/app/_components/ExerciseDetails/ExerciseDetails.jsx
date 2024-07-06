@@ -10,7 +10,7 @@ const ExerciseDetails = ({ exerciseObject }) => {
         Object.entries(detailsObject).map(([key, value]) => {
           if (value && typeof value === 'object') {
             const valuesArray = Object.values(value);
-            console.log(key, valuesArray[0])
+            // console.log(key, valuesArray[0])
             
             return (
               <div key={key} className='exercise__property'>
