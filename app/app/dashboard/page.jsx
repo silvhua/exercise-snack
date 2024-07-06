@@ -1,5 +1,6 @@
 import ExerciseDetails from "../_components/ExerciseDetails/ExerciseDetails";
 import ItemCard from "../_components/ItemCard/ItemCard";
+import UpcomingExercises from "../_components/UpcomingExercises/UpcomingExercises";
 import { getExercises, getExerciseDetails, getFocus, getCondition } from "../_libs/exerciseData";
 
 export default async function Dashboard() {
@@ -15,6 +16,7 @@ export default async function Dashboard() {
   return (
     <>
       <h1>Dashboard</h1>
+      <UpcomingExercises />
       <ExerciseDetails exerciseObject={exerciseObject} />
       <article key='cards' className='list'>
         {exercises.map(object => {

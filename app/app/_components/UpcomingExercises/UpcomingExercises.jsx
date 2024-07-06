@@ -1,15 +1,30 @@
-import { getExercises, getMovements } from '@/app/_libs/exerciseData';
+import { getExercisePerMovement, getExercises, getMovements } from '@/app/_libs/exerciseData';
 import './UpcomingExercises.scss';
+import ExerciseCard from '../ExerciseCard/ExerciseCard';
+import ItemCard from '../ItemCard/ItemCard';
 
 const UpcomingExercises = async () => {
-  const movementCategories = await getMovements();
-  const exerciseList = await movementCategories.map(async (category) => {
-    const exercisesArray = await getExercises(category);
-  })
+  const exerciseArray = await getExercisePerMovement();
 
   return (
-    <ul>
-    </ul>
+    <>
+      <h1>Upcoming Exercises</h1>
+      {
+        exerciseArray.map(exerciseObject => {
+          const { id } = exerciseObject;
+          return (
+            // <ItemCard
+            //   data={exerciseObject}
+            //   key={id}
+            // />
+            <ExerciseCard
+              exerciseObject={exerciseObject}
+              key={id}
+            />
+          )
+        })
+      }
+    </>
   )
 }
 

@@ -42,7 +42,7 @@ export async function getExercisePerMovement() {
     FROM randomized
     WHERE random_number = 1
   `;
-  let rows = sqlSelect(query);
+  let rows = await sqlSelect(query);
   return rows;
 }
 

@@ -9,7 +9,7 @@ const ItemCard = ({data}) => {
           return (
             <div className='card__property' key={index}>
               <h3>{key}</h3>
-              <p>{value}</p>
+              <p className='card__value'>{value}</p>
             </div>
           )
         })
