@@ -67,25 +67,15 @@ allData[mainTableName] = allData[mainTableName].map(object => {
   return filteredObject;
 })
 
-// // Process the `activity` seed data to take only the first element of the properties with array values
+
 // allData['activity'] = allData['activity'].map(object => {
-//   const arrayProperties = ['exercise', 'session'];
-//   arrayProperties.forEach(key => {
-//     object[`${key}_id`] = object[key]?.[0];
-//   })
-//   return object;
+//   const { exercise, session, ...filteredObject } = object;
+//   return filteredObject;
 // })
-allData['activity'] = allData['activity'].map(object => {
-  const { exercise, session, ...filteredObject } = object;
-  return filteredObject;
-})
-allData['session'] = allData['session'].map(object => {
-  const { user, ...filteredObject } = object;
-  return filteredObject;
-})
 
 
-// console.log(allData['exercise'][0]);
+console.log(allData['session']);
+console.log(allData['user']);
 // console.log(Object.keys(allData));
 
 export async function seed(knex) {
