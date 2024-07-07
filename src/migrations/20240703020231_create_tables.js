@@ -2,7 +2,7 @@ export function up(knex) {
   return knex.schema
     .dropTableIfExists('exercise_discreetness')
     .dropTableIfExists('exercise_movement')
-    .dropTableIfExists('exercise_condition')
+    .dropTableIfExists('exercise_context')
     .dropTableIfExists('exercise_environment')
     .dropTableIfExists('exercise_focus')
     .dropTableIfExists('exercise_modifier')
@@ -11,7 +11,7 @@ export function up(knex) {
     .dropTableIfExists('environment')
     .dropTableIfExists('created_time')
     .dropTableIfExists('focus')
-    .dropTableIfExists('condition')
+    .dropTableIfExists('context')
     .dropTableIfExists('modifier')
     .dropTableIfExists('movement')
     .dropTableIfExists('muscle')
@@ -78,7 +78,7 @@ export function up(knex) {
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
     })
-    .createTable('condition', (table) => {
+    .createTable('context', (table) => {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
       table.binary('database_id', 128).notNullable();
@@ -140,7 +140,7 @@ export function up(knex) {
       table.binary('id', 128).primary();
       table
         .binary('user', 128)
-        .references('id').inTable('user')
+        .references('id').inTable('user').notNullable()
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
@@ -153,12 +153,12 @@ export function up(knex) {
       table.integer('reps');
       table.integer('duration');
       table
-        .binary('exercise_id', 128)
+        .binary('exercise_id', 128).notNullable()
         .references('id').inTable('exercise')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table
-        .binary('session_id', 128)
+        .binary('session_id', 128).notNullable()
         .references('id').inTable('session')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
@@ -175,13 +175,6 @@ export function up(knex) {
       table.binary('environment_id', 128).references('id').inTable('environment')
         .onDelete('CASCADE').onUpdate('CASCADE');
     })
-    // .createTable('exercise_discreetness', (table) => {
-    //   table.increments('id').primary();
-    //   table.binary('exercise_id', 128).references('id').inTable('exercise')
-    //     .onDelete('CASCADE').onUpdate('CASCADE');
-    //   table.binary('discreetness_id', 128).references('id').inTable('discreetness')
-    //     .onDelete('CASCADE').onUpdate('CASCADE');
-    // })
     .createTable('exercise_movement', (table) => {
       table.increments('id').primary();
       table.binary('exercise_id', 128).references('id').inTable('exercise')
@@ -189,11 +182,11 @@ export function up(knex) {
       table.binary('movement_id', 128).references('id').inTable('movement')
         .onDelete('CASCADE').onUpdate('CASCADE');
     })
-    .createTable('exercise_condition', (table) => {
+    .createTable('exercise_context', (table) => {
       table.increments('id').primary();
       table.binary('exercise_id', 128).references('id').inTable('exercise')
         .onDelete('CASCADE').onUpdate('CASCADE');
-      table.binary('condition_id', 128).references('id').inTable('condition')
+      table.binary('context_id', 128).references('id').inTable('context')
         .onDelete('CASCADE').onUpdate('CASCADE');
     })
     .createTable('exercise_focus', (table) => {
@@ -232,7 +225,7 @@ export function down(knex) {
   return knex.schema
     .dropTableIfExists('exercise_discreetness')
     .dropTableIfExists('exercise_movement')
-    .dropTableIfExists('exercise_condition')
+    .dropTableIfExists('exercise_context')
     .dropTableIfExists('exercise_environment')
     .dropTableIfExists('exercise_focus')
     .dropTableIfExists('exercise_modifier')
@@ -241,7 +234,7 @@ export function down(knex) {
     .dropTableIfExists('environment')
     .dropTableIfExists('created_time')
     .dropTableIfExists('focus')
-    .dropTableIfExists('condition')
+    .dropTableIfExists('context')
     .dropTableIfExists('modifier')
     .dropTableIfExists('movement')
     .dropTableIfExists('muscle')

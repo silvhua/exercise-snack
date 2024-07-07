@@ -47,7 +47,7 @@ notionDbNames.forEach(dbName => {
 
 // Create the one to many & many to many tables branching from `exercise`table
 const oneToManyTables = [
-  'movement', 'muscle', 'modifier', 'focus', 'condition', 'environment', 'tip', 
+  'movement', 'muscle', 'modifier', 'focus', 'context', 'environment', 'tip', 
 ]
 
 const multiselectProperties = ['environment'];
@@ -62,30 +62,23 @@ arrayProperties.forEach(property => {
 // Remove relation properties that have many to many relationship
 allData[mainTableName] = allData[mainTableName].map(object => {
   const {
-    muscle, movement, modifier, condition, environment, focus, tip, video,
+    muscle, movement, modifier, context, environment, focus, tip, video,
     ...filteredObject } = object;
   return filteredObject;
 })
 
-// // Process the `activity` seed data to take only the first element of the properties with array values
-// allData['activity'] = allData['activity'].map(object => {
-//   const arrayProperties = ['exercise', 'session'];
-//   arrayProperties.forEach(key => {
-//     object[`${key}_id`] = object[key]?.[0];
-//   })
-//   return object;
-// })
+
 allData['activity'] = allData['activity'].map(object => {
+  //rename `exercise` and `session` property names to match columns in migration
   const { exercise, session, ...filteredObject } = object;
-  return filteredObject;
-})
-allData['session'] = allData['session'].map(object => {
-  const { user, ...filteredObject } = object;
+  filteredObject.session_id = object.session;
+  filteredObject.exercise_id = object.exercise;
   return filteredObject;
 })
 
 
-// console.log(allData['exercise'][0]);
+console.log(allData['activity']);
+// console.log(allData['user']);
 // console.log(Object.keys(allData));
 
 export async function seed(knex) {
@@ -93,6 +86,8 @@ export async function seed(knex) {
   // move 'activity' table to the end to avoid foreign key issues
   allTables.shift();
   allTables.push('activity');
+  allTables = allTables.filter(tableName => tableName !== 'user');
+  allTables = ['user', ...allTables];
   for (let i = 0; i < allTables.length; i++) {
     const table = allTables[i];
     console.log(`Seeding ${table}`);
