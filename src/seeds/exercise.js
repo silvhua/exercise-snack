@@ -68,14 +68,17 @@ allData[mainTableName] = allData[mainTableName].map(object => {
 })
 
 
-// allData['activity'] = allData['activity'].map(object => {
-//   const { exercise, session, ...filteredObject } = object;
-//   return filteredObject;
-// })
+allData['activity'] = allData['activity'].map(object => {
+  //rename `exercise` and `session` property names to match columns in migration
+  const { exercise, session, ...filteredObject } = object;
+  filteredObject.session_id = object.session;
+  filteredObject.exercise_id = object.exercise;
+  return filteredObject;
+})
 
 
-console.log(allData['session']);
-console.log(allData['user']);
+console.log(allData['activity']);
+// console.log(allData['user']);
 // console.log(Object.keys(allData));
 
 export async function seed(knex) {
@@ -83,6 +86,8 @@ export async function seed(knex) {
   // move 'activity' table to the end to avoid foreign key issues
   allTables.shift();
   allTables.push('activity');
+  allTables = allTables.filter(tableName => tableName !== 'user');
+  allTables = ['user', ...allTables];
   for (let i = 0; i < allTables.length; i++) {
     const table = allTables[i];
     console.log(`Seeding ${table}`);
