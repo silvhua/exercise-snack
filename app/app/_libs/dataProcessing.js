@@ -5,7 +5,7 @@ class CreateProgram {
     this.arrayProperties = [
       'muscle',
       'focus',
-      'condition',
+      'context',
       'movement',
       'environment', 'tip'
     ]
@@ -13,6 +13,7 @@ class CreateProgram {
 
   async getExercises() {
     this.rawExerciseArray = await getExercisePerMovement();
+    console.log(this.rawExerciseArray)
     const exercisesIds = this.rawExerciseArray.map(object => object.id);
     this.uniqueExerciseIds = Array.from(new Set(exercisesIds));
     this.consolidateExerciseArray();

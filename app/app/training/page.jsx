@@ -11,7 +11,7 @@ const Training = async () => {
   const exerciseObject = await getExerciseDetails(exerciseId);
 
   const arrayProperties = [
-    'focus', 'condition',
+    'focus', 'context',
     'movement', 'muscle', 'environment', 'tip'
   ]
 

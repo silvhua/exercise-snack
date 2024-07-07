@@ -33,13 +33,13 @@ export async function getExercisePerMovement() {
   f an exercise has >1 movement category, we want to avoid having it 
   repeated in the training program.
   */
-  const conditionTableName = "`condition`"; // backticks required around `condition` in SQL queries as it is a SQL keyword
+
   const query = `
     WITH randomized AS (
   SELECT
     exercise.id, exercise.name,
     movement.name AS "movement",
-    ${conditionTableName}.name AS "condition",
+    context.name AS "context",
     discreetness.level AS discreetness,
     focus.name AS focus,
     environment.name AS environment,
@@ -49,8 +49,8 @@ export async function getExercisePerMovement() {
   FROM exercise
   LEFT JOIN exercise_movement ON (exercise.id = exercise_id)
     LEFT JOIN movement ON (movement_id = movement.id)
-  LEFT JOIN exercise_condition ec ON (exercise.id = ec.exercise_id)
-    LEFT JOIN ${conditionTableName} ON (condition_id = ${conditionTableName}.id)
+  LEFT JOIN exercise_context ec ON (exercise.id = ec.exercise_id)
+    LEFT JOIN context ON (context_id = context.id)
   LEFT JOIN discreetness ON (discreetness = discreetness.id)
   LEFT JOIN exercise_muscle em ON (exercise.id = em.exercise_id)
     LEFT JOIN muscle ON (muscle_id = muscle.id)
@@ -63,7 +63,7 @@ export async function getExercisePerMovement() {
     MIN(id) AS id, 
     MIN(name) AS name, 
     MIN(movement) AS movement, 
-    MIN(${conditionTableName}) AS ${conditionTableName}, 
+    MIN(context) AS context, 
     MIN(discreetness) AS discreetness, 
     MIN(focus) AS focus, 
     MIN(environment) AS environment, 
@@ -81,32 +81,6 @@ export async function getExercisePerMovement() {
   return rows;
 }
 
-/* 
-    MIN(random_number)
-    id, 
-    name,
-    ${conditionTableName},
-    discreetness,
-    focus,
-    environment,
-    muscle
-
-
-  ORDER BY movement
-    WHERE (random_number <=2)
-
-
-,
-  randomized2 AS (
-  SELECT
-    exercise.id, exercise.name,
-    movement.name AS "movement",
-    random_number AS random_number2
-  FROM exercise
-  LEFT JOIN exercise_movement ON (exercise.id = exercise_id)
-    LEFT JOIN movement ON (movement_id = movement.id)
-  )
-*/
 
 export async function getExerciseDetails(exerciseId) {
   const query = `
@@ -132,18 +106,10 @@ export async function getExerciseProperty(exerciseId, tableName) {
   */
   let columnName = `${tableName}_id`;
   let intermediateTable = `exercise_${tableName}`;
-  let aliasColumn = tableName;
-  if (tableName === 'condition') {
-    // backticks required around `condition` in SQL queries as it is an SQL keyword
-    tableName = "`condition`";
-    columnName = "condition_id";
-    intermediateTable = 'exercise_condition';
-    aliasColumn = "condition";
-  }
   const query = `
   SELECT
     exercise.id, exercise.name,
-    ${tableName}.name AS "${aliasColumn}"
+    ${tableName}.name AS "${tableName}"
   FROM exercise
   LEFT JOIN ${intermediateTable} ON (exercise.id = ${intermediateTable}.exercise_id)
     JOIN ${tableName} ON (${columnName} = ${tableName}.id)
