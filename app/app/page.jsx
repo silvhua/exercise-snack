@@ -1,16 +1,23 @@
-import Image from "next/image";
+// 'use client'
+// import { useState } from "react";
+
 import styles from "./page.module.css";
 import Dashboard from './dashboard/page';
 import getUser from "./_libs/userData";
 
 export default async function Home() {
-
-  const username = 'silvhua'
+  // [username, setUsername] = useState('silvhua');
+  // [userObject, setUserObject] = useState(await getUser(username))
+  const username = 'silvhua';
   const userObject = await getUser(username);
+
+  if (!userObject) {
+    return <p>Oops!</p>
+  }
   return (
-    <main className="main">
+    <>
       <Dashboard userObject={userObject} />
-    </main>
+    </>
     // <main className={styles.main}>
     //   <div className={styles.description}>
     //     <p>
