@@ -4,6 +4,7 @@ import UpcomingExercises from '../_components/UpcomingExercises/UpcomingExercise
 const Training = async () => {
   return (
     <>
+      Welcome to training
       <UpcomingExercises />
     </>
   )

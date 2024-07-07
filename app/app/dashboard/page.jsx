@@ -1,3 +1,6 @@
+import { redirect } from 'next/navigation'
+
+import Button from "../_components/Button/Button";
 import ExerciseDetails from "../_components/ExerciseDetails/ExerciseDetails";
 import ItemCard from "../_components/ItemCard/ItemCard";
 import UpcomingExercises from "../_components/UpcomingExercises/UpcomingExercises";
@@ -6,7 +9,8 @@ import {
   getExerciseProperty
 } from "../_libs/exerciseData";
 
-export default async function Dashboard({userObject}) {
+export default async function Dashboard({ userObject }) {
+  
   const { id, first_name, last_name, password } = userObject;
 
   const exercises = await getExercises('push');
@@ -24,10 +28,16 @@ export default async function Dashboard({userObject}) {
     exerciseObject[property] = await getExerciseProperty(exerciseId, property);
   }
 
+  const buttonProps = {
+    text: 'Start Snack',
+    className: 'start-button'
+  }
+
   return (
     <>
       <h1 className="heading2">Hi, {first_name}</h1>
       <UpcomingExercises />
+      <Button buttonProps={buttonProps} />
       <ExerciseDetails exerciseObject={exerciseObject} />
       <article key='item-cards' className='list'>
         {exercises.map(object => {
