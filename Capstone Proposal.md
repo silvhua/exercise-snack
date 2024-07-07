@@ -93,8 +93,8 @@ Route | Method | Description
 `/movements/:id/exercises` | GET | Get all exercises for a given movement category. The request body will include values for applying filters.
 `/movement` | GET | Get all movement categories.
 `/users/sessions` | GET | Get a list of all a user's exercise sessions.
-`/users/sessions` | POST, PUT | Log and update a user's exercise sessions.
-`/users/activities` | POST, PUT | Log and update a user's activity.
+`/users/:userId/sessions` | POST, PUT | Log and update a user's exercise sessions.
+`/users/:userId/activities` | POST, PUT | Log and update a user's activity.
 
 ### Auth
 

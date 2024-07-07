@@ -1,6 +1,5 @@
-import { NextResponse } from "next/server";
 import crypto from 'crypto';
-import sqlSelect from "@/app/_libs/utils";
+import {apiSqlQuery} from "@/app/_libs/utils";
 
 export async function GET() {
     const query = `
@@ -18,15 +17,8 @@ export async function GET() {
     FROM randomized
     WHERE random_number = 1
   `;
-  try {
-    let rows = await sqlSelect(query);
-    console.log('rows in GET', rows)
-    return NextResponse.json(rows)
-  } catch (error) {
-    return NextResponse.json({
-      error: error
-    }, { status: 500 })
-  }
+  return await apiSqlQuery(query);
+
 }
 
 export async function POST() {
@@ -41,5 +33,5 @@ export async function POST() {
     '446d0b20-e96b-4164-a591-b3566c6cefc7'
   )
   `
-  return NextResponse.json({"hello": "world"})
+  return await apiSqlQuery(query);
 }

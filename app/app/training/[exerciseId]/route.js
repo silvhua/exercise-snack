@@ -1,12 +1,16 @@
 'use client'
-// import './TrainingPage.scss';
 
+import axios from "axios";
+
+import apiInstance from "@/app/_libs/ApiClient";
+// import './TrainingPage.scss';
 import Button from "@/app/_components/Button/Button";
 import TrainingFormElements from "@/app/_components/TrainingFormElements/TrainingFormElements";
 
 const TrainingPage = ({ params }) => {
   const exerciseId = params.exerciseId;
-  console.log('training page')
+  
+  
   // const exerciseObject = await getExerciseDetails(exerciseId);
   const formButtonProps = {
     'text': 'Done!',
