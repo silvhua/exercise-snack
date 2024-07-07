@@ -3,18 +3,18 @@ This file is used to customize the pipeline for migrating data from Notion to th
 */
 export const databases = [
   'EXERCISE_DATABASE',
-  // 'ENVIRONMENT_DATABASE',
-  // 'MOVEMENT_DATABASE',
-  // 'MUSCLE_DATABASE',
-  // 'MODIFIER_DATABASE',
-  // 'FOCUS_DATABASE',
-  // 'DISCREETNESS_DATABASE',
-  // 'CONTEXT_DATABASE',
-  // 'USER_DATABASE', 
-  // 'ACTIVITY_DATABASE',
-  // 'SESSION_DATABASE',
-  // 'TIP_DATABASE',
-  // 'VIDEO_DATABASE'
+  'ENVIRONMENT_DATABASE',
+  'MOVEMENT_DATABASE',
+  'MUSCLE_DATABASE',
+  'MODIFIER_DATABASE',
+  'FOCUS_DATABASE',
+  'DISCREETNESS_DATABASE',
+  'CONTEXT_DATABASE',
+  'USER_DATABASE', 
+  'ACTIVITY_DATABASE',
+  'SESSION_DATABASE',
+  'TIP_DATABASE',
+  'VIDEO_DATABASE'
 ]
 
 export const syncType = process.argv[2] || 'partial';

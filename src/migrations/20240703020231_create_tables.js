@@ -27,7 +27,7 @@ export function up(knex) {
       table.string('name').notNullable();
       table.string('src');
       table.string('thumbnail');
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128).notNullable();
       table.string('url');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
@@ -39,7 +39,7 @@ export function up(knex) {
       table.string('url');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128).notNullable();
     })
     .createTable('exercise', (table) => {
       table.binary('id', 128).primary();
@@ -59,11 +59,11 @@ export function up(knex) {
       table.string('url');
       table.timestamp('created_time').defaultTo(knex.fn.now());
       table.timestamp('last_edited_time').defaultTo(knex.fn.now());
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128).notNullable();
     })
     .createTable('environment', (table) => {
       table.binary('id', 128).primary();
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128).notNullable();
       table.string('url');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
@@ -73,7 +73,7 @@ export function up(knex) {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
       table.string('body_region');
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128).notNullable();
       table.string('url');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
@@ -81,7 +81,7 @@ export function up(knex) {
     .createTable('context', (table) => {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128).notNullable();
       table.string('url');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
@@ -90,7 +90,7 @@ export function up(knex) {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
       table.string('description');
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128).notNullable();
       table.string('url');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
@@ -99,7 +99,7 @@ export function up(knex) {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
       table.string('description');
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128).notNullable();
       table.string('url');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
@@ -108,7 +108,7 @@ export function up(knex) {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
       table.string('body_region');
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128).notNullable();
       table.string('url');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
@@ -117,7 +117,7 @@ export function up(knex) {
       table.binary('id', 128).primary();
       table.string('name').notNullable();
       table.string('text');
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128).notNullable();
       table.string('url');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
@@ -131,7 +131,7 @@ export function up(knex) {
       table.string('last_name');
       table.string('gender');
       table.string('country');
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128).notNullable();
       table.string('url');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
@@ -145,7 +145,9 @@ export function up(knex) {
         .onDelete('CASCADE')
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('created_time').defaultTo(knex.fn.now());
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128)
+      //   .defaultTo('8946ab15-dda7-48f6-8e71-e0557e3158bc')
+      //   .notNullable();
       table.string('url');
     })
     .createTable('activity', (table) => {
@@ -162,7 +164,7 @@ export function up(knex) {
         .references('id').inTable('session')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-      table.binary('database_id', 128).notNullable();
+      // table.binary('database_id', 128).notNullable();
       table.string('notes');
       table.string('url');
       table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
