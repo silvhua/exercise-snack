@@ -21,16 +21,18 @@ export async function GET() {
 
 }
 
-export async function POST() {
+export async function POST(request) {
   const uuid = crypto.randomUUID()
-  console.log('post', uuid)
+  const requestBody = await request.json();
+  const { id, userId } = requestBody;
+  console.log(userId)
   const query = `
   INSERT INTO session (
     id, user
   )
   VALUES (
     "${uuid}",
-    '446d0b20-e96b-4164-a591-b3566c6cefc7'
+    "${userId}"
   )
   `
   return await apiSqlQuery(query);
