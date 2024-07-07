@@ -20,6 +20,7 @@ const TrainingPage = ({ params }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    // make api request here
     console.log('submitted')
 
   }

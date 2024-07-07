@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import crypto from 'crypto';
 import sqlSelect from "@/app/_libs/utils";
 
 export async function GET() {
@@ -26,4 +27,19 @@ export async function GET() {
       error: error
     }, { status: 500 })
   }
+}
+
+export async function POST() {
+  const uuid = crypto.randomUUID()
+  console.log('post', uuid)
+  const query = `
+  INSERT INTO session (
+    id, user
+  )
+  VALUES (
+    "${uuid}",
+    '446d0b20-e96b-4164-a591-b3566c6cefc7'
+  )
+  `
+  return NextResponse.json({"hello": "world"})
 }
