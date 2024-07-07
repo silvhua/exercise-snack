@@ -18,7 +18,7 @@ import fs from 'fs';
       'muscles'
       'movement category'
       'modifier'
-      'condition'
+      'context'
       'focus'
 
     Multi-select

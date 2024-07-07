@@ -47,7 +47,7 @@ notionDbNames.forEach(dbName => {
 
 // Create the one to many & many to many tables branching from `exercise`table
 const oneToManyTables = [
-  'movement', 'muscle', 'modifier', 'focus', 'condition', 'environment', 'tip', 
+  'movement', 'muscle', 'modifier', 'focus', 'context', 'environment', 'tip', 
 ]
 
 const multiselectProperties = ['environment'];
@@ -62,7 +62,7 @@ arrayProperties.forEach(property => {
 // Remove relation properties that have many to many relationship
 allData[mainTableName] = allData[mainTableName].map(object => {
   const {
-    muscle, movement, modifier, condition, environment, focus, tip, video,
+    muscle, movement, modifier, context, environment, focus, tip, video,
     ...filteredObject } = object;
   return filteredObject;
 })
