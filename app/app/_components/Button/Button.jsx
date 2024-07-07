@@ -7,7 +7,7 @@ const Button = ({buttonProps}) => {
   const router = useRouter()
 
   const startTraining = () => {
-    if (className === 'start-button') {
+    if (className === 'start-button' || !className) {
       // router.push('/training')
       router.push(routerPath);
     }

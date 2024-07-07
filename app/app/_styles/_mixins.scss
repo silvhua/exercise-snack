@@ -16,9 +16,11 @@
   display: flex;
   position: relative;
   width: $element-width;
+  box-sizing: border-box;
 }
 @mixin flex-mixin--row ($element-width) {
   @include flex-mixin($element-width);
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
@@ -27,7 +29,6 @@
   @include flex-mixin($element-width);
   flex-direction: column;
   justify-content: center;
-  box-sizing: border-box;
 }
 
 // this is a function called by `set-element-margin` mixin.

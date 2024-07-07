@@ -8,6 +8,6 @@ button {
   height: 2.625rem;
   border-radius: $border-radius;
   background-color: $dark-blue;
-  color: white;
+  color: $button-text-color;
   cursor: pointer;
 }

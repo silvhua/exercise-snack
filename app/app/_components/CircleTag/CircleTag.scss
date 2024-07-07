@@ -1,0 +1,23 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+.circle-tag {
+  @include flex-mixin--column(1.5rem);
+  align-items: center;
+  background-color: darkblue;
+  color: $button-text-color;
+  // width: 1.5rem;
+  // height: 1.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.tag-text {
+  color: $button-text-color;
+  font-size: .75rem;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  line-height: 100%;
+}

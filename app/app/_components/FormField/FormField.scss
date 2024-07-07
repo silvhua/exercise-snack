@@ -1,0 +1,27 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+input {
+  border-radius: $border-radius;
+  font-size: 14px;
+  padding: .75rem 1rem;
+}
+
+
+
+.input {
+  // &__container {
+  //   @include flex-mixin--row(100%);
+  // }
+
+  &--small {
+    @include flex-mixin--row(100%);
+    width: calc((100% - .5rem) / 2);
+  }
+
+  &--wide {
+    @include flex-mixin(100%);
+    width: 100%;
+  }
+}

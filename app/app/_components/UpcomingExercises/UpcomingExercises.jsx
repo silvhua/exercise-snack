@@ -1,5 +1,5 @@
 // import { getExercisePerMovement, getExercises, getMovements } from '@/app/_libs/exerciseData';
-import program from '@/app/_libs/processData';
+import program from '@/app/_libs/dataProcessing';
 import './UpcomingExercises.scss';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import Button from '../Button/Button';
