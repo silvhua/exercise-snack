@@ -11,7 +11,6 @@ export default async function Dashboard({ userObject }) {
   
   const { id, first_name, last_name, password } = userObject;
 
-  const exercises = await getExercises('push');
   return (
     <>
       <h1 className="heading2">Hi, {first_name}</h1>

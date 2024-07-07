@@ -1,6 +1,6 @@
 import './FormField.scss';
 
-const FormField = async (props) => {
+const FormField = (props) => {
   const { formFieldProps } = props;
   const { type, name, placeholder, className } = formFieldProps;
   

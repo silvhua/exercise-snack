@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
-import pool from "@/app/_libs/mysql";
+import sqlSelect from "@/app/_libs/utils";
 
 export async function GET() {
-  try {
-    const db = await pool.getConnection()
     const query = `
     WITH randomized AS (
     select
@@ -14,17 +12,14 @@ export async function GET() {
     JOIN exercise_movement ON (exercise.id = exercise_id)
     JOIN movement ON (movement_id = movement.id)
     )
-    -- SELECT FIRST_VALUE(random_number), *
+    -- SELECT FIRST_VALUE(random_number), 
     SELECT *
     FROM randomized
     WHERE random_number = 1
   `;
-    let [rows] = await db.execute(query);
-    rows.map(row => {
-      row.id = row.id.toString('ascii');
-    })
-    db.release()
-    
+  try {
+    let rows = await sqlSelect(query);
+    console.log('rows in GET', rows)
     return NextResponse.json(rows)
   } catch (error) {
     return NextResponse.json({

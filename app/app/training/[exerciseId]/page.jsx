@@ -1,23 +1,38 @@
+'use client'
 // import './TrainingPage.scss';
 
 import Button from "@/app/_components/Button/Button";
 import TrainingFormElements from "@/app/_components/TrainingFormElements/TrainingFormElements";
 
-const TrainingPage = async ({ params }) => {
+const TrainingPage = ({ params }) => {
   const exerciseId = params.exerciseId;
+  console.log('training page')
+  // const exerciseObject = await getExerciseDetails(exerciseId);
+  const formButtonProps = {
+    'text': 'Done!',
+    routerPath: '/'
+  }
 
-  const buttonProps = {
+  const homeButtonProps = {
     'text': 'home',
     routerPath: '/'
+  }
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log('submitted')
+
   }
 
   return (
     <>
       ExerciseId: {exerciseId}
-      <form>
+      <form onSubmit={onSubmit}>
         <TrainingFormElements />
+        <Button buttonProps={formButtonProps} />
       </form>
-      <Button buttonProps={buttonProps} />
+
+      <Button buttonProps={homeButtonProps} />
     </>
   )
 }

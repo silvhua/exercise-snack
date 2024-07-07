@@ -4,7 +4,7 @@ import FormField from '../FormField/FormField';
 import './TrainingFormElements.scss';
 
 
-const TrainingFormElements = async () => {
+const TrainingFormElements = () => {
 
   const repsInputProps = {
     type: 'number',
