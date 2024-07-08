@@ -37,16 +37,17 @@ export async function apiSqlQuery(query, getFirst) {
       })
     }
     db.release();
-    if (rows.length > 0) {
-      if (getFirst) {
-        rows = rows[0];
-      }
+    if (!getFirst) {
+      return NextResponse.json(rows)
+    } else if (rows?.length > 0) {
+      rows = rows[0];
       return NextResponse.json(rows)
     } else {
       return NextResponse.json({
         error: 'No records found.'
       }, { status: 404 })
     }
+    
   } catch (error) {
     console.log(error)
     return NextResponse.json({
