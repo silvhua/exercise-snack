@@ -27,6 +27,7 @@ export async function apiSqlQuery(query, getFirst) {
   /* 
     Helper function for API endpoints to query the database.
   */
+  
   try {
     const db = await pool.getConnection();
     const result = await db.execute(query);

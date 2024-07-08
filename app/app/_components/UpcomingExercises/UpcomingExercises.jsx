@@ -31,7 +31,6 @@ const UpcomingExercises = ({ userObject }) => {
 
   const startTrainingHandler = async (event) => {
     const postSessionResponse = await postData('sessions', { userId: userId });
-    // const exerciseDetails = await getExerciseDetails(nextExerciseId);
 
   }
   const buttonProps = {
