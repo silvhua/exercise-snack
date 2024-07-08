@@ -1,12 +1,12 @@
 "use client"
 import { useEffect, useState } from 'react';
 import './ExerciseDetails.scss';
-import { readExerciseDetails, readExerciseProperty } from '@/app/_libs/exerciseData';
 import Placeholder from '../Placeholder/Placeholder';
-import apiInstance from '@/app/_libs/ApiClient';
-import { getExerciseDetails } from '@/app/_libs/clientCrud';
+import TrainingFormElements from '../TrainingFormElements/TrainingFormElements';
+import Button from '../Button/Button';
+import { getExerciseDetails, getExerciseProperty } from '@/app/_libs/clientCrud';
 
-const ExerciseDetails = ({ exerciseId }) => {
+const ExerciseDetails = ({ exerciseId, onSubmit, handleInputChange }) => {
   const [exerciseObject, setExerciseObject] = useState(null);
 
   const retrieveExerciseDetails = async () => { 
@@ -17,11 +17,10 @@ const ExerciseDetails = ({ exerciseId }) => {
       'movement', 'muscle', 'environment', 'tip'
     ]
     if (response) {
-      console.log(response)
-      // for (let i = 0; i < arrayProperties.length; i++) {
-      //   const property = arrayProperties[i];
-      //   response[property] = await readExerciseProperty(exerciseId, property);
-      // }
+      for (let i = 0; i < arrayProperties.length; i++) {
+        const property = arrayProperties[i];
+        response[property] = await getExerciseProperty(exerciseId, property);
+      }
       
       setExerciseObject(response);
     }
@@ -33,12 +32,21 @@ const ExerciseDetails = ({ exerciseId }) => {
   if (!exerciseObject) {
     return <Placeholder text="fetching"/>
   }
+  
+  const formButtonProps = {
+    'text': 'Done!',
+    onClick: onSubmit
+  }
 
   const { id, name, video, ...detailsObject } = exerciseObject;
   return (
     <article key='details' className='exercise'>
       
       <h1>{name}</h1>
+        <form onSubmit={onSubmit}>
+          <TrainingFormElements handleInputChange={handleInputChange} />
+          <Button buttonProps={formButtonProps} />
+        </form>
       {
         Object.entries(detailsObject).map(([key, value]) => {
           if (value && typeof value === 'object') {

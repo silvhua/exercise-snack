@@ -25,14 +25,6 @@ const TrainingPage = ({ params }) => {
     userId: userId
   }
 
-  // const renderExerciseDetails = () => {
-  //   setExerciseDetailsComponent(<ExerciseDetails exerciseId={exerciseId} />);
-  // }
-
-  // useEffect(() => {
-  //   renderExerciseDetails();
-  // }, [exerciseId])
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     console.log(event.target)
@@ -70,27 +62,24 @@ const TrainingPage = ({ params }) => {
     }
   }
     
-  
-  const formButtonProps = {
-    'text': 'Done!',
-    onClick: handleSubmit
-  }
-
   const homeButtonProps = {
     'text': 'Return to dashboard',
     href: '/dashboard'
   }
 
-
   return (
     <>
       ExerciseId: {exerciseId}
-      <ExerciseDetails exerciseId={exerciseId} />
-      {/* {exerciseDetailsComponent} */}
-      <form onSubmit={handleSubmit}>
+      <ExerciseDetails
+        exerciseId={exerciseId}
+        onSubmit={handleSubmit}
+        handleInputChange={handleInputChange}
+        
+      />
+      {/* <form onSubmit={handleSubmit}>
         <TrainingFormElements handleInputChange={handleInputChange} />
         <Button buttonProps={formButtonProps} />
-      </form>
+      </form> */}
       <Button buttonProps={homeButtonProps} />
     </>
   )

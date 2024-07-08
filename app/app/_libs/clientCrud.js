@@ -18,6 +18,13 @@ export async function getExerciseDetails(exerciseId) {
   return response;
 }
 
+export async function getExerciseProperty(exerciseId, property) {
+  const response = await apiInstance.get(
+    `exercises/${exerciseId}/${property}`
+  );
+  return response;
+}
+
 export async function getUser(username) {
   const response = await apiInstance.get(`users/${username}`)
   return response;
@@ -25,7 +32,3 @@ export async function getUser(username) {
 
 
 
-// export async function getExerciseDetails(exerciseId) {
-//   const response = await apiInstance.get(`exercises/${exerciseId}`)
-//   return response;
-// }
