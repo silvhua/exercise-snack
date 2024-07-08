@@ -69,7 +69,6 @@ const TrainingPage = ({ params }) => {
 
   return (
     <>
-      ExerciseId: {exerciseId}
       <ExerciseDetails
         exerciseId={exerciseId}
         onSubmit={handleSubmit}
