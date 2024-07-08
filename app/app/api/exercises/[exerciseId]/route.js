@@ -4,7 +4,6 @@ export async function GET(req, { params }) {
   /* 
   https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes#example
   */
-  console.log(params)
   const exerciseId = params.exerciseId;
   const query = `
   SELECT
@@ -16,7 +15,8 @@ export async function GET(req, { params }) {
   LEFT JOIN discreetness ON (discreetness = discreetness.id)
   WHERE exercise.id = "${exerciseId}"
   `
-  return await apiSqlQuery(query);
+  const response = await apiSqlQuery(query);
+  return response;
 
 }
 

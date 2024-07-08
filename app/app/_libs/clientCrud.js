@@ -17,3 +17,8 @@ export async function getExerciseDetails(exerciseId) {
   const response = await apiInstance.get(`exercises/${exerciseId}`);
   return response;
 }
+
+export async function getUser(userId) {
+  const response = await apiInstance.get(`users/${userId}`)
+  return response;
+}
