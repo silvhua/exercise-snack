@@ -36,11 +36,17 @@ export async function apiSqlQuery(query, getFirst) {
         row.id = row.id.toString('ascii');
       })
     }
-    if (getFirst) {
-      rows = rows[0];
-    }
     db.release();
-    return NextResponse.json(rows)
+    if (rows.length > 0) {
+      if (getFirst) {
+        rows = rows[0];
+      }
+      return NextResponse.json(rows)
+    } else {
+      return NextResponse.json({
+        error: 'No records found.'
+      }, { status: 404 })
+    }
   } catch (error) {
     console.log(error)
     return NextResponse.json({

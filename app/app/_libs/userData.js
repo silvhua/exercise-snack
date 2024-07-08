@@ -3,7 +3,7 @@
 import sqlSelect from "./utils";
 
 
-export default async function getUser(username) {
+export default async function readUser(username) {
   const query = `
   SELECT
     id, username, first_name, last_name,
