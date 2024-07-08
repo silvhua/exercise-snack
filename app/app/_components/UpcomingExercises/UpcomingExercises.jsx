@@ -1,12 +1,16 @@
 "use client"
 
+import { useEffect, useState } from 'react';
 import './UpcomingExercises.scss';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import Button from '../Button/Button';
 import { generateProgram } from '@/app/_libs/clientCrud';
-import { useEffect, useState } from 'react';
+import postData from "@/app/_libs/clientCrud";
 
-const UpcomingExercises = () => {
+const UpcomingExercises = ({ userObject }) => {
+  const {
+    username, first_name, userId
+  } = userObject;
   const [programArray, setProgramArray] = useState(null);
   useEffect(() => {
     const getProgram = async () => {
@@ -21,10 +25,17 @@ const UpcomingExercises = () => {
     return 'Awaiting response'
   }
   const nextExerciseId = programArray[0].id;
+
+  const startTrainingHandler = async (event) => {
+    const postSessionResponse = await postData('exercises', {userId: userId});
+    console.log('post session response', postSessionResponse);
+
+  }
   const buttonProps = {
     text: 'Start Snack',
     className: 'start-button',
-    routerPath: `/training/${nextExerciseId}`
+    routerPath: `/training/${nextExerciseId}`,
+    onClick: startTrainingHandler
   }
 
   return (

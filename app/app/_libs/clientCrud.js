@@ -1,7 +1,6 @@
 "use server"
 
 import apiInstance from "./ApiClient"
-import program from '@/app/_libs/dataProcessing';
 
 
 export default async function postData (endpoint, data) {
@@ -11,6 +10,5 @@ export default async function postData (endpoint, data) {
 
 export async function generateProgram() {
   const exerciseArray = await apiInstance.get('programs');
-  // console.log(exerciseArray);
   return exerciseArray;
 }
