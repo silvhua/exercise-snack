@@ -5,7 +5,6 @@ import styles from "./page.module.css";
 import Dashboard from './dashboard/page';
 import getUser from "./_libs/userData";
 import Button from "./_components/Button/Button";
-import Link from "next/link";
 
 export default function Home() {
   // [username, setUsername] = useState('silvhua');
@@ -18,13 +17,12 @@ export default function Home() {
 
   const buttonProps = {
     text: 'Login',
-    className: 'login-button'
+    className: 'login-button',
+    href: '/dashboard'
   }
   return (
     <>
-      <Link href='/dashboard'>
-        <Button buttonProps={buttonProps} />
-      </Link>
+      <Button buttonProps={buttonProps} />
     </>
     // <main className={styles.main}>
     //   <div className={styles.description}>
