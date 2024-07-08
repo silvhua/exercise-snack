@@ -1,28 +1,40 @@
 'use client'
-// import { useState } from "react";
-
+import { useState } from "react";
+import { useRouter } from 'next/navigation';
+import { getUser } from "./_libs/clientCrud";
 import styles from "./page.module.css";
-import Dashboard from './dashboard/page';
-import getUser from "./_libs/userData";
+
 import Button from "./_components/Button/Button";
 
 export default function Home() {
-  // [username, setUsername] = useState('silvhua');
-  // [userObject, setUserObject] = useState(await getUser(username))
-  const username = 'silvhua';
-  // const userObject = await getUser(username);
-  // if (!userObject) {
-  //   return <p>Oops!</p>
-  // }
+  const router = useRouter();
+  const [username, setUsername] = useState(null);
+  const [userObject, setUserObject] = useState(null);
+
+
+  const verifyUser = async (event) => {
+    event.preventDefault();
+    const formUsername = event.target.username.value || 'silvhua'; /////
+    if (formUsername?.length > 1) {
+      const response = await getUser(formUsername);
+      if (response)  {
+        setUserObject(response);
+        setUsername(formUsername);
+        router.push('/dashboard');
+      }
+    }
+  }
 
   const buttonProps = {
     text: 'Login',
-    className: 'login-button',
-    href: '/dashboard'
+    className: 'login-button'
   }
   return (
     <>
-      <Button buttonProps={buttonProps} />
+      <form onSubmit={verifyUser}>
+        <input name='username' />
+        <Button buttonProps={buttonProps} />
+      </form>
     </>
     // <main className={styles.main}>
     //   <div className={styles.description}>

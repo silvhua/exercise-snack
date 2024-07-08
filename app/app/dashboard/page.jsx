@@ -15,7 +15,6 @@ export default async function Dashboard({ userObject }) {
   //   id: id,
   //   first_name: first_name
   // };
-
   return (
     <>
       <h1 className="heading2">Hi, {first_name}</h1>

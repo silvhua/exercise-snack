@@ -18,7 +18,7 @@ export async function getExerciseDetails(exerciseId) {
   return response;
 }
 
-export async function getUser(userId) {
-  const response = await apiInstance.get(`users/${userId}`)
+export async function getUser(username) {
+  const response = await apiInstance.get(`users/${username}`)
   return response;
 }
