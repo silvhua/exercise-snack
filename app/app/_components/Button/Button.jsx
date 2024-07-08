@@ -1,19 +1,13 @@
 'use client'
+import Link from 'next/link';
 import './Button.scss';
 // import { useRouter } from 'next/navigation'
 
 const Button = ({buttonProps}) => {
-  const { text, className, routerPath, onClick } = buttonProps;
+  const { text, className, href, onClick, routerPath } = buttonProps;
   // const router = useRouter()
 
-  // const startTraining = () => {
-  //   if (className === 'start-button' || !className) {
-  //     console.log(`${text} button clicked`);
-  //     // router.push('/training')
-  //     // router.push(routerPath);
-  //   }
-  // }
-  return (
+  const buttonElement = (
     <button
       className={className}
       onClick={onClick}
@@ -21,6 +15,12 @@ const Button = ({buttonProps}) => {
       {text}
     </button>
   )
+
+  if (!href) {
+    return <>{buttonElement}</>
+  } else {
+    return <Link href={href}>{buttonElement}</Link>
+  }
 }
 
 export default Button

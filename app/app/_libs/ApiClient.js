@@ -77,7 +77,6 @@ class ApiClient {
     } catch (error) {
       const responseMessage = await error.response.data;
       console.log(responseMessage);
-      console.log(error)
       return false;
     }
   }

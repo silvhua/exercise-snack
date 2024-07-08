@@ -1,14 +1,14 @@
 import ExerciseDetails from '../_components/ExerciseDetails/ExerciseDetails';
 // import './Training.scss';
 import {
-  getExerciseDetails,
-  getExerciseProperty
+  readExerciseDetails,
+  readExerciseProperty
 } from "../_libs/exerciseData";
 
 const Training = async () => {
 
   const exerciseId = '36533d7e-63a4-4c57-b728-3efa873d3dac';
-  const exerciseObject = await getExerciseDetails(exerciseId);
+  const exerciseObject = await readExerciseDetails(exerciseId);
 
   const arrayProperties = [
     'focus', 'context',
@@ -17,7 +17,7 @@ const Training = async () => {
 
   for (let i = 0; i < arrayProperties.length; i++) {
     const property = arrayProperties[i];
-    exerciseObject[property] = await getExerciseProperty(exerciseId, property);
+    exerciseObject[property] = await readExerciseProperty(exerciseId, property);
   }
 
   return (

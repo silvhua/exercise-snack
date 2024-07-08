@@ -9,6 +9,11 @@ export default async function postData (endpoint, data) {
 }
 
 export async function generateProgram() {
-  const exerciseArray = await apiInstance.get('programs');
-  return exerciseArray;
+  const response = await apiInstance.get('programs');
+  return response;
+}
+
+export async function getExerciseDetails(exerciseId) {
+  const response = await apiInstance.get(`exercises/${exerciseId}`);
+  return response;
 }

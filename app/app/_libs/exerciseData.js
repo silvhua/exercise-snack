@@ -2,7 +2,7 @@
 
 import sqlSelect from "./utils";
 
-export async function getMovements() {
+export async function readMovements() {
   const query = `
   SELECT
     id,
@@ -14,7 +14,7 @@ export async function getMovements() {
   return rows;
 }
 
-export async function getExercises(movementCategory) {
+export async function readExercises(movementCategory) {
   const query = `
 select
   exercise.id, exercise.name,
@@ -28,7 +28,7 @@ WHERE movement.name = "${movementCategory}"
   return rows;
 }
 
-export async function getExercisePerMovement() {
+export async function readExercisePerMovement() {
   /* 
   Select 1 exercise per movement category.
   Common table expression and random number columns required because 
@@ -84,7 +84,7 @@ export async function getExercisePerMovement() {
 }
 
 
-export async function getExerciseDetails(exerciseId) {
+export async function readExerciseDetails(exerciseId) {
   const query = `
   SELECT
     exercise.id, exercise.name AS name,
@@ -102,7 +102,7 @@ export async function getExerciseDetails(exerciseId) {
   return exerciseObject;
 }
 
-export async function getExerciseProperty(exerciseId, tableName) {
+export async function readExerciseProperty(exerciseId, tableName) {
   /* 
   Get an exercise property value contained in a related table
   */

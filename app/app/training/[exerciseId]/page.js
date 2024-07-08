@@ -4,6 +4,7 @@
 import Button from "@/app/_components/Button/Button";
 import TrainingFormElements from "@/app/_components/TrainingFormElements/TrainingFormElements";
 import postData from "@/app/_libs/clientCrud";
+import Link from "next/link";
 
 const TrainingPage = ({ params }) => {
   const exerciseId = params.exerciseId;
@@ -20,16 +21,12 @@ const TrainingPage = ({ params }) => {
   }
 
   const homeButtonProps = {
-    'text': 'home',
-    routerPath: '/'
+    'text': 'Return to dashboard',
+    href: '/dashboard'
   }
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    // make api request here
-    const postSessionResponse = await postData('exercises', sessionObject);
-    console.log('submitted', postSessionResponse);
-    console.log('submitted');
 
   }
 
@@ -40,7 +37,6 @@ const TrainingPage = ({ params }) => {
         <TrainingFormElements />
         <Button buttonProps={formButtonProps} />
       </form>
-
       <Button buttonProps={homeButtonProps} />
     </>
   )
