@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { getUser } from "./_libs/clientCrud";
 import "@/app/_components/TrainingFormElements/TrainingFormElements.scss";
@@ -10,9 +10,7 @@ import FormField from "./_components/FormField/FormField";
 
 export default function Home() {
   const router = useRouter();
-  const [username, setUsername] = useState(null);
   const [userObject, setUserObject] = useState(null);
-
 
   const verifyUser = async (event) => {
     event.preventDefault();
@@ -21,11 +19,16 @@ export default function Home() {
       const response = await getUser(formUsername);
       if (response)  {
         setUserObject(response);
-        setUsername(formUsername);
-        router.push('/dashboard');
       }
     }
   }
+
+  useEffect(() => {
+    if (userObject) {
+      localStorage.setItem('userDetails', JSON.stringify(userObject));
+      router.push('/dashboard');
+    }
+  }, [userObject]);
 
   const buttonProps = {
     text: 'Login',
