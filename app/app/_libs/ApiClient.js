@@ -1,4 +1,5 @@
 import axios from "axios";
+import 'dotenv/config';
 
 class ApiClient {
   constructor() {
@@ -7,6 +8,7 @@ class ApiClient {
 
   createRequestUrl(endpoint) {
     const requestUrl = `${this.baseUrl}/${endpoint}`;
+    console.log(requestUrl)
     return requestUrl;
   }
 
@@ -63,20 +65,22 @@ class ApiClient {
     }
   }
 
-  // async get(endpoint) {
-  //   /* Helper method for making GET requests (following DRY principle). */
-  //   const requestUrl = this.createRequestUrl(endpoint);
-  //   try {
-  //     const response = await axios.get(requestUrl);
-  //     const data = response.data;
-  //     // this.logResponse(response, endpoint, 'GET');
-  //     return data;
-  //   } catch (error) {
-  //     const responseMessage = await error.response.data;
-  //     alert(responseMessage);
-  //     return false;
-  //   }
-  // }
+  async get(route) {
+    /* Helper method for making GET requests (following DRY principle). */
+    const endpoint = `api/${route}`;
+    const requestUrl = this.createRequestUrl(endpoint);
+    try {
+      const response = await axios.get(requestUrl);
+      const data = response.data;
+      // this.logResponse(response, endpoint, 'GET');
+      return data;
+    } catch (error) {
+      const responseMessage = await error.response.data;
+      console.log(responseMessage);
+      console.log(error)
+      return false;
+    }
+  }
 
   // async getItemsArray(route) {
   //   const endpoint = `api/${route}`;

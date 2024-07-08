@@ -1,6 +1,6 @@
 import './ExerciseCard.scss';
 
-const ExerciseCard = async ({ exerciseObject }) => {
+const ExerciseCard = ({ exerciseObject }) => {
   const { id, name, movement } = exerciseObject;
   /* 
   - movement category: text

@@ -95,6 +95,7 @@ Route | Method | Description
 `/users/sessions` | GET | Get a list of all a user's exercise sessions.
 `/users/:userId/sessions` | POST, PUT | Log and update a user's exercise sessions.
 `/users/:userId/activities` | POST, PUT | Log and update a user's activity.
+`/program` | GET | Generate a new program
 
 ### Auth
 

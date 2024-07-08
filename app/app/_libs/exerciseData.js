@@ -1,3 +1,5 @@
+"use server"
+
 import sqlSelect from "./utils";
 
 export async function getMovements() {

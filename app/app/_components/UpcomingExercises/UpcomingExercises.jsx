@@ -1,18 +1,31 @@
-// import { getExercisePerMovement, getExercises, getMovements } from '@/app/_libs/exerciseData';
-import program from '@/app/_libs/dataProcessing';
+"use client"
+
 import './UpcomingExercises.scss';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import Button from '../Button/Button';
+import { generateProgram } from '@/app/_libs/clientCrud';
+import { useEffect, useState } from 'react';
 
-const UpcomingExercises = async () => {
-  const exerciseArray = await program.getExercises();
-  const nextExerciseId = exerciseArray[0].id;
+const UpcomingExercises = () => {
+  const [programArray, setProgramArray] = useState(null);
+  useEffect(() => {
+    const getProgram = async () => {
+      const response = await generateProgram();
+      if (response) {
+        setProgramArray(response)
+      }
+    }
+    getProgram();
+  }, [])
+  if (!programArray) {
+    return 'Awaiting response'
+  }
+  const nextExerciseId = programArray[0].id;
   const buttonProps = {
     text: 'Start Snack',
     className: 'start-button',
     routerPath: `/training/${nextExerciseId}`
   }
-
 
   return (
     <article className='upcoming-exercises'>
@@ -20,7 +33,7 @@ const UpcomingExercises = async () => {
       <Button buttonProps={buttonProps} />
       <section className='card-container'>
         {
-          exerciseArray.map(exerciseObject => {
+          programArray.map(exerciseObject => {
             const { id, random_number, ...filteredObject } = exerciseObject;
             return (
               <ExerciseCard

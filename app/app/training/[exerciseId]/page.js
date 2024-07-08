@@ -1,8 +1,5 @@
 'use client'
 
-import axios from "axios";
-
-import apiInstance from "@/app/_libs/ApiClient";
 // import './TrainingPage.scss';
 import Button from "@/app/_components/Button/Button";
 import TrainingFormElements from "@/app/_components/TrainingFormElements/TrainingFormElements";
@@ -30,7 +27,7 @@ const TrainingPage = ({ params }) => {
   const onSubmit = async (event) => {
     event.preventDefault();
     // make api request here
-    const postSessionResponse = await postData('/exercises', sessionObject);
+    const postSessionResponse = await postData('exercises', sessionObject);
     console.log('submitted', postSessionResponse);
     console.log('submitted');
 

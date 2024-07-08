@@ -1,22 +1,30 @@
-// 'use client'
+'use client'
 // import { useState } from "react";
 
 import styles from "./page.module.css";
 import Dashboard from './dashboard/page';
 import getUser from "./_libs/userData";
+import Button from "./_components/Button/Button";
+import Link from "next/link";
 
-export default async function Home() {
+export default function Home() {
   // [username, setUsername] = useState('silvhua');
   // [userObject, setUserObject] = useState(await getUser(username))
   const username = 'silvhua';
-  const userObject = await getUser(username);
+  // const userObject = await getUser(username);
+  // if (!userObject) {
+  //   return <p>Oops!</p>
+  // }
 
-  if (!userObject) {
-    return <p>Oops!</p>
+  const buttonProps = {
+    text: 'Login',
+    className: 'login-button'
   }
   return (
     <>
-      <Dashboard userObject={userObject} />
+      <Link href='/dashboard'>
+        <Button buttonProps={buttonProps} />
+      </Link>
     </>
     // <main className={styles.main}>
     //   <div className={styles.description}>

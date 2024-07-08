@@ -1,14 +1,14 @@
-import { redirect } from 'next/navigation'
-
 import UpcomingExercises from "../_components/UpcomingExercises/UpcomingExercises";
-import {getExercises} from "../_libs/exerciseData";
 
 export default async function Dashboard({ userObject }) {
 
-  if (!userObject) {
-    redirect('/');
+  // if (!userObject) {
+  //   redirect('/');
+  // }
+  userObject = {
+    username: 'silvhua',
+    first_name: 'Silvia'
   }
-  
   const { id, username, first_name, last_name, password } = userObject;
   // const userProps = { 
   //   id: id,
