@@ -2,17 +2,3 @@
 @use '../../_styles/globals' as *;
 @use '../../_styles/mixins' as *;
 
-.form {
-  &__input-group {
-    @include flex-mixin--row(100%);
-    // align-items: flex-start;
-  }
-
-  &__fields-container {
-    @include flex-mixin--column(100%);
-  }
-
-  &__number-input-div {
-    @include flex-mixin--row(100%);
-  }
-}

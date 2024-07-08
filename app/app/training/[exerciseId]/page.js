@@ -1,23 +1,70 @@
 'use client'
 
 // import './TrainingPage.scss';
+import { useState } from "react";
 import Button from "@/app/_components/Button/Button";
 import TrainingFormElements from "@/app/_components/TrainingFormElements/TrainingFormElements";
 import postData from "@/app/_libs/clientCrud";
-import Link from "next/link";
 
 const TrainingPage = ({ params }) => {
   const exerciseId = params.exerciseId;
   const userId = '446d0b20-e96b-4164-a591-b3566c6cefc7';
+  const [formData, setFormData] = useState({
+    reps: null,
+    duration: null,
+    notes: null
+  });
+  const [errorState, setErrorState] = useState({
+    reps: null,
+    duration: null
+  });
   
   const sessionObject = {
     userId: userId
   }
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    console.log(event.target)
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    setErrorState({
+      ...errorState,
+      [name]: null,
+    });
+  }
+
+  const validateForm = async () => {
+    let errors = {};
+    errors = {
+      reps: formData.reps < 0,
+      duration: formData.duration < 0
+    }
+    setErrorState(errors);
+    const propertiesWithErrors = Object.keys(errors).filter((key) => {
+      return errors[key] == true;
+    });
+    const isValid = !Object.values(errors).includes(true);
+    console.log(formData)
+    return isValid;
+  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const validFormSubmission = await validateForm();
+    if (validFormSubmission) {
+      console.log('submitted')
+    } else {
+      console.log('invalid submission')
+    }
+  }
+    
   
   // const exerciseObject = await getExerciseDetails(exerciseId);
   const formButtonProps = {
     'text': 'Done!',
-    routerPath: '/'
+    onClick: handleSubmit
   }
 
   const homeButtonProps = {
@@ -25,16 +72,12 @@ const TrainingPage = ({ params }) => {
     href: '/dashboard'
   }
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-
-  }
 
   return (
     <>
       ExerciseId: {exerciseId}
-      <form onSubmit={onSubmit}>
-        <TrainingFormElements />
+      <form onSubmit={handleSubmit}>
+        <TrainingFormElements handleInputChange={handleInputChange} />
         <Button buttonProps={formButtonProps} />
       </form>
       <Button buttonProps={homeButtonProps} />

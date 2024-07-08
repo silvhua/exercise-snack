@@ -4,20 +4,22 @@ import FormField from '../FormField/FormField';
 import './TrainingFormElements.scss';
 
 
-const TrainingFormElements = () => {
+const TrainingFormElements = ({ handleInputChange }) => {
 
   const repsInputProps = {
     type: 'number',
     name: 'reps',
     placeholder: 'reps',
-    className: 'input--small'
+    className: 'input--small',
+    handleInputChange: handleInputChange
   }
 
   const durationInputProps = {
     type: 'number',
     name: 'duration',
     placeholder: 'seconds',
-    className: 'input--small'
+    className: 'input--small',
+    handleInputChange: handleInputChange
   }
 
 

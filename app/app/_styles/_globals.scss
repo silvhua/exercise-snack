@@ -103,3 +103,21 @@ p {
   @include flex-mixin--column(100%);
   border-radius: $border-radius;
 }
+
+form {
+  @include flex-mixin--column(100%);
+  gap: $spacing--mobile;
+
+  &__input-group {
+    @include flex-mixin--row(100%);
+    // align-items: flex-start;
+  }
+
+  &__fields-container {
+    @include flex-mixin--column(100%);
+  }
+
+  &__number-input-div {
+    @include flex-mixin--row(100%);
+  }
+}

@@ -2,9 +2,11 @@
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import { getUser } from "./_libs/clientCrud";
+import "@/app/_components/TrainingFormElements/TrainingFormElements.scss";
 import styles from "./page.module.css";
 
 import Button from "./_components/Button/Button";
+import FormField from "./_components/FormField/FormField";
 
 export default function Home() {
   const router = useRouter();
@@ -29,10 +31,18 @@ export default function Home() {
     text: 'Login',
     className: 'login-button'
   }
+
+  const usernameInputProps = {
+    text: 'Login',
+    className: 'input--wide',
+    name: 'username',
+    placeholder: 'username'
+  }
   return (
     <>
-      <form onSubmit={verifyUser}>
-        <input name='username' />
+      <form onSubmit={verifyUser}
+      >
+        <FormField formFieldProps={usernameInputProps} />
         <Button buttonProps={buttonProps} />
       </form>
     </>
