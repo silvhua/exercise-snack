@@ -1,6 +1,6 @@
 @use './variables' as *;
 @use './mixins' as *;
-@use './fonts' as *;
+// @use './fonts' as *;
 
 * {
   @include zero-spacing;
@@ -104,7 +104,7 @@ p {
   border-radius: $border-radius;
 }
 
-form {
+.form, form {
   @include flex-mixin--column(100%);
   gap: $spacing--mobile;
 
@@ -119,5 +119,6 @@ form {
 
   &__number-input-div {
     @include flex-mixin--row(100%);
+    flex-direction: row;
   }
 }

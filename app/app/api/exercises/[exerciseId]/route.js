@@ -15,8 +15,7 @@ export async function GET(req, { params }) {
   LEFT JOIN discreetness ON (discreetness = discreetness.id)
   WHERE exercise.id = "${exerciseId}"
   `
-  const response = await apiSqlQuery(query);
+  const response = await apiSqlQuery(query, true);
   return response;
-
 }
 

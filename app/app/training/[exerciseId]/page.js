@@ -1,10 +1,11 @@
 'use client'
 
 // import './TrainingPage.scss';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@/app/_components/Button/Button";
 import TrainingFormElements from "@/app/_components/TrainingFormElements/TrainingFormElements";
 import postData from "@/app/_libs/clientCrud";
+import ExerciseDetails from "@/app/_components/ExerciseDetails/ExerciseDetails";
 
 const TrainingPage = ({ params }) => {
   const exerciseId = params.exerciseId;
@@ -18,10 +19,19 @@ const TrainingPage = ({ params }) => {
     reps: null,
     duration: null
   });
+  const [exerciseDetailsComponent, setExerciseDetailsComponent] = useState(null);
   
   const sessionObject = {
     userId: userId
   }
+
+  // const renderExerciseDetails = () => {
+  //   setExerciseDetailsComponent(<ExerciseDetails exerciseId={exerciseId} />);
+  // }
+
+  // useEffect(() => {
+  //   renderExerciseDetails();
+  // }, [exerciseId])
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -61,7 +71,6 @@ const TrainingPage = ({ params }) => {
   }
     
   
-  // const exerciseObject = await getExerciseDetails(exerciseId);
   const formButtonProps = {
     'text': 'Done!',
     onClick: handleSubmit
@@ -76,6 +85,8 @@ const TrainingPage = ({ params }) => {
   return (
     <>
       ExerciseId: {exerciseId}
+      <ExerciseDetails exerciseId={exerciseId} />
+      {/* {exerciseDetailsComponent} */}
       <form onSubmit={handleSubmit}>
         <TrainingFormElements handleInputChange={handleInputChange} />
         <Button buttonProps={formButtonProps} />

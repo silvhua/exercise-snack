@@ -22,3 +22,10 @@ export async function getUser(username) {
   const response = await apiInstance.get(`users/${username}`)
   return response;
 }
+
+
+
+// export async function getExerciseDetails(exerciseId) {
+//   const response = await apiInstance.get(`exercises/${exerciseId}`)
+//   return response;
+// }
