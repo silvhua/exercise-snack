@@ -87,15 +87,20 @@ Below is the entity relationship diagram of the database:
 
 ### Endpoints
 
-Route | Method | Description
---- | ---- | ---
-`/exercises:id` | GET | Get the details for a specific exercise.
-`/movements/:id/exercises` | GET | Get all exercises for a given movement category. The request body will include values for applying filters.
-`/movement` | GET | Get all movement categories.
-`/users/sessions` | GET | Get a list of all a user's exercise sessions.
-`/users/:userId/sessions` | POST, PUT | Log and update a user's exercise sessions.
-`/users/:userId/activities` | POST, PUT | Log and update a user's activity.
-`/program` | GET | Generate a new program
+Route | Method | Description | Status
+--- | ---- | --- | ---
+`/exercises:id` | GET | Get the details for a specific exercise. | done
+`/users/sessions` | GET | Get a list of all a user's exercise sessions. | 
+`/sessions` | POST | Create a new exercise session | done
+`/users/:userId/sessions` | GET| Read a user's exercise sessions. | 
+`/users/:userId/activities` | GET, POST, PUT | Read, log, and update a user's activity. |
+`/program` | GET | Generate a new program | done
+
+
+Tables | CRUD operation | Description | Status
+--- | ---- | --- | ---
+`movement` | read | Get all movement categories. | done
+`movements`, `exercises` | read | Get all exercises for a given movement category. The request body will include values for applying filters. | partially done; need filters
 
 ### Auth
 
