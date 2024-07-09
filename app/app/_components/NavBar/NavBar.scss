@@ -7,8 +7,7 @@
   z-index: 3;
   padding: $page-margin--mobile;
   background-color: $off-white;
-  // height: 4rem;
-  height: auto;
+  height: $nav-bar-height--mobile;
   width: 100%;
   bottom: 0;
   border-top: $divider;

@@ -11,8 +11,9 @@
 }
 
 main {
-  padding: 16px $page-margin--tablet;
+  padding: 0 16px $page-margin--tablet;
   display: flex;
+  margin-bottom:  $nav-bar-height--mobile
 }
 
 h1 {

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import UpcomingExercises from "../_components/UpcomingExercises/UpcomingExercises";
 import Placeholder from "../_components/Placeholder/Placeholder";
+import Button from "../_components/Button/Button";
 
 export default function Dashboard() {
   const [userObject, setUserObject] = useState(null);
@@ -15,6 +16,11 @@ export default function Dashboard() {
     return <Placeholder text='Verifying your details...' />
   }
 
+  const buttonProps = {
+    href: '/',
+    text: 'Log out'
+  }
+
   // userObject = {
   //   username: 'silvhua',
   //   first_name: 'Silvia',
@@ -25,7 +31,8 @@ export default function Dashboard() {
   return (
     <>
       <h1 className="heading2">Hi, {first_name}</h1>
-      <UpcomingExercises userObject={userObject}  />
+      <UpcomingExercises userObject={userObject} />
+      <Button buttonProps={buttonProps} />
     </>
   );
 }
