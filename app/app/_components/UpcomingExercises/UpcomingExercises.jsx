@@ -1,20 +1,22 @@
 "use client"
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import './UpcomingExercises.scss';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import Button from '../Button/Button';
 import { generateProgram, getExerciseDetails } from '@/app/_libs/clientCrud';
 import postData from "@/app/_libs/clientCrud";
-import Link from 'next/link';
 import Placeholder from '../Placeholder/Placeholder';
-import next from 'next';
 
 const UpcomingExercises = ({ userObject }) => {
+  const router = useRouter();
   const {
-    username, first_name, userId
+    username, first_name, id
   } = userObject;
+  
   const [programArray, setProgramArray] = useState(null);
+  const [sessionObject, setSessionObject] = useState(null);
   useEffect(() => {
     const getProgram = async () => {
       const response = await generateProgram();
@@ -30,13 +32,18 @@ const UpcomingExercises = ({ userObject }) => {
   const nextExerciseId = programArray[0].id;
 
   const startTrainingHandler = async (event) => {
-    const postSessionResponse = await postData('sessions', { userId: userId });
-
+    const postSessionResponse = await postData('sessions', { userId: id });
+    if (!postSessionResponse.error) {
+      setSessionObject(postSessionResponse);
+      sessionStorage.setItem('sessionDetails', JSON.stringify(postSessionResponse));
+      router.push(`/training/${nextExerciseId}`);
+    }
   }
+
   const buttonProps = {
     text: 'Start Snack',
     className: 'start-button',
-    href: `/training/${nextExerciseId}`,
+    // href: `/training/${nextExerciseId}`,
     onClick: startTrainingHandler
   }
 
@@ -47,7 +54,7 @@ const UpcomingExercises = ({ userObject }) => {
       <section className='card-container'>
         {
           programArray.map(exerciseObject => {
-            const { id, random_number, ...filteredObject } = exerciseObject;
+            const { id } = exerciseObject;
             return (
               <ExerciseCard
                 exerciseObject={exerciseObject}

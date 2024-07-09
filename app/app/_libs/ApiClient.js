@@ -8,7 +8,6 @@ class ApiClient {
 
   createRequestUrl(endpoint) {
     const requestUrl = `${this.baseUrl}/${endpoint}`;
-    console.log(requestUrl)
     return requestUrl;
   }
 

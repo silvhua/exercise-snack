@@ -24,6 +24,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    // useEffect is required to access localStorage
     if (userObject) {
       localStorage.setItem('userDetails', JSON.stringify(userObject));
       router.push('/dashboard');
