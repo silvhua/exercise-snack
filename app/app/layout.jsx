@@ -1,4 +1,5 @@
 import Header from "./_components/Header/Header";
+import NavBar from "./_components/NavBar/NavBar";
 import "./globals.scss";
 
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
           <main className="main">
             {children}
           </main>
+          <NavBar />
       </body>
     </html>
   );

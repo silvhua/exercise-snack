@@ -1,0 +1,41 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+.nav-bar {
+  position: fixed;
+  z-index: 3;
+  padding: $page-margin--mobile;
+  background-color: $off-white;
+  // height: 4rem;
+  height: auto;
+  width: 100%;
+  bottom: 0;
+  border-top: $divider;
+
+  @include tablet {
+    top: calc($header-height--tablet / 2);
+    transform: translateY(-50%);
+    width: auto;
+    gap: $spacing--tablet;
+    height: 3rem;
+    right: 0;
+    border: none;
+  }
+
+  &__container {
+    @include flex-mixin--row(100%);
+    width: 100%;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+
+    @include tablet {
+      gap: $spacing--tablet;
+    }
+  }
+
+  &__icon {
+
+  }
+}
+

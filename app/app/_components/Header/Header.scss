@@ -7,7 +7,8 @@ header {
 
   @include tablet {
     @include flex-mixin--row(100%);
-    background-color: black;
+    border-bottom: $divider;
+    background-color: $off-white;
     color: white;
     font-weight: bold;
     position: fixed;
