@@ -85,6 +85,28 @@ Better mockups to come. Below are examples of similar apps:
 Below is the entity relationship diagram of the database:
 <img src="./documentation/ERD.svg" alt="entity relationship diagram" />
 
+The tables in the database are grouped into:
+1. Content data, i.e. related to exercises.
+2. User and activity data.
+
+There are many-to-many relationships between some tables.
+
+Table | Group | What each record represents | Relations
+--- | ---- | --- | ---
+exercise | 1 | Properties of a single exercise. | several
+movement | 1 | A movement category into which exercises are classified, e.g. squat, push. | Relates to `exercise` via `exercise_movement`
+context | 1 | A context that a user can apply for filtering exercises, e.g. high heels, watching TV | Relates to `exercise` via `exercise_context`
+discreetness | 1 | The level of discreetness of a given exercise for filtering exercises, ranging from invisible to full workout-mode. | `exercise.discreetness` -> `id`
+environment | 1 | The equipment or environment required for a given exercise, e.g. couch, wall | Relates to `exercise` via `exercise_environment`
+focus | 1 | The focus of the exercise, e.g. strength, posture. | Relates to `exercise` table via the `exercise_focus` table.
+modifier | 1 | A single way in which exercise execution can be modified, e.g. slow eccentric, add pause | Relates to `exercise` via `exercise_modifier`
+muscle | 1 | A muscle group that may be trained by an exercise, e.g. glutes. | Relates to `exercise` via `exercise_muscle`
+tip | 1 | An exercise tip | Relates to `exercise` via `exercise_tip`
+video | 1 | A src for an exercise video |  `exercise.video_id` -> `id`
+user | 2 | A user | 
+session | 2 | The exercise sessions for a given user. | Foreign key: `user` -> `user.id`
+activity | 2 | Data for a single set of a single exercise logged by a given user | Foreign keys: `exercise_id` -> `exercise.id`; `session_id` -> `session.id`
+
 ### Endpoints
 
 Route | Method | Description | Status
@@ -94,6 +116,7 @@ Route | Method | Description | Status
 `/sessions` | POST | Create a new exercise session | done
 `/users/:userId/sessions` | GET| Read a user's exercise sessions. | 
 `/users/:userId/activities` | GET, POST, PUT | Read, log, and update a user's activity. |
+`/activities` | POST, PUT | Log, and update a user's activity. |
 `/program` | GET | Generate a new program | done
 
 
