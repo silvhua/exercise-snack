@@ -66,7 +66,6 @@ export async function apiSqlQuery(query, getFirst, binaryColumns) {
 }
 
 export function binaryToString(object, key) {
-  console.log(object)
   try {
     object[key] = object[key].toString('ascii');
   } catch (error) {

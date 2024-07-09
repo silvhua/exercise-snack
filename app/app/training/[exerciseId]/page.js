@@ -2,12 +2,12 @@
 
 // import './TrainingPage.scss';
 import { useState, useEffect } from "react";
-import Button from "@/app/_components/Button/Button";
 import ExerciseDetails from "@/app/_components/ExerciseDetails/ExerciseDetails";
-import apiInstance from "@/app/_libs/ApiClient";
 import postData from "@/app/_libs/clientCrud";
+import { useRouter } from "next/navigation";
 
 const TrainingPage = ({ params }) => {
+  const router = useRouter();
   const exerciseId = params.exerciseId;
   const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
   const userId = storedUserInfo.id;
@@ -57,24 +57,17 @@ const TrainingPage = ({ params }) => {
     event.preventDefault();
     const validFormSubmission = await validateForm();
     if (validFormSubmission) {
-      console.log('submitted')
       const activityObject = { ...formData, exercise_id: exerciseId };
       activityObject.reps = parseInt(activityObject.reps) || null;
       activityObject.duration = parseInt(activityObject.duration) || null;
-      console.log('activityObject', activityObject);
       const postActivityResponse = await postData(
         `sessions/${sessionId}/activities`, activityObject
       );
-      console.log('post activity response\n', postActivityResponse);
+      router.push('/dashboard');
     } else {
-      console.log('invalid submission')
+      alert('Numbers must be non-negative.')
     }
   }
-    
-  // const homeButtonProps = {
-  //   'text': 'Return to dashboard',
-  //   href: '/dashboard'
-  // }
 
   return (
     <>
@@ -84,11 +77,6 @@ const TrainingPage = ({ params }) => {
         handleInputChange={handleInputChange}
         
       />
-      {/* <form onSubmit={handleSubmit}>
-        <TrainingFormElements handleInputChange={handleInputChange} />
-        <Button buttonProps={formButtonProps} />
-      </form> */}
-      {/* <Button buttonProps={homeButtonProps} /> */}
     </>
   )
 }
