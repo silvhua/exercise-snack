@@ -5,6 +5,7 @@ import apiInstance from "./ApiClient"
 
 export default async function postData (endpoint, data) {
   const response = await apiInstance.post(endpoint, data);
+  // console.log('postData response\n', response)
   return response;
 }
 
@@ -29,6 +30,5 @@ export async function getUser(username) {
   const response = await apiInstance.get(`users/${username}`)
   return response;
 }
-
 
 

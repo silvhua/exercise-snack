@@ -27,7 +27,8 @@ const TrainingFormElements = ({ handleInputChange }) => {
     type: 'text',
     name: 'notes',
     placeholder: 'Comments',
-    className: 'input--wide'
+    className: 'input--wide',
+    handleInputChange: handleInputChange
   }
 
   return (

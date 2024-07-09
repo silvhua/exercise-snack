@@ -23,7 +23,7 @@ export default async function sqlSelect(query, getFirst) {
   }
 }
 
-export async function apiSqlQuery(query, getFirst) {
+export async function apiSqlQuery(query, getFirst, binaryColumns) {
   /* 
     Helper function for API endpoints to query the database.
   */
@@ -35,6 +35,14 @@ export async function apiSqlQuery(query, getFirst) {
     if (rows?.[0]?.id) {
       rows.map(row => {
         row.id = row.id.toString('ascii');
+      })
+    }
+
+    // convert binary columns to ascii
+    if (binaryColumns?.length > 0) {
+      binaryColumns.forEach(column => {
+        rows.map(row => binaryToString(row, column));
+        return rows;
       })
     }
     db.release();
@@ -50,9 +58,18 @@ export async function apiSqlQuery(query, getFirst) {
     }
     
   } catch (error) {
-    console.log(error)
+    console.log('error', error)
     return NextResponse.json({
       error: error
     }, { status: 500 })
   }
+}
+
+export function binaryToString(object, key) {
+  console.log(object)
+  try {
+    object[key] = object[key].toString('ascii');
+  } catch (error) {
+  }
+  return object;
 }

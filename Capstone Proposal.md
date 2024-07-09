@@ -95,8 +95,8 @@ Table | Group | What each record represents | Relations
 --- | ---- | --- | ---
 exercise | 1 | Properties of a single exercise. | several
 movement | 1 | A movement category into which exercises are classified, e.g. squat, push. | Relates to `exercise` via `exercise_movement`
-context | 1 | A context that a user can apply for filtering exercises, e.g. high heels, watching TV | Relates to `exercise` via `exercise_context`
-discreetness | 1 | The level of discreetness of a given exercise for filtering exercises, ranging from invisible to full workout-mode. | `exercise.discreetness` -> `id`
+context | 1 | A non-gym context in which a user can perform the exercise, e.g. while wearing high heels, watching TV | Relates to `exercise` via `exercise_context`
+discreetness | 1 | The level of discreetness of a given exercise, ranging from invisible to full workout-mode. | `exercise.discreetness` -> `id`
 environment | 1 | The equipment or environment required for a given exercise, e.g. couch, wall | Relates to `exercise` via `exercise_environment`
 focus | 1 | The focus of the exercise, e.g. strength, posture. | Relates to `exercise` table via the `exercise_focus` table.
 modifier | 1 | A single way in which exercise execution can be modified, e.g. slow eccentric, add pause | Relates to `exercise` via `exercise_modifier`

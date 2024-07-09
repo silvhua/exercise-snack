@@ -17,9 +17,6 @@ export default function Dashboard() {
   if (!userObject) {
     return <Placeholder text='Verifying your details...' />
   }
-  // if (!programArray) {
-  //   return <Placeholder text='Creating your program...' />
-  // }
 
   const buttonProps = {
     href: '/',
