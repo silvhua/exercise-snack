@@ -5,21 +5,21 @@ import ActionIcon from '../ActionIcon/ActionIcon';
 const NavBar = () => {
 
   const homeIconProps = {
-    src: './icons/home.svg',
+    src: '/icons/home.svg',
     href: '/dashboard',
     className: 'nav-icons',
     alt: 'home icon'
   }
 
   const profileIconProps = {
-    src: './icons/person.svg',
+    src: '/icons/person.svg',
     href: '/dashboard',
     className: 'nav-icons',
     alt: 'profile icon'
   }
 
   const dataIconProps = {
-    src: './icons/barChart.svg',
+    src: '/icons/barChart.svg',
     href: '/dashboard',
     className: 'nav-icons',
     alt: 'bar chart icon'
