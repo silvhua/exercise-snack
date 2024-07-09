@@ -1,0 +1,6 @@
+@use '../../_styles/globals' as *;
+
+.placeholder-text {
+  @extend h1;
+  text-transform: none;
+}

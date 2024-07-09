@@ -31,7 +31,7 @@ const ExerciseDetails = ({ exerciseId, onSubmit, handleInputChange }) => {
   }, [exerciseId]);
 
   if (!exerciseObject) {
-    return <Placeholder text="fetching" />
+    return <Placeholder text="Getting ready..." />
   }
   
   const formButtonProps = {

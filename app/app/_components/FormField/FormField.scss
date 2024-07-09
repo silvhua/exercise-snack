@@ -11,17 +11,18 @@ input {
 
 
 .input {
-  // &__container {
-  //   @include flex-mixin--row(100%);
-  // }
+  outline: none;
+  border: $input-border;
 
   &--small {
     @include flex-mixin--row(100%);
+    @extend .input;
     width: calc((100% - .5rem) / 2);
   }
 
   &--wide {
     @include flex-mixin(100%);
+    @extend .input;
     width: 100%;
   }
 }

@@ -9,25 +9,41 @@ import { generateProgram, getExerciseDetails } from '@/app/_libs/clientCrud';
 import postData from "@/app/_libs/clientCrud";
 import Placeholder from '../Placeholder/Placeholder';
 
-const UpcomingExercises = ({ userObject }) => {
+const UpcomingExercises = (props) => {
+  const {
+    userObject,
+    programArray,
+    setProgramArray
+  } = props;
+
   const router = useRouter();
   const {
-    username, first_name, id
+    username, first_name, id,
+    // program
   } = userObject;
+
   
-  const [programArray, setProgramArray] = useState(null);
   const [sessionObject, setSessionObject] = useState(null);
+  const [placeholderText, setPlaceholderText] = useState('');
   useEffect(() => {
     const getProgram = async () => {
       const response = await generateProgram();
       if (response) {
-        setProgramArray(response)
-      }
+        setProgramArray(response);
+        localStorage.setItem('userProgram', JSON.stringify(response));
+      } 
     }
-    getProgram();
+    const storedProgram = JSON.parse(localStorage.getItem('userProgram'));
+    if (!storedProgram) {
+      setPlaceholderText('Creating your program...');
+      getProgram();
+    } else {
+      setProgramArray(storedProgram);
+      setPlaceholderText('Picking up where you left off...');
+    }
   }, [])
   if (!programArray) {
-    return <Placeholder text="Fetching your plan..."/>
+    return <Placeholder text={placeholderText} />
   }
   const nextExerciseId = programArray[0].id;
 
@@ -43,7 +59,6 @@ const UpcomingExercises = ({ userObject }) => {
   const buttonProps = {
     text: 'Start Snack',
     className: 'start-button',
-    // href: `/training/${nextExerciseId}`,
     onClick: startTrainingHandler
   }
 

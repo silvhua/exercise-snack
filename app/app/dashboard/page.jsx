@@ -7,31 +7,34 @@ import Button from "../_components/Button/Button";
 
 export default function Dashboard() {
   const [userObject, setUserObject] = useState(null);
+  const [programArray, setProgramArray] = useState(null);
   
   useEffect(() => {
-    setUserObject(JSON.parse(localStorage.getItem('userDetails')));
+    const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
+    setUserObject(storedUserInfo);
   }, []);
 
   if (!userObject) {
     return <Placeholder text='Verifying your details...' />
   }
+  // if (!programArray) {
+  //   return <Placeholder text='Creating your program...' />
+  // }
 
   const buttonProps = {
     href: '/',
     text: 'Log out'
   }
 
-  // userObject = {
-  //   username: 'silvhua',
-  //   first_name: 'Silvia',
-  //   userId: '446d0b20-e96b-4164-a591-b3566c6cefc7'
-  // }
-
   const { id, username, first_name, last_name, password } = userObject;
   return (
     <>
       <h1 className="heading2">Hi, {first_name}</h1>
-      <UpcomingExercises userObject={userObject} />
+      <UpcomingExercises
+        userObject={userObject}
+        programArray={programArray}
+        setProgramArray={setProgramArray}
+     />
       <Button buttonProps={buttonProps} />
     </>
   );

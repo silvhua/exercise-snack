@@ -3,8 +3,6 @@
 // import './TrainingPage.scss';
 import { useState, useEffect } from "react";
 import Button from "@/app/_components/Button/Button";
-import TrainingFormElements from "@/app/_components/TrainingFormElements/TrainingFormElements";
-import postData from "@/app/_libs/clientCrud";
 import ExerciseDetails from "@/app/_components/ExerciseDetails/ExerciseDetails";
 
 const TrainingPage = ({ params }) => {

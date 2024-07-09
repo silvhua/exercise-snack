@@ -1,9 +1,9 @@
-// import './Placeholder.scss';
+import './Placeholder.scss';
 
 const Placeholder = ({text}) => {
   return (
     <>
-      <p>{text}</p>
+      <h1 className="placeholder-text">{text}</h1>
     </>
   )
 }
