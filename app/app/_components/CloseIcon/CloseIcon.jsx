@@ -1,21 +1,22 @@
 import './CloseIcon.scss';
 import ActionIcon from '../ActionIcon/ActionIcon';
 
-const CloseIcon = ({ dialogRef }) => {
+const CloseIcon = ({closeIconProps}) => {
+  const { ref, toggleValue, setToggleValue} = closeIconProps;
   
-  const closeIconProps = {
+  const actionIconProps = {
     src: './icons/close.svg',
     onClick: handleCloseIcon,
     className: 'close-icon'
   }
 
   function handleCloseIcon() {
-    dialogRef.current.close();
+    setToggleValue(!toggleValue);
   }
   
   return (
     <>
-      <ActionIcon iconProps={closeIconProps} />
+      <ActionIcon iconProps={actionIconProps} />
     </>
   )
 }

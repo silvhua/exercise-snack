@@ -10,12 +10,6 @@
   font-family: $font-family;
 }
 
-main {
-  padding: 0 16px $page-margin--tablet;
-  display: flex;
-  margin-bottom:  $nav-bar-height--mobile
-}
-
 h1 {
   font-size: 32px;
   text-transform: capitalize;
@@ -26,8 +20,9 @@ header, footer {
 }
 
 .main {
-  @include flex-mixin--column(100%);
   padding: $page-margin--mobile;
+  position: relative;
+  display: grid; // this is required for the filter menu to display properly
   @include tablet {
     // shift the page content down according to header height
     position: relative;
@@ -36,7 +31,7 @@ header, footer {
   }
 }
 
-main, div, section, article {
+div, section, article {
   @include flex-mixin--column(100%);
   gap: $spacing--mobile;
   margin: 0;

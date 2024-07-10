@@ -4,12 +4,26 @@
 
 .filter-menu {
   position: fixed;
+  background-color: $off-white;
+  background-color: pink;
   width: 19.9375rem;
   height: 100vh;
   box-sizing: border-box;
-  justify-self: right;
   padding: $page-margin--mobile  $page-margin--mobile; 
-  // padding: 0;
-  // margin: 0;
-  // bottom: 0;
+  right: 0;
+  z-index: 5;
+  top: 0;
+
+}
+
+.filter-form {
+  @include flex-mixin--column(100%);
+}
+
+.backdrop {
+  position: fixed;
+  background-color: rgba(20, 37, 65, 0.2);
+  height: 100vh;
+  width: 100vw;
+  z-index: 4;
 }
