@@ -14,6 +14,16 @@ export async function generateProgram() {
   return response;
 }
 
+export async function saveProgram(userId, programArray) {
+  const requestObject = {
+    exercises: programArray
+  }
+  const response = await apiInstance.post(
+    `programs/${userId}`, requestObject
+  );
+  return response;
+}
+
 export async function getExerciseDetails(exerciseId) {
   const response = await apiInstance.get(`exercises/${exerciseId}`);
   return response;

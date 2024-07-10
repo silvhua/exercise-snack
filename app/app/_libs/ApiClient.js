@@ -53,17 +53,6 @@ class ApiClient {
     }
   }
 
-  async delete(route, id) {
-    try {
-      const endpoint = `api/${route}/${id}`;
-      const requestUrl = this.createRequestUrl(endpoint);
-      const response = await axios.delete(requestUrl);
-      return response;
-    } catch (error) {
-      return false;
-    }
-  }
-
   async get(route) {
     /* Helper method for making GET requests (following DRY principle). */
     const endpoint = `api/${route}`;
@@ -76,7 +65,7 @@ class ApiClient {
     } catch (error) {
       const responseMessage = await error.response.data;
       console.log(responseMessage);
-      return false;
+      return responseMessage;
     }
   }
 
@@ -95,6 +84,17 @@ class ApiClient {
   //   const endpoint = `api/${route}/${id}`;
   //   const data = await this.get(endpoint);
   //   return data;
+  // }
+
+  // async delete(route, id) {
+  //   try {
+  //     const endpoint = `api/${route}/${id}`;
+  //     const requestUrl = this.createRequestUrl(endpoint);
+  //     const response = await axios.delete(requestUrl);
+  //     return response;
+  //   } catch (error) {
+  //     return false;
+  //   }
   // }
 }
 

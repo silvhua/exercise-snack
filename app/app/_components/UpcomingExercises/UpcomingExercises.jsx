@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import './UpcomingExercises.scss';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import Button from '../Button/Button';
-import { generateProgram, getExerciseDetails } from '@/app/_libs/clientCrud';
+import { generateProgram, getExerciseDetails, saveProgram } from '@/app/_libs/clientCrud';
 import postData from "@/app/_libs/clientCrud";
 import Placeholder from '../Placeholder/Placeholder';
 
@@ -25,15 +25,24 @@ const UpcomingExercises = (props) => {
   
   const [sessionObject, setSessionObject] = useState(null);
   const [placeholderText, setPlaceholderText] = useState('');
+  console.log('upcoming')
   useEffect(() => {
     const getProgram = async () => {
-      const response = await generateProgram();
-      if (response) {
-        setProgramArray(response);
-        localStorage.setItem('userProgram', JSON.stringify(response));
-      } 
+      const getProgramResponse = await generateProgram();
+      if (typeof getProgramResponse === 'object' && !getProgramResponse.error) {
+        setProgramArray(getProgramResponse);
+        // localStorage.setItem('userProgram', JSON.stringify(response));
+        const postProgramResponse = await saveProgram(
+          id, //user ID
+          getProgramResponse
+        );
+        console.log('post program response\n', postProgramResponse)
+      } else {
+        console.log('error:')
+      }
     }
     const storedProgram = JSON.parse(localStorage.getItem('userProgram'));
+    // const storedProgram = await 
     if (!storedProgram) {
       setPlaceholderText('Creating your program...');
       getProgram();
@@ -67,7 +76,7 @@ const UpcomingExercises = (props) => {
       <h2 className='headline6'>Upcoming Exercises</h2>
       <Button buttonProps={buttonProps} />
       <section className='card-container'>
-        {
+        {/* {
           programArray.map(exerciseObject => {
             const { id } = exerciseObject;
             return (
@@ -77,7 +86,7 @@ const UpcomingExercises = (props) => {
               />
             )
           })
-        }
+        } */}
       </section>
     </article>
   )
