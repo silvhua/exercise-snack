@@ -9,6 +9,12 @@ export default async function postData (endpoint, data) {
   return response;
 }
 
+export async function readProgram(userId) {
+  const response = await apiInstance.get(`users/${userId}/programs`);
+  // const response = await apiInstance.get(`programs/${userId}`);
+  return response;
+}
+
 export async function generateProgram() {
   const response = await apiInstance.get('programs');
   return response;
@@ -19,13 +25,18 @@ export async function saveProgram(userId, programArray) {
     exercises: programArray
   }
   const response = await apiInstance.post(
-    `programs/${userId}`, requestObject
+    `users/${userId}/programs`, requestObject
   );
   return response;
 }
 
-export async function readProgram(userId) {
-  const response = await apiInstance.get(`programs/${userId}`);
+export async function updateProgram(userId, programArray) {
+  const requestObject = {
+    exercises: programArray
+  }
+  const response = await apiInstance.put(
+    `programs/${userId}`, requestObject
+  );
   return response;
 }
 
@@ -42,9 +53,6 @@ export async function getExerciseProperty(exerciseId, property) {
 }
 
 export async function getUser(username) {
-  const response = await apiInstance.get(`users/${username}`)
+  const response = await apiInstance.get(`auth/${username}`)
   return response;
 }
-
-
-

@@ -54,3 +54,13 @@ export async function GET(request, {params}) {
   const response = await apiSqlQuery(query, true);
   return response;
 }
+
+export async function PUT(request) {
+  const { exercises, id } = await request.json();
+  query = `
+  UPDATE program
+  SET
+    exercises = JSON_ARRAY('${JSON.stringify(exercises)}')
+  WHERE id = "${id}"
+  `
+}

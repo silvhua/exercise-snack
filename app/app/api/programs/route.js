@@ -3,9 +3,6 @@ import { apiSqlQuery } from "@/app/_libs/utils";
 
 
 export async function GET() {
-  const uuid = crypto.randomUUID()
-  // const requestBody = await request.json();
-  // const { filterStatement } = requestBody;
   const query = `
     WITH randomized AS (
   SELECT

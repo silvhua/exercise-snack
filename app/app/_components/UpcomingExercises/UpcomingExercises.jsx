@@ -22,8 +22,6 @@ const UpcomingExercises = (props) => {
     // program
   } = userObject;
 
-  
-  const [sessionObject, setSessionObject] = useState(null);
   const [placeholderText, setPlaceholderText] = useState('');
   
   useEffect(() => {
@@ -47,6 +45,7 @@ const UpcomingExercises = (props) => {
           id, //user ID
           createProgramResponse
         );
+        console.log('new program saved')
       } else {
         console.log('error:')
       }
@@ -64,8 +63,8 @@ const UpcomingExercises = (props) => {
 
   const startTrainingHandler = async (event) => {
     const postSessionResponse = await postData('sessions', { userId: id });
-    if (!postSessionResponse.error) {
-      setSessionObject(postSessionResponse);
+    if (checkForSuccess(postSessionResponse)) {
+      // session object is stored to sessionStorage so that the /training/:exerciseId page can use it
       sessionStorage.setItem('sessionDetails', JSON.stringify(postSessionResponse));
       router.push(`/training/${nextExerciseId}`);
     }

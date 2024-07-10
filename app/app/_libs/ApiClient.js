@@ -37,11 +37,11 @@ class ApiClient {
     }
   }
 
-  async put(route, id, bodyObject) {
+  async put(route, bodyObject) {
     /* 
     */
     try {
-      const endpoint = `api/${route}/${id}`;
+      const endpoint = `api/${route}`;
       const requestUrl = this.createRequestUrl(endpoint);
       const response = await axios.put(requestUrl, bodyObject);
       if (Math.floor(response.status / 100) === 2) {
@@ -67,24 +67,7 @@ class ApiClient {
       return responseMessage;
     }
   }
-
-  // async getItemsArray(route) {
-  //   const endpoint = `api/${route}`;
-  //   const itemsArray = await this.get(endpoint);
-  //   return itemsArray;
-  // }
-
-  // async getItem(route, id) {
-  //   /* 
-  //   This is a docstring for how to use the function.
-
-  //   A24W5-26 API to GET a Single Inventory Item 
-  //   */
-  //   const endpoint = `api/${route}/${id}`;
-  //   const data = await this.get(endpoint);
-  //   return data;
-  // }
-
+  
   // async delete(route, id) {
   //   try {
   //     const endpoint = `api/${route}/${id}`;
