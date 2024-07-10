@@ -20,7 +20,7 @@ header, footer {
 }
 
 .main {
-  padding: $page-margin--mobile;
+  padding: $page-margin--mobile $page-margin--mobile $bottom-padding--mobile;
   position: relative;
   display: grid; // this is required for the filter menu to display properly
   @include tablet {

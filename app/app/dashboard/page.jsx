@@ -44,7 +44,7 @@ export default function Dashboard() {
 
   const { id, username, first_name, last_name, password } = userObject;
   return (
-    <>
+    <section>
       <h1 className="heading2">Hi, {first_name}</h1>
       <p>Welcome to your dashboard</p>
       <div className="flex-row-container">
@@ -63,6 +63,6 @@ export default function Dashboard() {
       <FilterMenu filterProps={filterProps} />
       : null
       }
-    </>
+    </section>
   );
 }

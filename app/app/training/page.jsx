@@ -88,14 +88,14 @@ const TrainingPage = () => {
   }
 
   return (
-    <>
+    <section>
       <ExerciseDetails
         exerciseId={exerciseId}
         onSubmit={handleSubmit}
         handleInputChange={handleInputChange}
         
       />
-    </>
+    </section>
   )
 }
 
