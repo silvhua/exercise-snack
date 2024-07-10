@@ -55,12 +55,45 @@ export async function GET(request, {params}) {
   return response;
 }
 
-export async function PUT(request) {
-  const { exercises, id } = await request.json();
-  query = `
+export async function PUT(request, {params}) {
+  const { exercises } = await request.json();
+  const userId = params.userId;
+  const filterStatement = `
+    WHERE user_id = "${userId}"
+    ORDER BY last_edited_time DESC
+    LIMIT 1
+  `;
+
+  const query = `
+  WITH latest_record AS (
+    SELECT id
+    FROM program
+    WHERE user_id = "${userId}"
+    ORDER BY last_edited_time DESC
+    LIMIT 1
+  )
   UPDATE program
   SET
     exercises = JSON_ARRAY('${JSON.stringify(exercises)}')
-  WHERE id = "${id}"
+  WHERE id IN (
+    SELECT id FROM latest_record
+  )
   `
+  const putResponse = await apiSqlQuery(query);
+  if (Math.floor(putResponse.status / 100) === 2) {
+    const query2 = `
+    SELECT id,
+      user_id,
+      exercises,
+      created_time, last_edited_time
+    FROM program
+    ${filterStatement}
+    `
+    const newRecord = await apiSqlQuery(
+      query2, true, ['user_id']
+    );
+    return newRecord;
+    
+  };
+  return putResponse;
 }

@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import ExerciseDetails from "@/app/_components/ExerciseDetails/ExerciseDetails";
-import postData from "@/app/_libs/clientCrud";
+import postData, { updateProgram } from "@/app/_libs/clientCrud";
 import { useRouter } from "next/navigation";
+import { checkForSuccess } from "../_libs/ApiClient";
 
 const TrainingPage = () => {
   const router = useRouter();
@@ -55,16 +56,28 @@ const TrainingPage = () => {
     event.preventDefault();
     const validFormSubmission = await validateForm();
     if (validFormSubmission) {
+      console.log('submitted')
       const activityObject = { ...formData, exercise_id: exerciseId };
       activityObject.reps = parseInt(activityObject.reps) || null;
       activityObject.duration = parseInt(activityObject.duration) || null;
       const postActivityResponse = await postData(
         `sessions/${sessionId}/activities`, activityObject
       );
-      
-      // save latest ExerciseId to sessionStorage so dashboard can rotate the exercise array
+
+      if (checkForSuccess(postActivityResponse)) {
+        /* 
+        Exercises were previously rotated in the `UpcomingExercises` component
+        so they should be saved
+        */
+        const updateProgramResponse = await updateProgram(userId, storedArray);
+        if (checkForSuccess(updateProgramResponse)) {
+          console.log('Program successfully edited');
+        }
+      }
+
+      // save latest ExerciseId to localStorage so dashboard can rotate the exercise array
       const latestExerciseId = exerciseId;
-      sessionStorage.setItem(
+      localStorage.setItem(
         'latestExerciseId', latestExerciseId
       );
 

@@ -33,7 +33,7 @@ export async function updateProgram(userId, programArray) {
     exercises: programArray
   }
   const response = await apiInstance.put(
-    `programs/${userId}`, requestObject
+    `users/${userId}/programs`, requestObject
   );
   return response;
 }

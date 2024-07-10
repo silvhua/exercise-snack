@@ -11,6 +11,14 @@ import { checkForSuccess } from '@/app/_libs/ApiClient';
 import rotateArray from '@/app/_libs/dataProcessing';
 
 const UpcomingExercises = (props) => {
+  /* 
+  This component does the following:
+  1. Searches the database for an existing program for this user. 
+  If it doesn't exist, it will generate a new program for this user.
+  2. Checks the localStorage for the ID of the last logged exercise.
+  If it matches the ID of the first exercise in the current programArray,
+  it will rotate the exercises within the array.
+  */
   const {
     userObject,
     programArray, setProgramArray
@@ -58,8 +66,9 @@ const UpcomingExercises = (props) => {
     return <Placeholder text={placeholderText} />
   }
   const nextExerciseId = programArray[0].id;
-  const latestExerciseId = sessionStorage.getItem('latestExerciseId');
+  const latestExerciseId = localStorage.getItem('latestExerciseId');
   if (latestExerciseId === nextExerciseId) {
+    // Rotate the exercises 
     console.log('rotating array');
     rotateArray(programArray);
   }
@@ -67,7 +76,7 @@ const UpcomingExercises = (props) => {
   const startTrainingHandler = async (event) => {
     const postSessionResponse = await postData('sessions', { userId: id });
     if (checkForSuccess(postSessionResponse)) {
-      // session object and program array is stored to sessionStorage so that the /training/:exerciseId page can use it
+      // session object and program array is stored to sessionStorage so that the /training page can use it
       sessionStorage.setItem('sessionDetails', JSON.stringify(postSessionResponse));
       sessionStorage.setItem('userProgram', JSON.stringify(programArray));
       router.push(`/training`);
