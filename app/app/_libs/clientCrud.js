@@ -5,13 +5,11 @@ import apiInstance from "./ApiClient"
 
 export default async function postData (endpoint, data) {
   const response = await apiInstance.post(endpoint, data);
-  // console.log('postData response\n', response)
   return response;
 }
 
 export async function readProgram(userId) {
   const response = await apiInstance.get(`users/${userId}/programs`);
-  // const response = await apiInstance.get(`programs/${userId}`);
   return response;
 }
 

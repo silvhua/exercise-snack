@@ -1,31 +1,84 @@
-import ExerciseDetails from '../_components/ExerciseDetails/ExerciseDetails';
-// import './Training.scss';
-import {
-  readExerciseDetails,
-  readExerciseProperty
-} from "../_libs/exerciseData";
+'use client'
 
-const Training = async () => {
+import { useState } from "react";
+import ExerciseDetails from "@/app/_components/ExerciseDetails/ExerciseDetails";
+import postData from "@/app/_libs/clientCrud";
+import { useRouter } from "next/navigation";
 
-  const exerciseId = '36533d7e-63a4-4c57-b728-3efa873d3dac';
-  const exerciseObject = await readExerciseDetails(exerciseId);
+const TrainingPage = () => {
+  const router = useRouter();
+  const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
+  
+  const storedArray = JSON.parse(sessionStorage.getItem('userProgram'));
+  const exerciseId = storedArray[0].id;
+  console.log('exerciseId of first item', exerciseId);
 
-  const arrayProperties = [
-    'focus', 'context',
-    'movement', 'muscle', 'environment', 'tip'
-  ]
+  const userId = storedUserInfo.id;
+  const sessionObject = JSON.parse(sessionStorage.getItem('sessionDetails'));
+  const sessionId = sessionObject.id;
+  const [formData, setFormData] = useState({
+    reps: null,
+    duration: null,
+    notes: null
+  });
+  const [errorState, setErrorState] = useState({
+    reps: null,
+    duration: null
+  });
+  const [exerciseDetailsComponent, setExerciseDetailsComponent] = useState(null);
 
-  for (let i = 0; i < arrayProperties.length; i++) {
-    const property = arrayProperties[i];
-    exerciseObject[property] = await readExerciseProperty(exerciseId, property);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    setErrorState({
+      ...errorState,
+      [name]: null,
+    });
+  }
+
+  const validateForm = async () => {
+    let errors = {};
+    errors = {
+      reps: parseInt(formData.reps) < 0,
+      duration: parseInt(formData.duration) < 0
+    }
+    setErrorState(errors);
+    const propertiesWithErrors = Object.keys(errors).filter((key) => {
+      return errors[key] == true;
+    });
+    const isValid = !Object.values(errors).includes(true);
+    return isValid;
+  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const validFormSubmission = await validateForm();
+    if (validFormSubmission) {
+      const activityObject = { ...formData, exercise_id: exerciseId };
+      activityObject.reps = parseInt(activityObject.reps) || null;
+      activityObject.duration = parseInt(activityObject.duration) || null;
+      const postActivityResponse = await postData(
+        `sessions/${sessionId}/activities`, activityObject
+      );
+
+      router.push('/dashboard');
+    } else {
+      alert('Numbers must be non-negative.')
+    }
   }
 
   return (
     <>
-      <h1 className="heading2">Training</h1>
-      <ExerciseDetails exerciseObject={exerciseObject} />
+      <ExerciseDetails
+        exerciseId={exerciseId}
+        onSubmit={handleSubmit}
+        handleInputChange={handleInputChange}
+        
+      />
     </>
   )
 }
 
-export default Training
+export default TrainingPage

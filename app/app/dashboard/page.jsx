@@ -7,7 +7,10 @@ import Button from "../_components/Button/Button";
 
 export default function Dashboard() {
   const [userObject, setUserObject] = useState(null);
-  const [programArray, setProgramArray] = useState(null);
+  const sessionProgramArray = sessionStorage.getItem('userProgram');
+  const [programArray, setProgramArray] = useState(
+    JSON.parse(sessionProgramArray)
+  );
   
   useEffect(() => {
     const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
