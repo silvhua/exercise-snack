@@ -117,7 +117,9 @@ Route | Method | Description | Status
 `/users/:userId/sessions` | GET| Read a user's exercise sessions. | 
 `/users/:userId/activities` | GET, POST, PUT | Read, log, and update a user's activity. |
 `/activities` | POST, PUT | Log, and update a user's activity. |
-`/program` | GET | Generate a new program | done
+`/programs` | GET | Generate a new program | done
+`/programs/:userId` | POST | Write a new program for a user | done
+`/programs/:userId` | GET | Get the most recent existing program for a user | done
 
 
 Tables | CRUD operation | Description | Status

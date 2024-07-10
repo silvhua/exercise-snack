@@ -64,7 +64,6 @@ class ApiClient {
       return data;
     } catch (error) {
       const responseMessage = await error.response.data;
-      console.log(responseMessage);
       return responseMessage;
     }
   }
@@ -100,3 +99,8 @@ class ApiClient {
 
 const apiInstance = new ApiClient();
 export default apiInstance;
+
+
+export function checkForSuccess(response) {
+  return typeof response === 'object' && !response.error;
+}

@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import './UpcomingExercises.scss';
-import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import Button from '../Button/Button';
-import { generateProgram, getExerciseDetails, saveProgram } from '@/app/_libs/clientCrud';
-import postData from "@/app/_libs/clientCrud";
+import postData, { generateProgram, readProgram, saveProgram } from '@/app/_libs/clientCrud';
 import Placeholder from '../Placeholder/Placeholder';
+import ExerciseCard from '../ExerciseCard/ExerciseCard';
+import { checkForSuccess } from '@/app/_libs/ApiClient';
 
 const UpcomingExercises = (props) => {
   const {
@@ -27,32 +27,36 @@ const UpcomingExercises = (props) => {
   const [placeholderText, setPlaceholderText] = useState('');
   
   useEffect(() => {
-    const getProgram = async () => {
-      const getProgramResponse = await generateProgram();
-      if (typeof getProgramResponse === 'object' && !getProgramResponse.error) {
-        setProgramArray(getProgramResponse);
-        // localStorage.setItem('userProgram', JSON.stringify(response));
+
+    const loadProgram = async () => {
+      const storedProgramResponse = await readProgram(id);
+      if (checkForSuccess(storedProgramResponse)) {
+        const storedProgram = JSON.parse(storedProgramResponse.exercises);
+        setProgramArray(storedProgram);
+      } else {
+        setPlaceholderText('Creating your program...');
+        getNewProgram();
+      }
+    }
+
+    const getNewProgram = async () => {
+      const createProgramResponse = await generateProgram();
+      if (checkForSuccess(createProgramResponse)) {
+        setProgramArray(createProgramResponse);
         const postProgramResponse = await saveProgram(
           id, //user ID
-          getProgramResponse
+          createProgramResponse
         );
-        console.log('post program response\n', postProgramResponse)
       } else {
         console.log('error:')
       }
     }
-    const storedProgram = JSON.parse(localStorage.getItem('userProgram'));
 
-    // const storedProgram = await 
-    if (!storedProgram) {
-      setPlaceholderText('Creating your program...');
-      getProgram();
-    } else {
-      setProgramArray(storedProgram);
-      setPlaceholderText('Picking up where you left off...');
-    }
+    if (!programArray) {
+      loadProgram();
+    } 
   }, [])
-  
+
   if (!programArray) {
     return <Placeholder text={placeholderText} />
   }
@@ -78,7 +82,7 @@ const UpcomingExercises = (props) => {
       <h2 className='headline6'>Upcoming Exercises</h2>
       <Button buttonProps={buttonProps} />
       <section className='card-container'>
-        {/* {
+        {
           programArray.map(exerciseObject => {
             const { id } = exerciseObject;
             return (
@@ -88,7 +92,7 @@ const UpcomingExercises = (props) => {
               />
             )
           })
-        } */}
+        }
       </section>
     </article>
   )

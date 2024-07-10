@@ -24,6 +24,11 @@ export async function saveProgram(userId, programArray) {
   return response;
 }
 
+export async function readProgram(userId) {
+  const response = await apiInstance.get(`programs/${userId}`);
+  return response;
+}
+
 export async function getExerciseDetails(exerciseId) {
   const response = await apiInstance.get(`exercises/${exerciseId}`);
   return response;
@@ -40,5 +45,6 @@ export async function getUser(username) {
   const response = await apiInstance.get(`users/${username}`)
   return response;
 }
+
 
 
