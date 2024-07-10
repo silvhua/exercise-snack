@@ -5,6 +5,8 @@ export function up(knex) {
     table
       .binary('user_id', 128);
     table.json('exercises');
+    table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
+    table.timestamp('created_time').defaultTo(knex.fn.now());
   })
 };
 

@@ -9,6 +9,7 @@
     "migrate": "npx knex migrate:latest",
     "migrate1": "npx knex migrate:up 20240709225643_activity_tables.js",
     "rollback": "npx knex migrate:rollback",
+    "rollback1": "npx knex migrate:down 20240709225643_activity_tables.js",
     "seed": "npx knex seed:run",
     "test-seed": "node seeds/exercise.js"
   },
