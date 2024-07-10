@@ -11,7 +11,6 @@ const TrainingPage = () => {
   
   const storedArray = JSON.parse(sessionStorage.getItem('userProgram'));
   const exerciseId = storedArray[0].id;
-  console.log('exerciseId of first item', exerciseId);
 
   const userId = storedUserInfo.id;
   const sessionObject = JSON.parse(sessionStorage.getItem('sessionDetails'));
@@ -61,6 +60,12 @@ const TrainingPage = () => {
       activityObject.duration = parseInt(activityObject.duration) || null;
       const postActivityResponse = await postData(
         `sessions/${sessionId}/activities`, activityObject
+      );
+      
+      // save latest ExerciseId to sessionStorage so dashboard can rotate the exercise array
+      const latestExerciseId = exerciseId;
+      sessionStorage.setItem(
+        'latestExerciseId', latestExerciseId
       );
 
       router.push('/dashboard');

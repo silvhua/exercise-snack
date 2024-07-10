@@ -13,8 +13,7 @@ import rotateArray from '@/app/_libs/dataProcessing';
 const UpcomingExercises = (props) => {
   const {
     userObject,
-    programArray,
-    setProgramArray
+    programArray, setProgramArray
   } = props;
 
   const router = useRouter();
@@ -59,6 +58,11 @@ const UpcomingExercises = (props) => {
     return <Placeholder text={placeholderText} />
   }
   const nextExerciseId = programArray[0].id;
+  const latestExerciseId = sessionStorage.getItem('latestExerciseId');
+  if (latestExerciseId === nextExerciseId) {
+    console.log('rotating array');
+    rotateArray(programArray);
+  }
 
   const startTrainingHandler = async (event) => {
     const postSessionResponse = await postData('sessions', { userId: id });

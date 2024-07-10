@@ -7,14 +7,13 @@ import Button from "../_components/Button/Button";
 
 export default function Dashboard() {
   const [userObject, setUserObject] = useState(null);
-  const sessionProgramArray = sessionStorage.getItem('userProgram');
-  const [programArray, setProgramArray] = useState(
-    JSON.parse(sessionProgramArray)
-  );
+  const [programArray, setProgramArray] = useState(null);
   
   useEffect(() => {
     const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
     setUserObject(storedUserInfo);
+    const sessionProgramArray = sessionStorage.getItem('userProgram');
+    setProgramArray(JSON.parse(sessionProgramArray));
   }, []);
 
   if (!userObject) {
@@ -34,6 +33,8 @@ export default function Dashboard() {
         userObject={userObject}
         programArray={programArray}
         setProgramArray={setProgramArray}
+        // latestExerciseId={latestExerciseId}
+        // setLatestExerciseId={setLatestExerciseId}
      />
       <Button buttonProps={buttonProps} />
     </>
