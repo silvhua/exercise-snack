@@ -1,0 +1,10 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+.close-icon {
+  position: absolute;
+  top: $page-margin--mobile;
+  right: $page-margin--mobile;
+  width: .875rem;
+}

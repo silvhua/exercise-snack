@@ -91,7 +91,6 @@ const UpcomingExercises = (props) => {
 
   return (
     <article className='upcoming-exercises'>
-      <h2 className='headline6'>Upcoming Exercises</h2>
       <Button buttonProps={buttonProps} />
       <section className='card-container'>
         {

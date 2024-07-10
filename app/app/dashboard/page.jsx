@@ -1,13 +1,16 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import UpcomingExercises from "../_components/UpcomingExercises/UpcomingExercises";
 import Placeholder from "../_components/Placeholder/Placeholder";
 import Button from "../_components/Button/Button";
+import FilterIcon from "../_components/FilterIcon/FilterIcon";
+import FilterMenu from "../_components/FilterMenu/FilterMenu";
 
 export default function Dashboard() {
   const [userObject, setUserObject] = useState(null);
   const [programArray, setProgramArray] = useState(null);
+  const filterRef = useRef();
   
   useEffect(() => {
     const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
@@ -25,16 +28,31 @@ export default function Dashboard() {
     text: 'Log out'
   }
 
+  function handleFilterClick () {
+    console.log('Filter clicked');
+    filterRef.current.showModal();
+  }
+
+  const filterProps = {
+    filterRef: filterRef
+  }
+
   const { id, username, first_name, last_name, password } = userObject;
   return (
     <>
+      <FilterMenu filterProps={filterProps} />
       <h1 className="heading2">Hi, {first_name}</h1>
+      <p>Welcome to your dashboard</p>
+      <div className="flex-row-container">
+        <h2 className='headline6'>Upcoming Exercises</h2>
+        <FilterIcon
+          handleClick={handleFilterClick}
+        />
+      </div>
       <UpcomingExercises
         userObject={userObject}
         programArray={programArray}
         setProgramArray={setProgramArray}
-        // latestExerciseId={latestExerciseId}
-        // setLatestExerciseId={setLatestExerciseId}
      />
       <Button buttonProps={buttonProps} />
     </>

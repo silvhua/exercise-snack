@@ -39,6 +39,7 @@ header, footer {
 main, div, section, article {
   @include flex-mixin--column(100%);
   gap: $spacing--mobile;
+  margin: 0;
 }
 
 a {
@@ -123,4 +124,8 @@ p {
     @include flex-mixin--row(100%);
     flex-direction: row;
   }
+}
+
+.flex-row-container {
+  @include flex-mixin--row(100%);
 }
