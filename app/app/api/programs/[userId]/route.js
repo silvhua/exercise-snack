@@ -37,3 +37,20 @@ export async function POST(request, {params}) {
   const response = postResponse;
   return response;
 }
+
+export async function GET(request, {params}) {
+  const userId = params.userId;
+  const query = `
+  SELECT 
+    id,
+    exercises,
+    created_time,
+    last_edited_time
+  FROM program
+  WHERE user_id = "${userId}"
+  ORDER BY last_edited_time DESC
+  LIMIT 1
+  `
+  const response = await apiSqlQuery(query, true);
+  return response;
+}

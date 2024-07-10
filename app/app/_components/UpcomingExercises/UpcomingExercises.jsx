@@ -25,7 +25,7 @@ const UpcomingExercises = (props) => {
   
   const [sessionObject, setSessionObject] = useState(null);
   const [placeholderText, setPlaceholderText] = useState('');
-  console.log('upcoming')
+  
   useEffect(() => {
     const getProgram = async () => {
       const getProgramResponse = await generateProgram();
@@ -42,6 +42,7 @@ const UpcomingExercises = (props) => {
       }
     }
     const storedProgram = JSON.parse(localStorage.getItem('userProgram'));
+
     // const storedProgram = await 
     if (!storedProgram) {
       setPlaceholderText('Creating your program...');
@@ -51,6 +52,7 @@ const UpcomingExercises = (props) => {
       setPlaceholderText('Picking up where you left off...');
     }
   }, [])
+  
   if (!programArray) {
     return <Placeholder text={placeholderText} />
   }
