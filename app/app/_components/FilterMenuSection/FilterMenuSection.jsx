@@ -1,5 +1,6 @@
 import './FilterMenuSection.scss';
 import Checkbox from '../Checkbox/Checkbox';
+import { convertToKebabCase } from '@/app/_libs/dataProcessing';
 
 const FilterMenuSection = (props) => {
   const {
@@ -9,13 +10,11 @@ const FilterMenuSection = (props) => {
 
   const onChange = (event) => {
     const { name, checked } = event.target;
-    checkboxValues[property][name] = checked;
-    setCheckboxValues(checkboxValues)
-
-    console.log(name, checked);
+    const propertyCheckboxValues = checkboxValues[property];
+    propertyCheckboxValues[name] = checked;
+    setCheckboxValues({ ...checkboxValues, [property]: propertyCheckboxValues });
   }
 
-  console.log(checkboxValues)
 
   return (
     <>
@@ -29,13 +28,15 @@ const FilterMenuSection = (props) => {
           optionsArray.map((option, index) => {
             
             const optionId = option?.id;
-            const checked = checkboxValues?.[property]?.[optionId] || false;
             const name = option?.name;
+            const inputName = convertToKebabCase(name);
+            const checked = checkboxValues?.[property]?.[inputName] || false;
+            
             return  (
               <Checkbox
                 key={optionId}
-                id={optionId}
-                name={name}
+                name={inputName}
+                label={name}
                 onChange={onChange}
                 checked={checked}
               />

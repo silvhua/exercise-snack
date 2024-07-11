@@ -8,8 +8,15 @@ import { readProperty } from './properties';
 import Placeholder from '../Placeholder/Placeholder';
 import FilterMenuSection from '../FilterMenuSection/FilterMenuSection';
 
-const FilterMenu = ({filterProps}) => {
+const FilterMenu = ({ filterProps }) => {
+  /* 
+  This content of this menu is dynamic: It is based on data from the database.
+  There are a few exercise properties that can be used for filtering exercises.
+  Each of these properties has a few possible options. 
+  More than 1 option can be selected.
+  */
   const { filterRef, filterShown, setFilterShown } = filterProps;
+
   const [filterOptions, setFilterOptions] = useState({
     'context': null, 
     'environment': null,
@@ -28,9 +35,10 @@ const FilterMenu = ({filterProps}) => {
   const properties = [ // Properties for filtering exercises
     'context',
     'environment', 
+    'focus',
     // 'discreetness',
-    'focus'
   ]
+  // console.log('checkboxValues', checkboxValues, 'isLoading', isLoading)
 
   async function getProperties() {
     const filterOptionsResults = {};
@@ -41,11 +49,14 @@ const FilterMenu = ({filterProps}) => {
     }
     setFilterOptions(filterOptionsResults);
     setIsLoading(false);
-    // console.log(filterOptionsResults);
   }
 
   useEffect(() => {
     getProperties();
+
+  }, [isLoading])
+
+  useEffect(() => {
     if (!isLoading) {
       const sections = properties.map(property => {
         const optionsArray = filterOptions[property];
@@ -58,17 +69,14 @@ const FilterMenu = ({filterProps}) => {
             setCheckboxValues={setCheckboxValues}
           />
         )
-
       })
-
       setFormContent(
         <form className='filter-form'>
           {sections}
         </form>
-  
       )
     }
-  }, [isLoading]);
+  }, [filterOptions, checkboxValues]);
 
   const closeIconProps = {
     ref: filterRef,
