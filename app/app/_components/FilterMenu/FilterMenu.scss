@@ -3,11 +3,7 @@
 @use '../../_styles/mixins' as *;
 
 .filter-menu {
-  // @include flex-mixin--column(100%);
-  // justify-content: flex-start;
   position: fixed;
-  // display: flex;
-  // flex-direction: column;
   background-color: $off-white;
   width: 19.9375rem;
   min-height: 100vh;
@@ -15,7 +11,6 @@
   box-sizing: border-box;
   padding: $page-margin--mobile  $page-margin--mobile; 
   right: 0;
-  // z-index: 5;
   top: 0;
   overflow: auto;
   justify-self: flex-end;

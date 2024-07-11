@@ -7,6 +7,7 @@ import Checkbox from '../Checkbox/Checkbox';
 import { readProperty } from './properties';
 import Placeholder from '../Placeholder/Placeholder';
 import FilterMenuSection from '../FilterMenuSection/FilterMenuSection';
+import Button from '../Button/Button';
 
 const FilterMenu = ({ filterProps }) => {
   /* 
@@ -15,7 +16,7 @@ const FilterMenu = ({ filterProps }) => {
   Each of these properties has a few possible options. 
   More than 1 option can be selected.
   */
-  const { filterRef, filterShown, setFilterShown } = filterProps;
+  const { filterRef, onSubmit, checkboxValues, setCheckboxValues } = filterProps;
 
   const [filterOptions, setFilterOptions] = useState({
     'context': null, 
@@ -23,12 +24,6 @@ const FilterMenu = ({ filterProps }) => {
     // 'discreetness': null,
     'focus': null
   });
-  const [checkboxValues, setCheckboxValues] = useState({
-    'context': {}, 
-    'environment': {},
-    // 'discreetness': {},
-    'focus': {}
-  })
 
   const [isLoading, setIsLoading] = useState(true);
   const [formContent, setFormContent] = useState('placeholder')
@@ -70,7 +65,11 @@ const FilterMenu = ({ filterProps }) => {
         )
       })
       setFormContent(
-        <form className='filter-form'>
+        <form
+          className='filter-form'
+          id='filter-form'
+        >
+          <Button buttonProps={saveButtonProps} />
           {sections}
         </form>
       )
@@ -80,6 +79,13 @@ const FilterMenu = ({ filterProps }) => {
   const closeIconProps = {
     ref: filterRef
   }
+
+  const saveButtonProps = {
+    text: 'Save',
+    onClick: onSubmit,
+    className: 'filter-menu__button'
+  }
+
   return (
     <dialog
       ref={filterRef}

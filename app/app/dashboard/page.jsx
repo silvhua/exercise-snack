@@ -10,6 +10,12 @@ import FilterMenu from "../_components/FilterMenu/FilterMenu";
 export default function Dashboard() {
   const [userObject, setUserObject] = useState(null);
   const [programArray, setProgramArray] = useState(null);
+  const [checkboxValues, setCheckboxValues] = useState({
+    'context': {}, 
+    'environment': {},
+    // 'discreetness': {},
+    'focus': {}
+  })
   const filterRef = useRef();
   
   useEffect(() => {
@@ -32,8 +38,16 @@ export default function Dashboard() {
     filterRef.current.showModal(); 
   }
 
+  function handleFilterSubmit(event) {
+    event.preventDefault();
+    console.log('filter submitted\n', checkboxValues);
+  }
+
   const filterProps = {
-    filterRef: filterRef
+    filterRef: filterRef,
+    onSubmit: handleFilterSubmit,
+    checkboxValues: checkboxValues,
+    setCheckboxValues: setCheckboxValues
   }
 
   const { id, username, first_name, last_name, password } = userObject;
