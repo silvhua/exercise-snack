@@ -2,7 +2,7 @@ import './CloseIcon.scss';
 import ActionIcon from '../ActionIcon/ActionIcon';
 
 const CloseIcon = ({closeIconProps}) => {
-  const { ref, toggleValue, setToggleValue} = closeIconProps;
+  const { ref } = closeIconProps;
   
   const actionIconProps = {
     src: './icons/close.svg',
@@ -11,7 +11,7 @@ const CloseIcon = ({closeIconProps}) => {
   }
 
   function handleCloseIcon() {
-    setToggleValue(!toggleValue);
+    ref.current.close();
   }
   
   return (

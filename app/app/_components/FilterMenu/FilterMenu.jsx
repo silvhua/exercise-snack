@@ -38,7 +38,6 @@ const FilterMenu = ({ filterProps }) => {
     'focus',
     // 'discreetness',
   ]
-  // console.log('checkboxValues', checkboxValues, 'isLoading', isLoading)
 
   async function getProperties() {
     const filterOptionsResults = {};
@@ -79,24 +78,18 @@ const FilterMenu = ({ filterProps }) => {
   }, [filterOptions, checkboxValues]);
 
   const closeIconProps = {
-    ref: filterRef,
-    toggleValue: filterShown,
-    setToggleValue: setFilterShown
+    ref: filterRef
   }
   return (
-    <>
-      <section className='backdrop'>
-      </section>
-      <div
-        ref={filterRef}
-        className="filter-menu"
-      >
-        <h2 className='headline4'>Filters</h2>
-        <CloseIcon closeIconProps={closeIconProps} />
-        {formContent}
-        
-      </div>
-    </>
+    <dialog
+      ref={filterRef}
+      className="filter-menu"
+    >
+      <h2 className='headline4'>Filters</h2>
+      <CloseIcon closeIconProps={closeIconProps} />
+      {formContent}
+      
+    </dialog>
   )
 }
 

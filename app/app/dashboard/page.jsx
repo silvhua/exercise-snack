@@ -10,7 +10,6 @@ import FilterMenu from "../_components/FilterMenu/FilterMenu";
 export default function Dashboard() {
   const [userObject, setUserObject] = useState(null);
   const [programArray, setProgramArray] = useState(null);
-  const [filterShown, setFilterShown] = useState(false);
   const filterRef = useRef();
   
   useEffect(() => {
@@ -30,14 +29,11 @@ export default function Dashboard() {
   }
 
   function handleFilterClick (event) {
-    setFilterShown(!filterShown);
-    
+    filterRef.current.showModal(); 
   }
 
   const filterProps = {
-    filterRef: filterRef,
-    filterShown: filterShown,
-    setFilterShown: setFilterShown
+    filterRef: filterRef
   }
 
   const { id, username, first_name, last_name, password } = userObject;
@@ -57,10 +53,7 @@ export default function Dashboard() {
         setProgramArray={setProgramArray}
      />
       <Button buttonProps={buttonProps} />
-      {filterShown ? 
       <FilterMenu filterProps={filterProps} />
-      : null
-      }
     </>
   );
 }
