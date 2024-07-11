@@ -8,6 +8,7 @@
   font-size: 16px;
   color: $dark-blue;
   font-family: $font-family;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -31,7 +32,7 @@ header, footer {
   }
 }
 
-div, section, article {
+div, section, article, ul {
   @include flex-mixin--column(100%);
   gap: $spacing--mobile;
   margin: 0;

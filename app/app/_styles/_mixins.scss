@@ -16,7 +16,6 @@
   display: flex;
   position: relative;
   width: $element-width;
-  box-sizing: border-box;
 }
 @mixin flex-mixin--row ($element-width) {
   @include flex-mixin($element-width);
@@ -59,7 +58,6 @@
 @mixin set-section-margin() {
   margin: 0 auto;
   padding: $spacing--mobile;
-  box-sizing: border-box;
   
   @include tablet {
     width: 100%;
@@ -99,7 +97,6 @@
 
 // @mixin full-width {
 //   width: 100%;
-//   box-sizing: border-box;
 // }
 
 @mixin responsive-container($width) {
