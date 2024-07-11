@@ -28,6 +28,7 @@ header, footer {
 .main {
   @include flex-mixin--column(100%);
   padding: $page-margin--mobile;
+  // display: grid;
   @include tablet {
     // shift the page content down according to header height
     position: relative;

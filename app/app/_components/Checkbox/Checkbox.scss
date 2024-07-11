@@ -1,0 +1,18 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+.checkbox {
+  @include flex-mixin--row(100%);
+  justify-content: flex-start;
+  gap: $spacing--mobile;
+
+  &__input {
+
+  }
+
+  &__label {
+    @extend p;
+    margin: 0;
+  }
+}

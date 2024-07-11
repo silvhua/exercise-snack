@@ -5,11 +5,12 @@
 .filter-menu {
   position: fixed;
   width: 19.9375rem;
-  height: 100vh;
+  min-height: 100vh;
   box-sizing: border-box;
   justify-self: right;
   padding: $page-margin--mobile  $page-margin--mobile; 
   // padding: 0;
   // margin: 0;
   // bottom: 0;
+  // display: grid;
 }
