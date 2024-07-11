@@ -1,8 +1,9 @@
 import { apiSqlQuery } from "@/app/_libs/utils";
 
 export async function GET(request, {params}) {
-  const filterString = params.query;
-  console.log(filterString)
+  let filterString = params.query;
+  filterString = decodeURIComponent(filterString);
+  console.log('filterString in server', filterString)
   const query = `
     WITH randomized AS (
   SELECT

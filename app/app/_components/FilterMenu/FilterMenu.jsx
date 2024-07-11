@@ -22,7 +22,7 @@ const FilterMenu = ({ filterProps }) => {
     'context': null, 
     'environment': null,
     // 'discreetness': null,
-    'focus': null
+    // 'focus': null
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +30,7 @@ const FilterMenu = ({ filterProps }) => {
   const properties = [ // Properties for filtering exercises
     'context',
     'environment', 
-    'focus',
+    // 'focus',
     // 'discreetness',
   ]
 

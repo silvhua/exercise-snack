@@ -16,7 +16,7 @@ export default function Dashboard() {
     'context': {}, 
     'environment': {},
     // 'discreetness': {},
-    'focus': {}
+    // 'focus': {}
   })
   const filterRef = useRef();
   const userId = userObject?.id;
@@ -63,10 +63,9 @@ export default function Dashboard() {
         }
       }
     }
-    const filterString = encodeURIComponent(
-      sqlFilterStatements.join(' AND ')
-    );
-    const createProgramResponse = await generateProgram();
+    let filterString = sqlFilterStatements.join(' AND ');
+    filterString = encodeURIComponent(filterString);
+    const createProgramResponse = await generateProgram(filterString);
     if (checkForSuccess(createProgramResponse)) {
       setProgramArray(createProgramResponse);
       /* Save the newly generated program after filter form is submitted */
@@ -78,7 +77,6 @@ export default function Dashboard() {
     } else {
       console.log('error:')
     }
-    console.log('sqlFilter', filterString);
 
   }
 
