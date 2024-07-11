@@ -63,7 +63,9 @@ export default function Dashboard() {
         }
       }
     }
-    const filterString = sqlFilterStatements.join(' AND ');
+    const filterString = encodeURIComponent(
+      sqlFilterStatements.join(' AND ')
+    );
     const createProgramResponse = await generateProgram();
     if (checkForSuccess(createProgramResponse)) {
       setProgramArray(createProgramResponse);

@@ -74,7 +74,8 @@ export async function PUT(request, {params}) {
   )
   UPDATE program
   SET
-    exercises = JSON_ARRAY('${JSON.stringify(exercises)}')
+    exercises = JSON_ARRAY('${JSON.stringify(exercises)}'),
+    last_edited_time = CURRENT_TIMESTAMP()
   WHERE id IN (
     SELECT id FROM latest_record
   )
