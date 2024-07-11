@@ -5,3 +5,9 @@ export default function rotateArray(arr) {
   }
   return arr;
 }
+
+export function convertToKebabCase(text) {
+  return text.replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/\s+|_+/g, '-')
+    .toLowerCase();
+}

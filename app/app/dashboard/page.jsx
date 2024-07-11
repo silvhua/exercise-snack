@@ -30,8 +30,6 @@ export default function Dashboard() {
   }
 
   function handleFilterClick (event) {
-    console.log('Filter clicked');
-    // filterRef.current.showModal();
     setFilterShown(!filterShown);
     
   }

@@ -1,21 +1,24 @@
+import { convertToKebabCase } from '@/app/_libs/dataProcessing';
 import './Checkbox.scss';
 
-const Checkbox = ({ checkboxProps }) => {
-  const { name, checked, onChange } = checkboxProps;
+const Checkbox = (props) => {
+  const { id, name, checked, onChange } = props;
+  const inputName = convertToKebabCase(name);
 
   return (
+
     <li className='checkbox'>
       <input
         type='checkbox'
-        id={name}
-        name={name}
+        id={id}
+        name={inputName}
         className='checkbox__input'
         checked={checked}
         onChange={onChange}
       />
       <label
         className='checkbox__label'
-        htmlFor={name}
+        htmlFor={inputName}
       >{name}</label>
     </li>
   )

@@ -12,6 +12,6 @@ export async function readProperty(property) {
   FROM ${property}
   `;
 
-  const rows = sqlSelect(query);
+  const rows = await sqlSelect(query);
   return rows;
 }

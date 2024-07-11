@@ -5,40 +5,75 @@ import './FilterMenu.scss';
 import CloseIcon from '../CloseIcon/CloseIcon';
 import Checkbox from '../Checkbox/Checkbox';
 import { readProperty } from './properties';
+import Placeholder from '../Placeholder/Placeholder';
+import FilterMenuSection from '../FilterMenuSection/FilterMenuSection';
 
 const FilterMenu = ({filterProps}) => {
   const { filterRef, filterShown, setFilterShown } = filterProps;
-  const [filterOptions, setFilterOptions] = useState(null);
+  const [filterOptions, setFilterOptions] = useState({
+    'context': null, 
+    'environment': null,
+    // 'discreetness': null,
+    'focus': null
+  });
+  const [checkboxValues, setCheckboxValues] = useState({
+    'context': {}, 
+    'environment': {},
+    // 'discreetness': {},
+    'focus': {}
+  })
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [formContent, setFormContent] = useState('placeholder')
   const properties = [ // Properties for filtering exercises
     'context',
     'environment', 
-    'discreetness',
+    // 'discreetness',
     'focus'
   ]
 
-  async function getProperty(property) {
-    const result = await readProperty(property);
-    console.log(result)
-    return result;
+  async function getProperties() {
+    const filterOptionsResults = {};
+    for (let i = 0; i < properties.length; i++) {
+      const property = properties[i];
+      const result = await readProperty(property);
+      filterOptionsResults[property] = result;
+    }
+    setFilterOptions(filterOptionsResults);
+    setIsLoading(false);
+    // console.log(filterOptionsResults);
   }
 
   useEffect(() => {
-    const filterOptionsResults = {}
-    properties.forEach(property => {
-      filterOptionsResults[property] = getProperty(property);
-    })
-  })
+    getProperties();
+    if (!isLoading) {
+      const sections = properties.map(property => {
+        const optionsArray = filterOptions[property];
+        return (
+          <FilterMenuSection
+            key={`${property}-section`}
+            property={property}
+            optionsArray={optionsArray}
+            checkboxValues={checkboxValues}
+            setCheckboxValues={setCheckboxValues}
+          />
+        )
+
+      })
+
+      setFormContent(
+        <form className='filter-form'>
+          {sections}
+        </form>
+  
+      )
+    }
+  }, [isLoading]);
 
   const closeIconProps = {
     ref: filterRef,
     toggleValue: filterShown,
     setToggleValue: setFilterShown
-  }
-
-  const checkboxProps = {
-    name: "Watching video",
-    checked: false,
-    onChange: (event) => {console.log(event.target)}
   }
   return (
     <>
@@ -50,14 +85,7 @@ const FilterMenu = ({filterProps}) => {
       >
         <h2 className='headline4'>Filters</h2>
         <CloseIcon closeIconProps={closeIconProps} />
-        <form className='filter-form'>
-          <h3 className='subtitle'>Condition</h3>
-          <ul>
-            <Checkbox checkboxProps={checkboxProps} />
-          </ul>
-            
-          <h3 className='subtitle'>Focus</h3>
-        </form>
+        {formContent}
         
       </div>
     </>
