@@ -1,7 +1,8 @@
 import './Checkbox.scss';
 
 const Checkbox = ({ checkboxProps }) => {
-  const { name, checked } = checkboxProps;
+  const { name, checked, onChange } = checkboxProps;
+
   return (
     <li className='checkbox'>
       <input
@@ -10,10 +11,11 @@ const Checkbox = ({ checkboxProps }) => {
         name={name}
         className='checkbox__input'
         checked={checked}
+        onChange={onChange}
       />
       <label
         className='checkbox__label'
-        for={name}
+        htmlFor={name}
       >{name}</label>
     </li>
   )

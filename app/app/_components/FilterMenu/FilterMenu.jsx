@@ -1,10 +1,33 @@
+"use client"
 
+import { useEffect, useState } from 'react';
 import './FilterMenu.scss';
 import CloseIcon from '../CloseIcon/CloseIcon';
 import Checkbox from '../Checkbox/Checkbox';
+import { readProperty } from './properties';
 
 const FilterMenu = ({filterProps}) => {
   const { filterRef, filterShown, setFilterShown } = filterProps;
+  const [filterOptions, setFilterOptions] = useState(null);
+  const properties = [ // Properties for filtering exercises
+    'context',
+    'environment', 
+    'discreetness',
+    'focus'
+  ]
+
+  async function getProperty(property) {
+    const result = await readProperty(property);
+    console.log(result)
+    return result;
+  }
+
+  useEffect(() => {
+    const filterOptionsResults = {}
+    properties.forEach(property => {
+      filterOptionsResults[property] = getProperty(property);
+    })
+  })
 
   const closeIconProps = {
     ref: filterRef,
@@ -14,7 +37,8 @@ const FilterMenu = ({filterProps}) => {
 
   const checkboxProps = {
     name: "Watching video",
-    checked: false
+    checked: false,
+    onChange: (event) => {console.log(event.target)}
   }
   return (
     <>

@@ -1,7 +1,7 @@
 import pool from "@/app/_libs/mysql";
 import { NextResponse } from "next/server";
 
-export default async function sqlSelect(query, getFirst) {
+export default async function sqlSelect(query, getFirst, binaryColumns) {
   /* 
     Helper function for client components to query the database.
   */
@@ -14,6 +14,14 @@ export default async function sqlSelect(query, getFirst) {
     })
     if (getFirst) {
       rows = rows[0];
+    }
+
+    // convert binary columns to ascii
+    if (binaryColumns?.length > 0) {
+      binaryColumns.forEach(column => {
+        rows.map(row => binaryToString(row, column));
+        return rows;
+      })
     }
     db.release();
     return rows;
