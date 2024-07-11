@@ -6,6 +6,8 @@ import Placeholder from "../_components/Placeholder/Placeholder";
 import Button from "../_components/Button/Button";
 import FilterIcon from "../_components/FilterIcon/FilterIcon";
 import FilterMenu from "../_components/FilterMenu/FilterMenu";
+import { generateProgram, updateProgram } from '@/app/_libs/clientCrud';
+import { checkForSuccess } from '@/app/_libs/ApiClient';
 
 export default function Dashboard() {
   const [userObject, setUserObject] = useState(null);
@@ -17,6 +19,7 @@ export default function Dashboard() {
     'focus': {}
   })
   const filterRef = useRef();
+  const userId = userObject?.id;
   
   useEffect(() => {
     const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
@@ -38,9 +41,43 @@ export default function Dashboard() {
     filterRef.current.showModal(); 
   }
 
-  function handleFilterSubmit(event) {
+  async function handleFilterSubmit(event) {
     event.preventDefault();
-    console.log('filter submitted\n', checkboxValues);
+
+    let sqlFilterStatements = [];
+
+    for (const [property, propertyOptionObject] of Object.entries(checkboxValues)) {
+      // console.log(`filter submitted\n`, property, propertyOptionObject);
+          
+      let column;
+      switch (property) {
+        case 'discreetness':
+          column = 'level';
+          break;
+        default:
+          column = 'name';
+      }
+      for (const [option, value] of Object.entries(propertyOptionObject)) {
+        if (value) {
+          sqlFilterStatements.push(`(${property}.${column} = "${option}")`)
+        }
+      }
+    }
+    const filterString = sqlFilterStatements.join(' AND ');
+    const createProgramResponse = await generateProgram();
+    if (checkForSuccess(createProgramResponse)) {
+      setProgramArray(createProgramResponse);
+      /* Save the newly generated program after filter form is submitted */
+      const updateProgramResponse = await updateProgram(userId, createProgramResponse);
+      console.log('updateProgramResponse', updateProgramResponse)
+      if (checkForSuccess(updateProgramResponse)) {
+        console.log('Program successfully edited');
+      }
+    } else {
+      console.log('error:')
+    }
+    console.log('sqlFilter', filterString);
+
   }
 
   const filterProps = {
