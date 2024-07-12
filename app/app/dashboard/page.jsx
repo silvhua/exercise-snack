@@ -6,19 +6,24 @@ import Placeholder from "../_components/Placeholder/Placeholder";
 import Button from "../_components/Button/Button";
 import FilterIcon from "../_components/FilterIcon/FilterIcon";
 import FilterMenu from "../_components/FilterMenu/FilterMenu";
-import { generateProgram, updateProgram } from '@/app/_libs/clientCrud';
+import {
+  generateProgram, getLastWeeksSessions, updateProgram,
+  getUserSessions
+} from '@/app/_libs/clientCrud';
 import { checkForSuccess } from '@/app/_libs/ApiClient';
 import Streak from "../_components/Streak/Streak";
 
 export default function Dashboard() {
   const [userObject, setUserObject] = useState(null);
   const [programArray, setProgramArray] = useState(null);
+  const [recentSessions, setRecentSessions] = useState(null);
   const [checkboxValues, setCheckboxValues] = useState({
     'context': {}, 
     'environment': {},
     // 'discreetness': {},
     // 'focus': {}
   })
+
   const filterRef = useRef();
   const userId = userObject?.id;
   
@@ -28,6 +33,10 @@ export default function Dashboard() {
     const sessionProgramArray = sessionStorage.getItem('userProgram');
     setProgramArray(JSON.parse(sessionProgramArray));
   }, []);
+
+  useEffect(() => {
+    loadRecentSessions();
+  }, [userId])
 
   if (!userObject) {
     return <Placeholder text='Verifying your details...' />
@@ -40,6 +49,15 @@ export default function Dashboard() {
 
   function handleFilterClick (event) {
     filterRef.current.showModal(); 
+  }
+
+  async function loadRecentSessions() {
+    if (userId) {
+      const sessionsResponse = await getLastWeeksSessions(userId);
+      if (checkForSuccess(sessionsResponse)) {
+        setRecentSessions(sessionsResponse);
+      }
+    }
   }
 
   async function handleFilterSubmit(event) {
@@ -93,7 +111,11 @@ export default function Dashboard() {
     <>
       <h1 className="heading2">Hi, {first_name}</h1>
       <p>Welcome to your dashboard</p>
-      <Streak />
+      {
+        recentSessions ?
+          <Streak recentSessions={recentSessions} />
+          : null
+      }
       <div className="flex-row-container">
         <h2 className='headline6'>Upcoming Exercises</h2>
         <FilterIcon

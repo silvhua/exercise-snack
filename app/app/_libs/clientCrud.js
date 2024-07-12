@@ -58,3 +58,30 @@ export async function getUser(username) {
   const response = await apiInstance.get(`auth/${username}`)
   return response;
 }
+
+export async function getLastWeeksSessions(userId) {
+  const response = await apiInstance.get(
+    `users/${userId}/sessions/recent`
+  );
+  return response;
+}
+
+export async function getUserSessions(userId) {
+  const response = await apiInstance.get(
+    `users/${userId}/sessions`
+  );
+  return response;
+}
+
+export async function getFilteredSessions(userId, filterString) {
+  /* 
+  2024-07-11 21:29 Not currently used
+  */
+  filterString = encodeURIComponent(
+    'created_time >= DATE_SUB(NOW(), INTERVAL 7 DAY)'
+  )
+  const response = await apiInstance.get(
+    `users/${userId}/sessions?filter=${filterString}`
+    );
+  return response;
+  }

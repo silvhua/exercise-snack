@@ -10,7 +10,6 @@ export async function GET(request, {params}) {
     filterStatement = `WHERE ${filterString}`;
   }
 
-  console.log('filterString in server', filterString)
   const query = `
     WITH randomized AS (
   SELECT
