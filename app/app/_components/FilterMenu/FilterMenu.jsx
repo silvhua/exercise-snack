@@ -76,8 +76,12 @@ const FilterMenu = ({ filterProps }) => {
     }
   }, [filterOptions, checkboxValues]);
 
+  function handleCloseDialog() {
+    filterRef.current.close();
+  }
+
   const closeIconProps = {
-    ref: filterRef
+    onClick: handleCloseDialog
   }
 
   const saveButtonProps = {

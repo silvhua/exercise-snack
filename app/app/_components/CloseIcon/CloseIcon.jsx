@@ -2,16 +2,12 @@ import './CloseIcon.scss';
 import ActionIcon from '../ActionIcon/ActionIcon';
 
 const CloseIcon = ({closeIconProps}) => {
-  const { ref } = closeIconProps;
+  const { onClick } = closeIconProps;
   
   const actionIconProps = {
     src: './icons/close.svg',
-    onClick: handleCloseIcon,
+    onClick: onClick,
     className: 'close-icon'
-  }
-
-  function handleCloseIcon() {
-    ref.current.close();
   }
   
   return (

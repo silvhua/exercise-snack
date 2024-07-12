@@ -92,6 +92,7 @@ export default function Dashboard() {
       console.log('updateProgramResponse', updateProgramResponse)
       if (checkForSuccess(updateProgramResponse)) {
         console.log('Program successfully edited');
+        filterRef.current.close();
       }
     } else {
       console.log('error:')
