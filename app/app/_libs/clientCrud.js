@@ -13,13 +13,12 @@ export async function readProgram(userId) {
   return response;
 }
 
-// export async function generateProgram() {
-//   const response = await apiInstance.get('programs');
-//   return response;
-// }
-
 export async function generateProgram(filterString) {
-  const response = await apiInstance.get(`programs/query=${filterString}`);
+  let endpoint = 'programs';
+  if (filterString) {
+    endpoint += `?query=${filterString}`
+  }
+  const response = await apiInstance.get(endpoint);
   return response;
 }
 

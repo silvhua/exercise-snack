@@ -20,7 +20,7 @@ const FilterMenu = ({ filterProps }) => {
 
   const [filterOptions, setFilterOptions] = useState({
     'context': null, 
-    'environment': null,
+    // 'environment': null,
     // 'discreetness': null,
     // 'focus': null
   });
@@ -29,7 +29,7 @@ const FilterMenu = ({ filterProps }) => {
   const [formContent, setFormContent] = useState('placeholder')
   const properties = [ // Properties for filtering exercises
     'context',
-    'environment', 
+    // 'environment', 
     // 'focus',
     // 'discreetness',
   ]

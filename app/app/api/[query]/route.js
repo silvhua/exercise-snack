@@ -1,9 +1,15 @@
 import { apiSqlQuery } from "@/app/_libs/utils";
 
+
 export async function GET(request, {params}) {
-  let filterString = params.query;
-  filterString = decodeURIComponent(filterString);
+  const searchParams = request.nextUrl.searchParams;
+  let filterString = searchParams.get('query')
+  
+  // filterString = decodeURIComponent(filterString);
   console.log('filterString in server', filterString)
+  /* 
+  WHERE ${filterString}
+*/
   const query = `
     WITH randomized AS (
   SELECT
@@ -28,6 +34,7 @@ export async function GET(request, {params}) {
     LEFT JOIN focus ON (focus_id = focus.id)
   LEFT JOIN exercise_environment ee ON (exercise.id = ee.exercise_id)
     LEFT JOIN environment ON (environment_id = environment.id)
+
   )
   SELECT 
     MIN(id) AS id, 

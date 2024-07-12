@@ -59,7 +59,7 @@ export default function Dashboard() {
       }
       for (const [option, value] of Object.entries(propertyOptionObject)) {
         if (value) {
-          sqlFilterStatements.push(`(${property}.${column} = "${option}")`)
+          sqlFilterStatements.push(`(${property}.${column} LIKE "${option}")`)
         }
       }
     }

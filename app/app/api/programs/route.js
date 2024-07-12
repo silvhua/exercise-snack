@@ -1,8 +1,16 @@
+import { replaceHyphens } from "@/app/_libs/dataProcessing";
 import { apiSqlQuery } from "@/app/_libs/utils";
 
 export async function GET(request, {params}) {
-  const filterString = await request.json();
-  console.log(filterString)
+  const searchParams = request.nextUrl.searchParams;
+  let filterStatement = '';
+  let filterString = searchParams.get('query');
+  if (filterString) {
+    filterString = replaceHyphens(filterString);
+    filterStatement = `WHERE ${filterString}`;
+  }
+
+  console.log('filterString in server', filterString)
   const query = `
     WITH randomized AS (
   SELECT
@@ -27,6 +35,7 @@ export async function GET(request, {params}) {
     LEFT JOIN focus ON (focus_id = focus.id)
   LEFT JOIN exercise_environment ee ON (exercise.id = ee.exercise_id)
     LEFT JOIN environment ON (environment_id = environment.id)
+  ${filterStatement}
   )
   SELECT 
     MIN(id) AS id, 
@@ -46,5 +55,6 @@ export async function GET(request, {params}) {
   ) AND (random_number = 1)
   GROUP BY id
   `
+  console.log('query in endpoint', query)
   return await apiSqlQuery(query);
 }

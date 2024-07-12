@@ -11,3 +11,7 @@ export function convertToKebabCase(text) {
     .replace(/\s+|_+/g, '-')
     .toLowerCase();
 }
+
+export function replaceHyphens(str) {
+  return str.replace(/-/g, '%');
+}
