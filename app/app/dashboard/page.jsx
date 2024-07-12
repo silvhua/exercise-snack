@@ -12,9 +12,12 @@ import {
 } from '@/app/_libs/clientCrud';
 import { checkForSuccess } from '@/app/_libs/ApiClient';
 import Streak from "../_components/Streak/Streak";
+import { getStreak } from "../_libs/userData";
+import './dashboard.scss'
 
 export default function Dashboard() {
   const [userObject, setUserObject] = useState(null);
+  const [streakValue, setStreakValue] = useState(null);
   const [programArray, setProgramArray] = useState(null);
   const [recentSessions, setRecentSessions] = useState(null);
   const [checkboxValues, setCheckboxValues] = useState({
@@ -57,8 +60,12 @@ export default function Dashboard() {
       if (checkForSuccess(sessionsResponse)) {
         setRecentSessions(sessionsResponse);
       }
+      const streakResponse = await getStreak(userId);
+      console.log(streakResponse)
+      setStreakValue(streakResponse);
     }
   }
+
 
   async function handleFilterSubmit(event) {
     event.preventDefault();
@@ -110,13 +117,29 @@ export default function Dashboard() {
   const { id, username, first_name, last_name, password } = userObject;
   return (
     <>
-      <h1 className="heading2">Hi, {first_name}</h1>
-      <p>Welcome to your dashboard</p>
-      {
-        recentSessions ?
-          <Streak recentSessions={recentSessions} />
-          : null
-      }
+      <section className="responsive-section">
+        <div className="title-container">
+          <h1 className="heading2">Hi, {first_name}</h1>
+          <p>Welcome to your dashboard</p>
+        </div>
+        <div className="flex-column-div">
+        
+          {
+          streakValue ?
+            <h3 className="streak__text">
+              <span className="streak__number">
+                {streakValue.consecutive_days}
+              </span> days streak 
+            </h3>
+            : ''
+          }
+          {
+            recentSessions ?
+            <Streak recentSessions={recentSessions} />
+            : null
+          }
+        </div>
+      </section>
       <div className="flex-row-container">
         <h2 className='headline6'>Upcoming Exercises</h2>
         <FilterIcon

@@ -38,6 +38,18 @@ section, article, ul {
   margin: 0;
 }
 
+.responsive-section {
+  @include flex-mixin--column(100%);
+  @include tablet {
+    @include flex-mixin--row(100%);
+    align-items: flex-start;
+  }
+}
+
+.flex-column-div {
+  @include flex-mixin--column(auto);
+}
+
 a {
   text-decoration: none;
 }
@@ -52,7 +64,7 @@ h2, h3, h4, h5 {
 }
 
 .headline1 {
-  font-size: 56pt;
+  font-size: 56px;
 }
 
 .headline2 {
@@ -72,7 +84,7 @@ h2, h3, h4, h5 {
 }
 
 .headline6 {
-  font-size: 20pt;
+  font-size: 20px;
 }
 
 .subtitle {

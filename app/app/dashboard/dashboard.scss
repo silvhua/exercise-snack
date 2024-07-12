@@ -1,0 +1,27 @@
+@use '../_styles/variables' as *;
+@use '../_styles/mixins' as *;
+@use '../_styles/globals' as *;
+
+
+.streak {
+
+  &__text {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+
+    @include tablet {
+      justify-content: flex-end;
+    }
+  }
+
+  &__number {
+    font-size: 56px;
+    transform: translateY(12px);
+    margin-right: $spacing--mobile;
+
+  }
+}
+
+.title-container {
+}

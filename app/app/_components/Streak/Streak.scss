@@ -3,12 +3,11 @@
 @use '../../_styles/mixins' as *;
 
 .streak {
-  @extend .flex-row-container;
-  // margin: 0 auto;
+  @include flex-mixin--row(100%);
   box-sizing: border-box;
-  gap: $spacing--mobile;
   @include tablet {
-    width: 200px;
+    width: auto;
+    gap: $spacing--mobile;
   }
 
   &__day {
