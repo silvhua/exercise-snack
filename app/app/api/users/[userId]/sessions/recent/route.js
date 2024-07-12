@@ -12,8 +12,16 @@ export async function GET(request, { params }) {
   FROM session
   WHERE (user = "${userId}")
   AND created_time >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+  AND id IN (
+    SELECT session_id AS id
+    FROM activity
+  )
+  
   GROUP BY DATE(created_time)
   `
   const response = await apiSqlQuery(query);
   return response;
 }
+/* 
+
+*/
