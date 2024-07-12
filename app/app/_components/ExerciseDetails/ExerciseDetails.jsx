@@ -53,27 +53,29 @@ const ExerciseDetails = ({ exerciseId, onSubmit, handleInputChange }) => {
         <TrainingFormElements handleInputChange={handleInputChange} />
         <Button buttonProps={formButtonProps} />
       </form>
-        {
-          Object.entries(detailsObject).map(([key, value]) => {
-            if (value && typeof value === 'object') {
-              const valuesArray = Object.values(value);
-              
-              return (
-                <div key={key} className='exercise__property'>
-                  <h3>{key}</h3>
-                  <p>{valuesArray.map((element) => element[key]).join(', ')}</p>
-                </div>
-              )
-            } else {
-              return (
-                <div key={key} className='exercise__property'>
-                  <h3>{key}</h3>
-                  <p>{value}</p>
-                </div>
-              )
-            }
-          })
-        }
+        <section>
+          {
+            Object.entries(detailsObject).map(([key, value]) => {
+              if (value && typeof value === 'object') {
+                const valuesArray = Object.values(value);
+                
+                return (
+                  <div key={key} className='exercise__property'>
+                    <h3>{key}</h3>
+                    <p>{valuesArray.map((element) => element[key]).join(', ')}</p>
+                  </div>
+                )
+              } else {
+                return (
+                  <div key={key} className='exercise__property'>
+                    <h3>{key}</h3>
+                    <p>{value}</p>
+                  </div>
+                )
+              }
+            })
+          }
+        </section>
     </article>
   )
 }

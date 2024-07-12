@@ -108,24 +108,25 @@ p {
 }
 
 .form, form {
-  @include flex-mixin--column(100%);
-  gap: $spacing--mobile;
+  @extend section;
 
   &__input-group {
     @include flex-mixin--row(100%);
-    // align-items: flex-start;
+    gap: $spacing--mobile;
   }
 
   &__fields-container {
-    @include flex-mixin--column(100%);
+    @extend section;
   }
 
   &__number-input-div {
     @include flex-mixin--row(100%);
     flex-direction: row;
+    gap: $spacing--mobile;
   }
 }
 
 .flex-row-container {
   @include flex-mixin--row(100%);
+  gap: $spacing--mobile;
 }
