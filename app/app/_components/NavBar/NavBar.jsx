@@ -20,7 +20,7 @@ const NavBar = () => {
 
   const dataIconProps = {
     src: '/icons/barChart.svg',
-    href: '/dashboard',
+    href: '/stats',
     className: 'nav-icons',
     alt: 'bar chart icon'
   }
