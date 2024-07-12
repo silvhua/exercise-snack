@@ -9,7 +9,6 @@ export default async function sqlSelect(query, getFirst, binaryColumns) {
     const db = await pool.getConnection();
     const result = await db.execute(query);
     let [rows] = result;
-    console.log(query)
     rows.map(row => {
       row.id = row.id.toString('ascii');
     })

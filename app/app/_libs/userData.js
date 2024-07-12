@@ -69,3 +69,25 @@ export async function getStreak(userId) {
   return data;
   
 }
+
+export async function getActivityPerDate(userId) {
+  const userTableName = "`user`"
+  // backticks required because `user` is a SQL keyword
+  const query = `
+  SELECT 
+    MIN(session.id) AS id,
+    COUNT(activity.id) AS n_sets,
+    DATE(activity.created_time) AS date
+  FROM activity
+  LEFT JOIN session
+    ON (session_id = session.id)
+  LEFT JOIN ${userTableName}
+    ON (${userTableName} = ${userTableName}.id)
+  WHERE ${userTableName}.id = "${userId}"
+  GROUP BY DATE(activity.created_time)
+  ORDER BY DATE(activity.created_time) DESC
+  `
+  const data = await sqlSelect(query);
+  return data;
+  
+}

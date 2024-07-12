@@ -73,3 +73,10 @@ export const formatDate = (dateObject, options = null) => {
     return formattedDate
 }
 
+export function getWeekOfYear(isoDateString) {
+    const date = new Date(isoDateString);
+    const oneJan = new Date(date.getFullYear(), 0, 1);
+    const differenceInTime = date - oneJan;
+    const oneWeek = 604800000; // milliseconds in a week
+    return Math.ceil((differenceInTime / oneWeek) + 1);
+}
