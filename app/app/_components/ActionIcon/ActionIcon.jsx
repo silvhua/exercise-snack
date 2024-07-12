@@ -15,7 +15,7 @@ const ActionIcon = ({ iconProps }) => {
     )
   }
 
-  if (onClick) {
+  if (!href) {
     return <ImgElement />
   } else {
     return (

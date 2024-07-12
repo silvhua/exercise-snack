@@ -8,6 +8,7 @@ import FilterIcon from "../_components/FilterIcon/FilterIcon";
 import FilterMenu from "../_components/FilterMenu/FilterMenu";
 import { generateProgram, updateProgram } from '@/app/_libs/clientCrud';
 import { checkForSuccess } from '@/app/_libs/ApiClient';
+import Streak from "../_components/Streak/Streak";
 
 export default function Dashboard() {
   const [userObject, setUserObject] = useState(null);
@@ -92,6 +93,7 @@ export default function Dashboard() {
     <>
       <h1 className="heading2">Hi, {first_name}</h1>
       <p>Welcome to your dashboard</p>
+      <Streak />
       <div className="flex-row-container">
         <h2 className='headline6'>Upcoming Exercises</h2>
         <FilterIcon

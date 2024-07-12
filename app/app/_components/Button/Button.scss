@@ -2,7 +2,7 @@
 @use '../../_styles/globals' as *;
 @use '../../_styles/mixins' as *;
 
-button {
+.button {
   font-size: 14pt; // 19px
   width: 100%;
   height: 2.625rem;

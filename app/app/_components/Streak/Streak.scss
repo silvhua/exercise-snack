@@ -1,0 +1,24 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+.streak {
+  @extend .flex-row-container;
+  // margin: 0 auto;
+  box-sizing: border-box;
+  gap: $spacing--mobile;
+  @include tablet {
+    width: 200px;
+  }
+
+  &__day {
+    @include flex-mixin--column(auto);
+    align-items: center;
+
+  }
+
+  &__icon {
+  width: 32px;
+  aspect-ratio: 1;
+  }
+}

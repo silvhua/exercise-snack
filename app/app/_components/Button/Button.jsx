@@ -9,7 +9,7 @@ const Button = ({buttonProps}) => {
 
   const buttonElement = (
     <button
-      className={className}
+      className={`button ${className}`}
       onClick={onClick}
     >
       {text}
