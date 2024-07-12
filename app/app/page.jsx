@@ -43,13 +43,13 @@ export default function Home() {
     placeholder: 'username'
   }
   return (
-    <>
+    <section className="login">
       <form onSubmit={verifyUser}
       >
         <FormField formFieldProps={usernameInputProps} />
         <Button buttonProps={buttonProps} />
       </form>
-    </>
+    </section>
     // <main className={styles.main}>
     //   <div className={styles.description}>
     //     <p>

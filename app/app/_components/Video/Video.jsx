@@ -1,7 +1,8 @@
 import './Video.scss';
 
 const Video = ({src, title}) => {
-  src = src || 'https://youtu.be/dvt2Q5-jjgM';
+  // src = src || 'https://youtu.be/dvt2Q5-jjgM';
+  src = src || 'https://youtu.be/9DkWqGqiT60'
   let youtubeSrc = null;
   if (src.includes('youtube') || src.includes('youtu.be')) {
     youtubeSrc = src.split('/').pop();

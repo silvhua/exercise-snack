@@ -61,7 +61,6 @@ export default function Dashboard() {
         setRecentSessions(sessionsResponse);
       }
       const streakResponse = await getStreak(userId);
-      console.log(streakResponse)
       setStreakValue(streakResponse);
     }
   }

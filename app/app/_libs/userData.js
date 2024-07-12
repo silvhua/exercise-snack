@@ -49,14 +49,21 @@ export async function getStreak(userId) {
       COUNT(*) AS consecutive_days
     FROM GroupedDates
     GROUP BY date_group
+  ),
+  all_consecutive_days AS (
+    SELECT
+      start_date AS id,
+      start_date,
+      end_date,
+      consecutive_days
+    FROM ConsecutiveGroups
+    WHERE end_date = CURDATE() - INTERVAL 1 DAY
+    OR end_date = CURDATE()
   )
-  SELECT
-    start_date AS id,
-    start_date,
-    end_date,
-    consecutive_days
-  FROM ConsecutiveGroups
-  WHERE end_date = CURDATE() - INTERVAL 1 DAY;
+  SELECT 
+    MAX(consecutive_days) AS consecutive_days,
+    MAX(end_date) AS id
+  FROM all_consecutive_days
   `
   const data = await sqlSelect(query, true);
   return data;

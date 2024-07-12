@@ -39,9 +39,9 @@ export function queryParamsToSql(request, param, sqlPrefix) {
   return result;
 }
 
-export function createDatesArray(earliest=7, latest = 0) {
+export function createDatesArray(earliest=6, latest = 0) {
   const datesArray = [];
-  for (let i = earliest; i > latest ; i--) {
+  for (let i = earliest; i >= latest ; i--) {
     const date = new Date();
     date.setDate(date.getDate() - i);
     date.setHours(0, 0, 0, 0);

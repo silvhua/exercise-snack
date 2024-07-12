@@ -1,7 +1,13 @@
 @use './_styles/globals.scss' as *;
+@use './_styles/variables' as *;
 
 .list {
   gap: 1rem;
+}
+
+.login {
+  height: calc(100vh - $nav-bar-height--mobile - $header-height--tablet);
+  justify-content: center;
 }
 
 // :root {
