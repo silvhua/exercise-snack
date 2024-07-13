@@ -7,6 +7,7 @@ import { checkForSuccess } from '../_libs/ApiClient';
 import Placeholder from '../_components/Placeholder/Placeholder';
 import Streak from '../_components/Streak/Streak';
 import { timeSeries } from '../_libs/TimeSeries';
+import ConsistencyDisplay from '../_components/ConsistencyDisplay/ConsistencyDisplay';
 // import './Stats.scss';
 
 const Stats = () => {
@@ -34,11 +35,6 @@ const Stats = () => {
   const daysFromFirstSession = timeSeries.daysSince(firstSession);
   const interval = daysFromFirstSession;
 
-  const precentActivityDaysCumulative = Math.round(
-    activityArray.length / interval * 100
-  );
-  console.log(activityArray.length, interval, precentActivityDaysCumulative)
-
 
   const scrollDiv = scrollRef.current;
   if (scrollDiv) {
@@ -52,14 +48,10 @@ const Stats = () => {
       <section className='responsive-section'>
         <PlotComponent activityArray={activityArray} />
         <div className='responsive-column--50'>
-          <div className='flex-column-div'>
-            <h3>Your stats:</h3>
-            <ul>
-              <li>{precentActivityDaysCumulative}% total</li>
-
-            </ul>
-
-          </div>
+          <ConsistencyDisplay
+            activityArray={activityArray}
+            firstSession={firstSession}
+          />
           <div
             className="streak--scroll"
             ref={scrollRef}

@@ -45,6 +45,10 @@ section, artcile {
   @include component-spacing;
 }
 
+ul {
+  gap: .5625rem;
+}
+
 .responsive-section {
   @include flex-mixin--column(100%);
   @include component-spacing;
@@ -60,9 +64,7 @@ section, artcile {
 
 .flex-column-div {
   @include flex-mixin--column(auto);
-  @include tablet {
-    gap: $spacing--tablet;
-  }
+  @include component-spacing;
 }
 
 a {

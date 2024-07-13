@@ -2,14 +2,16 @@
 
 class TimeSeries {
 
+  constructor() {
+    // Calculate the number of milliseconds in a day
+    this.millisecondsInDay = 24 * 60 * 60 * 1000;
+  }
+
   findMostRecentSunday(date) {
     let currentDate;
     date ? currentDate = new Date(date) : currentDate = new Date()
     // Get the current day of the week (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
     let currentDay = currentDate.getDay();
-  
-    // Calculate the number of milliseconds in a day
-    this.millisecondsInDay = 24 * 60 * 60 * 1000;
   
     // Adjust the date backwards to the most recent Sunday
     currentDate.setTime(currentDate.getTime() - currentDay * this.millisecondsInDay);
@@ -57,13 +59,31 @@ class TimeSeries {
   }
 
   daysSince(date1, date2) {
-    const oneDay = 24 * 60 * 60 * 1000; //hours*minutes*seconds*milliseconds
+    /* 
+    Calculate the number of days elapsed between dates
+    */
     date1 ? date1 = new Date(date1) : date1 = new Date()
     date2 ? date1 = new Date(date2): date2 = new Date();
 
-    const diffDays = Math.round(Math.abs((date2 - date1) / oneDay));
-
+    const diffDays = Math.round(
+      Math.abs((date2 - date1) / this.millisecondsInDay)
+    );
     return diffDays;
+  }
+
+  nMonthsAgoDate(nMonths, date) {
+    date = date ? new Date(date) : new Date();
+    date.setHours(0, 0, 0, 0) // set to midnight
+    const result = date.setMonth(
+      date.getMonth() - nMonths
+    )
+    return new Date(result)
+  }
+
+  nDaysAgoDate(nDays, date) {
+    date = date ? new Date(date) : new Date();
+    date.setTime(date.getTime() - nDays * this.millisecondsInDay);
+    return date;
   }
 }
 
