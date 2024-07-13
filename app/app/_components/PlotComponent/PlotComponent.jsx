@@ -3,17 +3,11 @@
 import Plot from 'react-plotly.js';
 
 import './PlotComponent.scss';
-import { formatDate, getWeekOfYear } from '@/app/_libs/dataProcessing';
+import { formatDate, getMonthFromWeekNumber, getWeekOfYear } from '@/app/_libs/dataProcessing';
+import { getLastSunday, getTimeSeries, timeSeries } from '@/app/_libs/TimeSeries';
 
 
-const PlotComponent = ({activityArray}) => {
-  // Example usage
-  const data = [
-    { x: 'A', y: 10, value: 3 },
-    { x: 'B', y: 15, value: 2 },
-    { x: 'C', y: 20, value: 9 },
-    { x: 'D', y: 25, value: 1 },
-  ];
+const PlotComponent = ({ activityArray }) => {
   
   // Define your custom colorscale
   const customColorscale = [
@@ -28,42 +22,59 @@ const PlotComponent = ({activityArray}) => {
   activityArray.forEach(object => {
     const date = object.date;
     const day = formatDate(date, { weekday: 'short' });
-    const week = getWeekOfYear(date);
+    const week = timeSeries.getRecentSundayTimestamp(date);
     dayOfWeekArray.push(day);
     weekOfYearArray.push(week);
-    console.log(date, day, week);
   })
 
+  // Create the xaxis labels which are month names
+  const nWeeks = 4
+  const timeseriesArray = getTimeSeries(nWeeks);
+  const xaxisValues = timeseriesArray.map(
+    dateObject => timeSeries.dateToUnixTimestamp(dateObject)
+  );
+
+
+  let xlabels = timeseriesArray.map(date => {
+    const month = formatDate(
+      date, { month: 'short' }
+    );
+    return month;
+  });
+
+  const layout = {
+    xaxis: {
+      range: [xaxisValues[nWeeks], xaxisValues[0]],
+      tickmode: 'array',
+      tickvals: xaxisValues,
+      ticktext: xlabels
+    },
+    yaxis: {
+      // title: 'Y Axis',
+    },
+    width: 800
+  };
+  
 
   // Prepare data for the plot
   const trace = {
-    // x: data.map(d => d.x),
-    // y: data.map(d => d.y),
     y: dayOfWeekArray,
     x: weekOfYearArray,
     mode: 'markers',
     marker: {
-      size: 40, // Size of the dots
+      size: 20, // Size of the dots
       color: activityArray.map(object => object.n_sets), // Use the numeric value for color
       colorscale: customColorscale, // Use custom colorscale
       cmin: 0,
       cmid: 1,
       cmax: 6,
-      symbol:"square", //https://plotly.com/javascript/reference/scatter/#scatter-marker-symbol
-      colorbar: {
-        title: 'Value', // Colorbar title
-      }
+      symbol: "square", //https://plotly.com/javascript/reference/scatter/#scatter-marker-symbol
+      // colorbar: {
+      //   title: 'Value', // Colorbar title
+      //   orientation: 'h'
+      // }
     },
     type: 'scatter',
-  };
-
-  const layout = {
-    xaxis: {
-      // title: 'X Axis',
-    },
-    yaxis: {
-      // title: 'Y Axis',
-    },
   };
 
   return (
@@ -76,21 +87,3 @@ const PlotComponent = ({activityArray}) => {
 
 export default PlotComponent
 
-
-/* 
-
-        data={[
-          {
-            z: [
-              [1, 2, 3, 2, 1], [2, 2, 3, 4, 5], [1, 2, 3, 4, 5],
-              [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5],
-              [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]
-            ],
-            x: [10, 20, 30, 40, 50],
-            y: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Sat', 'Sun'],
-            type: 'heatmap',
-            mode: 'markers',
-            marker: {color: 'red'},
-          }
-        ]}
-*/

@@ -62,6 +62,9 @@ export const formatDate = (dateObject, options = null) => {
   /* 
   To get the day of the week, options can be set to 
   `{ weekday: 'narrow' }`, { weekday: 'short' }, { weekday: 'long' }
+
+  To get the month, options are:
+  `{month: 'long'}`, `{month: 'short'}`
   */
 
     // format a date to the "MM/DD/YYYY"    
@@ -73,10 +76,19 @@ export const formatDate = (dateObject, options = null) => {
     return formattedDate
 }
 
-export function getWeekOfYear(isoDateString) {
-    const date = new Date(isoDateString);
-    const oneJan = new Date(date.getFullYear(), 0, 1);
-    const differenceInTime = date - oneJan;
-    const oneWeek = 604800000; // milliseconds in a week
-    return Math.ceil((differenceInTime / oneWeek) + 1);
+export function getWeekOfYear(date) {
+  if (typeof date === 'string') {
+    date = new Date(date);
+  }
+  const oneJan = new Date(date.getFullYear(), 0, 1);
+  const differenceInTime = date - oneJan;
+  const oneWeek = 604800000; // milliseconds in a week
+  return Math.ceil((differenceInTime / oneWeek) + 1);
+}
+
+export function getMonthFromWeekNumber(week) {
+    const today = new Date();
+    const date = new Date(today.getFullYear(), 0, week * 7); // January 1st of the specified year plus the week number multiplied by 7
+    const month = date.toLocaleString('default', { month: 'short' });
+    return month;
 }
