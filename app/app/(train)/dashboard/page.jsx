@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
+import { DataContext } from "@/app/context-provider";
 import UpcomingExercises from "@/app/_components/UpcomingExercises/UpcomingExercises";
 import Placeholder from "@/app/_components/Placeholder/Placeholder";
 import Button from "@/app/_components/Button/Button";
@@ -16,9 +17,16 @@ import { getStreak } from "@/app/_libs/userData";
 import './dashboard.scss'
 
 export default function Dashboard() {
-  const [userObject, setUserObject] = useState(null);
+  // const [userObject, setUserObject] = useState(null);
+  // const [programArray, setProgramArray] = useState(null);
+  const context = useContext(DataContext);
+  const {
+    userObject, setUserObject,
+    programArray, setProgramArray
+  } = context;
+  console.log('programArray from dashboard', programArray)
+
   const [streakValue, setStreakValue] = useState(null);
-  const [programArray, setProgramArray] = useState(null);
   const [recentSessions, setRecentSessions] = useState(null);
   const [checkboxValues, setCheckboxValues] = useState({
     'context': {}, 
