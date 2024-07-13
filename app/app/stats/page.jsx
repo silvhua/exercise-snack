@@ -5,6 +5,7 @@ import PlotComponent from '../_components/PlotComponent/PlotComponent';
 import { getActivityPerDate } from '../_libs/userData';
 import { checkForSuccess } from '../_libs/ApiClient';
 import Placeholder from '../_components/Placeholder/Placeholder';
+import Streak from '../_components/Streak/Streak';
 // import './Stats.scss';
 
 const Stats = () => {
@@ -29,8 +30,12 @@ const Stats = () => {
   return (
     <>
       <h1>Data</h1>
-      <PlotComponent activityArray={activityArray} />
-      <p>testing</p>
+      <section className='responsive-section'>
+        <PlotComponent activityArray={activityArray} />
+        <div className="flex-column-div">
+          <Streak recentSessions={activityArray}/>
+        </div>
+      </section>
       
     </>
   )

@@ -128,7 +128,11 @@ const PlotComponent = ({ activityArray }) => {
   https://github.com/plotly/react-plotly.js/blob/master/README.md#basic-props
 */
   const config = {
-    responsive: true
+    responsive: true,
+    modeBarButtonsToRemove: [
+      'zoom2d', 'lasso2d'
+    ],
+    displaylogo: false
   };
 
   return (

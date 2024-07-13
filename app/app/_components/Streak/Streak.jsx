@@ -24,7 +24,7 @@ const Streak = ({recentSessions}) => {
   */
   const past7Dates = createDatesArray();
   const normalizedSessionDates = recentSessions.map(session => {
-    let sessionDate = new Date(session.created_time)
+    let sessionDate = new Date(session.date)
     sessionDate.setHours(0, 0, 0, 0)
     sessionDate = sessionDate.getTime();
     return sessionDate;

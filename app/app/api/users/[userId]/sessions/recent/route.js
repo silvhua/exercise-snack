@@ -8,7 +8,7 @@ export async function GET(request, { params }) {
   SELECT
     MAX(id) AS id,
     MAX(last_edited_time) AS last_edited_time,
-    MIN(created_time) AS created_time 
+    MIN(created_time) AS date 
   FROM session
   WHERE (user = "${userId}")
   AND created_time >= DATE_SUB(NOW(), INTERVAL 7 DAY)
