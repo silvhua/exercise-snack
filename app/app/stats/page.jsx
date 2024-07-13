@@ -30,6 +30,7 @@ const Stats = () => {
     <>
       <h1>Data</h1>
       <PlotComponent activityArray={activityArray} />
+      <p>testing</p>
       
     </>
   )

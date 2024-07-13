@@ -71,7 +71,7 @@ export const formatDate = (dateObject, options = null) => {
     if (options === null) {
         options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     }
-    const formattedDate = dateObject.toLocaleDateString('en-US', options) // format the date to string
+    const formattedDate = dateObject.toLocaleDateString('en-CA', options) // format the date to string
         .replace(/,/g, ''); // remove commas
     return formattedDate
 }

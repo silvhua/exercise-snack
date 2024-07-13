@@ -11,48 +11,83 @@ const PlotComponent = ({ activityArray }) => {
   
   // Define your custom colorscale
   const customColorscale = [
-    [0, 'rgba(253, 253, 253, 1)'],  // off white
+    [0, 'rgba(242, 250, 250, 1)'],  // palest turquoise
     [0.5, 'rgba(199, 239, 239, 1)'], // turquoise
     [1, 'rgba(20, 37, 65, 1)']     // dark blue
   ];
 
   const dayOfWeekArray = [];
   const weekOfYearArray = [];
+  const hoverTextArray = [];
 
   activityArray.forEach(object => {
     const date = object.date;
     const day = formatDate(date, { weekday: 'short' });
     const week = timeSeries.getRecentSundayTimestamp(date);
+    const hoverText = `${object.n_sets} sets on ${formatDate(date)}`;
     dayOfWeekArray.push(day);
     weekOfYearArray.push(week);
+    hoverTextArray.push(hoverText);
   })
 
   // Create the xaxis labels which are month names
-  const nWeeks = 4
+  const nWeeks = 26;
   const timeseriesArray = getTimeSeries(nWeeks);
   const xaxisValues = timeseriesArray.map(
     dateObject => timeSeries.dateToUnixTimestamp(dateObject)
   );
 
 
-  let xlabels = timeseriesArray.map(date => {
+  /*
+  Create xtick labels when a new month starts.
+  Since `timeseriesArray` is in reverse chronological order BUT 
+  we want the month label to be for the first week of that month, 
+  we iterate `timeseriesArray` in reverse order to label the first
+  week of a given month, then reverse the array so it matches the sequence of the
+  data points.
+  */
+  let xlabels = [];
+  for (let i = timeseriesArray.length - 1; i >= 0; i--) {
+    const date = timeseriesArray[i];
     const month = formatDate(
       date, { month: 'short' }
     );
-    return month;
-  });
+    if (xlabels.includes(month)) {
+      xlabels.push('');
+    } else {
+      xlabels.push(month);
+    }
+  }
+  xlabels = xlabels.reverse();
 
   const layout = {
     xaxis: {
-      range: [xaxisValues[nWeeks], xaxisValues[0]],
+      range: [xaxisValues[12], xaxisValues[0]],
       tickmode: 'array',
       tickvals: xaxisValues,
-      ticktext: xlabels
+      ticktext: xlabels,
+      showgrid: false
     },
     yaxis: {
-      // title: 'Y Axis',
+      fixedrange: true,
+      showgrid: false,
+      // tickvals: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      // ticktext: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      // range: ['Sun', 'Sat']
     },
-    width: 800
+    autosize: true,
+    margin: { //https://plotly.com/javascript/reference/layout/#layout-margin
+      r: 32,
+      l: 32,
+      t: 32,
+      b: 32
+    },
+    font: {
+      // family: 'Open Sans', // Replace 'Your font family' with the desired font family
+      color: 'rgb(20, 37, 65)' // Adjust the font color as needed
+    },
+    paper_bgcolor: 'rgba(0, 0, 0, 0)',
+    plot_bgcolor: 'rgba(0, 0, 0, 0)'
   };
   
 
@@ -61,6 +96,8 @@ const PlotComponent = ({ activityArray }) => {
     y: dayOfWeekArray,
     x: weekOfYearArray,
     mode: 'markers',
+    text: hoverTextArray,
+    hoverinfo: 'text',
     marker: {
       size: 20, // Size of the dots
       color: activityArray.map(object => object.n_sets), // Use the numeric value for color
@@ -74,14 +111,26 @@ const PlotComponent = ({ activityArray }) => {
       //   orientation: 'h'
       // }
     },
-    type: 'scatter',
+    type: 'scatter'
+  };
+
+  /* 
+  To make the plots responsive, need to pass a `config` prop and
+  add `autosize: true` to `layout` prop
+  https://github.com/plotly/react-plotly.js/blob/master/README.md#basic-props
+*/
+  const config = {
+    responsive: true
   };
 
   return (
-    <Plot
-      data={[trace]}
-      layout={layout}
-    />
+    <section className='plot-container'>
+      <Plot
+        data={[trace]}
+        layout={layout}
+        config={config}
+      />
+    </section>
   );
 };
 

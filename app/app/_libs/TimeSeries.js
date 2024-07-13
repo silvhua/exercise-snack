@@ -37,11 +37,14 @@ class TimeSeries {
     this.findMostRecentSunday();
     const datesArray = [];
     this.nextSunday = new Date(this.recentSunday);
-    this.recentSunday.setTime(
-      this.recentSunday.getTime() + this.millisecondsInDay * 7
+    this.nextSunday.setTime(
+      this.nextSunday.getTime() + this.millisecondsInDay * 7
     )
-    datesArray.push(this.nextSunday)
-
+    datesArray.push(this.nextSunday);
+    datesArray.push(
+      /* new Date object must be instantiated in order for it to be added to the array */
+      new Date(this.recentSunday) 
+    );
     for (let i = 0; i < this.nWeeks; i++) {
       this.recentSunday.setTime(
         this.recentSunday.getTime() - this.millisecondsInDay * 7

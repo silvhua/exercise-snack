@@ -24,6 +24,9 @@ header, footer {
   @include flex-mixin--column(100%);
   padding: $page-margin--mobile $page-margin--mobile $bottom-padding--mobile;
   gap: $spacing--mobile;
+  background-color: $off-white;
+  min-height: 100vh;
+  justify-content: flex-start;
   @include tablet {
     // shift the page content down according to header height
     position: relative;
