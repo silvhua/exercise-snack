@@ -6,19 +6,6 @@ import { createDatesArray, formatDate } from '@/app/_libs/dataProcessing';
 
 const Streak = ({recentSessions}) => {
 
-  const circleProps = {
-    src: './icons/radioButton.svg',
-    className: 'streak__icon',
-    href: null,
-    label: 'M'
-  }
-  const checkMarkProps = {
-    src: './icons/checkCircle.svg',
-    className: 'streak__icon',
-    href: null,
-    label: 'M'
-  }
-
   function StreakUnit({ iconProps }) {
     const { label } = iconProps;
 
@@ -56,7 +43,7 @@ const Streak = ({recentSessions}) => {
             date, { weekday: 'narrow' }
           )
           let img = '';
-          sessionLogged ? img = 'checkCircle.svg' : img = 'radioButton.svg';
+          sessionLogged ? img = 'checkCircleFilled.svg' : img = 'radioButtonUnchecked.svg';
           const imgSrc = `./icons/${img}`;
           iconProps = {
             ...iconProps,
@@ -71,8 +58,6 @@ const Streak = ({recentSessions}) => {
           )
         })
       }
-      {/* <StreakUnit iconProps={checkMarkProps} />
-      <StreakUnit iconProps={circleProps} /> */}
     </div>
   )
 }
