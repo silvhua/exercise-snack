@@ -16,8 +16,8 @@ export async function GET(request, { params }) {
     SELECT session_id AS id
     FROM activity
   )
-  
   GROUP BY DATE(created_time)
+  ORDER BY DATE(created_time) DESC
   `
   const response = await apiSqlQuery(query);
   return response;

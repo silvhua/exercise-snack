@@ -20,4 +20,9 @@
   width: 32px;
   aspect-ratio: 1;
   }
+
+  &--scroll {
+    @extend .scroll-div--horizontal;
+    height: 100%;
+  }
 }

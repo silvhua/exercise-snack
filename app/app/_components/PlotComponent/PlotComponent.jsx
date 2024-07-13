@@ -136,7 +136,7 @@ const PlotComponent = ({ activityArray }) => {
   };
 
   return (
-    <section className='plot-container'>
+    <section className='plot-container responsive-column--50'>
       <Plot
         data={[trace]}
         layout={layout}

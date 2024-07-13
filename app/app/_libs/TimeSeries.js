@@ -55,6 +55,16 @@ class TimeSeries {
     }
     return datesArray;
   }
+
+  daysSince(date1, date2) {
+    const oneDay = 24 * 60 * 60 * 1000; //hours*minutes*seconds*milliseconds
+    date1 ? date1 = new Date(date1) : date1 = new Date()
+    date2 ? date1 = new Date(date2): date2 = new Date();
+
+    const diffDays = Math.round(Math.abs((date2 - date1) / oneDay));
+
+    return diffDays;
+  }
 }
 
 export const timeSeries = new TimeSeries();

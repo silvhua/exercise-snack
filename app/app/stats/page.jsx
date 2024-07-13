@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PlotComponent from '../_components/PlotComponent/PlotComponent';
 import { getActivityPerDate } from '../_libs/userData';
 import { checkForSuccess } from '../_libs/ApiClient';
@@ -9,6 +9,7 @@ import Streak from '../_components/Streak/Streak';
 // import './Stats.scss';
 
 const Stats = () => {
+  const scrollRef = useRef(null);
   const [activityArray, setActivityArray] = useState(null);
 
   useEffect(() => {
@@ -26,14 +27,24 @@ const Stats = () => {
   if (!activityArray) {
     return <Placeholder text="Fetching your data..." />
   }
+  const scrollDiv = scrollRef.current;
+  if (scrollDiv) {
+    // Set the scrollbar to be on the far right by default
+    scrollDiv.scrollLeft = scrollDiv.scrollWidth - scrollDiv.clientWidth
+  }
 
   return (
     <>
       <h1>Data</h1>
       <section className='responsive-section'>
         <PlotComponent activityArray={activityArray} />
-        <div className="flex-column-div">
-          <Streak recentSessions={activityArray}/>
+        <div
+          className="streak--scroll responsive-column--50"
+          ref={scrollRef}
+        >
+          <Streak
+            data={activityArray}
+          />
         </div>
       </section>
       

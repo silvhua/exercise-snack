@@ -3,8 +3,9 @@ import './Streak.scss';
 import 'react-calendar/dist/Calendar.css';
 import ActionIcon from '../ActionIcon/ActionIcon';
 import { createDatesArray, formatDate } from '@/app/_libs/dataProcessing';
+import { timeSeries } from '@/app/_libs/TimeSeries';
 
-const Streak = ({recentSessions}) => {
+const Streak = ({ data, interval }) => {
 
   function StreakUnit({ iconProps }) {
     const { label } = iconProps;
@@ -22,8 +23,15 @@ const Streak = ({recentSessions}) => {
   /* 
   Determine which of the past few days have logged sessions
   */
-  const past7Dates = createDatesArray();
-  const normalizedSessionDates = recentSessions.map(session => {
+  if (!interval) {
+    const firstSession = data[data.length - 1].date;
+    const daysFromFirstSession = timeSeries.daysSince(firstSession);
+    interval = daysFromFirstSession
+    // interval = 8;
+  }
+  
+  const pastDates = createDatesArray(interval);
+  const normalizedSessionDates = data.map(session => {
     let sessionDate = new Date(session.date)
     sessionDate.setHours(0, 0, 0, 0)
     sessionDate = sessionDate.getTime();
@@ -37,7 +45,7 @@ const Streak = ({recentSessions}) => {
   return (
     <div className='streak'>
       {
-        past7Dates.map((date, index) => {
+        pastDates.map((date, index) => {
           const sessionLogged = normalizedSessionDates.includes(date.getTime());
           const weekdayString = formatDate(
             date, { weekday: 'narrow' }

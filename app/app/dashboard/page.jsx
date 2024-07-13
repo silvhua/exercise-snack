@@ -134,7 +134,10 @@ export default function Dashboard() {
           }
           {
             recentSessions ?
-            <Streak recentSessions={recentSessions} />
+              <Streak
+                data={recentSessions}
+                interval={7}
+              />
             : null
           }
         </div>

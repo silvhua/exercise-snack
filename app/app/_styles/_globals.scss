@@ -49,6 +49,10 @@ section, article, ul {
   }
 }
 
+.responsive-column--50 {
+  @include responsive-column(50%);
+}
+
 .flex-column-div {
   @include flex-mixin--column(auto);
 }
@@ -144,4 +148,11 @@ p {
 .flex-row-container {
   @include flex-mixin--row(100%);
   gap: $spacing--mobile;
+}
+
+.scroll-div {
+  &--horizontal {
+    @extend .flex-row-container;
+    overflow: scroll visible;
+  }
 }

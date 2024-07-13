@@ -119,3 +119,10 @@
   border-radius: $border-radius;
 }
 
+@mixin responsive-column($width) {
+  width: 100%;
+
+  @include tablet {
+    width: $width;
+  }
+}
