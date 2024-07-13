@@ -3,8 +3,8 @@
 import Plot from 'react-plotly.js';
 
 import './PlotComponent.scss';
-import { formatDate, getMonthFromWeekNumber, getWeekOfYear } from '@/app/_libs/dataProcessing';
-import { getLastSunday, getTimeSeries, timeSeries } from '@/app/_libs/TimeSeries';
+import { formatDate } from '@/app/_libs/dataProcessing';
+import { getTimeSeries, timeSeries } from '@/app/_libs/TimeSeries';
 
 
 const PlotComponent = ({ activityArray }) => {

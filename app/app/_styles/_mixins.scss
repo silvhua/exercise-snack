@@ -30,44 +30,44 @@
   justify-content: center;
 }
 
-// this is a function called by `set-element-margin` mixin.
-@mixin element-margin($media) {
-  @if $media == tablet {
-    padding-left: $spacing--tablet;
-    padding-right: $spacing--tablet;
-    margin: 0 auto;
-  } @else {
-    margin: 0 auto;
-    padding-left: 0;
-    padding-right: 0;
-    max-width: $max-content-width;
-  }
-}
+// // this is a function called by `set-element-margin` mixin.
+// @mixin element-margin($media) {
+//   @if $media == tablet {
+//     padding-left: $spacing--tablet;
+//     padding-right: $spacing--tablet;
+//     margin: 0 auto;
+//   } @else {
+//     margin: 0 auto;
+//     padding-left: 0;
+//     padding-right: 0;
+//     max-width: $max-content-width;
+//   }
+// }
 
-// this called upon the `element-margin` mixin
-@mixin set-element-margin($mobile-margin) {
-  margin: 0 $mobile-margin;
-  @include tablet {
-    @include element-margin(tablet);
-  }
-  @include desktop {
-    @include element-margin(desktop);
-  }
-}
+// // this called upon the `element-margin` mixin
+// @mixin set-element-margin($mobile-margin) {
+//   margin: 0 $mobile-margin;
+//   @include tablet {
+//     @include element-margin(tablet);
+//   }
+//   @include desktop {
+//     @include element-margin(desktop);
+//   }
+// }
 
-@mixin set-section-margin() {
-  margin: 0 auto;
-  padding: $spacing--mobile;
+// @mixin set-section-margin() {
+//   margin: 0 auto;
+//   padding: $spacing--mobile;
   
-  @include tablet {
-    width: 100%;
-    padding: 0 $page-margin--tablet;
-  }
-  @include desktop {
-    max-width: $max-content-width;
-    padding: 0;
-  }
-}
+//   @include tablet {
+//     width: 100%;
+//     padding: 0 $page-margin--tablet;
+//   }
+//   @include desktop {
+//     max-width: $max-content-width;
+//     padding: 0;
+//   }
+// }
 
 @mixin set-font($default-size, $default-height, $tablet-size, $tablet-height, $font-weight) {
   font-size: $default-size;
@@ -87,6 +87,13 @@
   }
 }
 
+@mixin component-spacing() {
+  gap: $spacing--mobile;
+  @include tablet {
+    gap: $spacing--tablet;
+  }
+}
+
 @mixin zero-spacing {
   margin: 0;
   padding: 0;
@@ -95,21 +102,11 @@
   line-height: 100%;
 }
 
-// @mixin full-width {
-//   width: 100%;
-// }
-
 @mixin responsive-container($width) {
   @include flex-mixin($width);
+  @include component-spacing;
   margin: 0;
   padding: 0;
-}
-
-@mixin component-spacing() {
-  gap: $spacing--mobile;
-  @include tablet {
-    gap: $spacing--tablet;
-  }
 }
 
 @mixin card {
@@ -120,6 +117,8 @@
 }
 
 @mixin responsive-column($width) {
+  @include flex-mixin--column($width);
+  @include component-spacing;
   width: 100%;
 
   @include tablet {

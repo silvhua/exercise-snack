@@ -1,9 +1,7 @@
-import Calendar from 'react-calendar';
 import './Streak.scss';
 import 'react-calendar/dist/Calendar.css';
 import ActionIcon from '../ActionIcon/ActionIcon';
 import { createDatesArray, formatDate } from '@/app/_libs/dataProcessing';
-import { timeSeries } from '@/app/_libs/TimeSeries';
 
 const Streak = ({ data, interval }) => {
 
@@ -19,17 +17,11 @@ const Streak = ({ data, interval }) => {
       </div>
     )
   }
-
-  /* 
-  Determine which of the past few days have logged sessions
-  */
-  if (!interval) {
-    const firstSession = data[data.length - 1].date;
-    const daysFromFirstSession = timeSeries.daysSince(firstSession);
-    interval = daysFromFirstSession
-    // interval = 8;
-  }
   
+  /* 
+  Dates need to be normalized to determine 
+  which of the past few days have logged sessions
+  */
   const pastDates = createDatesArray(interval);
   const normalizedSessionDates = data.map(session => {
     let sessionDate = new Date(session.date)

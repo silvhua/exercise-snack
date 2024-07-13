@@ -13,7 +13,7 @@
   &__day {
     @include flex-mixin--column(auto);
     align-items: center;
-
+    gap: 0 !important;
   }
 
   &__icon {

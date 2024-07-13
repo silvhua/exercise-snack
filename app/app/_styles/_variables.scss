@@ -6,6 +6,7 @@ $font-family: 'Graphik Medium', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet
 
 $header-height--tablet: 5rem;
 $nav-bar-height--mobile: 4.75rem;
+$main-height--tablet: calc(100vh - $header-height--tablet);
 
 $page-margin--mobile: 1.5rem;
 $spacing--mobile: 1rem;

@@ -22,8 +22,8 @@ header, footer {
 
 .main {
   @include flex-mixin--column(100%);
+  @include component-spacing;
   padding: $page-margin--mobile $page-margin--mobile $bottom-padding--mobile;
-  gap: $spacing--mobile;
   background-color: $off-white;
   min-height: 100vh;
   justify-content: flex-start;
@@ -32,17 +32,22 @@ header, footer {
     position: relative;
     top: $header-height--tablet;
     padding: $page-margin--tablet;
+    min-height: $main-height--tablet;
   }
 }
 
 section, article, ul {
   @include flex-mixin--column(100%);
-  gap: $spacing--mobile;
   margin: 0;
+}
+
+section, artcile {
+  @include component-spacing;
 }
 
 .responsive-section {
   @include flex-mixin--column(100%);
+  @include component-spacing;
   @include tablet {
     @include flex-mixin--row(100%);
     align-items: flex-start;
@@ -55,6 +60,9 @@ section, article, ul {
 
 .flex-column-div {
   @include flex-mixin--column(auto);
+  @include tablet {
+    gap: $spacing--tablet;
+  }
 }
 
 a {
@@ -147,12 +155,15 @@ p {
 
 .flex-row-container {
   @include flex-mixin--row(100%);
-  gap: $spacing--mobile;
+  @include component-spacing;
 }
 
 .scroll-div {
+  scrollbar-width: thin;
+  scrollbar-color: red;
   &--horizontal {
     @extend .flex-row-container;
+    @extend .scroll-div;
     overflow: scroll visible;
   }
 }
