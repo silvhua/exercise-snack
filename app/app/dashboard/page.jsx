@@ -56,12 +56,12 @@ export default function Dashboard() {
 
   async function loadRecentSessions() {
     if (userId) {
+      const streakResponse = await getStreak(userId);
+      setStreakValue(streakResponse);
       const sessionsResponse = await getLastWeeksSessions(userId);
       if (checkForSuccess(sessionsResponse)) {
         setRecentSessions(sessionsResponse);
       }
-      const streakResponse = await getStreak(userId);
-      setStreakValue(streakResponse);
     }
   }
 
