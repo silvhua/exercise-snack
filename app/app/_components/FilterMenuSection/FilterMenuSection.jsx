@@ -19,7 +19,7 @@ const FilterMenuSection = (props) => {
   return (
     <>
       <h3
-        className='subtitle'
+        className='filter-menu__subtitle'
       >
         {property}
       </h3>

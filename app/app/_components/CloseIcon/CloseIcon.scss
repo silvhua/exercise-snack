@@ -3,7 +3,7 @@
 @use '../../_styles/mixins' as *;
 
 .close-icon {
-  position: absolute;
+  position: fixed;
   top: $page-margin--mobile;
   right: $page-margin--mobile;
   width: .875rem;

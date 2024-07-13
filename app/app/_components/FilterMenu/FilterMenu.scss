@@ -1,28 +1,49 @@
 @use '../../_styles/variables' as *;
-// @use '../../_styles/globals' as *;
+@use '../../_styles/globals' as *;
 @use '../../_styles/mixins' as *;
+
+$filter-menu-width: 19.9375rem;
+$filter-menu-content-width: calc($filter-menu-width - (2 * $spacing--mobile));
 
 .filter-menu {
   position: fixed;
   background-color: $off-white;
-  width: 19.9375rem;
+  width: $filter-menu-width;
   min-height: 100vh;
   max-height: 100vh;
   box-sizing: border-box;
-  padding: $page-margin--mobile  $page-margin--mobile; 
+  padding: $page-margin--mobile $spacing--mobile; 
   right: 0;
   top: 0;
   overflow: auto;
   justify-self: flex-end;
+  border: none;
+
+  &__button {
+    position: fixed;
+    bottom: $spacing--tablet;
+    width: $filter-menu-content-width;
+    box-sizing: border-box;
+    color: white;
+    opacity: 1;
+  }
+
+  &__subtitle {
+    @extend .subtitle;
+    margin-top: 2rem;
+    margin-bottom: .75rem;
+    color: $secondary-text-color;
+  }
 }
 
 .filter-form {
   @include flex-mixin--column(100%);
+  gap: $spacing--tablet;
 }
 
 .backdrop {
   position: fixed;
-  background-color: rgba(20, 37, 65, 0.2);
+  background-color: rgba(20, 37, 65, 0.4);
   height: 100vh;
   width: 100vw;
   top: 0;

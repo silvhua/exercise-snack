@@ -3,9 +3,7 @@
 import { useEffect, useState } from 'react';
 import './FilterMenu.scss';
 import CloseIcon from '../CloseIcon/CloseIcon';
-import Checkbox from '../Checkbox/Checkbox';
 import { readProperty } from './properties';
-import Placeholder from '../Placeholder/Placeholder';
 import FilterMenuSection from '../FilterMenuSection/FilterMenuSection';
 import Button from '../Button/Button';
 
