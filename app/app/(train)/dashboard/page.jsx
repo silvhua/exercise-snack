@@ -1,18 +1,18 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react";
-import UpcomingExercises from "../_components/UpcomingExercises/UpcomingExercises";
-import Placeholder from "../_components/Placeholder/Placeholder";
-import Button from "../_components/Button/Button";
-import FilterIcon from "../_components/FilterIcon/FilterIcon";
-import FilterMenu from "../_components/FilterMenu/FilterMenu";
+import UpcomingExercises from "@/app/_components/UpcomingExercises/UpcomingExercises";
+import Placeholder from "@/app/_components/Placeholder/Placeholder";
+import Button from "@/app/_components/Button/Button";
+import FilterIcon from "@/app/_components/FilterIcon/FilterIcon";
+import FilterMenu from "@/app/_components/FilterMenu/FilterMenu";
 import {
   generateProgram, getLastWeeksSessions, updateProgram,
   getUserSessions
 } from '@/app/_libs/clientCrud';
 import { checkForSuccess } from '@/app/_libs/ApiClient';
-import Streak from "../_components/Streak/Streak";
-import { getStreak } from "../_libs/userData";
+import Streak from "@/app/_components/Streak/Streak";
+import { getStreak } from "@/app/_libs/userData";
 import './dashboard.scss'
 
 export default function Dashboard() {
