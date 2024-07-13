@@ -7,12 +7,30 @@
   justify-content: flex-start;
   gap: $spacing--mobile;
 
-  &__input {
+  &__span { // custom check form inputs
+    margin: 0 0.5rem;
+    width: 1.5rem;
 
+    aspect-ratio: 1;
+    background: url('../../../public/icons/checkboxOutline.svg');
+    background-repeat: no-repeat;
+    background-size: 1.5rem;
+    cursor: pointer;
+    vertical-align: bottom; 
+  }
+
+  &__input {
+    display: none;
+
+    &:checked + span {
+      background-image: url('../../../public/icons/checkboxFilled.svg')
+    }
   }
 
   &__label {
     @extend p;
     margin: 0;
+    display: inline-flex;
+    align-items: center;
   }
 }
