@@ -22,7 +22,12 @@ const PlotComponent = ({ activityArray }) => {
 
   activityArray.forEach(object => {
     const date = object.date;
-    const day = formatDate(date, { weekday: 'short' });
+    /* 
+    Subtract the day of the week from 6 so that Sun = 0, Sat = 6.
+    This way, Sunday will be at the top of the x-axis instead of
+    at the bottom.
+    */
+    const day = 6 - date.getDay(); 
     const week = timeSeries.getRecentSundayTimestamp(date);
     const hoverText = `${object.n_sets} sets on ${formatDate(date)}`;
     dayOfWeekArray.push(day);
@@ -60,20 +65,22 @@ const PlotComponent = ({ activityArray }) => {
   }
   xlabels = xlabels.reverse();
 
+  const defaultWeeksToDisplay = 12;
   const layout = {
     xaxis: {
-      range: [xaxisValues[12], xaxisValues[0]],
+      range: [xaxisValues[defaultWeeksToDisplay], xaxisValues[0]],
       tickmode: 'array',
       tickvals: xaxisValues,
       ticktext: xlabels,
-      showgrid: false
+      showgrid: false,
     },
     yaxis: {
       fixedrange: true,
       showgrid: false,
-      // tickvals: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      // ticktext: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      // range: ['Sun', 'Sat']
+      ticktext: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      tickvals: [6, 5, 4, 3, 2, 1, 0],
+      range: [-0.5, 6.5],
+      zeroline: false
     },
     autosize: true,
     margin: { //https://plotly.com/javascript/reference/layout/#layout-margin
@@ -82,6 +89,7 @@ const PlotComponent = ({ activityArray }) => {
       t: 32,
       b: 32
     },
+    pad: 16,
     font: {
       // family: 'Open Sans', // Replace 'Your font family' with the desired font family
       color: 'rgb(20, 37, 65)' // Adjust the font color as needed
