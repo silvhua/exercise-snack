@@ -21,7 +21,8 @@ const UpcomingExercises = (props) => {
   */
   const {
     userObject,
-    programArray, setProgramArray
+    programArray, setProgramArray,
+    placeholderText
   } = props;
 
   const router = useRouter();
@@ -29,38 +30,39 @@ const UpcomingExercises = (props) => {
     username, first_name, id,
   } = userObject;
 
-  const [placeholderText, setPlaceholderText] = useState('');
+
+  // const [placeholderText, setPlaceholderText] = useState('');
   
-  useEffect(() => {
+  // useEffect(() => {
 
-    const loadProgram = async () => {
-      const storedProgramResponse = await readProgram(id);
-      if (checkForSuccess(storedProgramResponse)) {
-        const storedProgram = JSON.parse(storedProgramResponse.exercises);
-        setProgramArray(storedProgram);
-      } else {
-        setPlaceholderText('Creating your program...');
-        getNewProgram();
-      }
-    }
+  //   const loadProgram = async () => {
+  //     const storedProgramResponse = await readProgram(id);
+  //     if (checkForSuccess(storedProgramResponse)) {
+  //       const storedProgram = JSON.parse(storedProgramResponse.exercises);
+  //       setProgramArray(storedProgram);
+  //     } else {
+  //       setPlaceholderText('Creating your program...');
+  //       getNewProgram();
+  //     }
+  //   }
 
-    const getNewProgram = async () => {
-      const createProgramResponse = await generateProgram();
-      if (checkForSuccess(createProgramResponse)) {
-        setProgramArray(createProgramResponse);
-        const postProgramResponse = await saveProgram(
-          id, //user ID
-          createProgramResponse
-        );
-      } else {
-        console.log('error:')
-      }
-    }
+  //   const getNewProgram = async () => {
+  //     const createProgramResponse = await generateProgram();
+  //     if (checkForSuccess(createProgramResponse)) {
+  //       setProgramArray(createProgramResponse);
+  //       const postProgramResponse = await saveProgram(
+  //         id, //user ID
+  //         createProgramResponse
+  //       );
+  //     } else {
+  //       console.log('error:')
+  //     }
+  //   }
 
-    if (!programArray) {
-      loadProgram();
-    } 
-  }, [])
+  //   if (!programArray) {
+  //     loadProgram();
+  //   } 
+  // }, [])
 
   if (!programArray) {
     return <Placeholder text={placeholderText} />

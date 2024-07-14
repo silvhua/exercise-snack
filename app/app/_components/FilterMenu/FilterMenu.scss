@@ -1,6 +1,6 @@
-@use '../../_styles/variables' as *;
-@use '../../_styles/globals' as *;
-@use '../../_styles/mixins' as *;
+@use '@/app/_styles/variables' as *;
+@use '@/app/_styles/globals' as *;
+@use '@/app/_styles/mixins' as *;
 
 $filter-menu-width: 19.9375rem;
 $filter-menu-content-width: calc($filter-menu-width - (2 * $spacing--mobile));

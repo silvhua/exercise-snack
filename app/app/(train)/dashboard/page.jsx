@@ -16,14 +16,12 @@ import Streak from "@/app/_components/Streak/Streak";
 import './dashboard.scss'
 
 export default function Dashboard() {
-  // const [userObject, setUserObject] = useState(null);
-  const [programArray, setProgramArray] = useState(null);
   const context = useContext(DataContext);
   const {
-    userObject, setUserObject,
+    userObject, 
     streakValue, 
     recentSessions, 
-    // programArray, setProgramArray
+    programArray, setProgramArray
   } = context;
 
   const [checkboxValues, setCheckboxValues] = useState({
@@ -35,13 +33,6 @@ export default function Dashboard() {
 
   const filterRef = useRef();
   const userId = userObject?.id;
-  
-  useEffect(() => {
-    const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
-    setUserObject(storedUserInfo);
-    const sessionProgramArray = sessionStorage.getItem('userProgram');
-    setProgramArray(JSON.parse(sessionProgramArray));
-  }, []);
 
   if (!userObject) {
     return <Placeholder text='Verifying your details...' />
@@ -138,13 +129,19 @@ export default function Dashboard() {
           handleClick={handleFilterClick}
         />
       </div>
-      <UpcomingExercises
-        userObject={userObject}
-        programArray={programArray}
-        setProgramArray={setProgramArray}
-     />
-      <Button buttonProps={buttonProps} />
-      <FilterMenu filterProps={filterProps} />
+      {
+        programArray ? 
+          <>
+            <UpcomingExercises
+              userObject={userObject}
+              programArray={programArray}
+              setProgramArray={setProgramArray}
+            />
+            <Button buttonProps={buttonProps} />
+            <FilterMenu filterProps={filterProps} />
+          </>
+          : null
+      }
     </>
   );
 }
