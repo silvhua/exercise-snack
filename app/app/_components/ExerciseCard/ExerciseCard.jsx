@@ -11,6 +11,7 @@ const ExerciseCard = ({ exerciseObject }) => {
   - environment: 1+ icons
 
   */
+  console.log(exerciseObject)
   return (
     <li className='exercise-card'>
       <div className='exercise-card__top'>
@@ -19,7 +20,7 @@ const ExerciseCard = ({ exerciseObject }) => {
             <CircleTag 
               className='exercise-tag'
               text={discreetness}
-              
+              title='discreetness'
             />
           </div>
 
