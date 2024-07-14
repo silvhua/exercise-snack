@@ -7,11 +7,12 @@ import postData, { updateProgram } from "@/app/_libs/clientCrud";
 import { useRouter } from "next/navigation";
 import { checkForSuccess } from "@/app/_libs/ApiClient";
 import CompletionModal from "@/app/_components/CompletionModal/CompletionModal";
-import { isSameDate } from "@/app/_libs/dataProcessing";
+import { getPastWeekActivty, isSameDate } from "@/app/_libs/dataProcessing";
 
 const TrainingPage = () => {
   const context = useContext(DataContext);
-  const { recentSessions } = context;
+  // const { recentSessions } = context;
+  const { activityArray } = context;
   const completeRef = useRef();
   const router = useRouter();
   const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
@@ -32,6 +33,11 @@ const TrainingPage = () => {
     duration: null
   });
   const [exerciseDetailsComponent, setExerciseDetailsComponent] = useState(null);
+  if (!activityArray || activityArray?.length === 0) {
+    router.push('/dashboard');
+    return;
+  }
+  const recentSessions = getPastWeekActivty(activityArray);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

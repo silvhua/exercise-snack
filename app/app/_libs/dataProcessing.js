@@ -1,3 +1,6 @@
+
+import { timeSeries } from "@/app/_libs/TimeSeries";
+
 export default function rotateArray(arr) {
   if (arr.length > 1) {
     let firstItem = arr.shift();
@@ -91,4 +94,12 @@ export function getMonthFromWeekNumber(week) {
     const date = new Date(today.getFullYear(), 0, week * 7); // January 1st of the specified year plus the week number multiplied by 7
     const month = date.toLocaleString('default', { month: 'short' });
     return month;
+}
+
+export function getPastWeekActivty(activityArray) {
+  const oneWeekAgo = timeSeries.nDaysAgoDate(7);
+  const pastWeekActivity = activityArray.filter(object => object.date >= oneWeekAgo);
+  console.log(pastWeekActivity)
+  return pastWeekActivity;
+  
 }
