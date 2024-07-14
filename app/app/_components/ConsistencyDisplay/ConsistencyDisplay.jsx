@@ -10,8 +10,10 @@ const ConsistencyDisplay = ({activityArray, firstSession}) => {
 
   function showConsistencyStat(startDate, text, activityArray) {
     const interval = timeSeries.daysSince(startDate);
+    const relevantActivtyDates = activityArray.filter(activity => activity.date > startDate);
+    const uniqueDates = new Set(relevantActivtyDates);
     const precentActivityDays = Math.round(
-      activityArray.length / interval * 100
+      uniqueDates.size / interval * 100
     );
     return (
       <li>
