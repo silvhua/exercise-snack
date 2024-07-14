@@ -78,11 +78,9 @@ Stats page | Shows stats and data visualization on the user's consistency with e
 <img src="./documentation/activity-logged-confirmation.PNG" width="350" alt="activity logged confirmation" />
 <img src="./documentation/stats-page.PNG" width="350" alt="stats page" />
 
-
+![](./documentation/training-page-top.PNG)
 
 ### Data
-Below is the entity relationship diagram of the database:
-<img src="./documentation/ERD.svg" alt="entity relationship diagram" />
 
 The tables in the database are grouped into:
 1. Content data, i.e. related to exercises.
@@ -105,6 +103,10 @@ video | 1 | A src for an exercise video |  `exercise.video_id` -> `id`
 user | 2 | A user | 
 session | 2 | The exercise sessions for a given user. | Foreign key: `user` -> `user.id`
 activity | 2 | Data for a single set of a single exercise logged by a given user | Foreign keys: `exercise_id` -> `exercise.id`; `session_id` -> `session.id`
+
+
+Below is the entity relationship diagram of the database:
+<img src="./documentation/ERD.svg" alt="entity relationship diagram" />
 
 ### Endpoints
 
