@@ -1,6 +1,4 @@
-import FilterMenu from "./_components/FilterMenu/FilterMenu";
 import Header from "./_components/Header/Header";
-import NavBar from "./_components/NavBar/NavBar";
 import "./globals.scss";
 
 
@@ -14,10 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Header />
-          <main className="main">
-            {children}
-          </main>
-          <NavBar />
+          {children}
       </body>
     </html>
   );

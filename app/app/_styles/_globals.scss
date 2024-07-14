@@ -11,6 +11,10 @@
   box-sizing: border-box;
 }
 
+body {
+  height: 100vh;
+  overflow: hidden;
+}
 h1 {
   font-size: 32px;
   text-transform: capitalize;
@@ -23,16 +27,17 @@ header, footer {
 .main {
   @include flex-mixin--column(100%);
   @include component-spacing;
-  padding: $page-margin--mobile $page-margin--mobile $bottom-padding--mobile;
+  padding: $page-margin--mobile $page-margin--mobile $page-margin--tablet;
   background-color: $off-white;
-  min-height: 100vh;
+  height: $main-height--mobile;
   justify-content: flex-start;
+  overflow:  visible scroll;
   @include tablet {
     // shift the page content down according to header height
     position: relative;
     top: $header-height--tablet;
     padding: $page-margin--tablet;
-    min-height: $main-height--tablet;
+    height: $main-height--tablet;
   }
 }
 
