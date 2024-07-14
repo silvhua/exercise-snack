@@ -1,5 +1,6 @@
 @use './_styles/globals.scss' as *;
 @use './_styles/variables' as *;
+@use './_styles/mixins' as *;
 
 .list {
   gap: 1rem;
@@ -8,6 +9,12 @@
 .login {
   height: calc(100vh - $nav-bar-height--mobile - $header-height--tablet);
   justify-content: center;
+  height: 100vh;
+  background-color: $off-white;
+  padding: $page-margin--mobile;
+  @include tablet {
+    padding: $page-margin--tablet;
+  }
 }
 
 // :root {

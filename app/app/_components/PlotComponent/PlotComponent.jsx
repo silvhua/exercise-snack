@@ -130,7 +130,7 @@ const PlotComponent = ({ activityArray }) => {
   const config = {
     responsive: true,
     modeBarButtonsToRemove: [
-      'zoom2d', 'lasso2d'
+      'zoom2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'select2d'
     ],
     displaylogo: false
   };
