@@ -4,7 +4,7 @@ import './Button.scss';
 // import { useRouter } from 'next/navigation'
 
 const Button = ({buttonProps}) => {
-  const { text, className, href, onClick, routerPath } = buttonProps;
+  const { text, className, href, onClick } = buttonProps;
   // const router = useRouter()
 
   const buttonElement = (

@@ -167,7 +167,6 @@ p {
 
 .scroll-div {
   scrollbar-width: thin;
-  scrollbar-color: red;
   &--horizontal {
     @extend .flex-row-container;
     @extend .scroll-div;

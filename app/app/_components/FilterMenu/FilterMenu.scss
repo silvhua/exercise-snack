@@ -2,10 +2,8 @@
 @use '@/app/_styles/globals' as *;
 @use '@/app/_styles/mixins' as *;
 
-$filter-menu-width: 19.9375rem;
-$filter-menu-content-width: calc($filter-menu-width - (2 * $spacing--mobile));
-
 .filter-menu {
+  @include modal-mixin;
   position: fixed;
   background-color: $off-white;
   width: $filter-menu-width;
@@ -39,14 +37,4 @@ $filter-menu-content-width: calc($filter-menu-width - (2 * $spacing--mobile));
 .filter-form {
   @include flex-mixin--column(100%);
   gap: $spacing--tablet;
-}
-
-.backdrop {
-  position: fixed;
-  background-color: rgba(20, 37, 65, 0.4);
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  z-index: 4;
 }

@@ -2,6 +2,9 @@
 @use '../../_styles/globals' as *;
 @use '../../_styles/mixins' as *;
 
+$button-width--tablet: 12.5rem;
+
+
 .button {
   font-size: 14pt; // 19px
   width: 100%;
@@ -10,4 +13,8 @@
   background-color: $dark-blue;
   color: $button-text-color;
   cursor: pointer;
+
+  @include tablet {
+    width: $button-width--tablet;
+  }
 }

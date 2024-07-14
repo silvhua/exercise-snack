@@ -125,3 +125,15 @@
     width: $width;
   }
 }
+
+@mixin modal-mixin {
+  &::backdrop {
+    position: fixed;
+    background-color: rgba(20, 37, 65, 0.5);
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: 4;
+  }
+}

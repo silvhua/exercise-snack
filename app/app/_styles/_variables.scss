@@ -34,4 +34,7 @@ $input-border: 1px solid #142541;
 $form-padding--mobile: 0.75rem;
 $form-padding--tablet: 1rem;
 
+$filter-menu-width: 19.9375rem;
+$filter-menu-content-width: calc($filter-menu-width - (2 * $spacing--mobile));
+
 $max-content-width: calc(1280px - 8 * $page-margin--tablet);

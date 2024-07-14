@@ -1,7 +1,39 @@
-@use '../../_styles/variables' as *;
-@use '../../_styles/globals' as *;
-@use '../../_styles/mixins' as *;
+@use '@/app/_styles/variables' as *;
+@use '@/app/_styles/globals' as *;
+@use '@/app/_styles/mixins' as *;
+
+$modal-height--tablet: 400px;
+
 
 .complete {
-  
+  // @extend .main;
+  @extend .flex-column-div;
+  padding: $page-margin--mobile;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  @include tablet {
+    height: $modal-height--tablet;
+    
+  }
+}
+
+.responsive-modal {
+  @include modal-mixin;
+  min-height: 100vh;
+  min-width: 100vw;
+  border: none;
+  border-radius: $border-radius;
+
+  @include tablet {
+    min-height: $modal-height--tablet;
+    min-width: 80%;
+    position: absolute;
+    position: absolute;
+    align-self: center;
+    justify-self: center;
+    // top: 50%;
+    // left: 
+    // transform: translateX(-50%)
+  }
 }

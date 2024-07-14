@@ -1,12 +1,17 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useRef, useContext } from "react";
+import { DataContext } from "@/app/context-provider";
 import ExerciseDetails from "@/app/_components/ExerciseDetails/ExerciseDetails";
 import postData, { updateProgram } from "@/app/_libs/clientCrud";
 import { useRouter } from "next/navigation";
 import { checkForSuccess } from "@/app/_libs/ApiClient";
+import CompletionModal from "@/app/_components/CompletionModal/CompletionModal";
 
 const TrainingPage = () => {
+  const context = useContext(DataContext);
+  const { recentSessions } = context;
+  const completeRef = useRef();
   const router = useRouter();
   const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
   
@@ -56,35 +61,43 @@ const TrainingPage = () => {
     event.preventDefault();
     const validFormSubmission = await validateForm();
     if (validFormSubmission) {
-      console.log('submitted')
-      const activityObject = { ...formData, exercise_id: exerciseId };
-      activityObject.reps = parseInt(activityObject.reps) || null;
-      activityObject.duration = parseInt(activityObject.duration) || null;
-      const postActivityResponse = await postData(
-        `sessions/${sessionId}/activities`, activityObject
-      );
+    //   console.log('submitted')
+      
+    //   const activityObject = { ...formData, exercise_id: exerciseId };
+    //   activityObject.reps = parseInt(activityObject.reps) || null;
+    //   activityObject.duration = parseInt(activityObject.duration) || null;
+    //   const postActivityResponse = await postData(
+    //     `sessions/${sessionId}/activities`, activityObject
+    //   );
 
-      if (checkForSuccess(postActivityResponse)) {
-        /* 
-        Exercises were previously rotated in the `UpcomingExercises` component
-        so they should be saved
-        */
-        const updateProgramResponse = await updateProgram(userId, storedArray);
-        if (checkForSuccess(updateProgramResponse)) {
-          console.log('Program successfully edited');
-        }
-      }
+    //   if (checkForSuccess(postActivityResponse)) {
+    //     /* 
+    //     Exercises were previously rotated in the `UpcomingExercises` component
+    //     so they should be saved
+    //     */
+    //     const updateProgramResponse = await updateProgram(userId, storedArray);
+    //     if (checkForSuccess(updateProgramResponse)) {
+    //       console.log('Program successfully edited');
+    //     }
+    //   }
 
-      // save latest ExerciseId to localStorage so dashboard can rotate the exercise array
-      const latestExerciseId = exerciseId;
-      localStorage.setItem(
-        'latestExerciseId', latestExerciseId
-      );
+    //   // save latest ExerciseId to localStorage so dashboard can rotate the exercise array
+    //   const latestExerciseId = exerciseId;
+    //   localStorage.setItem(
+    //     'latestExerciseId', latestExerciseId
+    //   );
 
-      router.push('/dashboard');
+
+      completeRef.current.showModal();
     } else {
       alert('Numbers must be non-negative.')
     }
+  }
+
+  const modalProps = {
+    router: router,
+    context: context,
+    completeRef: completeRef
   }
 
   return (
@@ -95,6 +108,11 @@ const TrainingPage = () => {
         handleInputChange={handleInputChange}
         
       />
+      {
+        recentSessions ? 
+          <CompletionModal modalProps={modalProps} /> :
+          null
+      }
     </section>
   )
 }
