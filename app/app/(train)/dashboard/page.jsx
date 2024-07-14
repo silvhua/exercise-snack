@@ -107,7 +107,7 @@ export default function Dashboard() {
             <h3 className="streak__text">
               <span className="streak__number">
                 {streakValue.consecutive_days}
-              </span> days streak 
+              </span> day streak 
             </h3>
             : ''
           }

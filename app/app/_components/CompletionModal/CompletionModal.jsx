@@ -3,8 +3,6 @@ import Button from "../Button/Button";
 import Streak from "../Streak/Streak";
 
 import './CompletionModal.scss';
-import { isSameDate } from "@/app/_libs/dataProcessing";
-
 const CompletionModal = ({ modalProps }) => {
   const router = useRouter();
   const { context, completeRef } = modalProps;
@@ -42,15 +40,22 @@ const CompletionModal = ({ modalProps }) => {
       className='responsive-modal'
     >
       <section className="complete">
-        <h3 className="streak__text">
-          <span className="streak__number">
-            {updatedStreak}
-          </span> days streak 
-        </h3>
-        <Streak
-          data={recentSessions}
-          interval={7}
-        />
+        <div className="complete__div">
+          <img 
+            src='./images/running.svg'
+            className="complete-cartoon"
+          />
+          <h3 className="streak__text">
+            <span className="streak__number">
+              {updatedStreak}
+            </span> day streak 
+          </h3>
+          <Streak
+            data={recentSessions}
+            interval={7}
+          />
+
+        </div>
         <Button buttonProps={completeButtonProps} />
       </section>
     </dialog>

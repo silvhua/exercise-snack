@@ -37,4 +37,7 @@ $form-padding--tablet: 1rem;
 $filter-menu-width: 19.9375rem;
 $filter-menu-content-width: calc($filter-menu-width - (2 * $spacing--mobile));
 
+$max-hero-height--mobile: calc($main-height--mobile - $spacing--mobile * 5);
+$max-hero-height--tablet: calc($main-height--tablet - $spacing--tablet * 5);
+
 $max-content-width: calc(1280px - 8 * $page-margin--tablet);

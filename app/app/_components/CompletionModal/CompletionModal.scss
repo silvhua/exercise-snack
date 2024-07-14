@@ -14,7 +14,16 @@ $modal-height--tablet: 400px;
   align-items: center;
   @include tablet {
     height: $modal-height--tablet;
-    
+    width: auto;
+  }
+
+  &__div {
+    @include responsive-column(100%);
+    align-items: flex-start;
+
+    @include tablet {
+      width: auto;
+    }
   }
 }
 

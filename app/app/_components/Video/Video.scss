@@ -1,13 +1,16 @@
 
 @use '../../_styles/variables' as *;
-// @use '../../_styles/globals' as *;
-// @use '../../_styles/mixins' as *;
+@use '../../_styles/mixins' as *;
 
 
 video, iframe {
-  width: 100%;
   box-sizing: content-box;
   aspect-ratio: 16 / 9;
   border: none;
   border-radius: $border-radius;
+  max-height: $max-hero-height--mobile;
+
+  @include tablet {
+    max-height: $max-hero-height--tablet;
+  }
 }
