@@ -85,5 +85,10 @@ export default apiInstance;
 
 
 export function checkForSuccess(response) {
-  return typeof response === 'object' && !response.error;
+  if (response && typeof response === 'object') {
+    return !response.error;
+  } else {
+    return false
+  }
+  // return typeof response === 'object' && !response?.error;
 }

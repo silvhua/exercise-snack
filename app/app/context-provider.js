@@ -11,10 +11,14 @@ export const DataContext = createContext({});
  
 export default function DataProvider({ children }) {
   const [userObject, setUserObject] = useState(null);
-  const [streakValue, setStreakValue] = useState(null);
-  const [recentSessions, setRecentSessions] = useState(null);
+  const [streakValue, setStreakValue] = useState({
+    id: 'dummyId', 
+    consecutive_days: 0
+  });
+  const [recentSessions, setRecentSessions] = useState([]);
   const [programArray, setProgramArray] = useState(null);
   const [placeholderText, setPlaceholderText] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const context = {
     userObject: userObject,
@@ -37,11 +41,14 @@ export default function DataProvider({ children }) {
     if (!programArray) {
       loadProgram(userId);
     } 
+    setIsLoading(false);
   }, []);
 
   async function loadRecentSessions(userId) {
     const streakResponse = await getStreak(userId);
-    setStreakValue(streakResponse);
+    if (checkForSuccess(streakResponse)) {
+      setStreakValue(streakResponse);
+    }
     const sessionsResponse = await getLastWeeksSessions(userId);
     if (checkForSuccess(sessionsResponse)) {
       setRecentSessions(sessionsResponse);
@@ -72,7 +79,7 @@ export default function DataProvider({ children }) {
     }
   }
 
-  if (!userObject || !programArray) {
+  if (isLoading) {
     return;
   }
   

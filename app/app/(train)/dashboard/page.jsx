@@ -101,24 +101,15 @@ export default function Dashboard() {
           <p>Welcome to your dashboard</p>
         </div>
         <div className="flex-column-div">
-        
-          {
-          streakValue ?
-            <h3 className="streak__text">
-              <span className="streak__number">
-                {streakValue.consecutive_days}
-              </span> day streak 
-            </h3>
-            : ''
-          }
-          {
-            recentSessions ?
-              <Streak
-                data={recentSessions}
-                interval={7}
-              />
-            : null
-          }
+          <h3 className="streak__text">
+            <span className="streak__number">
+              {streakValue.consecutive_days}
+            </span> day streak 
+          </h3>
+          <Streak
+            data={recentSessions}
+            interval={7}
+          />
         </div>
       </section>
       <div className="flex-row-container">

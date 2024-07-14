@@ -65,8 +65,6 @@ const TrainingPage = () => {
 
       const activityObject = { ...formData, exercise_id: exerciseId };
       context.recentSessions.push({...activityObject, date: new Date()});
-      console.log(context.recentSessions)
-      console.log(activityObject)
 
       let lastActivityDate = JSON.parse(
         sessionStorage.getItem('lastActivityDate')

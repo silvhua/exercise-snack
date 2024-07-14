@@ -66,10 +66,14 @@ const CompletionModal = ({ modalProps }) => {
               {newStreakValue.consecutive_days}
             </span> day streak 
           </h3>
-          <Streak
-            data={newRecentSessions}
-            interval={7}
-          />
+          {
+            newStreakValue.consecutive_days > 0 ?
+            <Streak
+              data={newRecentSessions}
+              interval={7}
+              />
+              : null              
+          }
 
         </div>
         <Button buttonProps={completeButtonProps} />
