@@ -4,7 +4,7 @@ import { useState } from "react";
 import ExerciseDetails from "@/app/_components/ExerciseDetails/ExerciseDetails";
 import postData, { updateProgram } from "@/app/_libs/clientCrud";
 import { useRouter } from "next/navigation";
-import { checkForSuccess } from "../_libs/ApiClient";
+import { checkForSuccess } from "@/app/_libs/ApiClient";
 
 const TrainingPage = () => {
   const router = useRouter();

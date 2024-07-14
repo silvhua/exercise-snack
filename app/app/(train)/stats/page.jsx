@@ -1,13 +1,13 @@
 "use client"
 
 import { useEffect, useRef, useState } from 'react';
-import PlotComponent from '../_components/PlotComponent/PlotComponent';
-import { getActivityPerDate } from '../_libs/userData';
-import { checkForSuccess } from '../_libs/ApiClient';
-import Placeholder from '../_components/Placeholder/Placeholder';
-import Streak from '../_components/Streak/Streak';
-import { timeSeries } from '../_libs/TimeSeries';
-import ConsistencyDisplay from '../_components/ConsistencyDisplay/ConsistencyDisplay';
+import PlotComponent from '@/app/_components/PlotComponent/PlotComponent';
+import { getActivityPerDate } from '@/app/_libs/userData';
+import { checkForSuccess } from '@/app/_libs/ApiClient';
+import Placeholder from '@/app/_components/Placeholder/Placeholder';
+import Streak from '@/app/_components/Streak/Streak';
+import { timeSeries } from '@/app/_libs/TimeSeries';
+import ConsistencyDisplay from '@/app/_components/ConsistencyDisplay/ConsistencyDisplay';
 // import './Stats.scss';
 
 const Stats = () => {
