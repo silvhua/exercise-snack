@@ -5,8 +5,7 @@
 .circle-tag {
   @include flex-mixin--column(1.5rem);
   align-items: center;
-  background-color: darkblue;
-  color: $button-text-color;
+  background-color: $dark-blue;
   // width: 1.5rem;
   // height: 1.5rem;
   aspect-ratio: 1;
@@ -14,8 +13,8 @@
 }
 
 .tag-text {
-  color: $button-text-color;
   font-size: .75rem;
+  color: $tag-text-color;
   width: 100%;
   text-align: center;
   margin: 0;

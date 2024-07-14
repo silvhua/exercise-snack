@@ -7,9 +7,24 @@
 .exercise-card {
   @include card;
   background-color: $turquoise;
+  height: 5.0625rem;
 
   &__title {
-    // font-size: $card-title-font-size--mobile;
     @extend p;
+  }
+
+  &__top {
+    @include flex-mixin--row(100%);
+  }
+
+  &__bottom-text {
+    font-size: .875rem;
+  }
+}
+
+
+.exercise-tag {
+  &-div {
+    @include flex-mixin--row(auto);
   }
 }

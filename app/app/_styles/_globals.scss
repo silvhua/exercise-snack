@@ -35,8 +35,7 @@ header, footer {
   @include tablet {
     // shift the page content down according to header height
     position: relative;
-    top: $header-height--tablet;
-    padding: $page-margin--tablet;
+    top: $header-height--tablet; 
     height: $main-height--tablet;
   }
 }
@@ -134,11 +133,6 @@ p {
   @include flex-mixin--column(100%);
   gap: $spacing--mobile;
 
-}
-
-.card {
-  @include flex-mixin--column(100%);
-  border-radius: $border-radius;
 }
 
 .form, form {
