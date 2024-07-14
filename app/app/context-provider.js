@@ -33,7 +33,7 @@ export default function DataProvider({ children }) {
     setUserObject(storedUserInfo);
     const userId = storedUserInfo.id
     loadRecentSessions(userId);
-
+    sessionStorage.lastActivityDate = null;
     if (!programArray) {
       loadProgram(userId);
     } 

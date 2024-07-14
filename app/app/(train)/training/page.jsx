@@ -7,6 +7,7 @@ import postData, { updateProgram } from "@/app/_libs/clientCrud";
 import { useRouter } from "next/navigation";
 import { checkForSuccess } from "@/app/_libs/ApiClient";
 import CompletionModal from "@/app/_components/CompletionModal/CompletionModal";
+import { isSameDate } from "@/app/_libs/dataProcessing";
 
 const TrainingPage = () => {
   const context = useContext(DataContext);
@@ -62,15 +63,29 @@ const TrainingPage = () => {
     const validFormSubmission = await validateForm();
     if (validFormSubmission) {
 
-
-      
       const activityObject = { ...formData, exercise_id: exerciseId };
+      context.recentSessions.push({...activityObject, date: new Date()});
+      console.log(context.recentSessions)
+      console.log(activityObject)
+
+      let lastActivityDate = JSON.parse(
+        sessionStorage.getItem('lastActivityDate')
+      ) || {};
+      lastActivityDate = new Date(lastActivityDate?.date) || new Date();
+      if (!isSameDate(lastActivityDate, new Date())) {
+        context.streakValue.consecutive_days = context.streakValue.consecutive_days + 1;
+        sessionStorage.setItem(
+          'lastActivityDate', JSON.stringify(
+            {date: new Date()}
+          )
+        )
+      }
 
       /* **************************************
       2024-07-13 21:35: uncomment the section below to resume updating 
       activity table
       ***************************************
-*/
+      */
     //   activityObject.reps = parseInt(activityObject.reps) || null;
     //   activityObject.duration = parseInt(activityObject.duration) || null;
     //   const postActivityResponse = await postData(

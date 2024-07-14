@@ -1,13 +1,14 @@
 import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 import Streak from "../Streak/Streak";
+import { isSameDate } from "@/app/_libs/dataProcessing";
 
 import './CompletionModal.scss';
 const CompletionModal = ({ modalProps }) => {
   const router = useRouter();
   const { context, completeRef } = modalProps;
   const {
-    streakValue, 
+    streakValue,
     recentSessions
   } = context;
 
@@ -20,8 +21,23 @@ const CompletionModal = ({ modalProps }) => {
     id: 'dummySessionToAvoidNeedForStateUpdate',
     date: new Date()
   }
-  recentSessions.push(newSessionObject);
-  const updatedStreak = streakValue.consecutive_days + 1;
+  let lastActivityDate = JSON.parse(
+    sessionStorage.getItem('lastActivityDate')
+  ) || {};
+  lastActivityDate = new Date(lastActivityDate?.date) || new Date();
+  let newStreakValue = { ...streakValue };
+  let newRecentSessions = [...recentSessions];
+  if (!isSameDate(lastActivityDate, new Date())) {
+    newStreakValue.consecutive_days += 1;
+    newRecentSessions.push(newSessionObject);
+    console.log('+1 to streak for modal only');
+  }
+
+  /* 
+  The dashboard will show these updated values because of the 
+  nature of how objects and arrays can be updated w/o having to redeclare
+  them (computer science stuff to do with pointers)
+  */
 
   const completeButtonProps = {
     text: 'Done!',
@@ -47,11 +63,11 @@ const CompletionModal = ({ modalProps }) => {
           />
           <h3 className="streak__text">
             <span className="streak__number">
-              {updatedStreak}
+              {newStreakValue.consecutive_days}
             </span> day streak 
           </h3>
           <Streak
-            data={recentSessions}
+            data={newRecentSessions}
             interval={7}
           />
 
