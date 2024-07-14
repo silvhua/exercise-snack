@@ -6,6 +6,7 @@ import { getStreak } from "@/app/_libs/userData";
 import { checkForSuccess } from '@/app/_libs/ApiClient';
 import {getLastWeeksSessions} from '@/app/_libs/clientCrud';
 import postData, { generateProgram, readProgram, saveProgram } from '@/app/_libs/clientCrud';
+import { getActivityPerDate } from '@/app/_libs/userData';
 
 export const DataContext = createContext({});
  
@@ -16,6 +17,7 @@ export default function DataProvider({ children }) {
     consecutive_days: 0
   });
   const [recentSessions, setRecentSessions] = useState([]);
+  const [activityArray, setActivityArray] = useState();
   const [programArray, setProgramArray] = useState(null);
   const [placeholderText, setPlaceholderText] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -25,9 +27,10 @@ export default function DataProvider({ children }) {
     setUserObject: setUserObject,
     streakValue: streakValue,
     recentSessions: recentSessions,
+    activityArray: activityArray,
     programArray: programArray,
     setProgramArray: setProgramArray,
-    placeholderText
+    placeholderText: placeholderText
     // setStreakValue: setStreakValue,
     // setRecentSessions: setRecentSessions
   }
@@ -37,10 +40,9 @@ export default function DataProvider({ children }) {
     setUserObject(storedUserInfo);
     const userId = storedUserInfo.id
     loadRecentSessions(userId);
+    loadActivity(userId);
     sessionStorage.lastActivityDate = null;
-    if (!programArray) {
-      loadProgram(userId);
-    } 
+    loadProgram(userId);
     setIsLoading(false);
   }, []);
 
@@ -52,6 +54,13 @@ export default function DataProvider({ children }) {
     const sessionsResponse = await getLastWeeksSessions(userId);
     if (checkForSuccess(sessionsResponse)) {
       setRecentSessions(sessionsResponse);
+    }
+  }
+
+  async function loadActivity(userId) {
+    const activityResponse = await getActivityPerDate(userId);
+    if (checkForSuccess(activityResponse)) {
+      setActivityArray(activityResponse);
     }
   }
 
@@ -82,7 +91,6 @@ export default function DataProvider({ children }) {
   if (isLoading) {
     return;
   }
-  
   return (
     <DataContext.Provider value={context}>
       {children}

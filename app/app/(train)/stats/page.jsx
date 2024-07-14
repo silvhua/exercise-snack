@@ -1,9 +1,8 @@
 "use client"
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
+import { DataContext } from "@/app/context-provider";
 import PlotComponent from '@/app/_components/PlotComponent/PlotComponent';
-import { getActivityPerDate } from '@/app/_libs/userData';
-import { checkForSuccess } from '@/app/_libs/ApiClient';
 import Placeholder from '@/app/_components/Placeholder/Placeholder';
 import Streak from '@/app/_components/Streak/Streak';
 import { timeSeries } from '@/app/_libs/TimeSeries';
@@ -12,20 +11,9 @@ import ConsistencyDisplay from '@/app/_components/ConsistencyDisplay/Consistency
 
 const Stats = () => {
   const scrollRef = useRef(null);
-  const [activityArray, setActivityArray] = useState(null);
-
-  useEffect(() => {
-    const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
-    const userId = storedUserInfo.id;
-    loadActivity(userId);
-  }, [])
-
-  async function loadActivity(userId) {
-    const activityResponse = await getActivityPerDate(userId);
-    if (checkForSuccess(activityResponse)) {
-      setActivityArray(activityResponse);
-    }
-  }
+  const context = useContext(DataContext);
+  const { activityArray } = context;
+  
   if (!activityArray) {
     return <Placeholder text="Fetching your data..." />
   }

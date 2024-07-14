@@ -67,6 +67,8 @@ const PlotComponent = ({ activityArray }) => {
 
   const defaultWeeksToDisplay = 12;
   const layout = {
+    height: 230,
+    width: 325,
     xaxis: {
       range: [xaxisValues[defaultWeeksToDisplay], xaxisValues[0]],
       tickmode: 'array',
@@ -84,7 +86,7 @@ const PlotComponent = ({ activityArray }) => {
     },
     autosize: true,
     margin: { //https://plotly.com/javascript/reference/layout/#layout-margin
-      r: 32,
+      r: 0,
       l: 32,
       t: 32,
       b: 32
@@ -128,7 +130,7 @@ const PlotComponent = ({ activityArray }) => {
   https://github.com/plotly/react-plotly.js/blob/master/README.md#basic-props
 */
   const config = {
-    responsive: true,
+    responsive: false,
     modeBarButtonsToRemove: [
       'zoom2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'select2d'
     ],
