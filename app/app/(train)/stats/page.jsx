@@ -23,12 +23,14 @@ const Stats = () => {
   const daysFromFirstSession = timeSeries.daysSince(firstSession);
   const interval = daysFromFirstSession;
 
-
-  const scrollDiv = scrollRef.current;
-  if (scrollDiv) {
+  useEffect(() => {
     // Set the scrollbar to be on the far right by default
-    scrollDiv.scrollLeft = scrollDiv.scrollWidth - scrollDiv.clientWidth
-  }
+    const scrollDiv = scrollRef.current;
+    if (scrollDiv) {
+      scrollDiv.scrollLeft = scrollDiv.scrollWidth - scrollDiv.clientWidth
+    }
+
+  }, [scrollRef.current])
 
   return (
     <>
