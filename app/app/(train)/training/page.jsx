@@ -33,6 +33,10 @@ const TrainingPage = () => {
     duration: null
   });
   const [exerciseDetailsComponent, setExerciseDetailsComponent] = useState(null);
+  if (!activityArray || activityArray?.length === 0) {
+    router.push('/dashboard');
+    return;
+  }
   const recentSessions = getPastWeekActivty(activityArray);
 
   const handleInputChange = (event) => {
