@@ -7,6 +7,7 @@ import { checkForSuccess } from '@/app/_libs/ApiClient';
 import {getLastWeeksSessions} from '@/app/_libs/clientCrud';
 import postData, { generateProgram, readProgram, saveProgram } from '@/app/_libs/clientCrud';
 import { getActivityPerDate } from '@/app/_libs/userData';
+import { readDiscreetness } from './_libs/exerciseData';
 
 export const DataContext = createContext({});
  
@@ -21,6 +22,7 @@ export default function DataProvider({ children }) {
   const [programArray, setProgramArray] = useState(null);
   const [placeholderText, setPlaceholderText] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [discreetnessArray, setDiscreetnessArray] = useState(null);
 
   const context = {
     userObject: userObject,
@@ -30,7 +32,8 @@ export default function DataProvider({ children }) {
     activityArray: activityArray,
     programArray: programArray,
     setProgramArray: setProgramArray,
-    placeholderText: placeholderText
+    placeholderText: placeholderText,
+    discreetnessArray: discreetnessArray
     // setStreakValue: setStreakValue,
     // setRecentSessions: setRecentSessions
   }
@@ -43,7 +46,7 @@ export default function DataProvider({ children }) {
     loadActivity(userId);
     sessionStorage.lastActivityDate = null;
     loadProgram(userId);
-    setIsLoading(false);
+    getDiscreetness();
   }, []);
 
   async function loadRecentSessions(userId) {
@@ -88,6 +91,14 @@ export default function DataProvider({ children }) {
     }
   }
 
+  async function getDiscreetness() {
+    const discreetnessResponse = await readDiscreetness();
+    console.log('discreetnessResponse', discreetnessResponse)
+    if (checkForSuccess(discreetnessResponse)) {
+      setDiscreetnessArray(discreetnessResponse);
+      setIsLoading(false);
+    }
+  }
   if (isLoading) {
     return;
   }

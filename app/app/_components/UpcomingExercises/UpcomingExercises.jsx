@@ -22,47 +22,13 @@ const UpcomingExercises = (props) => {
   const {
     userObject,
     programArray, setProgramArray,
-    placeholderText
+    placeholderText, discreetnessArray
   } = props;
 
   const router = useRouter();
   const {
     username, first_name, id,
   } = userObject;
-
-
-  // const [placeholderText, setPlaceholderText] = useState('');
-  
-  // useEffect(() => {
-
-  //   const loadProgram = async () => {
-  //     const storedProgramResponse = await readProgram(id);
-  //     if (checkForSuccess(storedProgramResponse)) {
-  //       const storedProgram = JSON.parse(storedProgramResponse.exercises);
-  //       setProgramArray(storedProgram);
-  //     } else {
-  //       setPlaceholderText('Creating your program...');
-  //       getNewProgram();
-  //     }
-  //   }
-
-  //   const getNewProgram = async () => {
-  //     const createProgramResponse = await generateProgram();
-  //     if (checkForSuccess(createProgramResponse)) {
-  //       setProgramArray(createProgramResponse);
-  //       const postProgramResponse = await saveProgram(
-  //         id, //user ID
-  //         createProgramResponse
-  //       );
-  //     } else {
-  //       console.log('error:')
-  //     }
-  //   }
-
-  //   if (!programArray) {
-  //     loadProgram();
-  //   } 
-  // }, [])
 
   if (!programArray) {
     return <Placeholder text={placeholderText} />
@@ -85,6 +51,15 @@ const UpcomingExercises = (props) => {
     }
   }
 
+  /* 
+Convert the array of discreetnessValues into an object for fast look up
+*/
+  const discreetnessMapping = {}
+  for (let i = 0; i < discreetnessArray.length; i++) {
+    const { level, description} = discreetnessArray[i];
+    discreetnessMapping[level] = description;
+  }
+
   const buttonProps = {
     text: 'Start Snack',
     className: 'start-button',
@@ -98,10 +73,12 @@ const UpcomingExercises = (props) => {
         {
           programArray.map(exerciseObject => {
             const { id } = exerciseObject;
+            const discreetnessText = discreetnessMapping[exerciseObject.discreetness];
             return (
               <ExerciseCard
                 exerciseObject={exerciseObject}
                 key={id}
+                discreetnessText={discreetnessText}
               />
             )
           })

@@ -123,4 +123,15 @@ export async function readExerciseProperty(exerciseId, tableName) {
   return exerciseObject;
 }
 
+export async function readDiscreetness() {
+  const query = `
+  SELECT
+    id,
+    level,
+    description
+  FROM discreetness
+  `
+  const data = await sqlSelect(query)
+  return data;
+}
 

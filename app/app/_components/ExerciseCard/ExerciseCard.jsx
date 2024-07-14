@@ -1,8 +1,10 @@
 import CircleTag from '../CircleTag/CircleTag';
 import './ExerciseCard.scss';
 
-const ExerciseCard = ({ exerciseObject }) => {
-  const { id, name, movement, discreetness } = exerciseObject;
+const ExerciseCard = ({ exerciseObject, discreetnessText }) => {
+  const {
+    id, name, movement, discreetness, 
+  } = exerciseObject;
   /* 
   - movement category: text
   - discreetness: 1 number
@@ -11,7 +13,7 @@ const ExerciseCard = ({ exerciseObject }) => {
   - environment: 1+ icons
 
   */
-  console.log(exerciseObject)
+  
   return (
     <li className='exercise-card'>
       <div className='exercise-card__top'>
@@ -20,7 +22,7 @@ const ExerciseCard = ({ exerciseObject }) => {
             <CircleTag 
               className='exercise-tag'
               text={discreetness}
-              title='discreetness'
+              title={discreetnessText}
             />
           </div>
 

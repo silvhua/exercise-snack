@@ -99,7 +99,6 @@ export function getMonthFromWeekNumber(week) {
 export function getPastWeekActivty(activityArray) {
   const oneWeekAgo = timeSeries.nDaysAgoDate(7);
   const pastWeekActivity = activityArray.filter(object => object.date >= oneWeekAgo);
-  console.log(pastWeekActivity)
   return pastWeekActivity;
   
 }
