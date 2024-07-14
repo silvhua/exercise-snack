@@ -75,7 +75,6 @@ export default function Dashboard() {
       setProgramArray(createProgramResponse);
       /* Save the newly generated program after filter form is submitted */
       const updateProgramResponse = await updateProgram(userId, createProgramResponse);
-      console.log('updateProgramResponse', updateProgramResponse)
       if (checkForSuccess(updateProgramResponse)) {
         console.log('Program successfully edited');
         filterRef.current.close();

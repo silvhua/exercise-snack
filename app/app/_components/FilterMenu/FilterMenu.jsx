@@ -83,7 +83,7 @@ const FilterMenu = ({ filterProps }) => {
   }
 
   const saveButtonProps = {
-    text: 'Save',
+    text: 'Update Program',
     onClick: onSubmit,
     className: 'filter-menu__button'
   }

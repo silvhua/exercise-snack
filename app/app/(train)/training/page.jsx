@@ -61,9 +61,16 @@ const TrainingPage = () => {
     event.preventDefault();
     const validFormSubmission = await validateForm();
     if (validFormSubmission) {
-    //   console.log('submitted')
+
+
       
-    //   const activityObject = { ...formData, exercise_id: exerciseId };
+      const activityObject = { ...formData, exercise_id: exerciseId };
+
+      /* **************************************
+      2024-07-13 21:35: uncomment the section below to resume updating 
+      activity table
+      ***************************************
+*/
     //   activityObject.reps = parseInt(activityObject.reps) || null;
     //   activityObject.duration = parseInt(activityObject.duration) || null;
     //   const postActivityResponse = await postData(
@@ -97,7 +104,7 @@ const TrainingPage = () => {
   const modalProps = {
     router: router,
     context: context,
-    completeRef: completeRef
+    completeRef: completeRef,
   }
 
   return (
