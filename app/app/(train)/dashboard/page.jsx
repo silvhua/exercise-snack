@@ -13,21 +13,19 @@ import {
 } from '@/app/_libs/clientCrud';
 import { checkForSuccess } from '@/app/_libs/ApiClient';
 import Streak from "@/app/_components/Streak/Streak";
-import { getStreak } from "@/app/_libs/userData";
 import './dashboard.scss'
 
 export default function Dashboard() {
   // const [userObject, setUserObject] = useState(null);
-  // const [programArray, setProgramArray] = useState(null);
+  const [programArray, setProgramArray] = useState(null);
   const context = useContext(DataContext);
   const {
     userObject, setUserObject,
-    programArray, setProgramArray
+    streakValue, 
+    recentSessions, 
+    // programArray, setProgramArray
   } = context;
-  console.log('programArray from dashboard', programArray)
 
-  const [streakValue, setStreakValue] = useState(null);
-  const [recentSessions, setRecentSessions] = useState(null);
   const [checkboxValues, setCheckboxValues] = useState({
     'context': {}, 
     'environment': {},
@@ -45,10 +43,6 @@ export default function Dashboard() {
     setProgramArray(JSON.parse(sessionProgramArray));
   }, []);
 
-  useEffect(() => {
-    loadRecentSessions();
-  }, [userId])
-
   if (!userObject) {
     return <Placeholder text='Verifying your details...' />
   }
@@ -62,17 +56,6 @@ export default function Dashboard() {
     filterRef.current.showModal(); 
   }
 
-  async function loadRecentSessions() {
-    if (userId) {
-      const streakResponse = await getStreak(userId);
-      setStreakValue(streakResponse);
-      const sessionsResponse = await getLastWeeksSessions(userId);
-      if (checkForSuccess(sessionsResponse)) {
-        setRecentSessions(sessionsResponse);
-      }
-    }
-  }
-
 
   async function handleFilterSubmit(event) {
     event.preventDefault();
@@ -80,7 +63,6 @@ export default function Dashboard() {
     let sqlFilterStatements = [];
 
     for (const [property, propertyOptionObject] of Object.entries(checkboxValues)) {
-      // console.log(`filter submitted\n`, property, propertyOptionObject);
           
       let column;
       switch (property) {
