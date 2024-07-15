@@ -25,14 +25,16 @@ const CompletionModal = ({ modalProps }) => {
   let sessionLastActivityDate = JSON.parse(
     sessionStorage.getItem('lastActivityDate')
   ) || {};
-  sessionLastActivityDate = new Date(sessionLastActivityDate?.date) || today;
+  sessionLastActivityDate = sessionLastActivityDate ? new Date(sessionLastActivityDate?.date) : today;
   
-  const contextLastActivityDate = recentSessions[recentSessions?.length - 1] 
+  const contextLastActivityDate = new Date(recentSessions[0].date) 
+  console.log(sessionLastActivityDate, !isSameDate(sessionLastActivityDate, new Date()))
   let newStreakValue = { ...streakValue };
   const newRecentSessions = [...recentSessions];
   if (
-    !isSameDate(sessionLastActivityDate, today)
-    || !isSameDate(contextLastActivityDate.date, today)
+    
+    !isSameDate(sessionLastActivityDate, new Date())
+    && !isSameDate(contextLastActivityDate, new Date())
   ) {
     newStreakValue.consecutive_days += 1;
     newRecentSessions.push(newSessionObject);
