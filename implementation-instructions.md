@@ -20,6 +20,8 @@ If you wish to do this step, please ensure you create `/src/.env` file (use `/sr
 4. `npm run seed`
 5. Database should now be populated except for the `program` table, which is populated during app usage.
 
+Note: The migration and seeding are split into two parts so that in the future, the content in the content-based tables can be updated via the Notion pipeline without overwriting user data.
+
 ## 3. Running the app
 
 1. Navigate to `/app` from the project root directory.
