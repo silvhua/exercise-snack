@@ -76,6 +76,7 @@ const TrainingPage = () => {
         sessionStorage.getItem('lastActivityDate')
       ) || {};
       lastActivityDate = new Date(lastActivityDate?.date) || new Date();
+
       if (!isSameDate(lastActivityDate, new Date())) {
         context.streakValue.consecutive_days = context.streakValue.consecutive_days + 1;
         sessionStorage.setItem(
@@ -85,33 +86,28 @@ const TrainingPage = () => {
         )
       }
 
-      /* **************************************
-      2024-07-13 21:35: uncomment the section below to resume updating 
-      activity table
-      ***************************************
-      */
-    //   activityObject.reps = parseInt(activityObject.reps) || null;
-    //   activityObject.duration = parseInt(activityObject.duration) || null;
-    //   const postActivityResponse = await postData(
-    //     `sessions/${sessionId}/activities`, activityObject
-    //   );
+      activityObject.reps = parseInt(activityObject.reps) || null;
+      activityObject.duration = parseInt(activityObject.duration) || null;
+      const postActivityResponse = await postData(
+        `sessions/${sessionId}/activities`, activityObject
+      );
 
-    //   if (checkForSuccess(postActivityResponse)) {
-    //     /* 
-    //     Exercises were previously rotated in the `UpcomingExercises` component
-    //     so they should be saved
-    //     */
-    //     const updateProgramResponse = await updateProgram(userId, storedArray);
-    //     if (checkForSuccess(updateProgramResponse)) {
-    //       console.log('Program successfully edited');
-    //     }
-    //   }
+      if (checkForSuccess(postActivityResponse)) {
+        /* 
+        Exercises were previously rotated in the `UpcomingExercises` component
+        so they should be saved
+        */
+        const updateProgramResponse = await updateProgram(userId, storedArray);
+        if (checkForSuccess(updateProgramResponse)) {
+          console.log('Program successfully edited');
+        }
+      }
 
-    //   // save latest ExerciseId to localStorage so dashboard can rotate the exercise array
-    //   const latestExerciseId = exerciseId;
-    //   localStorage.setItem(
-    //     'latestExerciseId', latestExerciseId
-    //   );
+      // save latest ExerciseId to localStorage so dashboard can rotate the exercise array
+      const latestExerciseId = exerciseId;
+      localStorage.setItem(
+        'latestExerciseId', latestExerciseId
+      );
 
 
       completeRef.current.showModal();

@@ -93,7 +93,6 @@ export default function DataProvider({ children }) {
 
   async function getDiscreetness() {
     const discreetnessResponse = await readDiscreetness();
-    console.log('discreetnessResponse', discreetnessResponse)
     if (checkForSuccess(discreetnessResponse)) {
       setDiscreetnessArray(discreetnessResponse);
       setIsLoading(false);
