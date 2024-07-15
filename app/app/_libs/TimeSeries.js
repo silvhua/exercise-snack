@@ -3,7 +3,7 @@
 class TimeSeries {
 
   constructor() {
-    // Calculate the number of milliseconds in a day
+    // Number of milliseconds in a day
     this.millisecondsInDay = 24 * 60 * 60 * 1000;
   }
 
@@ -73,7 +73,7 @@ class TimeSeries {
 
   nMonthsAgoDate(nMonths, date) {
     date = date ? new Date(date) : new Date();
-    date.setHours(0, 0, 0, 0) // set to midnight
+    date.setHours(0, 0, 0, 0) 
     const result = date.setMonth(
       date.getMonth() - nMonths
     )

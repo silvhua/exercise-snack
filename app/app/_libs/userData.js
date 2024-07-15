@@ -2,7 +2,6 @@
 
 import sqlSelect from "./utils";
 
-
 export default async function readUser(username) {
   const query = `
   SELECT

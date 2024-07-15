@@ -16,7 +16,7 @@ export default async function sqlSelect(query, getFirst, binaryColumns) {
       rows = rows[0];
     }
 
-    // convert binary columns to ascii
+    // convert binary columns to string
     if (binaryColumns?.length > 0) {
       binaryColumns.forEach(column => {
         rows.map(row => binaryToString(row, column));
@@ -32,9 +32,7 @@ export default async function sqlSelect(query, getFirst, binaryColumns) {
 }
 
 export async function apiSqlQuery(query, getFirst, binaryColumns) {
-  /* 
-    Helper function for API endpoints to query the database.
-  */
+  /* Helper function for API endpoints to query the database. */
   
   try {
     const db = await pool.getConnection();
@@ -46,7 +44,7 @@ export async function apiSqlQuery(query, getFirst, binaryColumns) {
       })
     }
 
-    // convert binary columns to ascii
+    // convert binary columns to string
     if (binaryColumns?.length > 0) {
       binaryColumns.forEach(column => {
         rows.map(row => binaryToString(row, column));
@@ -66,9 +64,8 @@ export async function apiSqlQuery(query, getFirst, binaryColumns) {
     }
     
   } catch (error) {
-    console.log('error', error)
     return NextResponse.json({
-      error: error
+      error: 'Unable to perform request.'
     }, { status: 500 })
   }
 }

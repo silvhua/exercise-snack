@@ -1,9 +1,6 @@
 import CircleTag from '../CircleTag/CircleTag';
 import FormField from '../FormField/FormField';
 
-import './TrainingFormElements.scss';
-
-
 const TrainingFormElements = ({ handleInputChange }) => {
 
   const repsInputProps = {

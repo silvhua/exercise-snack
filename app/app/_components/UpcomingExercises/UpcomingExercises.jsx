@@ -1,8 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import './UpcomingExercises.scss';
 import Button from '../Button/Button';
 import postData, { generateProgram, readProgram, saveProgram } from '@/app/_libs/clientCrud';
 import Placeholder from '../Placeholder/Placeholder';

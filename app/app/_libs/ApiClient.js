@@ -12,7 +12,7 @@ class ApiClient {
   }
 
   logResponse(response, endpoint, verb) {
-    // Helper method to perform console.log() on API response objects.
+    // Helper method to perform console.log() on API response objects during development.
     // Not invoked when submitted for grading by TAs.
     console.log(
       `${verb} API response status for "${endpoint}" endpoint: \n${response.status} - ${response.statusText}.`
@@ -60,24 +60,12 @@ class ApiClient {
     try {
       const response = await axios.get(requestUrl);
       const data = response.data;
-      // this.logResponse(response, endpoint, 'GET');
       return data;
     } catch (error) {
       const responseMessage = await error.response.data;
       return responseMessage;
     }
   }
-  
-  // async delete(route, id) {
-  //   try {
-  //     const endpoint = `api/${route}/${id}`;
-  //     const requestUrl = this.createRequestUrl(endpoint);
-  //     const response = await axios.delete(requestUrl);
-  //     return response;
-  //   } catch (error) {
-  //     return false;
-  //   }
-  // }
 }
 
 const apiInstance = new ApiClient();
@@ -90,5 +78,4 @@ export function checkForSuccess(response) {
   } else {
     return false
   }
-  // return typeof response === 'object' && !response?.error;
 }

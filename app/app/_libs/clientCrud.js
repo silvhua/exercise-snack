@@ -2,7 +2,6 @@
 
 import apiInstance from "./ApiClient"
 
-
 export default async function postData (endpoint, data) {
   const response = await apiInstance.post(endpoint, data);
   return response;
@@ -75,7 +74,7 @@ export async function getUserSessions(userId) {
 
 export async function getFilteredSessions(userId, filterString) {
   /* 
-  2024-07-11 21:29 Not currently used
+  2024-07-11 21:29 Not currently used but may be used later on
   */
   filterString = encodeURIComponent(
     'created_time >= DATE_SUB(NOW(), INTERVAL 7 DAY)'

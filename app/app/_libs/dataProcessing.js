@@ -19,19 +19,6 @@ export function replaceHyphens(str) {
   return str.replace(/-/g, '%');
 }
 
-function getLastSevenDays() {
-    const today = new Date();
-    const lastSevenDays = [];
-
-    for (let i = 0; i < 7; i++) {
-        const day = new Date(today.getTime() - i * 24 * 60 * 60 * 1000);
-        lastSevenDays.push(day);
-    }
-
-    return lastSevenDays;
-}
-
-
 export function queryParamsToSql(request, param, sqlPrefix) {
   const searchParams = request.nextUrl.searchParams;
   let result = '';
@@ -54,7 +41,10 @@ export function createDatesArray(earliest=7, latest = 0) {
 }
 
 export function isSameDate(date1, date2) {
-  // console.log(date2)
+  /* 
+  This function was created because checking for equality between 2 date
+  objects always returns false due to the nature of this data type
+  */
   date1.setHours(0, 0, 0, 0);
   date2.setHours(0, 0, 0, 0);
   const result = date1 - date2 == 0;
@@ -70,7 +60,7 @@ export const formatDate = (dateObject, options = null) => {
   `{month: 'long'}`, `{month: 'short'}`
   */
 
-    // format a date to the "MM/DD/YYYY"    
+    // format a date to the "MM/DD/YYYY" by default
     if (options === null) {
         options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     }
