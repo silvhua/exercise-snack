@@ -40,7 +40,6 @@ export async function saveResponseJson(data, jsonFilename, appendTimestamp) {
       jsonFilename += '.json';
     }
     await fs.promises.writeFile(jsonFilename, JSON.stringify(data, null, 2));
-    console.log(`Saved response to ${jsonFilename}`);
   } catch (error) {
     console.error(error);
     throw error;
@@ -59,6 +58,7 @@ export function loadJsonFile(filename, path = '', verbose=false) {
   try {
     const filePath = `${path}${filename}`;
     if (verbose) {
+      // not invoked by default 
       console.log(`Loading JSON file: ${filePath}`);
     }
     const jsonData = fs.readFileSync(filePath, 'utf8');
@@ -73,7 +73,6 @@ export function loadJsonFile(filename, path = '', verbose=false) {
 export async function getLastUpdate(databaseId, trackingFile, key) {
   const trackingObject = await loadJsonFile(trackingFile);
   const lastUpdated = trackingObject?.[databaseId]?.[key] || "2024-01-01T00:00:00-08:00";
-  console.log(`Data last fetched ${lastUpdated}`);
   return [lastUpdated, trackingObject];
 }
 

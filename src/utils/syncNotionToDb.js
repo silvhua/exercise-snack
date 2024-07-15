@@ -3,7 +3,6 @@ import NotionApi from './NotionApi.js';
 import parseNotion from './NotionParser.js';
 import { databases, syncType, filepath, saveRawData } from './config.js';
 
-
 async function getData() {
   console.log(`Save to filepath ${filepath}`);
   const trackingFile = './utils/tracking.json';
@@ -55,9 +54,7 @@ async function getData() {
     }
   }
 }
-
 setTimeout(getData, 4000);
-
 
 /* 
 Steps for pulling data
