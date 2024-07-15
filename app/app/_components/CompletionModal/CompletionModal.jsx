@@ -24,21 +24,32 @@ const CompletionModal = ({ modalProps }) => {
   const today = new Date();
   let sessionLastActivityDate = JSON.parse(
     sessionStorage.getItem('lastActivityDate')
-  ) || {};
-  sessionLastActivityDate = sessionLastActivityDate ? new Date(sessionLastActivityDate?.date) : today;
+  );
+  let firstActivity;
+  console.log('stored', sessionLastActivityDate)
+  if (sessionLastActivityDate?.date) {
+    // sessionLastActivityDate = new Date(sessionLastActivityDate?.date);
+    firstActivity = false;
+  } else {
+    firstActivity = true;
+  }
+  console.log(recentSessions)
+  console.log(sessionLastActivityDate,today)
   
   const contextLastActivityDate = new Date(recentSessions[0].date) 
-  console.log(sessionLastActivityDate, !isSameDate(sessionLastActivityDate, new Date()))
+  // console.log(!isSameDate(sessionLastActivityDate, today), !isSameDate(contextLastActivityDate, today))
   let newStreakValue = { ...streakValue };
   const newRecentSessions = [...recentSessions];
   if (
-    
-    !isSameDate(sessionLastActivityDate, new Date())
-    && !isSameDate(contextLastActivityDate, new Date())
+    firstActivity
+    && !isSameDate(contextLastActivityDate, today)
   ) {
+    console.log('+1')
     newStreakValue.consecutive_days += 1;
     newRecentSessions.push(newSessionObject);
-  }
+  } 
+    
+  
 
   /* 
   The dashboard will show these updated values because of the 
