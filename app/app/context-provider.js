@@ -48,6 +48,7 @@ export default function DataProvider({ children }) {
     loadRecentSessions(userId);
     loadActivity(userId);
     sessionStorage.lastActivityDate = null;
+    sessionStorage.modalLastActivityDate = null;
     loadProgram(userId);
     getDiscreetness();
   }, []);

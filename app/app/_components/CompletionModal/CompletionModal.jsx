@@ -21,32 +21,28 @@ const CompletionModal = ({ modalProps }) => {
     id: 'dummySessionToAvoidNeedForStateUpdate',
     date: new Date()
   }
+  const modalStreakValue = { ...streakValue }; // make a copy because we don't want to update the actual context object unless form is submitted
+  sessionStorage.setItem(
+    'modalLastActivityDate', JSON.stringify(
+      {date: new Date()}
+    )
+  )
+  const updateStreak = updateStatsWithoutStateChange(
+    recentSessions, modalStreakValue, newSessionObject,
+    'modalLastActivityDate'
+  );
 
-  const newRecentSessions = updateStatsWithoutStateChange(recentSessions, newSessionObject);
+  console.log('modalStreakValue.consecutive_days before', modalStreakValue.consecutive_days)
 
-  // const today = new Date();
-  // let sessionLastActivityDate = JSON.parse(
-  //   sessionStorage.getItem('lastActivityDate')
-  // );
-  // let firstActivity;
-  // if (sessionLastActivityDate?.date) {
-  //   firstActivity = false;
-  // } else {
-  //   firstActivity = true;
-  // }
+  // modalStreakValue.consecutive_days = updateStreak ?
+  //   modalStreakValue.consecutive_days + 1 : modalStreakValue.consecutive_days;
   
-  // const contextLastActivityDate = new Date(recentSessions[0].date) 
-  // // let newStreakValue = { ...streakValue };
-  // const newRecentSessions = [...recentSessions];
-  // if (
-  //   firstActivity
-  //   && !isSameDate(contextLastActivityDate, today)
-  // ) {
-  //   streakValue.consecutive_days += 1;
-  //   console.log('+1 in completion modal')
-  //   // newStreakValue.consecutive_days += 1;
-  //   newRecentSessions.push(newSessionObject);
-  // } 
+
+  console.log(updateStreak, modalStreakValue.consecutive_days)
+
+  const newRecentSessions = updateStreak ? 
+    [...recentSessions, newSessionObject] :
+    recentSessions
 
   /* 
   The dashboard will show these updated values because of the 
@@ -77,11 +73,11 @@ const CompletionModal = ({ modalProps }) => {
           />
           <h3 className="streak__text">
             <span className="streak__number">
-              {streakValue.consecutive_days}
+              {modalStreakValue.consecutive_days}
             </span> day streak 
           </h3>
           {
-            streakValue.consecutive_days > 0 ?
+            modalStreakValue.consecutive_days > 0 ?
             <Streak
               data={newRecentSessions}
               interval={7}

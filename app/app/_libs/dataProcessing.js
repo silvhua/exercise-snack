@@ -93,31 +93,40 @@ export function getPastWeekActivty(activityArray) {
   
 }
 
-export function updateStatsWithoutStateChange(recentSessions, newSessionObject) {
+export function updateStatsWithoutStateChange(
+  recentSessions, streakValue, newSessionObject,
+  sessionStorageKey
+) {
+  /* 
+  This function determines whether or not to update the streak info w/o having to do get updated data from database.
+  */
   const today = new Date();
-  console.log('recent sessions in data processing', recentSessions)
   let sessionLastActivityDate = JSON.parse(
-    sessionStorage.getItem('lastActivityDate')
+    sessionStorage.getItem(sessionStorageKey)
   );
+  console.log('sessionLastActivityDate in update stats', sessionLastActivityDate)
   let firstActivity;
-  if (sessionLastActivityDate?.date) {
+  if (sessionLastActivityDate?.date && sessionStorageKey === 'lastActivityDate') {
     firstActivity = false;
   } else {
     firstActivity = true;
   }
   
   const contextLastActivityDate = new Date(recentSessions[0].date) 
-  // let newStreakValue = { ...streakValue };
   const newRecentSessions = [...recentSessions];
   if (
     firstActivity
     && !isSameDate(contextLastActivityDate, today)
   ) {
     streakValue.consecutive_days += 1;
-    console.log('+1 in completion modal')
-    // newStreakValue.consecutive_days += 1;
+    console.log('+1 locally')
     newRecentSessions.push(newSessionObject);
+    sessionStorage.setItem(
+      sessionStorageKey, JSON.stringify(
+        {date: new Date()}
+      )
+    )
+    return true;
   } 
-  console.log('recent sessions at end of update function', newRecentSessions)
-  return newRecentSessions;
+  return false;
 }
