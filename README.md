@@ -78,76 +78,107 @@ Stats page | Shows stats and data visualization on the user's consistency with e
 <img src="./documentation/activity-logged-confirmation.PNG" width="350" alt="activity logged confirmation" />
 <img src="./documentation/stats-page.PNG" width="350" alt="stats page" />
 
-![](./documentation/training-page-top.PNG)
-
 ### Data
 
 The tables in the database are grouped into:
-1. Content data, i.e. related to exercises.
+1. Content data, i.e. related to exercises. The content for this app is in the `exercise` table.
 2. User and activity data.
 
-There are many-to-many relationships between some tables.
+There are many-to-many relationships between some tables which are not explicitely listed in the table below but shown in the [entity relationship diagram](#entity-relationship-diagram).
 
 Table | Group | What each record represents | Relations
 --- | ---- | --- | ---
-exercise | 1 | Properties of a single exercise. | several
+exercise | 1 | Properties of a single exercise. | Several
 movement | 1 | A movement category into which exercises are classified, e.g. squat, push. | Relates to `exercise` via `exercise_movement`
 context | 1 | A non-gym context in which a user can perform the exercise, e.g. while wearing high heels, watching TV | Relates to `exercise` via `exercise_context`
-discreetness | 1 | The level of discreetness of a given exercise, ranging from invisible to full workout-mode. | `exercise.discreetness` -> `id`
+discreetness | 1 | The level of discreetness of a given exercise, ranging from "invisible" to "full workout-mode". | `id` -> `exercise.discreetness`
 environment | 1 | The equipment or environment required for a given exercise, e.g. couch, wall | Relates to `exercise` via `exercise_environment`
 focus | 1 | The focus of the exercise, e.g. strength, posture. | Relates to `exercise` table via the `exercise_focus` table.
-modifier | 1 | A single way in which exercise execution can be modified, e.g. slow eccentric, add pause | Relates to `exercise` via `exercise_modifier`
+modifier | 1 | A single way in which exercise execution can be modified, e.g. slow eccentric, add pause. This table is not utilized as this time but may be used for future releases. | Relates to `exercise` via `exercise_modifier`
 muscle | 1 | A muscle group that may be trained by an exercise, e.g. glutes. | Relates to `exercise` via `exercise_muscle`
 tip | 1 | An exercise tip | Relates to `exercise` via `exercise_tip`
 video | 1 | A src for an exercise video |  `exercise.video_id` -> `id`
 user | 2 | A user | 
 session | 2 | The exercise sessions for a given user. | Foreign key: `user` -> `user.id`
 activity | 2 | Data for a single set of a single exercise logged by a given user | Foreign keys: `exercise_id` -> `exercise.id`; `session_id` -> `session.id`
+program | 2 | The current exercise program for a given user. Each program consists of 1 exercise per movement group. The exercise program value is stored as a JSON data type in case the exercise program algorithm or movement categories change in the future. | Foreign keys: `user` -> `user.id`
 
-
+#### Entity relationship diagram
 Below is the entity relationship diagram of the database:
 <img src="./documentation/ERD.svg" alt="entity relationship diagram" />
 
-### Endpoints
+<details>
+<summary>Click here to read about current API endpoints </summary>
 
-Route | Method | Description | Status
---- | ---- | --- | ---
-`/exercises:id` | GET | Get the details for a specific exercise. | done
-`/users/sessions` | GET | Get a list of all a user's exercise sessions. | 
-`/sessions` | POST | Create a new exercise session | done
-`/users/:userId/sessions` | GET| Read a user's exercise sessions. | 
-`/users/:userId/activities` | GET, POST, PUT | Read, log, and update a user's activity. |
-`/activities` | POST, PUT | Log, and update a user's activity. |
-`/programs` | GET | Generate a new program | done
-`/programs/:userId` | POST | Write a new program for a user | done
-`/programs/:userId` | GET | Get the most recent existing program for a user | done
+#### Endpoints
+
+Next.js allows client components to perform CRUD operations on the database in 2 main ways: via API endpoints or via server components. I am learning Next.js on my own as I build this project and learning about the differences between client and server components, so started by mostly creating API endpoints, then switched to mostly using server components. Below are the existing API endpoints, but several other CRUD operations exist in server components. The endpoints or their paths may be updated in the future during refactoring.
 
 
-Tables | CRUD operation | Description | Status
---- | ---- | --- | ---
-`movement` | read | Get all movement categories. | done
-`movements`, `exercises` | read | Get all exercises for a given movement category. The request body will include values for applying filters. | partially done; need filters
+Route | Method | Description
+--- | ---- | ---
+`:query` | GET | Generate an exercise program with filters applied.
+`/auth/:username` | GET | Verify a user's login credentials.
+`/exercises/:id` | GET | Get the details for a specific exercise. 
+`/programs` | GET | Generate a new program for a user.
+`/sessions` | POST | Post a new exercise session once a user initiates training.
+`/sessions/:sessionId/activities` | POST | Post a new logged exercise activity.
+`/users` | GET | Get a list of all users.
+`/users/programs` | POST, PUT, GET | Create, update, and retrieve a user's exercise program.
+`/users/sessions` | GET | Get a list of all a user's exercise sessions. 
+`/users/:userId/sessions` | GET| Read a user's exercise sessions. 
+`/users/:userId/sessions/recent` | GET| Read a user's sessions for the past 7 days.
+`/users/:userId/activities` | GET, POST, PUT | Read, log, and update a user's activity. 
+
+to delete
+- users/:userid
+</details>
+
 
 ### Auth
 
-The user will login with their username and password. 
+The user will login with their username and password.
 
 ## Roadmap
 
-* Swap exercises: The user will be able to swap to a different exercise if they don't prefer the one that is presented.
-* My exercises: The user can see the list of exercises they have previously done and choose from that list.
+### Planned features and pages
 
-Page | Description
+Page/feature | Description
 --- | ---
 Set up page | Presented upon sign up. Includes a questionnaire.
-My exercises | Shows the history of exercises completed by that user along with summary statistics
+Swap exercise | The user will be able to swap to a different exercise if they don't prefer the one that is presented.
+Additional filtering options | See [Future Filtering options below](#future-filtering-options)
+My exercises page | Shows the history of exercises completed by that user along with summary statistics
 Exercise log | Shows the user’s training history in reverse chronological order. Includes all details for each activity. Includes filters for each exercise and movement category. 
+Updated exercise program algorithm | The current algorithm is simple. The exercise properties include level of strength requirement `exercise.strength`, which may be used in future iterations. Once there is enough user activity data, the data may be analyzed and/or used for machine learning to improve user experience and adherence.
+Program update prompts | If the user has done the same program for several weeks, they will be prompted to update their program.
+Program saving | Allow the user to save multiple programs, e.g. one for home, one for at work, one focused on posture.
+Secure authentication | Authenticate the user to protect user data.
+Show modidifiers | Provide users tips on how to progress a given exercise. The relevant data are in the `modifier` table.
 
+#### Future filtering options 
+
+The database is already structured so that the user will be able to filter exercises based on:
+* Level of discreetness: When the user is at work or in a Zoom meeting, they exercise discreetly if they choose.
+* Environment: The user can indicate whether they have access to things such as a couch, wall, desk, stairs, etc. that can be used for certain exercises.
+* Exercise history: The user can choose to only do familiar exercises or new exercises.
+* Exertion: The user can filter by how much they want to exert themselves at that moment.
 
 ## Nice-to-haves
 
 * Sign up: The user will complete a brief questionnaire to sign up for an account.
-* Secure authentication
 * Ability for the user to upload their own exercise
 * Social features: View the activity of friends.
 * Leaderboard: Shows the top performers for select metrics across all users.
+
+## Acknowledgements
+
+* [Kaitlyn Lam](https://kal128.wixsite.com/home): UI Design and mockups. 
+* BrainStation Education team: Project mentorship.
+  * Paula Brenner, teaching assistant
+  * Jon Mazin, educator
+  * Daniil Molodkov, educator
+  * Roberta Nin Feliz, educator
+  * Melanie Rawluk, teaching assistant
+  * Tania Tun, teaching assistant
+* BrainStation Education Experience team: Career support.
