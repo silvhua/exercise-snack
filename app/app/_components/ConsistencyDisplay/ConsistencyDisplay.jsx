@@ -2,7 +2,6 @@ import { timeSeries } from '@/app/_libs/TimeSeries';
 import './ConsistencyDisplay.scss';
 
 const ConsistencyDisplay = ({activityArray, firstSession}) => {
-
   const oneWeekAgo = timeSeries.nDaysAgoDate(7);
   const oneMonthAgo = timeSeries.nMonthsAgoDate(1);
 
@@ -10,7 +9,8 @@ const ConsistencyDisplay = ({activityArray, firstSession}) => {
 
   function showConsistencyStat(startDate, text, activityArray) {
     const interval = timeSeries.daysSince(startDate);
-    const relevantActivtyDates = activityArray.filter(activity => activity.date > startDate);
+      const relevantActivtyDates = activityArray.filter(activity => activity.date > startDate
+    );
     const uniqueDates = new Set(relevantActivtyDates);
     const precentActivityDays = Math.round(
       uniqueDates.size / interval * 100

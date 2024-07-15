@@ -74,10 +74,16 @@ const TrainingPage = () => {
     const validFormSubmission = await validateForm();
     if (validFormSubmission) {
 
-      const activityObject = { ...formData, exercise_id: exerciseId };
-      sessionStorage.setItem('sessionActivityCount', previousActivityCount + 1);
+      const activityObject = { ...formData, exercise_id: exerciseId, id: 'tempId' };
+      const updatedActivityCount = previousActivityCount + 1
+      sessionStorage.setItem('sessionActivityCount', updatedActivityCount);
       if (previousActivityCount === 0) {
-        context.recentSessions.push({...activityObject, date: new Date()});
+        const activityObjectForUpdateBeforeStateChange = { ...activityObject, date: new Date()}
+        context.recentSessions.unshift(activityObjectForUpdateBeforeStateChange);
+        context.activityArray.unshift({
+          ...activityObjectForUpdateBeforeStateChange,
+          n_sets: updatedActivityCount
+        });
         context.streakValue.consecutive_days += 1;
       }
 
