@@ -92,3 +92,32 @@ export function getPastWeekActivty(activityArray) {
   return pastWeekActivity;
   
 }
+
+export function updateStatsWithoutStateChange(recentSessions, newSessionObject) {
+  const today = new Date();
+  console.log('recent sessions in data processing', recentSessions)
+  let sessionLastActivityDate = JSON.parse(
+    sessionStorage.getItem('lastActivityDate')
+  );
+  let firstActivity;
+  if (sessionLastActivityDate?.date) {
+    firstActivity = false;
+  } else {
+    firstActivity = true;
+  }
+  
+  const contextLastActivityDate = new Date(recentSessions[0].date) 
+  // let newStreakValue = { ...streakValue };
+  const newRecentSessions = [...recentSessions];
+  if (
+    firstActivity
+    && !isSameDate(contextLastActivityDate, today)
+  ) {
+    streakValue.consecutive_days += 1;
+    console.log('+1 in completion modal')
+    // newStreakValue.consecutive_days += 1;
+    newRecentSessions.push(newSessionObject);
+  } 
+  console.log('recent sessions at end of update function', newRecentSessions)
+  return newRecentSessions;
+}

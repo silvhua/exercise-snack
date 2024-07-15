@@ -74,11 +74,10 @@ export default function Dashboard() {
       /* Save the newly generated program after filter form is submitted */
       const updateProgramResponse = await updateProgram(userId, createProgramResponse);
       if (checkForSuccess(updateProgramResponse)) {
-        console.log('Program successfully edited');
         filterRef.current.close();
       }
     } else {
-      console.log('error:')
+      alert('Sorry! There was a problem saving your activity.')
     }
   }
 

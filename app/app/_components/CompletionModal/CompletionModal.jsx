@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import Button from "../Button/Button";
 import Streak from "../Streak/Streak";
-import { isSameDate } from "@/app/_libs/dataProcessing";
+import { isSameDate, updateStatsWithoutStateChange } from "@/app/_libs/dataProcessing";
 
 import './CompletionModal.scss';
 const CompletionModal = ({ modalProps }) => {
@@ -21,35 +21,32 @@ const CompletionModal = ({ modalProps }) => {
     id: 'dummySessionToAvoidNeedForStateUpdate',
     date: new Date()
   }
-  const today = new Date();
-  let sessionLastActivityDate = JSON.parse(
-    sessionStorage.getItem('lastActivityDate')
-  );
-  let firstActivity;
-  console.log('stored', sessionLastActivityDate)
-  if (sessionLastActivityDate?.date) {
-    // sessionLastActivityDate = new Date(sessionLastActivityDate?.date);
-    firstActivity = false;
-  } else {
-    firstActivity = true;
-  }
-  console.log(recentSessions)
-  console.log(sessionLastActivityDate,today)
+
+  const newRecentSessions = updateStatsWithoutStateChange(recentSessions, newSessionObject);
+
+  // const today = new Date();
+  // let sessionLastActivityDate = JSON.parse(
+  //   sessionStorage.getItem('lastActivityDate')
+  // );
+  // let firstActivity;
+  // if (sessionLastActivityDate?.date) {
+  //   firstActivity = false;
+  // } else {
+  //   firstActivity = true;
+  // }
   
-  const contextLastActivityDate = new Date(recentSessions[0].date) 
-  // console.log(!isSameDate(sessionLastActivityDate, today), !isSameDate(contextLastActivityDate, today))
-  let newStreakValue = { ...streakValue };
-  const newRecentSessions = [...recentSessions];
-  if (
-    firstActivity
-    && !isSameDate(contextLastActivityDate, today)
-  ) {
-    console.log('+1')
-    newStreakValue.consecutive_days += 1;
-    newRecentSessions.push(newSessionObject);
-  } 
-    
-  
+  // const contextLastActivityDate = new Date(recentSessions[0].date) 
+  // // let newStreakValue = { ...streakValue };
+  // const newRecentSessions = [...recentSessions];
+  // if (
+  //   firstActivity
+  //   && !isSameDate(contextLastActivityDate, today)
+  // ) {
+  //   streakValue.consecutive_days += 1;
+  //   console.log('+1 in completion modal')
+  //   // newStreakValue.consecutive_days += 1;
+  //   newRecentSessions.push(newSessionObject);
+  // } 
 
   /* 
   The dashboard will show these updated values because of the 
@@ -80,11 +77,11 @@ const CompletionModal = ({ modalProps }) => {
           />
           <h3 className="streak__text">
             <span className="streak__number">
-              {newStreakValue.consecutive_days}
+              {streakValue.consecutive_days}
             </span> day streak 
           </h3>
           {
-            newStreakValue.consecutive_days > 0 ?
+            streakValue.consecutive_days > 0 ?
             <Streak
               data={newRecentSessions}
               interval={7}
