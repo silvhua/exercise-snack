@@ -83,7 +83,6 @@ export async function readExercisePerMovement() {
   return rows;
 }
 
-
 export async function readExerciseDetails(exerciseId) {
   const query = `
   SELECT

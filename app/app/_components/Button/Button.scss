@@ -13,6 +13,7 @@ $button-width--tablet: 12.5rem;
   background-color: $dark-blue;
   color: $button-text-color;
   cursor: pointer;
+  font-family: $font-family--secondary;
 
   @include tablet {
     width: $button-width--tablet;
