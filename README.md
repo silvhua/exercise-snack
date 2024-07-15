@@ -98,7 +98,7 @@ modifier | 1 | A single way in which exercise execution can be modified, e.g. sl
 muscle | 1 | A muscle group that may be trained by an exercise, e.g. glutes. | Relates to `exercise` via `exercise_muscle`
 tip | 1 | An exercise tip | Relates to `exercise` via `exercise_tip`
 video | 1 | A src for an exercise video |  `exercise.video_id` -> `id`
-user | 2 | A user | 
+user | 2 | A user | `session` and `program` tables
 session | 2 | The exercise sessions for a given user. | Foreign key: `user` -> `user.id`
 activity | 2 | Data for a single set of a single exercise logged by a given user | Foreign keys: `exercise_id` -> `exercise.id`; `session_id` -> `session.id`
 program | 2 | The current exercise program for a given user. Each program consists of 1 exercise per movement group. The exercise program value is stored as a JSON data type in case the exercise program algorithm or movement categories change in the future. | Foreign keys: `user` -> `user.id`
