@@ -77,7 +77,14 @@ const TrainingPage = () => {
       const activityObject = { ...formData, exercise_id: exerciseId };
       if (previousActivityCount === 0) {
         sessionStorage.setItem('sessionActivityCount', previousActivityCount + 1);
-        console.log('setting activity count to ', previousActivityCount + 1)
+
+        
+
+
+        // console.log('setting activity count to ', previousActivityCount + 1)
+        // context.streakValue.consecutive_days += 1;
+        // console.log('+1 in training page')
+        // context.recentSessions.push(activityObject);
       }
 
       // const updateStreak = updateStatsWithoutStateChange(

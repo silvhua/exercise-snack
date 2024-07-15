@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { DataContext } from "@/app/context-provider";
 import UpcomingExercises from "@/app/_components/UpcomingExercises/UpcomingExercises";
 import Placeholder from "@/app/_components/Placeholder/Placeholder";
@@ -13,8 +13,10 @@ import {
 import { checkForSuccess } from '@/app/_libs/ApiClient';
 import Streak from "@/app/_components/Streak/Streak";
 import './dashboard.scss'
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
+  const router = useRouter();
   const context = useContext(DataContext);
   const {
     userObject, 
@@ -23,6 +25,16 @@ export default function Dashboard() {
     programArray, setProgramArray,
     discreetnessArray
   } = context;
+
+  useEffect(() => {
+    const previousActivityCount = parseInt(
+      sessionStorage.getItem('sessionActivityCount')
+    );
+    if (previousActivityCount > 0) {
+      router.refresh();
+      console.log('refreshed')
+    }
+  }, [])
 
   const [checkboxValues, setCheckboxValues] = useState({
     'context': {}

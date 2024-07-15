@@ -68,6 +68,10 @@ const CompletionModal = ({ modalProps }) => {
 
   function handleCompleteClick() {
     router.push('/dashboard');
+    // setTimeout(() => {
+    //   console.log('refreshed')
+      router.refresh(); // Reload the current page after a delay
+    // }, 1000);
   }
 
   return (
