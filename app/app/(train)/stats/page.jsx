@@ -1,13 +1,12 @@
 "use client"
 
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useContext } from 'react';
 import { DataContext } from "@/app/context-provider";
 import PlotComponent from '@/app/_components/PlotComponent/PlotComponent';
 import Placeholder from '@/app/_components/Placeholder/Placeholder';
 import Streak from '@/app/_components/Streak/Streak';
 import { timeSeries } from '@/app/_libs/TimeSeries';
 import ConsistencyDisplay from '@/app/_components/ConsistencyDisplay/ConsistencyDisplay';
-// import './Stats.scss';
 
 const Stats = () => {
   const scrollRef = useRef(null);
@@ -51,7 +50,6 @@ const Stats = () => {
               interval={interval}
             />
           </div>
-
         </div>
       </section>
       

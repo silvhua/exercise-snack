@@ -25,10 +25,7 @@ export default function Dashboard() {
   } = context;
 
   const [checkboxValues, setCheckboxValues] = useState({
-    'context': {}, 
-    'environment': {},
-    // 'discreetness': {},
-    // 'focus': {}
+    'context': {}
   })
 
   const filterRef = useRef();
@@ -83,7 +80,6 @@ export default function Dashboard() {
     } else {
       console.log('error:')
     }
-
   }
 
   const filterProps = {

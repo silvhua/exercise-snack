@@ -5,9 +5,14 @@ import { useEffect, useState } from "react";
 import { getStreak } from "@/app/_libs/userData";
 import { checkForSuccess } from '@/app/_libs/ApiClient';
 import {getLastWeeksSessions} from '@/app/_libs/clientCrud';
-import postData, { generateProgram, readProgram, saveProgram } from '@/app/_libs/clientCrud';
+import { generateProgram, readProgram, saveProgram } from '@/app/_libs/clientCrud';
 import { getActivityPerDate } from '@/app/_libs/userData';
 import { readDiscreetness } from './_libs/exerciseData';
+
+/* 
+This file retrieves server data than can be accessed by child components. 
+This allows sibling pages to have access to the same data.
+*/
 
 export const DataContext = createContext({});
  
@@ -34,8 +39,6 @@ export default function DataProvider({ children }) {
     setProgramArray: setProgramArray,
     placeholderText: placeholderText,
     discreetnessArray: discreetnessArray
-    // setStreakValue: setStreakValue,
-    // setRecentSessions: setRecentSessions
   }
   
   useEffect(() => {

@@ -11,7 +11,6 @@ import { getPastWeekActivty, isSameDate } from "@/app/_libs/dataProcessing";
 
 const TrainingPage = () => {
   const context = useContext(DataContext);
-  // const { recentSessions } = context;
   const { activityArray } = context;
   const completeRef = useRef();
   const router = useRouter();
@@ -32,7 +31,7 @@ const TrainingPage = () => {
     reps: null,
     duration: null
   });
-  const [exerciseDetailsComponent, setExerciseDetailsComponent] = useState(null);
+  
   if (!activityArray || activityArray?.length === 0) {
     router.push('/dashboard');
     return;
@@ -109,7 +108,6 @@ const TrainingPage = () => {
         'latestExerciseId', latestExerciseId
       );
 
-
       completeRef.current.showModal();
     } else {
       alert('Numbers must be non-negative.')
@@ -128,7 +126,6 @@ const TrainingPage = () => {
         exerciseId={exerciseId}
         onSubmit={handleSubmit}
         handleInputChange={handleInputChange}
-        
       />
       {
         recentSessions ? 

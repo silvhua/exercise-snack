@@ -6,9 +6,6 @@ export async function GET() {
     const db = await pool.getConnection()
     const query = `select id, username FROM user`;
     let [rows] = await db.execute(query);
-    // rows.map(row => {
-    //   row.id = row.id.toString('ascii');
-    // })
     db.release()
     
     return NextResponse.json(rows)

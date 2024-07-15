@@ -5,11 +5,6 @@ export async function GET(request, {params}) {
   const searchParams = request.nextUrl.searchParams;
   let filterString = searchParams.get('query')
   
-  // filterString = decodeURIComponent(filterString);
-  console.log('filterString in server', filterString)
-  /* 
-  WHERE ${filterString}
-*/
   const query = `
     WITH randomized AS (
   SELECT
