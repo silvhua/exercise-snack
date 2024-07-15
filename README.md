@@ -1,5 +1,7 @@
 # Project Title
 
+To run this project, see [implementation-instructions.md](implementation-instructions.md)
+
 ## Overview
 
 The Movement Snack App is the Duolingo of strength training: You can get stronger in just 30 seconds a day, even if you are at work or wearing heels.
@@ -167,9 +169,6 @@ The database is already structured so that the user will be able to filter exerc
 * Ability for the user to upload their own exercise
 * Social features: View the activity of friends.
 * Leaderboard: Shows the top performers for select metrics across all users.
-
-## To run this project
-See [implementation-instructions.md](implementation-instructions.md)
 
 ## Acknowledgements
 
