@@ -7,7 +7,7 @@ import postData, { updateProgram } from "@/app/_libs/clientCrud";
 import { useRouter } from "next/navigation";
 import { checkForSuccess } from "@/app/_libs/ApiClient";
 import CompletionModal from "@/app/_components/CompletionModal/CompletionModal";
-import { getPastWeekActivty, isSameDate, updateStatsWithoutStateChange } from "@/app/_libs/dataProcessing";
+import { getPastWeekActivty } from "@/app/_libs/dataProcessing";
 
 const TrainingPage = () => {
   const context = useContext(DataContext);
@@ -75,46 +75,11 @@ const TrainingPage = () => {
     if (validFormSubmission) {
 
       const activityObject = { ...formData, exercise_id: exerciseId };
+      sessionStorage.setItem('sessionActivityCount', previousActivityCount + 1);
       if (previousActivityCount === 0) {
-        sessionStorage.setItem('sessionActivityCount', previousActivityCount + 1);
-
-        
-
-
-        // console.log('setting activity count to ', previousActivityCount + 1)
-        // context.streakValue.consecutive_days += 1;
-        // console.log('+1 in training page')
-        // context.recentSessions.push(activityObject);
+        context.recentSessions.push({...activityObject, date: new Date()});
+        context.streakValue.consecutive_days += 1;
       }
-
-      // const updateStreak = updateStatsWithoutStateChange(
-      //   recentSessions, context.streakValue, activityObject,
-      //   'lastActivityDate'
-      // );
-      // if (updateStreak) {
-      //   sessionStorage.setItem(
-      //     'lastActivityDate', JSON.stringify(
-      //       {date: new Date()}
-      //     )
-      //   )
-
-      // }
-      // context.recentSessions.push({...activityObject, date: new Date()});
-
-
-      // let lastActivityDate = JSON.parse(
-      //   sessionStorage.getItem('lastActivityDate')
-      // ) || {};
-      // lastActivityDate = new Date(lastActivityDate?.date) || new Date();
-
-      // if (!isSameDate(lastActivityDate, new Date())) {
-      //   context.streakValue.consecutive_days = context.streakValue.consecutive_days + 1;
-      //   sessionStorage.setItem(
-      //     'lastActivityDate', JSON.stringify(
-      //       {date: new Date()}
-      //     )
-      //   )
-      // }
 
       activityObject.reps = parseInt(activityObject.reps) || null;
       activityObject.duration = parseInt(activityObject.duration) || null;

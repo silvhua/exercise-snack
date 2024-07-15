@@ -8,6 +8,7 @@ import {getLastWeeksSessions} from '@/app/_libs/clientCrud';
 import { generateProgram, readProgram, saveProgram } from '@/app/_libs/clientCrud';
 import { getActivityPerDate } from '@/app/_libs/userData';
 import { readDiscreetness } from './_libs/exerciseData';
+import { isSameDate } from './_libs/dataProcessing';
 
 /* 
 This file retrieves server data than can be accessed by child components. 
@@ -47,7 +48,6 @@ export default function DataProvider({ children }) {
     const userId = storedUserInfo.id
     loadRecentSessions(userId);
     loadActivity(userId);
-    // sessionStorage.setItem('sessionActivityCount', 0);
     loadProgram(userId);
     getDiscreetness();
   }, []);
@@ -60,6 +60,12 @@ export default function DataProvider({ children }) {
     const sessionsResponse = await getLastWeeksSessions(userId);
     if (checkForSuccess(sessionsResponse)) {
       setRecentSessions(sessionsResponse);
+      if (
+        !isSameDate(new Date(sessionsResponse[0].date), new Date())
+      ) {
+        // reset the value if the most recent session is not today
+        sessionStorage.setItem('sessionActivityCount', 0);
+      } 
     }
   }
 

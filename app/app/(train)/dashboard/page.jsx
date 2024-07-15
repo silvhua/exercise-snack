@@ -30,10 +30,6 @@ export default function Dashboard() {
     const previousActivityCount = parseInt(
       sessionStorage.getItem('sessionActivityCount')
     );
-    if (previousActivityCount > 0) {
-      router.refresh();
-      console.log('refreshed')
-    }
   }, [])
 
   const [checkboxValues, setCheckboxValues] = useState({
