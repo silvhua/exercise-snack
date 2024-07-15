@@ -2,7 +2,7 @@
 This file is used to customize the pipeline for migrating data from Notion to the SQL database.
 */
 export const databases = [
-  'EXERCISE_DATABASE',
+  // 'EXERCISE_DATABASE',
   'ENVIRONMENT_DATABASE',
   'MOVEMENT_DATABASE',
   'MUSCLE_DATABASE',
@@ -14,7 +14,7 @@ export const databases = [
   'ACTIVITY_DATABASE',
   'SESSION_DATABASE',
   'TIP_DATABASE',
-  'VIDEO_DATABASE'
+  // 'VIDEO_DATABASE'
 ]
 
 export const syncType = process.argv[2] || 'partial';
