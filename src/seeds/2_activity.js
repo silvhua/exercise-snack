@@ -8,13 +8,13 @@ const notionDbNames = [
   'user',
   'session',
   'activity',
-  'program'
+  // 'program' // this table is empty so there is no seed data
 ]
 
 
 const allData = {}; // Object where each property contains all the data for a given table
 notionDbNames.forEach(dbName => {
-  allData[tableName] = processData(dbName);
+  allData[dbName] = processData(dbName);
 })
 
 export async function seed(knex) {

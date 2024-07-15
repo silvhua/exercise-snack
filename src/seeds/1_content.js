@@ -1,9 +1,8 @@
-import { loadJsonFile, processData } from "../utils/utils.js";
-import 'dotenv/config';
-import { convertToSnakeCase, transformArrayValues } from "../utils/transformForSql.js";
+import { processData, createManyToManyObject } from "../utils/utils.js";
+
 
 const mainTableName = 'exercise';
-const trackingObject = loadJsonFile('./utils/tracking.json');
+
 
 // const notionDbNames = Object.keys(process.env).filter(key => key.endsWith('_DATABASE'));
 
@@ -18,18 +17,18 @@ const notionDbNames = [
   'modifier',
   'muscle',
   'tip',
-  'exercise_environment', 
-  'exercise_movement',
-  'exercise_context',
-  'exercise_focus',
-  'exercise_modifier',
-  'exercise_muscle',
-  'exercise_tip'
+  // 'exercise_environment', 
+  // 'exercise_movement',
+  // 'exercise_context',
+  // 'exercise_focus',
+  // 'exercise_modifier',
+  // 'exercise_muscle',
+  // 'exercise_tip'
 ]
 
 const allData = {}; // Object where each property contains all the data for a given table
 notionDbNames.forEach(dbName => {
-  allData[tableName] = processData(dbName);
+  allData[dbName] = processData(dbName);
 })
 
 // Create the one to many & many to many tables branching from `exercise`table
@@ -55,18 +54,6 @@ allData[mainTableName] = allData[mainTableName].map(object => {
   return filteredObject;
 })
 
-
-allData['activity'] = allData['activity'].map(object => {
-  //rename `exercise` and `session` property names to match columns in migration
-  const { exercise, session, ...filteredObject } = object;
-  filteredObject.session_id = object.session;
-  filteredObject.exercise_id = object.exercise;
-  return filteredObject;
-})
-
-console.log(allData['activity']);
-// console.log(allData['user']);
-// console.log(Object.keys(allData));
 
 export async function seed(knex) {
   let allTables = Object.keys(allData);

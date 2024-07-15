@@ -1,4 +1,8 @@
 import fs from 'fs';
+import 'dotenv/config';
+import { convertToSnakeCase, transformArrayValues } from "../utils/transformForSql.js";
+
+export const trackingObject = loadJsonFile('./utils/tracking.json');
 
 export function getIsoTimestamp() {
   const currentDate = new Date();
@@ -75,7 +79,9 @@ export async function getLastUpdate(databaseId, trackingFile, key) {
 
 export function processData(notionDbName) {
   // Get the filename of the most updated JSON file
-  const databaseId = process.env[notionDbName];
+  const variableKey = `${notionDbName.toUpperCase()}_DATABASE`
+  const databaseId = process.env[variableKey];
+  console.log(`Processing data from ${notionDbName} table`)
   const newestJsonFilename = trackingObject[databaseId].newest_json;
 
   // import data files (arrays of objects)
@@ -86,7 +92,7 @@ export function processData(notionDbName) {
   return data;
 }
 
-function createManyToManyObject(tableName, originalArray, arrayProperty) {
+export function createManyToManyObject(tableName, originalArray, arrayProperty) {
   /* 
   Create the many to many table for each pair of tables that has a many to many relationship
   */

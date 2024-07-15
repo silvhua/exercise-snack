@@ -19,7 +19,7 @@ export function up(knex) {
   .createTable('session', (table) => {
     table.binary('id', 128).primary();
     table
-      .binary('user', 128)
+      .binary('user_id', 128)
       .references('id').inTable('user').notNullable()
       .onUpdate('CASCADE')
       .onDelete('CASCADE')

@@ -150,9 +150,9 @@ async function parseNotion(
   const propertiesToDestructure = [
     'discreetness', // exercise table
     'video', // exercise table
-    'user', // session table
+    'user_id', // session table
     'exercise', // actvity table
-    'session' // actvity table
+    'session_id', // actvity table
   ]
   const parsedData = await parser.parseData(
     savePath, databaseId, trackingFile, propertiesToDestructure,

@@ -48,6 +48,7 @@ The Movement Snack App is targeted to people in the workforce who struggle to st
 Item | Function
 --- | ---
 Notion and Notion API | GUI content management software. Exercise data are added to the Notion app. Data are migrated from the Notion API to the server.
+Node.js | Data migration pipeline.
 Knex | Data migration to MySQL
 MySQL | Structured database
 Next.js and React | Server and Front end
