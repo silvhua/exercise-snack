@@ -36,6 +36,12 @@ const TrainingPage = () => {
     router.push('/dashboard');
     return;
   }
+
+  
+  const previousActivityCount = parseInt(
+    sessionStorage.getItem('sessionActivityCount')
+  );
+   
   const recentSessions = getPastWeekActivty(activityArray);
 
   const handleInputChange = (event) => {
@@ -69,11 +75,15 @@ const TrainingPage = () => {
     if (validFormSubmission) {
 
       const activityObject = { ...formData, exercise_id: exerciseId };
+      if (previousActivityCount === 0) {
+        sessionStorage.setItem('sessionActivityCount', previousActivityCount + 1);
+        console.log('setting activity count to ', previousActivityCount + 1)
+      }
 
-      const updateStreak = updateStatsWithoutStateChange(
-        recentSessions, context.streakValue, activityObject,
-        'lastActivityDate'
-      );
+      // const updateStreak = updateStatsWithoutStateChange(
+      //   recentSessions, context.streakValue, activityObject,
+      //   'lastActivityDate'
+      // );
       // if (updateStreak) {
       //   sessionStorage.setItem(
       //     'lastActivityDate', JSON.stringify(
@@ -128,8 +138,8 @@ const TrainingPage = () => {
   }
 
   const modalProps = {
-    router: router,
     context: context,
+    previousActivityCount: previousActivityCount,
     completeRef: completeRef,
   }
 

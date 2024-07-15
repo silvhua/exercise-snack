@@ -47,8 +47,9 @@ export default function DataProvider({ children }) {
     const userId = storedUserInfo.id
     loadRecentSessions(userId);
     loadActivity(userId);
-    sessionStorage.lastActivityDate = null;
-    sessionStorage.modalLastActivityDate = null;
+    // sessionStorage.lastActivityDate = null;
+    // sessionStorage.modalLastActivityDate = null;
+    // sessionStorage.setItem('sessionActivityCount', 0);
     loadProgram(userId);
     getDiscreetness();
   }, []);

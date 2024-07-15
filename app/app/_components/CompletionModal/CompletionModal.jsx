@@ -6,11 +6,13 @@ import { isSameDate, updateStatsWithoutStateChange } from "@/app/_libs/dataProce
 import './CompletionModal.scss';
 const CompletionModal = ({ modalProps }) => {
   const router = useRouter();
-  const { context, completeRef } = modalProps;
+  const { context, previousActivityCount, completeRef } = modalProps;
   const {
     streakValue,
     recentSessions
   } = context;
+
+  console.log('previousActivityCount in modal', previousActivityCount, typeof previousActivityCount)
 
   const newSessionObject = {
     /* 
@@ -21,28 +23,36 @@ const CompletionModal = ({ modalProps }) => {
     id: 'dummySessionToAvoidNeedForStateUpdate',
     date: new Date()
   }
-  const modalStreakValue = { ...streakValue }; // make a copy because we don't want to update the actual context object unless form is submitted
-  sessionStorage.setItem(
-    'modalLastActivityDate', JSON.stringify(
-      {date: new Date()}
-    )
-  )
-  const updateStreak = updateStatsWithoutStateChange(
-    recentSessions, modalStreakValue, newSessionObject,
-    'modalLastActivityDate'
-  );
+  // const modalStreakValue = { ...streakValue }; // make a copy because we don't want to update the actual context object unless form is submitted
+  // sessionStorage.setItem(
+  //   'modalLastActivityDate', JSON.stringify(
+  //     {date: new Date()}
+  //   )
+  // )
+  // const updateStreak = updateStatsWithoutStateChange(
+  //   recentSessions, modalStreakValue, newSessionObject,
+  //   'modalLastActivityDate'
+  // );
 
-  console.log('modalStreakValue.consecutive_days before', modalStreakValue.consecutive_days)
+  // console.log('modalStreakValue.consecutive_days before', modalStreakValue.consecutive_days)
 
   // modalStreakValue.consecutive_days = updateStreak ?
   //   modalStreakValue.consecutive_days + 1 : modalStreakValue.consecutive_days;
   
 
-  console.log(updateStreak, modalStreakValue.consecutive_days)
+  // console.log(updateStreak, modalStreakValue.consecutive_days)
 
-  const newRecentSessions = updateStreak ? 
-    [...recentSessions, newSessionObject] :
-    recentSessions
+  let modalRecentSessions = recentSessions;
+  let modalStreakValue = streakValue.consecutive_days;
+  if (previousActivityCount === 0) {
+    
+    modalRecentSessions = [...recentSessions, newSessionObject];
+    modalStreakValue = streakValue.consecutive_days + 1;
+    console.log('updating modal previousActivityCount', modalStreakValue)
+  }
+  // const newRecentSessions = updateStreak ? 
+  //   [...recentSessions, newSessionObject] :
+  //   recentSessions
 
   /* 
   The dashboard will show these updated values because of the 
@@ -73,13 +83,13 @@ const CompletionModal = ({ modalProps }) => {
           />
           <h3 className="streak__text">
             <span className="streak__number">
-              {modalStreakValue.consecutive_days}
+              {modalStreakValue}
             </span> day streak 
           </h3>
           {
-            modalStreakValue.consecutive_days > 0 ?
+            modalStreakValue > 0 ?
             <Streak
-              data={newRecentSessions}
+              data={modalRecentSessions}
               interval={7}
               />
               : null              
