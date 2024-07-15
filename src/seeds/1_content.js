@@ -16,14 +16,7 @@ const notionDbNames = [
   'focus',
   'modifier',
   'muscle',
-  'tip',
-  // 'exercise_environment', 
-  // 'exercise_movement',
-  // 'exercise_context',
-  // 'exercise_focus',
-  // 'exercise_modifier',
-  // 'exercise_muscle',
-  // 'exercise_tip'
+  'tip'
 ]
 
 const allData = {}; // Object where each property contains all the data for a given table
@@ -41,6 +34,7 @@ const oneToManyTables = [
 const arrayProperties = [...oneToManyTables];
 
 const exerciseDataArray = allData[mainTableName];
+console.log(exerciseDataArray)
 
 arrayProperties.forEach(property => {
   allData[`${mainTableName}_${property}`] = createManyToManyObject(mainTableName, exerciseDataArray, property)
@@ -49,7 +43,7 @@ arrayProperties.forEach(property => {
 // Remove relation properties that have many to many relationship
 allData[mainTableName] = allData[mainTableName].map(object => {
   const {
-    muscle, movement, modifier, context, environment, focus, tip, video,
+    muscle, movement, modifier, context, environment, focus, tip, 
     ...filteredObject } = object;
   return filteredObject;
 })

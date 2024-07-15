@@ -149,7 +149,7 @@ async function parseNotion(
   // These are properties stored in arrays where only the first element is required
   const propertiesToDestructure = [
     'discreetness', // exercise table
-    'video', // exercise table
+    'video_id', // exercise table
     'user_id', // session table
     'exercise', // actvity table
     'session_id', // actvity table

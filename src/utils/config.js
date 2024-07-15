@@ -14,8 +14,7 @@ export const databases = [
   'ACTIVITY_DATABASE',
   'SESSION_DATABASE',
   'TIP_DATABASE',
-  'VIDEO_DATABASE',
-  // 'PROGRAM_DATABASE' // this table has no data
+  'VIDEO_DATABASE'
 ]
 
 export const syncType = process.argv[2] || 'partial';

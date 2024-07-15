@@ -1,54 +1,54 @@
 {
   "a2e922c6e98a4071bfda445014f351b2": {
-    "newest_json": "./data/exercise/exercise_2024-07-14_1939.json",
-    "last_notion_pull": "2024-07-15T02:39:32.789Z"
+    "newest_json": "./data/exercise/exercise_2024-07-14_2135.json",
+    "last_notion_pull": "2024-07-15T04:35:27.033Z"
   },
   "c57c0b26a6164f788474584618fa77da": {
-    "newest_json": "./data/environment/environment_2024-07-14_1939.json",
-    "last_notion_pull": "2024-07-15T02:39:34.008Z"
+    "newest_json": "./data/environment/environment_2024-07-14_2121.json",
+    "last_notion_pull": "2024-07-15T04:21:30.793Z"
   },
   "a810f8ebca8a4b6c9ef8fd5d7fad863c": {
-    "newest_json": "./data/movement/movement_2024-07-14_1939.json",
-    "last_notion_pull": "2024-07-15T02:39:35.202Z"
+    "newest_json": "./data/movement/movement_2024-07-14_2121.json",
+    "last_notion_pull": "2024-07-15T04:21:34.171Z"
   },
   "0848d62720584c65b9ca255e6f1141ff": {
-    "newest_json": "./data/muscle/muscle_2024-07-14_1939.json",
-    "last_notion_pull": "2024-07-15T02:39:36.539Z"
+    "newest_json": "./data/muscle/muscle_2024-07-14_2121.json",
+    "last_notion_pull": "2024-07-15T04:21:35.500Z"
   },
   "0ca4ecfc05bb4636af0d6ee2bbe6a421": {
-    "newest_json": "./data/modifier/modifier_2024-07-14_1939.json",
-    "last_notion_pull": "2024-07-15T02:39:37.720Z"
+    "newest_json": "./data/modifier/modifier_2024-07-14_2121.json",
+    "last_notion_pull": "2024-07-15T04:21:36.945Z"
   },
   "d95f2286659140d5af2337846243abbd": {
-    "newest_json": "./data/focus/focus_2024-07-14_1939.json",
-    "last_notion_pull": "2024-07-15T02:39:38.865Z"
+    "newest_json": "./data/focus/focus_2024-07-14_2121.json",
+    "last_notion_pull": "2024-07-15T04:21:38.075Z"
   },
   "7755088c62af4959a225c39cb9cc5491": {
-    "newest_json": "./data/discreetness/discreetness_2024-07-14_1939.json",
-    "last_notion_pull": "2024-07-15T02:39:39.975Z"
+    "newest_json": "./data/discreetness/discreetness_2024-07-14_2121.json",
+    "last_notion_pull": "2024-07-15T04:21:39.529Z"
   },
   "0cd8a690439846b192487772744d23ac": {
-    "newest_json": "./data/context/context_2024-07-14_1939.json",
-    "last_notion_pull": "2024-07-15T02:39:41.103Z"
+    "newest_json": "./data/context/context_2024-07-14_2121.json",
+    "last_notion_pull": "2024-07-15T04:21:40.850Z"
   },
   "e2ccc3d7a14c472cbe461138cda122f0": {
-    "newest_json": "./data/user/user_2024-07-14_1939.json",
-    "last_notion_pull": "2024-07-15T02:39:42.992Z"
+    "newest_json": "./data/user/user_2024-07-14_2121.json",
+    "last_notion_pull": "2024-07-15T04:21:42.626Z"
   },
   "f19caf41807c4f82a4dc418741396383": {
-    "newest_json": "./data/activity/activity_2024-07-14_2005.json",
-    "last_notion_pull": "2024-07-15T03:05:02.126Z"
+    "newest_json": "./data/activity/activity_2024-07-14_2121.json",
+    "last_notion_pull": "2024-07-15T04:21:43.833Z"
   },
   "8946ab15dda748f68e71e0557e3158bc": {
-    "newest_json": "./data/session/session_2024-07-14_2005.json",
-    "last_notion_pull": "2024-07-15T03:05:03.778Z"
+    "newest_json": "./data/session/session_2024-07-14_2121.json",
+    "last_notion_pull": "2024-07-15T04:21:44.980Z"
   },
   "04b300e650334964a5c6d11f2dfee49b": {
-    "newest_json": "./data/tip/tip_2024-07-14_1939.json",
-    "last_notion_pull": "2024-07-15T02:39:48.533Z"
+    "newest_json": "./data/tip/tip_2024-07-14_2121.json",
+    "last_notion_pull": "2024-07-15T04:21:46.127Z"
   },
   "f737ae33d824496e85c92ae3626ca817": {
-    "newest_json": "./data/video/video_2024-07-14_1939.json",
-    "last_notion_pull": "2024-07-15T02:39:49.700Z"
+    "newest_json": "./data/video/video_2024-07-14_2121.json",
+    "last_notion_pull": "2024-07-15T04:21:47.296Z"
   }
 }
