@@ -71,7 +71,7 @@ Page | Description | Notes
 --- | --- | ---
 Dashboard | Shows upcoming exercises and an abbreviated version of their data visualization. Each exercise has a icon indicating the level of discreetness of the exercise, ranging from 1 ("invisible") to 5 ("full-on workout mode"). | Hovering over the number icon shows a tooltip describing the discreetness level.
 Training page | View and log details for the current exercise. | The form fields are optional for logging activity to minimize friction with exercising. Once the "Done" button is clicked, a confirmation modal shows their new streak.
-Stats page | Shows stats and data visualization on the user's consistency with exercise | The first figure is interactive. The default interaction is zoom, but the user can also pan or export the figure. The first figure is inspired by the green contributions plot found on each user's GitHub profile.
+Stats page | Shows stats and data visualization on the user's consistency with exercise | The first figure is interactive and shows additional information upon hover. The default interaction is zoom, but the user can also pan or export the figure. The first figure is inspired by the green contributions plot found on each user's GitHub profile.
 <img src="./documentation/dashboard-with-tooltip.PNG" width="350" alt="dashboard" />
 <img src="./documentation/training-page-top.PNG" width="350" alt="training page top" />
 <img src="./documentation/training-page-bottom.PNG" width="350" alt="training page bottom" />
@@ -114,24 +114,21 @@ Below is the entity relationship diagram of the database:
 
 Next.js allows client components to perform CRUD operations on the database in 2 main ways: via API endpoints or via server components. I am learning Next.js on my own as I build this project and learning about the differences between client and server components, so started by mostly creating API endpoints, then switched to mostly using server components. Below are the existing API endpoints, but several other CRUD operations exist in server components. The endpoints or their paths may be updated in the future during refactoring.
 
-
 Route | Method | Description
 --- | ---- | ---
 `:query` | GET | Generate an exercise program with filters applied.
 `/auth/:username` | GET | Verify a user's login credentials.
 `/exercises/:id` | GET | Get the details for a specific exercise. 
+`/exercises/:id/:property` | GET | Get an exercise property value contained in a related table
 `/programs` | GET | Generate a new program for a user.
 `/sessions` | POST | Post a new exercise session once a user initiates training.
 `/sessions/:sessionId/activities` | POST | Post a new logged exercise activity.
-`/users` | GET | Get a list of all users.
+`/users` | GET | Get a list of all users. May be used in the future if implementing a leaderboard feature.
 `/users/programs` | POST, PUT, GET | Create, update, and retrieve a user's exercise program.
 `/users/sessions` | GET | Get a list of all a user's exercise sessions. 
 `/users/:userId/sessions` | GET| Read a user's exercise sessions. 
 `/users/:userId/sessions/recent` | GET| Read a user's sessions for the past 7 days.
-`/users/:userId/activities` | GET, POST, PUT | Read, log, and update a user's activity. 
 
-to delete
-- users/:userid
 </details>
 
 
@@ -142,6 +139,8 @@ The user will login with their username and password.
 ## Roadmap
 
 ### Planned features and pages
+
+The project will be deployed for public use once there is a system for user sign up.
 
 Page/feature | Description
 --- | ---
@@ -164,7 +163,7 @@ The database is already structured so that the user will be able to filter exerc
 * Exercise history: The user can choose to only do familiar exercises or new exercises.
 * Exertion: The user can filter by how much they want to exert themselves at that moment.
 
-## Nice-to-haves
+## Possible future directions
 
 * Sign up: The user will complete a brief questionnaire to sign up for an account.
 * Ability for the user to upload their own exercise
