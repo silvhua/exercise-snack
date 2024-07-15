@@ -27,6 +27,14 @@ If you wish to do this step, please ensure you create `/src/.env` file (use `/sr
 3. Create the `/app/.env.local` file using the `/app/.env.local.example` as a template template. Please note that this is a separate file in a separate directory than the `.env.local` from the migration steps.
 3. `npm run dev` to run the app.
 
+### Suggested user flow
+
+1. Login and get redirected to `/dashboard`.
+2. View your list of upcoming exercises. Click "Start Snack" button to get  to the `/training` page.
+3. View the exercise details and do the exercise. Hover over the number icons to view the tooltip. Note that the video is a usually placeholder that may not necessarily reflect the exercise name.
+4. Fill in the form if you would like, then click "Done" to save your progress. The fields can be left blank to reduce friction. 
+5. Once the exercise activity is logged, you will be shown a confirmation dialog. Once the dialog button is clicked, you will be redirected back to `/dashboard`.
+6. Check out the `/stats` page by clicking the bar graph icon on the left of the navigation bar. Hover over the squares of the scatter plot for more details.
 
 ## Project navigation
 
