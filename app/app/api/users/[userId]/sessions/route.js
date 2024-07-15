@@ -15,7 +15,7 @@ export async function GET(request, { params }) {
     last_edited_time,
     created_time
   FROM session
-  WHERE (user = "${userId}")
+  WHERE (user_id = "${userId}")
   ${filterStatement}
   `
   const response = await apiSqlQuery(query);
@@ -34,7 +34,7 @@ export async function POST(request) {
   const { userId } = requestBody;
   const query = `
   INSERT INTO session (
-    id, user
+    id, user_id
   )
   VALUES (
     "${uuid}",

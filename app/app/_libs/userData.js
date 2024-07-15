@@ -25,7 +25,7 @@ export async function getStreak(userId) {
     LEFT JOIN session
     ON (session_id = session.id)
     LEFT JOIN ${userTableName}
-    ON (${userTableName} = ${userTableName}.id)
+    ON (user_id = ${userTableName}.id)
     WHERE ${userTableName}.id = "${userId}"
   ),
   RankedDates AS (
@@ -82,7 +82,7 @@ export async function getActivityPerDate(userId) {
   LEFT JOIN session
     ON (session_id = session.id)
   LEFT JOIN ${userTableName}
-    ON (${userTableName} = ${userTableName}.id)
+    ON user_id = user.id
   WHERE ${userTableName}.id = "${userId}"
   GROUP BY DATE(activity.created_time)
   ORDER BY DATE(activity.created_time) DESC

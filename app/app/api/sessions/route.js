@@ -7,7 +7,7 @@ export async function POST(request) {
   const { userId } = requestBody;
   const query = `
   INSERT INTO session (
-    id, user
+    id, user_id
   )
   VALUES (
     "${uuid}",
