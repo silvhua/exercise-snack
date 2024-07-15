@@ -98,7 +98,6 @@ const TrainingPage = () => {
         */
         const updateProgramResponse = await updateProgram(userId, storedArray);
         if (checkForSuccess(updateProgramResponse)) {
-          console.log('Program successfully edited');
         }
       }
 

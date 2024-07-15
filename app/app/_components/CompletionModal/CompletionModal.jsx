@@ -21,16 +21,21 @@ const CompletionModal = ({ modalProps }) => {
     id: 'dummySessionToAvoidNeedForStateUpdate',
     date: new Date()
   }
-  let lastActivityDate = JSON.parse(
+  const today = new Date();
+  let sessionLastActivityDate = JSON.parse(
     sessionStorage.getItem('lastActivityDate')
   ) || {};
-  lastActivityDate = new Date(lastActivityDate?.date) || new Date();
+  sessionLastActivityDate = new Date(sessionLastActivityDate?.date) || today;
+  
+  const contextLastActivityDate = recentSessions[recentSessions?.length - 1] 
   let newStreakValue = { ...streakValue };
-  let newRecentSessions = [...recentSessions];
-  if (!isSameDate(lastActivityDate, new Date())) {
+  const newRecentSessions = [...recentSessions];
+  if (
+    !isSameDate(sessionLastActivityDate, today)
+    || !isSameDate(contextLastActivityDate.date, today)
+  ) {
     newStreakValue.consecutive_days += 1;
     newRecentSessions.push(newSessionObject);
-    console.log('+1 to streak for modal only');
   }
 
   /* 
@@ -46,7 +51,6 @@ const CompletionModal = ({ modalProps }) => {
   }
 
   function handleCompleteClick() {
-    console.log('Workout complete...back to dashboard')
     router.push('/dashboard');
   }
 

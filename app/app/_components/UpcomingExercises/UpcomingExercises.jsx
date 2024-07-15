@@ -35,7 +35,6 @@ const UpcomingExercises = (props) => {
   const latestExerciseId = localStorage.getItem('latestExerciseId');
   if (latestExerciseId === nextExerciseId) {
     // Rotate the exercises 
-    console.log('rotating array');
     rotateArray(programArray);
   }
 
