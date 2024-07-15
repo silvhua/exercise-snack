@@ -74,7 +74,6 @@ const CompletionModal = ({ modalProps }) => {
               />
               : null              
           }
-
         </div>
         <Button buttonProps={completeButtonProps} />
       </section>

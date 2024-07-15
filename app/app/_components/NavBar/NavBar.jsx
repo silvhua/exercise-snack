@@ -7,21 +7,21 @@ const NavBar = () => {
   const homeIconProps = {
     src: '/icons/home.svg',
     href: '/dashboard',
-    className: 'nav-icons',
+    className: 'nav-bar__icon',
     alt: 'home icon'
   }
 
   const profileIconProps = {
     src: '/icons/person.svg',
     href: '/dashboard',
-    className: 'nav-icons',
+    className: 'nav-bar__icon',
     alt: 'profile icon'
   }
 
   const dataIconProps = {
     src: '/icons/barChart.svg',
     href: '/stats',
-    className: 'nav-icons',
+    className: 'nav-bar__icon',
     alt: 'bar chart icon'
   }
   

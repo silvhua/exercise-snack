@@ -6,12 +6,12 @@ const ExerciseCard = ({ exerciseObject, discreetnessText }) => {
     id, name, movement, discreetness, 
   } = exerciseObject;
   /* 
-  - movement category: text
-  - discreetness: 1 number
-  - condition: 1+ icons
-  - focus: 1+ icons
-  - environment: 1+ icons
-
+  Plan for card info:
+  - movement category: text - done
+  - discreetness: 1 number - done
+  - condition: 1+ icons - to do
+  - focus: 1+ icons - to-do
+  - environment: 1+ icons - to-do
   */
   
   return (

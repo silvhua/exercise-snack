@@ -52,8 +52,8 @@ const UpcomingExercises = (props) => {
   }
 
   /* 
-Convert the array of discreetnessValues into an object for fast look up
-*/
+  Convert the array of discreetnessValues into an object for fast look up
+  */
   const discreetnessMapping = {}
   for (let i = 0; i < discreetnessArray.length; i++) {
     const { level, description} = discreetnessArray[i];

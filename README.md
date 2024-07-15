@@ -145,6 +145,7 @@ The project will be deployed for public use once there is a system for user sign
 
 Page/feature | Description
 --- | ---
+Tablet/desktop layout | Currently, the app is optimized for mobile view. A more responsive layout will be implemented.
 Set up page | Presented upon sign up. Includes a questionnaire.
 Swap exercise | The user will be able to swap to a different exercise if they don't prefer the one that is presented.
 Additional filtering options | See [Future Filtering options below](#future-filtering-options)

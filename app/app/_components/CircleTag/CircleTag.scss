@@ -6,8 +6,6 @@
   @include flex-mixin--column(1.5rem);
   align-items: center;
   background-color: $dark-blue;
-  // width: 1.5rem;
-  // height: 1.5rem;
   aspect-ratio: 1;
   border-radius: 50%;
 }

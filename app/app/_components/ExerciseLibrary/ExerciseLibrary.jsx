@@ -1,11 +1,10 @@
 import { getExercises, getMovements } from '@/app/_libs/exerciseData';
 
 import ItemCard from '../ItemCard/ItemCard';
-// import './ExerciseLibrary.scss';
 
 /* 
-Retrieve all exercises and save them to an object where
-there is a key per movement cateogry  name.
+Retrieve all exercises and save them to an object where there is a key per movement cateogry  name.
+Not implemented yet as of 2024-07-14
 */
 const ExerciseLibrary = async () => {
 

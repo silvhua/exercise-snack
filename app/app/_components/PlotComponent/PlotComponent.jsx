@@ -8,8 +8,10 @@ import { getTimeSeries, timeSeries } from '@/app/_libs/TimeSeries';
 
 
 const PlotComponent = ({ activityArray }) => {
-  
-  // Define your custom colorscale
+  /* 
+  Note that this component generates an error message in the server console and this
+  is a known issue with the `react-plotly` component.
+  */
   const customColorscale = [
     [0, 'rgba(242, 250, 250, 1)'],  // palest turquoise
     [0.5, 'rgba(199, 239, 239, 1)'], // turquoise
@@ -41,7 +43,6 @@ const PlotComponent = ({ activityArray }) => {
   const xaxisValues = timeseriesArray.map(
     dateObject => timeSeries.dateToUnixTimestamp(dateObject)
   );
-
 
   /*
   Create xtick labels when a new month starts.
@@ -93,8 +94,7 @@ const PlotComponent = ({ activityArray }) => {
     },
     pad: 16,
     font: {
-      // family: 'Open Sans', // Replace 'Your font family' with the desired font family
-      color: 'rgb(20, 37, 65)' // Adjust the font color as needed
+      color: 'rgb(20, 37, 65)' 
     },
     paper_bgcolor: 'rgba(0, 0, 0, 0)',
     plot_bgcolor: 'rgba(0, 0, 0, 0)'
@@ -116,10 +116,6 @@ const PlotComponent = ({ activityArray }) => {
       cmid: 1,
       cmax: 6,
       symbol: "square", //https://plotly.com/javascript/reference/scatter/#scatter-marker-symbol
-      // colorbar: {
-      //   title: 'Value', // Colorbar title
-      //   orientation: 'h'
-      // }
     },
     type: 'scatter'
   };
@@ -128,7 +124,7 @@ const PlotComponent = ({ activityArray }) => {
   To make the plots responsive, need to pass a `config` prop and
   add `autosize: true` to `layout` prop
   https://github.com/plotly/react-plotly.js/blob/master/README.md#basic-props
-*/
+  */
   const config = {
     responsive: false,
     modeBarButtonsToRemove: [

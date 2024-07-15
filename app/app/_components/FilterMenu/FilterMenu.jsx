@@ -13,23 +13,22 @@ const FilterMenu = ({ filterProps }) => {
   There are a few exercise properties that can be used for filtering exercises.
   Each of these properties has a few possible options. 
   More than 1 option can be selected.
+
+  Properties for additional filters for later on:
+    // 'environment', 
+    // 'focus',
+    // 'discreetness',
   */
   const { filterRef, onSubmit, checkboxValues, setCheckboxValues } = filterProps;
 
   const [filterOptions, setFilterOptions] = useState({
     'context': null, 
-    // 'environment': null,
-    // 'discreetness': null,
-    // 'focus': null
   });
 
   const [isLoading, setIsLoading] = useState(true);
   const [formContent, setFormContent] = useState('placeholder')
   const properties = [ // Properties for filtering exercises
     'context',
-    // 'environment', 
-    // 'focus',
-    // 'discreetness',
   ]
 
   async function getProperties() {

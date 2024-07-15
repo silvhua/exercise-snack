@@ -25,7 +25,7 @@ const FilterMenuSection = (props) => {
       </h3>
       <ul>
         {
-          optionsArray.map((option, index) => {
+          optionsArray.map((option) => {
             
             const optionId = option?.id;
             const name = option?.name;
