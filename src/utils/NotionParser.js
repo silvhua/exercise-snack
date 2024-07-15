@@ -1,5 +1,4 @@
 import { loadJsonFile, saveResponseJson, getLastUpdate, getIsoTimestamp } from './utils.js';
-import fs from 'fs';
 
 /* 
   EXERCISES TABLE
@@ -81,7 +80,6 @@ class NotionParser {
   async parsePage(pageObject) {
     const parsedPageObject = {};
     parsedPageObject.id = pageObject.id;
-    // parsedPageObject.databaseId = pageObject.parent.database_id || null;
     parsedPageObject.url = pageObject.url;
     if (!this.propertyNames.includes('Created time')) {
       // parse this meta data if it is not explicitely included in the notion table as property

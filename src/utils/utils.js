@@ -72,3 +72,35 @@ export async function getLastUpdate(databaseId, trackingFile, key) {
   console.log(`Data last fetched ${lastUpdated}`);
   return [lastUpdated, trackingObject];
 }
+
+export function processData(notionDbName) {
+  // Get the filename of the most updated JSON file
+  const databaseId = process.env[notionDbName];
+  const newestJsonFilename = trackingObject[databaseId].newest_json;
+
+  // import data files (arrays of objects)
+  let data = loadJsonFile(newestJsonFilename);
+  data = convertToSnakeCase(data);
+  const timestampKeys = ['last_edited_time', 'created_time'];
+  data = transformArrayValues(data, timestampKeys);
+  return data;
+}
+
+function createManyToManyObject(tableName, originalArray, arrayProperty) {
+  /* 
+  Create the many to many table for each pair of tables that has a many to many relationship
+  */
+  const expandedArray = [];
+  
+  for (let i = 0; i < originalArray.length; i++) {
+    const currentObject = originalArray[i];
+    const valueArray = currentObject[arrayProperty];
+    for (let j = 0; j < valueArray.length; j++) {
+      const relationObject = {};
+      relationObject[`${tableName}_id`] = currentObject['id'];
+      relationObject[`${arrayProperty}_id`] = valueArray[j];
+      expandedArray.push(relationObject);
+    }
+  }
+  return expandedArray;
+}

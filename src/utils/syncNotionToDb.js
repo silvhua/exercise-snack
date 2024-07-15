@@ -56,7 +56,6 @@ async function getData() {
   }
 }
 
-// getData();
 setTimeout(getData, 4000);
 
 
