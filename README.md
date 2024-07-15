@@ -171,6 +171,9 @@ The database is already structured so that the user will be able to filter exerc
 * Social features: View the activity of friends.
 * Leaderboard: Shows the top performers for select metrics across all users.
 
+## To run this project
+See [implementation-instructions.md](implementation-instructions.md)
+
 ## Acknowledgements
 
 * [Kaitlyn Lam](https://kal128.wixsite.com/home): UI Design and mockups. 
