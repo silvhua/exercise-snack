@@ -32,7 +32,6 @@ class NotionApi {
     }
     if (filter) {
       requestObject.filter = filter;
-      console.log('filter in getData:', requestObject.filter)
     }
     while (true) {
       const {results, next_cursor} = await this.notion.databases.query(requestObject);

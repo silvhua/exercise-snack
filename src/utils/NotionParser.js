@@ -1,36 +1,4 @@
 import { loadJsonFile, saveResponseJson, getLastUpdate, getIsoTimestamp } from './utils.js';
-
-/* 
-  EXERCISES TABLE
-  Property types: 
-    ['created_time', 'rollup', 'relation', 'number', 'multi_select', 'last_edited_time', 'title']
-
-  Properties
-    Unique:
-      'Name'
-
-    One to many:
-      'discreteness'
-      'difficulty'
-
-    Many to many:
-      'muscles'
-      'movement category'
-      'modifier'
-      'context'
-      'focus'
-
-    Multi-select
-      'environment'
-
-    Rollups:
-      'discreteness description'
-      'body region'
-
-    Metadata:
-      'Created time'
-      'Last edited time'
-*/
 class NotionParser {
   constructor(filenameOrArray, parseRelations = false) {
     /**
@@ -123,7 +91,6 @@ class NotionParser {
       this.trackingObject[`${databaseId}`]['last_notion_pull'] = currentTimestamp;
     }
     await saveResponseJson(this.trackingObject, this.trackingFile, false);
-    console.log(`Updated ${this.trackingFile} with newest filename: ${savedFilename}`);
   }
 
   async loadTrackingFile(databaseId, trackingFile) {

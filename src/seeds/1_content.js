@@ -1,10 +1,6 @@
 import { processData, createManyToManyObject } from "../utils/utils.js";
 
-
 const mainTableName = 'exercise';
-
-
-// const notionDbNames = Object.keys(process.env).filter(key => key.endsWith('_DATABASE'));
 
 const notionDbNames = [
   'video',
@@ -29,12 +25,9 @@ const oneToManyTables = [
   'movement', 'muscle', 'modifier', 'focus', 'context', 'environment', 'tip', 
 ]
 
-// const multiselectProperties = ['environment'];
-// const arrayProperties = [...oneToManyTables, ...multiselectProperties];
 const arrayProperties = [...oneToManyTables];
 
 const exerciseDataArray = allData[mainTableName];
-console.log(exerciseDataArray)
 
 arrayProperties.forEach(property => {
   allData[`${mainTableName}_${property}`] = createManyToManyObject(mainTableName, exerciseDataArray, property)
@@ -47,7 +40,6 @@ allData[mainTableName] = allData[mainTableName].map(object => {
     ...filteredObject } = object;
   return filteredObject;
 })
-
 
 export async function seed(knex) {
   let allTables = Object.keys(allData);
