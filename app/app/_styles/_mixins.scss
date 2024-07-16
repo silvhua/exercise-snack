@@ -99,6 +99,7 @@
   overflow: auto;
   justify-self: flex-end;
   border: none;
+  outline: none;
   z-index:5;
 
   &::backdrop {
