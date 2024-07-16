@@ -6,16 +6,21 @@ import './SwapExercise.scss';
 const SwapExercise = (props) => {
   const context = useContext(DataContext);
   const { movements, exercisesArray } = context;
-  const { isVisible, currentMovementId } = props;
-  const ExpandibleSection = ({ movement, makeVisible }) => {
+  const { isVisible, currentMovementId, handleCollapseToggle } = props;
+
+
+  function ExpandibleSection ({ movement, makeVisible }) {
 
     const filteredExercises = exercisesArray.filter(exercise => {
-      // console.log(exercise.movement_id)
       return exercise.movement_id === currentMovementId;
     })
 
     return (
-      <ul className="exercise-list__section">
+      <ul
+        onClick={handleCollapseToggle}
+        className="exercise-list__section"
+        id={movement.id}
+      >
         <li className="collapsible" >
           <div className="collapsible__header">
             <h3>{movement.name}</h3>

@@ -28,13 +28,16 @@ const TrainingPage = () => {
     movement_id: currentMovementId
   } = firstExercise;
 
-
-  const isVisibleObject = {};
+  // Set default visibility of all sections to false
+  const defaultVisiblility = {};
   movements.forEach(movement => {
-    isVisibleObject[movement.id] = movement.id === currentMovementId ? true : false;
+    defaultVisiblility[movement.id] = false;
   })
 
-  const [isVisible, setIsVisible] = useState(isVisibleObject);
+  // make the section for the current movement visible
+  const [isVisible, setIsVisible] = useState({
+    ...defaultVisiblility, [currentMovementId]: true
+  });
   const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
 
   const userId = storedUserInfo.id;
@@ -133,6 +136,11 @@ const TrainingPage = () => {
     }
   }
 
+  function handleCollapseToggle(event) {
+    const selectedId = event.currentTarget.id;
+    setIsVisible({...defaultVisiblility, [selectedId]: true})
+  }
+
   const modalProps = {
     context: context,
     previousActivityCount: previousActivityCount,
@@ -154,6 +162,7 @@ const TrainingPage = () => {
       <SwapExercise
         isVisible={isVisible}
         currentMovementId={currentMovementId}
+        handleCollapseToggle={handleCollapseToggle}
       />
     </section>
   )
