@@ -13,20 +13,19 @@ import SwapExercise from "@/app/_components/SwapExercise/SwapExercise";
 const TrainingPage = () => {
   const context = useContext(DataContext);
   const {
-    activityArray, movements,
+    activityArray, movements, exercisesArray, 
     programArray, setProgramArray
   } = context;
   const completeRef = useRef();
   const router = useRouter();
   
   const storedArray = JSON.parse(sessionStorage.getItem('userProgram'));
-  const firstExercise = storedArray[0];
-  // const exerciseId = firstExercise.id;
-  // const currentMovementId = firstExercise.movement_id;
+  const [currentExercise, setCurrentExercise] = useState(storedArray[0]);
+  
   const {
     id: exerciseId,
     movement_id: currentMovementId
-  } = firstExercise;
+  } = currentExercise;
 
   // Set default visibility of all sections to false
   const defaultVisiblility = {};
@@ -148,7 +147,9 @@ const TrainingPage = () => {
 
   function handleSelect(event) {
     const selectedExerciseId = event.currentTarget.id;
-    console.log(selectedExerciseId)
+    if (selectedExerciseId !== exerciseId) {
+      setCurrentExercise(exercisesArray.find(exercise => exercise.id === selectedExerciseId));
+    }
   }
 
   const modalProps = {

@@ -19,7 +19,7 @@ const SwapExercise = (props) => {
     'upper': ['U', 'upper body'],
     'trunk': ['C', 'core/trunk']
   }
-  function ExpandibleSection ({ movement, makeVisible }) {
+  function ExpandibleSection({ movement, makeVisible }) {
 
     const filteredExercises = exercisesArray.filter(exercise => {
       return exercise.movement_id === movement.id;
@@ -94,7 +94,7 @@ const SwapExercise = (props) => {
       , [clickedId]: !expanded[clickedId]
     });
     setIsVisible({
-      ...isVisible, [clickedId]: !isVisible[clickedId]
+      ...isVisible, [clickedId]: !expanded[clickedId]
     });
 
   }
