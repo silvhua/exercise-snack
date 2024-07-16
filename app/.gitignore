@@ -1,12 +1,12 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+/_assets/fonts/unusedFonts
+
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-# _assets/fonts/unused
-_assets
 
 # testing
 /coverage
