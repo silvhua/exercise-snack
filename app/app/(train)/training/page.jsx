@@ -146,7 +146,7 @@ const TrainingPage = () => {
   }
 
   function handleSelect(event) {
-    const selectedExerciseId = event.currentTarget.id;
+    const selectedExerciseId = event.currentTarget.firstChild.id;
     if (selectedExerciseId !== exerciseId) {
       setCurrentExercise(exercisesArray.find(exercise => exercise.id === selectedExerciseId));
     }
@@ -178,6 +178,7 @@ const TrainingPage = () => {
         expanded={expanded}
         setExpanded={setExpanded}
         handleSelect={handleSelect}
+        currentExerciseId={exerciseId}
       />
     </section>
   )

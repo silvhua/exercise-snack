@@ -3,6 +3,7 @@ import { DataContext } from "@/app/context-provider";
 
 import './SwapExercise.scss';
 import CircleTag from "../CircleTag/CircleTag";
+import PillTag from "../PillTag/PillTag";
 
 const SwapExercise = (props) => {
   const context = useContext(DataContext);
@@ -10,7 +11,8 @@ const SwapExercise = (props) => {
   const {
     isVisible, setIsVisible,
     currentMovementId, handleCollapseToggle,
-    expanded, setExpanded, handleSelect
+    expanded, setExpanded, handleSelect,
+    currentExerciseId
   } = props;
 
 
@@ -28,8 +30,12 @@ const SwapExercise = (props) => {
       return;
     }
 
-    const headerClassName = movement.id === currentMovementId ?
-      'collapsible__header--current' : 'collapsible__header'
+    let titleClassName = 'collapsible__title';
+    let pillTagClassName = 'hidden';
+    if (movement.id === currentMovementId) {
+      titleClassName = 'collapsible__title--current';
+      pillTagClassName = 'pill';
+    }
     
     let src = './icons/arrowDown.svg';
     let alt = 'down arrow';
@@ -47,15 +53,19 @@ const SwapExercise = (props) => {
           <li className="collapsible" >
             <div
               onClick={handleCollapseToggle}
-              className={headerClassName}
+              className='collapsible__header'
               id={movement.id}
             >
               <div className="flex-row-div">
-                <h3 className="collapsible__title">{movement.name}</h3>
+                <h3 className={titleClassName}>{movement.name}</h3>
                 <CircleTag
                   text={circleTagMapper[movement.body_region]?.[0] || '∫'}
                   title={circleTagMapper[movement.body_region]?.[1] || 'various body regions'}
                   className='body-region-tag'
+                />
+                <PillTag
+                  className={pillTagClassName}
+                  text='current'
                 />
 
               </div>
@@ -63,13 +73,23 @@ const SwapExercise = (props) => {
             <div className={makeVisible ? 'collapsible__body' : 'hidden'}>
               {
                 filteredExercises.map(exercise => {
+                  const pillTagClassName = exercise.id === currentExerciseId
+                    ? 'pill' : 'hidden';
                   return (
-                    <p
+                    <div 
                       key={exercise.id}
-                      id={exercise.id}
                       className="collapsible__list-item"
                       onClick={handleSelect}
-                    >{exercise.name}</p>
+                    >
+                      <p
+                        id={exercise.id}
+                        className="collapsible__exercise"
+                      >{exercise.name}</p>
+                      <PillTag
+                        className={pillTagClassName}
+                        text='current'
+                      />
+                    </div>
                   )
                 })
               }

@@ -29,11 +29,6 @@ $collapsible-header-height: 3rem;
       background-color: $dark-blue-10;
     }
      
-    &--current {
-      @extend .collapsible__header;
-      text-decoration: underline;
-      text-underline-offset: .25rem;
-    }
   }
 
   &__body {
@@ -42,15 +37,27 @@ $collapsible-header-height: 3rem;
 
   &__title {
     margin: 0;
+
+    &--current {
+      text-decoration: underline;
+      text-underline-offset: .25rem;
+    }
   }
 
   &__list-item {
-    margin: 0;
-    padding: 0.5em 1rem;
+    @include flex-mixin--row(100%);
+    justify-content: flex-start;
+    gap: $spacing--mobile;
+    height: $collapsible-header-height;
+
     &:hover {
       background-color: $turquoise-40;
       box-shadow: inset 0 0 .5rem $dark-blue-shadow--light;
     }
+  }
+
+  &__exercise {
+    margin: 0;
   }
 
   &__arrow {
@@ -64,7 +71,7 @@ $collapsible-header-height: 3rem;
     perspective: 1000px;
 
     &:hover {
-      box-shadow: .1875rem .1875rem .1875rem $dark-blue-shadow;
+      box-shadow: $box-shadow;
       transition: transform 0.5s;
     }
   }
