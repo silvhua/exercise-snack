@@ -5,7 +5,10 @@
 $collapsible-header-height: 3rem;
 
 .exercise-list {
+  @extend article;
   gap: 0;
+  padding
+
 
   &__section {
     border-bottom: $input-border;

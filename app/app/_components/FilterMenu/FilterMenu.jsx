@@ -92,7 +92,7 @@ const FilterMenu = ({ filterProps }) => {
       ref={filterRef}
       className="filter-menu"
     >
-      <h2 className='headline4'>Filters</h2>
+      <h2 className='modal-heading'>Filters</h2>
       <CloseIcon closeIconProps={closeIconProps} />
       {formContent}
       

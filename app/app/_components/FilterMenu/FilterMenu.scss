@@ -28,13 +28,17 @@
 
   &__subtitle {
     @extend .subtitle;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     margin-bottom: .75rem;
     color: $secondary-text-color;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
   }
 }
 
 .filter-form {
   @include flex-mixin--column(100%);
-  gap: $spacing--tablet;
+  gap: .75rem;
 }

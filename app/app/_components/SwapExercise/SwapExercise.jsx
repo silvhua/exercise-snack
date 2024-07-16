@@ -3,6 +3,7 @@ import { DataContext } from "@/app/context-provider";
 
 import './SwapExercise.scss';
 import PillTag from "../PillTag/PillTag";
+import CloseIcon from "../CloseIcon/CloseIcon";
 
 const SwapExercise = (props) => {
   const context = useContext(DataContext);
@@ -11,7 +12,7 @@ const SwapExercise = (props) => {
     isVisible, setIsVisible,
     currentMovementId, handleCollapseToggle,
     expanded, setExpanded, handleSelect,
-    currentExerciseId
+    currentExerciseId, exerciseListRef
   } = props;
 
   function ExpandibleSection({ movement, makeVisible }) {
@@ -118,8 +119,24 @@ const SwapExercise = (props) => {
 
   }
 
+  function handleCloseModal() {
+    exerciseListRef.current.close()
+  }
+
+  const closeIconProps = {
+    onClick: handleCloseModal,
+    className: 'close-icon'
+  }
+
   return (
-    <div className="exercise-list"> 
+    <div
+      ref={exerciseListRef}
+      className="exercise-list"
+    >
+      <h2 className="modal-heading">
+        Swap Exercise
+      </h2> 
+      <CloseIcon closeIconProps={closeIconProps} />
       {
       movements.map(movement => {
         const makeVisible = isVisible[movement.id] || expanded[movement.id]

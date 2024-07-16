@@ -17,6 +17,7 @@ const TrainingPage = () => {
     programArray, setProgramArray
   } = context;
   const completeRef = useRef();
+  const exerciseListRef = useRef();
   const router = useRouter();
   
   const storedArray = JSON.parse(sessionStorage.getItem('userProgram'));
