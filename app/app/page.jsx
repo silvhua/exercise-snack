@@ -9,10 +9,12 @@ import FormField from "./_components/FormField/FormField";
 export default function Home() {
   const router = useRouter();
   const [userObject, setUserObject] = useState(null);
+  
 
   const verifyUser = async (event) => {
     event.preventDefault();
     const formUsername = event.target.username.value || 'silvhua'; /////
+    
     if (formUsername?.length > 1) {
       const response = await getUser(formUsername);
       if (response)  {
@@ -35,16 +37,23 @@ export default function Home() {
   }
 
   const usernameInputProps = {
-    text: 'Login',
+    type: 'text',
     className: 'input--wide',
     name: 'username',
     placeholder: 'username'
+  }
+  const passwordInputProps = {
+    type: 'password',
+    className: 'input--wide',
+    name: 'password',
+    placeholder: 'password'
   }
   return (
     <section className="login">
       <form onSubmit={verifyUser}
       >
         <FormField formFieldProps={usernameInputProps} />
+        <FormField formFieldProps={passwordInputProps} />
         <Button buttonProps={buttonProps} />
       </form>
     </section>

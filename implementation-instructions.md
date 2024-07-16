@@ -31,7 +31,7 @@ Note: The migration and seeding are split into two parts so that in the future, 
 
 ### Suggested user flow
 
-1. Login and get redirected to `/dashboard`.
+1. Login and get redirected to `/dashboard`. You can leave the fields blank to use the default profile (`silvhua`). No password is required. If you wish to view a second user's data, enter `testUser` into the username field.
 2. View your list of upcoming exercises. Click "Start Snack" button to get  to the `/training` page.
 3. View the exercise details and do the exercise. Hover over the number icons to view the tooltip. Note that the video is a usually placeholder that may not necessarily reflect the exercise name.
 4. Fill in the form if you would like, then click "Done" to save your progress. The fields can be left blank to reduce friction. 
