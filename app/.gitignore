@@ -5,8 +5,6 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-# _assets/fonts/unused
-_assets
 
 # testing
 /coverage
