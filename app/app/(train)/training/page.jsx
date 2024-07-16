@@ -144,7 +144,11 @@ const TrainingPage = () => {
     const selectedId = event.currentTarget.id;
     setExpanded(defaultVisiblility);
     setIsVisible({ ...defaultVisiblility, [selectedId]: !isVisible[selectedId] });
-    console.log('parent toggle')
+  }
+
+  function handleSelect(event) {
+    const selectedExerciseId = event.currentTarget.id;
+    console.log(selectedExerciseId)
   }
 
   const modalProps = {
@@ -167,10 +171,12 @@ const TrainingPage = () => {
       }
       <SwapExercise
         isVisible={isVisible}
+        setIsVisible={setIsVisible}
         currentMovementId={currentMovementId}
         handleCollapseToggle={handleCollapseToggle}
         expanded={expanded}
         setExpanded={setExpanded}
+        handleSelect={handleSelect}
       />
     </section>
   )

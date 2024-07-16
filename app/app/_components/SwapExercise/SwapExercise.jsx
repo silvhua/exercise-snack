@@ -8,8 +8,9 @@ const SwapExercise = (props) => {
   const context = useContext(DataContext);
   const { movements, exercisesArray } = context;
   const {
-    isVisible, currentMovementId, handleCollapseToggle,
-    expanded, setExpanded
+    isVisible, setIsVisible,
+    currentMovementId, handleCollapseToggle,
+    expanded, setExpanded, handleSelect
   } = props;
 
 
@@ -42,12 +43,13 @@ const SwapExercise = (props) => {
         id={`section_${movement.id}`}
         className='exercise-list__section'
       >
-        <ul
-          onClick={handleCollapseToggle}
-          id={movement.id}
-        >
+        <ul>
           <li className="collapsible" >
-            <div className={headerClassName}>
+            <div
+              onClick={handleCollapseToggle}
+              className={headerClassName}
+              id={movement.id}
+            >
               <div className="flex-row-div">
                 <h3 className="collapsible__title">{movement.name}</h3>
                 <CircleTag
@@ -64,7 +66,9 @@ const SwapExercise = (props) => {
                   return (
                     <p
                       key={exercise.id}
+                      id={exercise.id}
                       className="collapsible__list-item"
+                      onClick={handleSelect}
                     >{exercise.name}</p>
                   )
                 })
@@ -85,8 +89,14 @@ const SwapExercise = (props) => {
 
   function handleToggle(event) {
     const clickedId = event.target.parentNode.id.split('_')[1];
-    setExpanded({...expanded, [clickedId]: !expanded[clickedId]});
-    console.log({...expanded, [clickedId]: !expanded[clickedId]})
+    setExpanded({
+      ...expanded
+      , [clickedId]: !expanded[clickedId]
+    });
+    setIsVisible({
+      ...isVisible, [clickedId]: !isVisible[clickedId]
+    });
+
   }
 
   return (
