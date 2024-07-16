@@ -38,10 +38,12 @@ const SwapExercise = (props) => {
     }
 
     return (
-      <section id={`section_${movement.id}`}>
+      <section
+        id={`section_${movement.id}`}
+        className='exercise-list__section'
+      >
         <ul
           onClick={handleCollapseToggle}
-          className='exercise-list__section'
           id={movement.id}
         >
           <li className="collapsible" >
@@ -56,7 +58,7 @@ const SwapExercise = (props) => {
 
               </div>
             </div>
-            <div className={makeVisible ? 'collabsiple__body' : 'hidden'}>
+            <div className={makeVisible ? 'collapsible__body' : 'hidden'}>
               {
                 filteredExercises.map(exercise => {
                   return <p key={exercise.id}>{exercise.name}</p>
@@ -83,7 +85,7 @@ const SwapExercise = (props) => {
   }
 
   return (
-    <> 
+    <div className="exercise-list"> 
       {
       movements.map(movement => {
         const makeVisible = isVisible[movement.id] || expanded[movement.id]
@@ -97,7 +99,7 @@ const SwapExercise = (props) => {
         })
       }
 
-    </>
+    </div>
   )
 }
 
