@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DataContext } from "@/app/context-provider";
 
 import './SwapExercise.scss';
@@ -7,7 +7,10 @@ import CircleTag from "../CircleTag/CircleTag";
 const SwapExercise = (props) => {
   const context = useContext(DataContext);
   const { movements, exercisesArray } = context;
-  const { isVisible, currentMovementId, handleCollapseToggle } = props;
+  const {
+    isVisible, currentMovementId, handleCollapseToggle,
+    expanded, setExpanded
+  } = props;
 
 
   const circleTagMapper = {
@@ -25,41 +28,65 @@ const SwapExercise = (props) => {
     }
 
     const headerClassName = movement.id === currentMovementId ?
-      'collapsible__header--current' : 'collabsible__header'
+      'collapsible__header--current' : 'collapsible__header'
+    
+    let src = './icons/arrowDown.svg';
+    let alt = 'down arrow';
+    if (makeVisible) {
+      src = './icons/arrowUp.svg';
+      alt = 'up arrow';
+    }
 
     return (
-      <ul
-        onClick={handleCollapseToggle}
-        className='exercise-list__section'
-        id={movement.id}
-      >
-        <li className="collapsible" >
-          <div className={headerClassName}>
-            <h3>{movement.name}</h3>
-            <CircleTag
-              text={circleTagMapper[movement.body_region]?.[0] || '∫'}
-              title={circleTagMapper[movement.body_region]?.[1] || 'various body regions'}
-              className='body-region-tag'
-            />
-          </div>
-          <div className={makeVisible ? 'collabsiple__body' : 'hidden'}>
-            {
-              filteredExercises.map(exercise => {
-                return <p key={exercise.id}>{exercise.name}</p>
-              })
-            }
-          </div>
-          
-        </li>
-      </ul>
+      <section id={`section_${movement.id}`}>
+        <ul
+          onClick={handleCollapseToggle}
+          className='exercise-list__section'
+          id={movement.id}
+        >
+          <li className="collapsible" >
+            <div className={headerClassName}>
+              <div className="flex-row-div">
+                <h3 className="collapsible__title">{movement.name}</h3>
+                <CircleTag
+                  text={circleTagMapper[movement.body_region]?.[0] || '∫'}
+                  title={circleTagMapper[movement.body_region]?.[1] || 'various body regions'}
+                  className='body-region-tag'
+                />
+
+              </div>
+            </div>
+            <div className={makeVisible ? 'collabsiple__body' : 'hidden'}>
+              {
+                filteredExercises.map(exercise => {
+                  return <p key={exercise.id}>{exercise.name}</p>
+                })
+              }
+            </div>
+            
+          </li>
+        </ul>
+        <img 
+          src={src}
+          alt={alt}
+          onClick={handleToggle}
+          className="collapsible__arrow"
+        />
+      </section>
     )
   }
 
+  function handleToggle(event) {
+    const clickedId = event.target.parentNode.id.split('_')[1];
+    setExpanded({...expanded, [clickedId]: !expanded[clickedId]});
+    console.log({...expanded, [clickedId]: !expanded[clickedId]})
+  }
+
   return (
-    <section> 
+    <> 
       {
       movements.map(movement => {
-        const makeVisible = isVisible[movement.id];
+        const makeVisible = isVisible[movement.id] || expanded[movement.id]
         return (
           <ExpandibleSection
             key={movement.id}
@@ -70,7 +97,7 @@ const SwapExercise = (props) => {
         })
       }
 
-    </section>
+    </>
   )
 }
 

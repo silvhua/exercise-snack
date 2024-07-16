@@ -34,10 +34,14 @@ const TrainingPage = () => {
     defaultVisiblility[movement.id] = false;
   })
 
-  // make the section for the current movement visible
+  // make the section for the current movement visible by clicking the section header
   const [isVisible, setIsVisible] = useState({
     ...defaultVisiblility, [currentMovementId]: true
   });
+
+  // Toggle visibility for the section by clicking the arrow
+  const [expanded, setExpanded] = useState(isVisible);
+
   const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
 
   const userId = storedUserInfo.id;
@@ -138,7 +142,9 @@ const TrainingPage = () => {
 
   function handleCollapseToggle(event) {
     const selectedId = event.currentTarget.id;
-    setIsVisible({...defaultVisiblility, [selectedId]: true})
+    setExpanded(defaultVisiblility);
+    setIsVisible({ ...defaultVisiblility, [selectedId]: !isVisible[selectedId] });
+    console.log('parent toggle')
   }
 
   const modalProps = {
@@ -163,6 +169,8 @@ const TrainingPage = () => {
         isVisible={isVisible}
         currentMovementId={currentMovementId}
         handleCollapseToggle={handleCollapseToggle}
+        expanded={expanded}
+        setExpanded={setExpanded}
       />
     </section>
   )

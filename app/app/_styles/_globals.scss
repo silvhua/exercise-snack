@@ -78,6 +78,14 @@ ul {
   @include component-spacing;
 }
 
+.flex-row-div {
+  @include flex-mixin(100%);
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: $spacing--mobile;
+}
+
 a {
   text-decoration: none;
 }

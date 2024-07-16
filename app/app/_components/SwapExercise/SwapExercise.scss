@@ -2,16 +2,40 @@
 @use '../../_styles/globals' as *;
 @use '../../_styles/mixins' as *;
 
+$collapsible-header-height: 3rem;
 
 .hidden {
   display: none;
 }
 
 .collapsible {
+  padding: $form-padding--mobile;
+
   &__header {
+    @include flex-mixin--row(100%);
+    height: $collapsible-header-height; 
+    background-color: pink;
+     
     &--current {
+      @extend .collapsible__header;
       text-decoration: underline;
       text-underline-offset: .25rem;
+    }
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__arrow {
+    cursor: pointer;
+    width: 1.5rem;
+    position: absolute;
+    top: calc($collapsible-header-height / 2);
+    right: 0;
+
+    &:hover {
+      background-color: $turquoise-40;
     }
   }
 }
