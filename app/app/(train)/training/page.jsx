@@ -79,7 +79,7 @@ const TrainingPage = () => {
       sessionStorage.setItem('sessionActivityCount', updatedActivityCount);
       if (previousActivityCount === 0) {
         const activityObjectForUpdateBeforeStateChange = { ...activityObject, date: new Date()}
-        context.recentSessions.unshift(activityObjectForUpdateBeforeStateChange);
+        // context.recentSessions.unshift(activityObjectForUpdateBeforeStateChange);
         context.activityArray.unshift({
           ...activityObjectForUpdateBeforeStateChange,
           n_sets: updatedActivityCount

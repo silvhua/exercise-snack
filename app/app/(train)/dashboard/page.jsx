@@ -13,28 +13,26 @@ import {
 import { checkForSuccess } from '@/app/_libs/ApiClient';
 import Streak from "@/app/_components/Streak/Streak";
 import './dashboard.scss'
-import { useRouter } from "next/navigation";
+import { timeSeries } from "@/app/_libs/TimeSeries";
 
 export default function Dashboard() {
-  const router = useRouter();
   const context = useContext(DataContext);
   const {
     userObject, 
     streakValue, 
-    recentSessions, 
+    // recentSessions, 
+    activityArray,
     programArray, setProgramArray,
     discreetnessArray
   } = context;
 
-  useEffect(() => {
-    const previousActivityCount = parseInt(
-      sessionStorage.getItem('sessionActivityCount')
-    );
-  }, [])
-
   const [checkboxValues, setCheckboxValues] = useState({
     'context': {}
   })
+
+  const recentSessions = activityArray.filter(activity =>
+    activity.date > timeSeries.nDaysAgoDate(7)
+  );
 
   const filterRef = useRef();
   const userId = userObject?.id;

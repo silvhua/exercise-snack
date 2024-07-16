@@ -8,12 +8,12 @@ const CompletionModal = ({ modalProps }) => {
   const { context, previousActivityCount, completeRef } = modalProps;
   const {
     streakValue,
-    recentSessions
+    activityArray,
   } = context;
 
   const newSessionObject = {
     /* 
-    This dummy session object is added to the `recentSessions` array because
+    This dummy session object is added to the `modalActivityArray` array because
     this modal needs to show that a session was logged today but shouldn't 
     have to wait for a new API call or re-render of the training page 
     */
@@ -21,10 +21,10 @@ const CompletionModal = ({ modalProps }) => {
     date: new Date()
   }
 
-  let modalRecentSessions = recentSessions;
+  let modalActivityArray = activityArray;
   let modalStreakValue = streakValue.consecutive_days;
   if (previousActivityCount === 0) {
-    modalRecentSessions = [...recentSessions, newSessionObject];
+    modalActivityArray = [...activityArray, newSessionObject];
     modalStreakValue = streakValue.consecutive_days + 1;
   }
 
@@ -63,7 +63,7 @@ const CompletionModal = ({ modalProps }) => {
           {
             modalStreakValue > 0 ?
             <Streak
-              data={modalRecentSessions}
+              data={modalActivityArray}
               interval={7}
               />
               : null              

@@ -23,7 +23,7 @@ export default function DataProvider({ children }) {
     id: 'dummyId', 
     consecutive_days: 0
   });
-  const [recentSessions, setRecentSessions] = useState([]);
+  // const [recentSessions, setRecentSessions] = useState([]);
   const [activityArray, setActivityArray] = useState();
   const [programArray, setProgramArray] = useState(null);
   const [placeholderText, setPlaceholderText] = useState('');
@@ -34,7 +34,7 @@ export default function DataProvider({ children }) {
     userObject: userObject,
     setUserObject: setUserObject,
     streakValue: streakValue,
-    recentSessions: recentSessions,
+    // recentSessions: recentSessions,
     activityArray: activityArray,
     programArray: programArray,
     setProgramArray: setProgramArray,
@@ -45,38 +45,30 @@ export default function DataProvider({ children }) {
   useEffect(() => {
     const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
     setUserObject(storedUserInfo);
-    const userId = storedUserInfo.id
-    loadRecentSessions(userId);
+    const userId = storedUserInfo.id;
     loadActivity(userId);
     loadProgram(userId);
     getDiscreetness();
   }, []);
 
-  async function loadRecentSessions(userId) {
-    const streakResponse = await getStreak(userId);
-    if (checkForSuccess(streakResponse)) {
-      setStreakValue(streakResponse);
-    }
-    const sessionsResponse = await getLastWeeksSessions(userId);
-    if (checkForSuccess(sessionsResponse)) {
-      setRecentSessions(sessionsResponse);
+  async function loadActivity(userId) {
+    const activityResponse = await getActivityPerDate(userId);
+    if (checkForSuccess(activityResponse)) {
+      setActivityArray(activityResponse);
       if (
-        !isSameDate(new Date(sessionsResponse[0].date), new Date())
+        !isSameDate(new Date(activityResponse[0].date), new Date())
       ) {
         // reset the value if the most recent session is not today
         sessionStorage.setItem('sessionActivityCount', 0);
       } 
     }
-  }
-
-  async function loadActivity(userId) {
-    const activityResponse = await getActivityPerDate(userId);
-    if (checkForSuccess(activityResponse)) {
-      setActivityArray(activityResponse);
+    const streakResponse = await getStreak(userId);
+    if (checkForSuccess(streakResponse)) {
+      setStreakValue(streakResponse);
     }
   }
 
-  async function  loadProgram (userId) {
+  async function loadProgram (userId) {
     const storedProgramResponse = await readProgram(userId);
     if (checkForSuccess(storedProgramResponse)) {
       const storedProgram = JSON.parse(storedProgramResponse.exercises);
@@ -87,7 +79,7 @@ export default function DataProvider({ children }) {
     }
   }
 
-  async function  getNewProgram (userId) {
+  async function getNewProgram (userId) {
     const createProgramResponse = await generateProgram();
     if (checkForSuccess(createProgramResponse)) {
       setProgramArray(createProgramResponse);
