@@ -7,18 +7,19 @@
   border-radius: .75rem;
   padding:  0.25rem.5rem;
   background-color: $turquoise;
-  box-shadow: $box-shadow;
 
-  // &--absolute {
-  //   position: absolute;
-  //   top: 0;
-  //   right: 0;
-  // }
+  &--blue {
+    @extend .pill;
+    background-color: $dark-blue;
+
+    & > .pill__text {
+      color: $button-text-color;
+    }
+  }
 
   &__text {
     color: $dark-blue;
     font-size: .8125rem;
-    text-transform: capitalize;
     margin: 0;
 
     @include tablet {

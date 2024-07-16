@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { DataContext } from "@/app/context-provider";
 
 import './SwapExercise.scss';
-import CircleTag from "../CircleTag/CircleTag";
 import PillTag from "../PillTag/PillTag";
 
 const SwapExercise = (props) => {
@@ -15,12 +14,6 @@ const SwapExercise = (props) => {
     currentExerciseId
   } = props;
 
-
-  const circleTagMapper = {
-    'lower': ['L', 'lower body'],
-    'upper': ['U', 'upper body'],
-    'trunk': ['C', 'core/trunk']
-  }
   function ExpandibleSection({ movement, makeVisible }) {
 
     const filteredExercises = exercisesArray.filter(exercise => {
@@ -44,6 +37,12 @@ const SwapExercise = (props) => {
       alt = 'up arrow';
     }
 
+    const regionMapper = {
+      'lower': 'lower body',
+      'upper': 'upper body',
+      'trunk': 'core/trunk'
+    }
+
     return (
       <section
         id={`section_${movement.id}`}
@@ -58,10 +57,10 @@ const SwapExercise = (props) => {
             >
               <div className="flex-row-div">
                 <h3 className={titleClassName}>{movement.name}</h3>
-                <CircleTag
-                  text={circleTagMapper[movement.body_region]?.[0] || '∫'}
-                  title={circleTagMapper[movement.body_region]?.[1] || 'various body regions'}
-                  className='body-region-tag'
+                <PillTag
+                  className='pill--blue'
+                  text={movement.body_region} 
+                  title={regionMapper[movement.body_region]}
                 />
                 <PillTag
                   className={pillTagClassName}

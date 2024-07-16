@@ -49,6 +49,7 @@ $collapsible-header-height: 3rem;
     justify-content: flex-start;
     gap: $spacing--mobile;
     height: $collapsible-header-height;
+    padding: 0 $spacing--mobile;
 
     &:hover {
       background-color: $turquoise-40;
