@@ -16,7 +16,7 @@ body {
   overflow: hidden;
 }
 h1 {
-  font-size: 32px;
+  font-size: 2rem;
   text-transform: capitalize;
   @include heading-margin;
 }
@@ -83,27 +83,27 @@ h2, h3, h4, h5 {
 }
 
 .headline1 {
-  font-size: 56px;
+  font-size: 3.5rem;
 }
 
 .headline2 {
-  font-size: 53px;
+  font-size: 3.3125rem;
 }
 
 .headline3 {
-  font-size: 40pt; // https://simplecss.eu/pxtoems.html
+  font-size: 2.625rem; // https://simplecss.eu/pxtoems.html
 }
 
 .headline4 {
-  font-size: 26pt;
+  font-size: 2.4375rem;
 }
 
 .headline5 {
-  font-size: 22pt;
+  font-size: 2.0625rem;
 }
 
 .headline6 {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .subtitle {
@@ -117,7 +117,7 @@ article {
 
 p {
   margin: 0.5em 0;
-  font-size: 14pt; // 19px
+  font-size: 1.3125rem;
   font-family: $font-family--secondary;
 
   &:last-child {
