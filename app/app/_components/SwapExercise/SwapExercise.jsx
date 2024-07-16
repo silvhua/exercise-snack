@@ -61,7 +61,12 @@ const SwapExercise = (props) => {
             <div className={makeVisible ? 'collapsible__body' : 'hidden'}>
               {
                 filteredExercises.map(exercise => {
-                  return <p key={exercise.id}>{exercise.name}</p>
+                  return (
+                    <p
+                      key={exercise.id}
+                      className="collapsible__list-item"
+                    >{exercise.name}</p>
+                  )
                 })
               }
             </div>
