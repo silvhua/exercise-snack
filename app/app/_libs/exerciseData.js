@@ -14,6 +14,24 @@ export async function readMovements() {
   return rows;
 }
 
+export async function readAllExercises() {
+  const query = `
+  select
+    exercise.id, exercise.name,
+    movement.name AS movement,
+    discreetness.level AS discreetness,
+    
+  FROM exercise
+  JOIN exercise_movement ON (exercise.id = exercise_id)
+  JOIN movement ON (movement_id = movement.id)
+  LEFT JOIN discreetness ON (discreetness = discreetness.id)
+  ORDER BY name
+  `
+  let rows = sqlSelect(query);
+  return rows;
+}
+
+
 export async function readExercises(movementCategory) {
   const query = `
 select

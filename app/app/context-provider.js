@@ -7,7 +7,7 @@ import { checkForSuccess } from '@/app/_libs/ApiClient';
 import {getLastWeeksSessions} from '@/app/_libs/clientCrud';
 import { generateProgram, readProgram, saveProgram } from '@/app/_libs/clientCrud';
 import { getActivityPerDate } from '@/app/_libs/userData';
-import { readDiscreetness } from './_libs/exerciseData';
+import { readAllExercises, readDiscreetness, readMovements } from './_libs/exerciseData';
 import { isSameDate } from './_libs/dataProcessing';
 
 /* 
@@ -29,6 +29,8 @@ export default function DataProvider({ children }) {
   const [placeholderText, setPlaceholderText] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [discreetnessArray, setDiscreetnessArray] = useState(null);
+  const [movements, setMovements] = useState(null);
+  const [exercisesArray, setExercisesArray] = useState(null);
 
   const context = {
     userObject: userObject,
@@ -39,7 +41,9 @@ export default function DataProvider({ children }) {
     programArray: programArray,
     setProgramArray: setProgramArray,
     placeholderText: placeholderText,
-    discreetnessArray: discreetnessArray
+    discreetnessArray: discreetnessArray,
+    movements: movements, 
+    exercisesArray: exercisesArray
   }
   
   useEffect(() => {
@@ -50,6 +54,8 @@ export default function DataProvider({ children }) {
     loadActivity(userId);
     loadProgram(userId);
     getDiscreetness();
+    getAllExercises();
+    getMovements();
   }, []);
 
   async function loadRecentSessions(userId) {
@@ -104,9 +110,25 @@ export default function DataProvider({ children }) {
     const discreetnessResponse = await readDiscreetness();
     if (checkForSuccess(discreetnessResponse)) {
       setDiscreetnessArray(discreetnessResponse);
+    }
+  }
+
+  async function getAllExercises() {
+    const exercisesResponse = await readAllExercises();
+    if (checkForSuccess(exercisesResponse)) {
+      setExercisesArray(exercisesResponse);
+    }
+  }
+
+  async function getMovements() {
+    const movementsResponse = await readMovements();
+    if (checkForSuccess(movementsResponse)) {
+      setMovements(movementsResponse);
       setIsLoading(false);
     }
   }
+
+
   if (isLoading) {
     return;
   }

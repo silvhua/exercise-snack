@@ -12,11 +12,9 @@ import {
 } from '@/app/_libs/clientCrud';
 import { checkForSuccess } from '@/app/_libs/ApiClient';
 import Streak from "@/app/_components/Streak/Streak";
-import './dashboard.scss'
-import { useRouter } from "next/navigation";
+import './dashboard.scss';
 
 export default function Dashboard() {
-  const router = useRouter();
   const context = useContext(DataContext);
   const {
     userObject, 
