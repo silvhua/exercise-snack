@@ -58,6 +58,15 @@ ul {
     @include flex-mixin--row(100%);
     align-items: flex-start;
   }
+
+  &--desktop {
+    @include flex-mixin--column(100%);
+    @include component-spacing;
+    @include desktop {
+      @include flex-mixin--row(100%);
+      align-items: flex-start;
+    }
+  }
 }
 
 .responsive-column--50 {

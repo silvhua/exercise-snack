@@ -45,15 +45,16 @@ const ExerciseDetails = ({ exerciseId, onSubmit, handleInputChange }) => {
   return (
     <article key='details' className='exercise'>
       <h1>{name}</h1>
-      <Video
-        src={src}
-        title={name}
-      />
-      {/* <div className='responsive-section'> */}
+      <div className='responsive-section--desktop'>
+        <Video
+          src={src}
+          title={name}
+        />
         <form onSubmit={onSubmit}>
           <TrainingFormElements handleInputChange={handleInputChange} />
           <Button buttonProps={formButtonProps} />
         </form>
+      </div>
         <section>
           {
             Object.entries(detailsObject).map(([key, value]) => {
@@ -77,7 +78,6 @@ const ExerciseDetails = ({ exerciseId, onSubmit, handleInputChange }) => {
             })
           }
         </section>
-      {/* </div> */}
     </article>
   )
 }
