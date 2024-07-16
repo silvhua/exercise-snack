@@ -88,6 +88,19 @@
 }
 
 @mixin modal-mixin {
+  position: fixed;
+  background-color: $off-white;
+  min-height: 100vh;
+  max-height: 100vh;
+  box-sizing: border-box;
+  padding: $page-margin--mobile $spacing--mobile; 
+  right: 0;
+  top: 0;
+  overflow: auto;
+  justify-self: flex-end;
+  border: none;
+  z-index:5;
+
   &::backdrop {
     position: fixed;
     background-color: rgba(20, 37, 65, 0.5);

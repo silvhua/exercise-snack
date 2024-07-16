@@ -9,6 +9,7 @@ import { checkForSuccess } from "@/app/_libs/ApiClient";
 import CompletionModal from "@/app/_components/CompletionModal/CompletionModal";
 import { getPastWeekActivty } from "@/app/_libs/dataProcessing";
 import SwapExercise from "@/app/_components/SwapExercise/SwapExercise";
+import SwapIcon from "@/app/_components/SwapIcon/SwapIcon";
 
 const TrainingPage = () => {
   const context = useContext(DataContext);
@@ -25,7 +26,8 @@ const TrainingPage = () => {
   
   const {
     id: exerciseId,
-    movement_id: currentMovementId
+    movement_id: currentMovementId,
+    name
   } = currentExercise;
 
   // Set default visibility of all sections to false
@@ -140,6 +142,11 @@ const TrainingPage = () => {
     }
   }
 
+  function handleSwap(event) {
+    exerciseListRef.current.showModal(); 
+    // console.log(exerciseListRef)
+  }
+
   function handleCollapseToggle(event) {
     const selectedId = event.currentTarget.id;
     setExpanded(defaultVisiblility);
@@ -161,6 +168,10 @@ const TrainingPage = () => {
 
   return (
     <section>
+      <div className="flex-row-div">
+        <h1 className="no-spacing">{name}</h1>
+        <SwapIcon onClick={handleSwap} />
+      </div>
       <ExerciseDetails
         exerciseId={exerciseId}
         onSubmit={handleSubmit}
@@ -180,6 +191,7 @@ const TrainingPage = () => {
         setExpanded={setExpanded}
         handleSelect={handleSelect}
         currentExerciseId={exerciseId}
+        exerciseListRef={exerciseListRef}
       />
     </section>
   )

@@ -5,10 +5,9 @@
 $collapsible-header-height: 3rem;
 
 .exercise-list {
-  @extend article;
+  @include modal-mixin;
   gap: 0;
-  padding
-
+  min-width: 50%;
 
   &__section {
     border-bottom: $input-border;
@@ -42,6 +41,7 @@ $collapsible-header-height: 3rem;
     margin: 0;
 
     &--current {
+      @extend .collapsible__title;
       text-decoration: underline;
       text-underline-offset: .25rem;
     }

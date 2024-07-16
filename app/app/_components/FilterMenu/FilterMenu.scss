@@ -4,18 +4,7 @@
 
 .filter-menu {
   @include modal-mixin;
-  position: fixed;
-  background-color: $off-white;
   width: $filter-menu-width;
-  min-height: 100vh;
-  max-height: 100vh;
-  box-sizing: border-box;
-  padding: $page-margin--mobile $spacing--mobile; 
-  right: 0;
-  top: 0;
-  overflow: auto;
-  justify-self: flex-end;
-  border: none;
 
   &__button {
     position: fixed;

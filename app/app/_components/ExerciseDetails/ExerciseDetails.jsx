@@ -44,7 +44,6 @@ const ExerciseDetails = ({ exerciseId, onSubmit, handleInputChange }) => {
 
   return (
     <article key='details' className='exercise'>
-      <h1>{name}</h1>
       <div className='responsive-section--desktop'>
         <Video
           src={src}

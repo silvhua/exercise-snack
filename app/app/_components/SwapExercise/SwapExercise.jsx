@@ -120,7 +120,7 @@ const SwapExercise = (props) => {
   }
 
   function handleCloseModal() {
-    exerciseListRef.current.close()
+    exerciseListRef.current.close();
   }
 
   const closeIconProps = {
@@ -129,7 +129,7 @@ const SwapExercise = (props) => {
   }
 
   return (
-    <div
+    <dialog
       ref={exerciseListRef}
       className="exercise-list"
     >
@@ -150,7 +150,7 @@ const SwapExercise = (props) => {
         })
       }
 
-    </div>
+    </dialog>
   )
 }
 
