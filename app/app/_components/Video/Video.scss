@@ -11,4 +11,8 @@ video, iframe {
   @include tablet {
     max-height: $max-hero-height--tablet;
   }
+
+  @include desktop {
+    width: calc(100% - $form-width--tablet - $spacing--tablet);
+  }
 }

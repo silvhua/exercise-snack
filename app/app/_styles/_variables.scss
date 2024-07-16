@@ -8,7 +8,7 @@ $secondary-text-color: #667183;
 $button-text-color: white;
 $off-white: #FDFDFD;
 $divider: 2px solid #727C8D;
-$input-border: 1px solid #142541;
+$input-border: 1px solid $secondary-text-color;
 $tag-text-color: $off-white;
 
 $font-family: 'Graphik Medium', 'Circular Air Book', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
