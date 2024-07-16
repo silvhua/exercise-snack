@@ -1,0 +1,12 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+
+.hidden {
+  display: none;
+}
+
+.collapsible__header {
+  background-color: $turquoise;
+}

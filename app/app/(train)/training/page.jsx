@@ -8,16 +8,34 @@ import { useRouter } from "next/navigation";
 import { checkForSuccess } from "@/app/_libs/ApiClient";
 import CompletionModal from "@/app/_components/CompletionModal/CompletionModal";
 import { getPastWeekActivty } from "@/app/_libs/dataProcessing";
+import SwapExercise from "@/app/_components/SwapExercise/SwapExercise";
 
 const TrainingPage = () => {
   const context = useContext(DataContext);
-  const { activityArray } = context;
+  const {
+    activityArray, movements,
+    programArray, setProgramArray
+  } = context;
   const completeRef = useRef();
   const router = useRouter();
-  const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
   
   const storedArray = JSON.parse(sessionStorage.getItem('userProgram'));
-  const exerciseId = storedArray[0].id;
+  const firstExercise = storedArray[0];
+  // const exerciseId = firstExercise.id;
+  // const currentMovementId = firstExercise.movement_id;
+  const {
+    id: exerciseId,
+    movement_id: currentMovementId
+  } = firstExercise;
+
+
+  const isVisibleObject = {};
+  movements.forEach(movement => {
+    isVisibleObject[movement.id] = movement.id === currentMovementId ? true : false;
+  })
+
+  const [isVisible, setIsVisible] = useState(isVisibleObject);
+  const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
 
   const userId = storedUserInfo.id;
   const sessionObject = JSON.parse(sessionStorage.getItem('sessionDetails'));
@@ -133,6 +151,10 @@ const TrainingPage = () => {
           <CompletionModal modalProps={modalProps} /> :
           null
       }
+      <SwapExercise
+        isVisible={isVisible}
+        currentMovementId={currentMovementId}
+      />
     </section>
   )
 }

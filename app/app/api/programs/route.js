@@ -20,6 +20,7 @@ export async function GET(request, {params}) {
     focus.name AS focus,
     environment.name AS environment,
     muscle.name AS muscle,
+    movement.id AS movement_id,
     ROW_NUMBER() OVER (PARTITION BY movement.name ORDER BY RAND()) AS random_number,
     ROW_NUMBER() OVER (PARTITION BY exercise_movement.exercise_id ORDER BY RAND()) AS random_number2
   FROM exercise
@@ -45,6 +46,7 @@ export async function GET(request, {params}) {
     MIN(focus) AS focus, 
     MIN(environment) AS environment, 
     MIN(muscle) AS muscle,
+    MIN(movement_id) AS movement_id,
     MIN(random_number) AS random_number
   FROM randomized
   WHERE id IN (
@@ -54,5 +56,5 @@ export async function GET(request, {params}) {
   ) AND (random_number = 1)
   GROUP BY id
   `
-  return await apiSqlQuery(query);
+  return await apiSqlQuery(query, false, ['movement_id']);
 }

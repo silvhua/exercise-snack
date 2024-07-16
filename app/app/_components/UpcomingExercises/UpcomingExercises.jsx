@@ -19,7 +19,7 @@ const UpcomingExercises = (props) => {
   */
   const {
     userObject,
-    programArray, setProgramArray,
+    programArray, 
     placeholderText, discreetnessArray
   } = props;
 

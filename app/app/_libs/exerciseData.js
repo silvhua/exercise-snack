@@ -20,14 +20,14 @@ export async function readAllExercises() {
     exercise.id, exercise.name,
     movement.name AS movement,
     discreetness.level AS discreetness,
-    
+    movement.id AS movement_id
   FROM exercise
   JOIN exercise_movement ON (exercise.id = exercise_id)
   JOIN movement ON (movement_id = movement.id)
   LEFT JOIN discreetness ON (discreetness = discreetness.id)
   ORDER BY name
   `
-  let rows = sqlSelect(query);
+  let rows = sqlSelect(query, false, ['movement_id']);
   return rows;
 }
 
