@@ -2,28 +2,6 @@ $tablet-breakpoint: 768px;
 $desktop-breakpoint: 1280px;
 
 
-$font-family: 'Graphik Medium', 'Circular Air Book', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-$font-family--secondary: 'Circular Air Book', 'Graphik Medium', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
-$header-height--tablet: 5rem;
-$nav-bar-height--mobile: 4.75rem;
-$main-height--tablet: calc(100vh - $header-height--tablet);
-$main-height--mobile: calc(100vh - $nav-bar-height--mobile);
-
-$page-margin--mobile: 1.5rem;
-$spacing--mobile: 1rem;
-$bottom-padding--mobile: calc($nav-bar-height--mobile + $page-margin--mobile);
-
-
-$page-margin--tablet: 2rem;
-$spacing--tablet: 1.5rem;
-
-$card-title-font-size--mobile: .875rem;
-
-$form-spacing--mobile: 1.5rem;
-$form-spacing--tablet: 1.5rem;
-$border-radius: .625rem;
-
 $turquoise: #C7EFEF;
 $dark-blue: #142541;
 $secondary-text-color: #667183;
@@ -31,8 +9,38 @@ $button-text-color: white;
 $off-white: #FDFDFD;
 $divider: 2px solid #727C8D;
 $input-border: 1px solid #142541;
-
 $tag-text-color: $off-white;
+
+$font-family: 'Graphik Medium', 'Circular Air Book', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+$font-family--secondary: 'Circular Air Book', 'Graphik Medium', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+
+// header and nav
+$header-height--tablet: 5rem;
+$nav-bar-height--mobile: 4.75rem;
+$main-height--tablet: calc(100vh - $header-height--tablet);
+$main-height--mobile: calc(100vh - $nav-bar-height--mobile);
+
+// spacing
+$page-margin--mobile: 1.5rem;
+$spacing--mobile: 1rem;
+$bottom-padding--mobile: calc($nav-bar-height--mobile + $page-margin--mobile);
+
+$page-margin--tablet: 2rem;
+$spacing--tablet: 1.5rem;
+
+$form-spacing--mobile: 1.5rem;
+$form-spacing--tablet: 1.5rem;
+$border-radius: .625rem;
+
+// interactive element widths
+$item-width-1: 12.5rem;
+$item-width-2: calc($item-width-1 * 2 + $spacing--mobile);
+$button-width--tablet: $item-width-1;
+$form-width--tablet:  calc($item-width-2 + $spacing--mobile + 1.5rem);
+
+$card-title-font-size--mobile: .875rem;
+
 
 $form-padding--mobile: 0.75rem;
 $form-padding--tablet: 1rem;

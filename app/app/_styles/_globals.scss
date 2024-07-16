@@ -21,9 +21,6 @@ h1 {
   @include heading-margin;
 }
 
-header, footer {
-}
-
 .main {
   @include flex-mixin--column(100%);
   @include component-spacing;
@@ -139,6 +136,10 @@ p {
 .form, form {
   @extend section;
 
+  @include tablet {
+    width:  $form-width--tablet;
+  }
+
   &__input-group {
     @include flex-mixin--row(100%);
     gap: $spacing--mobile;
@@ -146,12 +147,15 @@ p {
 
   &__fields-container {
     @extend section;
+    width: calc(100% - 1.5rem - $spacing--mobile);
   }
 
   &__number-input-div {
     @include flex-mixin--row(100%);
     flex-direction: row;
     gap: $spacing--mobile;
+    width: calc(100% - 1.5rem - $spacing--mobile);
+    width: 100%;
   }
 }
 

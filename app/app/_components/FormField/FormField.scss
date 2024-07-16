@@ -15,12 +15,19 @@ input {
   &--small {
     @include flex-mixin--row(100%);
     @extend .input;
-    width: calc((100% - .5rem) / 2);
+
+    @include tablet {
+      width: $item-width-1;
+    }
   }
 
   &--wide {
     @include flex-mixin(100%);
     @extend .input;
     width: 100%;
+
+    @include tablet {
+      width: $item-width-2;
+    }
   }
 }

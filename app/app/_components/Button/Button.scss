@@ -2,7 +2,6 @@
 @use '../../_styles/globals' as *;
 @use '../../_styles/mixins' as *;
 
-$button-width--tablet: 12.5rem;
 
 
 .button {
@@ -17,5 +16,11 @@ $button-width--tablet: 12.5rem;
 
   @include tablet {
     width: $button-width--tablet;
+  }
+
+  &--activity-form {
+    @include tablet {
+      width: 100%;
+    }
   }
 }

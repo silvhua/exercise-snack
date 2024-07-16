@@ -36,7 +36,8 @@ const ExerciseDetails = ({ exerciseId, onSubmit, handleInputChange }) => {
   
   const formButtonProps = {
     'text': 'Done!',
-    onClick: onSubmit
+    onClick: onSubmit,
+    className: 'button--activity-form'
   }
 
   const { id, name, src, ...detailsObject } = exerciseObject;
@@ -48,11 +49,11 @@ const ExerciseDetails = ({ exerciseId, onSubmit, handleInputChange }) => {
         src={src}
         title={name}
       />
-      
-      <form onSubmit={onSubmit}>
-        <TrainingFormElements handleInputChange={handleInputChange} />
-        <Button buttonProps={formButtonProps} />
-      </form>
+      {/* <div className='responsive-section'> */}
+        <form onSubmit={onSubmit}>
+          <TrainingFormElements handleInputChange={handleInputChange} />
+          <Button buttonProps={formButtonProps} />
+        </form>
         <section>
           {
             Object.entries(detailsObject).map(([key, value]) => {
@@ -76,6 +77,7 @@ const ExerciseDetails = ({ exerciseId, onSubmit, handleInputChange }) => {
             })
           }
         </section>
+      {/* </div> */}
     </article>
   )
 }
