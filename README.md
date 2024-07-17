@@ -39,6 +39,7 @@ The Movement Snack App is targeted to people in the workforce who struggle to st
       * While wearing boots
 * Default exercise program: The user will be presented with an exercise so they don't have to decide what to do.
 * Repeated exposure: The user gets to practice the same exercise over several weeks so they can make progress with it.
+* Swap exercise: The user can swap to a different exercise if they don't prefer the one that is presented. The default exercises shown for swapping to are for the same movement category.
 * Balanced movement diet: The user's movement repertoire includes all major movement categories: squat, hip hinge, lunge, push, pull, and core.
 * Systematic and structured: Instead of doing random Youtube workouts, the user follows a program based on the expertise of a kinesiologist/exercise physiologist with 10 years of experiencing helping people move better and rehabilitate from injury.
 * Current exercise streak: After logging each exercise, they will be shown their current streak. This is a gamification element to encourage users to be consistent.
@@ -107,7 +108,7 @@ program | 2 | The current exercise program for a given user. Each program consis
 
 #### Entity relationship diagram
 Below is the entity relationship diagram of the database:
-<img src="./documentation/ERD.svg" alt="entity relationship diagram" />*Entity relationship diagram
+<img src="./documentation/ERD.svg" alt="entity relationship diagram" width="1100" />*Entity relationship diagram
 
 <details>
 <summary>Click here to read about current API endpoints </summary>
@@ -148,7 +149,6 @@ Page/feature | Description
 --- | ---
 Tablet/desktop layout | Currently, the app is optimized for mobile view. A more responsive layout will be implemented.
 Set up page | Presented upon sign up. Includes a questionnaire.
-Swap exercise | The user will be able to swap to a different exercise if they don't prefer the one that is presented.
 Additional filtering options | See [Future Filtering options below](#future-filtering-options)
 My exercises page | Shows the history of exercises completed by that user along with summary statistics
 Exercise log | Shows the user’s training history in reverse chronological order. Includes all details for each activity. Includes filters for each exercise and movement category. 
