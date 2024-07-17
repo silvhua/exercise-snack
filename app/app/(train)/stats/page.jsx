@@ -12,15 +12,6 @@ const Stats = () => {
   const scrollRef = useRef(null);
   const context = useContext(DataContext);
   const { activityArray } = context;
-  
-  if (!activityArray) {
-    return <Placeholder text="Fetching your data..." />
-  }
-
-  // Calculate % of days with logged activity
-  const firstSession = activityArray[activityArray.length - 1].date;
-  const daysFromFirstSession = timeSeries.daysSince(firstSession);
-  const interval = daysFromFirstSession;
 
   useEffect(() => {
     // Set the scrollbar to be on the far right by default
@@ -30,6 +21,15 @@ const Stats = () => {
     } catch (error) { 
     }
   }, [])
+  
+  if (!activityArray) {
+    return <Placeholder text="Fetching your data..." />
+  }
+
+  // Calculate % of days with logged activity
+  const firstSession = activityArray[activityArray.length - 1].date;
+  const daysFromFirstSession = timeSeries.daysSince(firstSession);
+  const interval = daysFromFirstSession;
 
   return (
     <>
