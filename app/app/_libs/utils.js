@@ -10,7 +10,9 @@ export default async function sqlSelect(query, getFirst, binaryColumns) {
     const result = await db.execute(query);
     let [rows] = result;
     rows.map(row => {
-      row.id = row.id.toString('ascii');
+      if (row.id) {
+        row.id = row.id.toString('ascii');
+      }
     })
     if (getFirst) {
       rows = rows[0];
