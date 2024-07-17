@@ -112,3 +112,13 @@
     z-index: 4;
   }
 }
+
+@mixin icon--hover {
+  border-radius: .25rem;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: $box-shadow;
+    transition: transform 0.5s;
+  }
+}

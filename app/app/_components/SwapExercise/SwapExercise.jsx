@@ -4,6 +4,7 @@ import { DataContext } from "@/app/context-provider";
 import './SwapExercise.scss';
 import PillTag from "../PillTag/PillTag";
 import CloseIcon from "../CloseIcon/CloseIcon";
+import ActionIcon from "../ActionIcon/ActionIcon";
 
 const SwapExercise = (props) => {
   const context = useContext(DataContext);
@@ -35,7 +36,14 @@ const SwapExercise = (props) => {
     let alt = 'down arrow';
     if (makeVisible) {
       src = './icons/arrowUp.svg';
-      alt = 'up arrow';
+      alt = 'up arrow'
+    }
+
+    const actionIconProps = {
+      src: src,
+      alt: alt,
+      onClick: handleToggle,
+      className: "collapsible__arrow"
     }
 
     const regionMapper = {
@@ -97,12 +105,7 @@ const SwapExercise = (props) => {
             
           </li>
         </ul>
-        <img 
-          src={src}
-          alt={alt}
-          onClick={handleToggle}
-          className="collapsible__arrow"
-        />
+        <ActionIcon iconProps={actionIconProps} />
       </section>
     )
   }

@@ -1,0 +1,5 @@
+@use '../../_styles/mixins' as *;
+
+.swap-icon {
+  @include icon--hover;
+}
