@@ -25,10 +25,10 @@ const Stats = () => {
   useEffect(() => {
     // Set the scrollbar to be on the far right by default
     const scrollDiv = scrollRef.current;
-    if (scrollDiv) {
-      scrollDiv.scrollLeft = scrollDiv.scrollWidth - scrollDiv.clientWidth
+    try {
+      scrollDiv.scrollLeft = scrollDiv.scrollWidth - scrollDiv.clientWidth;
+    } catch (error) { 
     }
-
   }, [])
 
   return (
