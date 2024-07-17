@@ -144,7 +144,6 @@ const TrainingPage = () => {
 
   function handleSwap(event) {
     exerciseListRef.current.showModal(); 
-    // console.log(exerciseListRef)
   }
 
   function handleCollapseToggle(event) {
@@ -157,7 +156,9 @@ const TrainingPage = () => {
     const selectedExerciseId = event.currentTarget.firstChild.id;
     if (selectedExerciseId !== exerciseId) {
       setCurrentExercise(exercisesArray.find(exercise => exercise.id === selectedExerciseId));
+      exerciseListRef.current.close();
     }
+
   }
 
   const modalProps = {
