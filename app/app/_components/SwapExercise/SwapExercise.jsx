@@ -90,15 +90,15 @@ const SwapExercise = (props) => {
                       className="collapsible__list-item"
                       onClick={handleSelect}
                     >
+                      <p
+                        id={exercise.id}
+                        className="collapsible__exercise"
+                      >{exercise.name}</p>
                       <CircleTag
                         className={`discreetness--${exercise.discreetness}`}
                         text={exercise.discreetness}
                         title={discreetnessMapping[exercise.discreetness]}
                       />
-                      <p
-                        id={exercise.id}
-                        className="collapsible__exercise"
-                      >{exercise.name}</p>
                       <PillTag
                         className={pillTagClassName}
                         text='current'
