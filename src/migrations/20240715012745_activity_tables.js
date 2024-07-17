@@ -50,7 +50,10 @@ export function up(knex) {
     table.binary('id', 128).primary();
     table.string('name');
     table
-      .binary('user_id', 128);
+      .binary('user_id', 128)
+      .references('id').inTable('user').notNullable()
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE')
     table.json('exercises');
     table.json('filters');
     table.timestamp('last_edited_time').notNullable().defaultTo(knex.fn.now());
