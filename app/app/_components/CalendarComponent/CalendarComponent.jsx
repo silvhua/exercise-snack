@@ -1,8 +1,8 @@
-import './Calendar.scss';
+import './CalendarComponent.scss';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-const Calendar = () => {
+const CalendarComponent = () => {
   return (
     <>
     <section className='calendar'>
@@ -16,4 +16,4 @@ const Calendar = () => {
   )
 }
 
-export default Calendar
+export default CalendarComponent

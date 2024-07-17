@@ -54,6 +54,7 @@ const CompletionModal = ({ modalProps }) => {
           <img 
             src='./images/running.svg'
             className="complete-cartoon"
+            alt='cartoon person running'
           />
           <h3 className="streak__text">
             <span className="streak__number">

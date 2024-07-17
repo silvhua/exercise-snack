@@ -29,11 +29,11 @@ const Stats = () => {
       scrollDiv.scrollLeft = scrollDiv.scrollWidth - scrollDiv.clientWidth
     }
 
-  }, [scrollRef.current])
+  }, [])
 
   return (
     <>
-      <h1>Check out how you're doing!</h1>
+      <h1>Check out how you are doing!</h1>
       <section className='responsive-section'>
         <PlotComponent activityArray={activityArray} />
         <div className='responsive-column--50'>
