@@ -71,8 +71,11 @@ Page | Description | Notes
 `/dashboard` | Shows upcoming exercises and an abbreviated version of their data visualization. Each exercise has a icon indicating the level of discreetness of the exercise, ranging from 1 ("invisible") to 5 ("full-on workout mode"). | Hovering over the number icon shows a tooltip describing the discreetness level.
 `/training` | View and log details for the current exercise. | The form fields are optional for logging activity to minimize friction with exercising. Once the "Done" button is clicked, a confirmation modal shows their new streak.
 `/stats` | Shows stats and data visualization on the user's consistency with exercise | The first figure is interactive and shows additional information upon hover. The default interaction is zoom, but the user can also pan or export the figure. The first figure is inspired by the green contributions plot found on each user's GitHub profile.
-<img src="./documentation/dashboard-with-tooltip.PNG" width="350" alt="dashboard" />
-<img src="./documentation/training-page-top.PNG" width="350" alt="training page top" />
+
+<img src="./documentation/dashboard-with-tooltip.PNG" width="350" alt="dashboard" />*Dashboard page
+
+<img src="./documentation/training-page-top.PNG" width="350" alt="training page top" />*Training page
+
 <img src="./documentation/training-page-bottom.PNG" width="350" alt="training page bottom" />
 <img src="./documentation/activity-logged-confirmation.PNG" width="350" alt="activity logged confirmation" />
 <img src="./documentation/stats-page.PNG" width="350" alt="stats page" />
@@ -104,7 +107,7 @@ program | 2 | The current exercise program for a given user. Each program consis
 
 #### Entity relationship diagram
 Below is the entity relationship diagram of the database:
-<img src="./documentation/ERD.svg" alt="entity relationship diagram" />
+<img src="./documentation/ERD.svg" alt="entity relationship diagram" />*Entity relationship diagram
 
 <details>
 <summary>Click here to read about current API endpoints </summary>
