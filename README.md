@@ -74,7 +74,7 @@ Page | Description | Notes
 `/stats` | Shows stats and data visualization on the user's consistency with exercise | The first figure is interactive and shows additional information upon hover. The default interaction is zoom, but the user can also pan or export the figure. The first figure is inspired by the green contributions plot found on each user's GitHub profile.
 
 <img src="./documentation/dashboard-with-tooltip.PNG" width="350" alt="dashboard" />*Dashboard page
-<img src="./documentation/filter-menu.PNG width="350" alt="filter menu" />*Filter menu on the Dashboard page
+<img src="./documentation/filter-menu.PNG" width="350" alt="filter menu" />*Filter menu on the Dashboard page
 <img src="./documentation/training-page-top.PNG" width="350" alt="training page top" />*Training page, top
 <img src="./documentation/training-page-bottom.PNG" width="350" alt="training page bottom" />*Training page, bottom
 <img src="./documentation/swap-exercise.PNG" width="350" alt="training page swap exercise menu" />*Swap exercise menu on the Training page
