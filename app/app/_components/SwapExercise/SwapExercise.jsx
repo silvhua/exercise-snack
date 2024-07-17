@@ -5,10 +5,11 @@ import './SwapExercise.scss';
 import PillTag from "../PillTag/PillTag";
 import CloseIcon from "../CloseIcon/CloseIcon";
 import ActionIcon from "../ActionIcon/ActionIcon";
+import CircleTag from "../CircleTag/CircleTag";
 
 const SwapExercise = (props) => {
   const context = useContext(DataContext);
-  const { movements, exercisesArray } = context;
+  const { movements, exercisesArray, discreetnessMapping } = context;
   const {
     isVisible, setIsVisible,
     currentMovementId, handleCollapseToggle,
@@ -89,6 +90,11 @@ const SwapExercise = (props) => {
                       className="collapsible__list-item"
                       onClick={handleSelect}
                     >
+                      <CircleTag
+                        className={`discreetness--${exercise.discreetness}`}
+                        text={exercise.discreetness}
+                        title={discreetnessMapping[exercise.discreetness]}
+                      />
                       <p
                         id={exercise.id}
                         className="collapsible__exercise"

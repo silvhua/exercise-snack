@@ -31,6 +31,7 @@ export default function DataProvider({ children }) {
   const [discreetnessArray, setDiscreetnessArray] = useState(null);
   const [movements, setMovements] = useState(null);
   const [exercisesArray, setExercisesArray] = useState(null);
+  const [discreetnessMapping, setDiscreetnessMapping] = useState(null);
 
   const context = {
     userObject: userObject,
@@ -43,7 +44,8 @@ export default function DataProvider({ children }) {
     placeholderText: placeholderText,
     discreetnessArray: discreetnessArray,
     movements: movements, 
-    exercisesArray: exercisesArray
+    exercisesArray: exercisesArray,
+    discreetnessMapping: discreetnessMapping
   }
   
   useEffect(() => {
@@ -102,7 +104,7 @@ export default function DataProvider({ children }) {
         createProgramResponse
       );
     } else {
-      console.log('error:')
+      console.log('error:', error)
     }
   }
 
@@ -110,6 +112,14 @@ export default function DataProvider({ children }) {
     const discreetnessResponse = await readDiscreetness();
     if (checkForSuccess(discreetnessResponse)) {
       setDiscreetnessArray(discreetnessResponse);
+      
+      // Create a mapping object for easier lookup
+      const discreetnessMappingObject = {};
+      for (let i = 0; i < discreetnessResponse.length; i++) {
+        const { level, description } = discreetnessResponse[i];
+        discreetnessMappingObject[level] = description;
+      }
+      setDiscreetnessMapping(discreetnessMappingObject);
     }
   }
 
@@ -128,10 +138,10 @@ export default function DataProvider({ children }) {
     }
   }
 
-
   if (isLoading) {
     return;
   }
+  
   return (
     <DataContext.Provider value={context}>
       {children}

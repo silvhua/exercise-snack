@@ -1,6 +1,8 @@
 "use client"
 
 import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
+import { DataContext } from "@/app/context-provider";
 import Button from '../Button/Button';
 import postData, { generateProgram, readProgram, saveProgram } from '@/app/_libs/clientCrud';
 import Placeholder from '../Placeholder/Placeholder';
@@ -17,10 +19,13 @@ const UpcomingExercises = (props) => {
   If it matches the ID of the first exercise in the current programArray,
   it will rotate the exercises within the array.
   */
+  
+  const context = useContext(DataContext);
+  const { discreetnessMapping } = context;
   const {
     userObject,
     programArray, 
-    placeholderText, discreetnessArray
+    placeholderText
   } = props;
 
   const router = useRouter();
@@ -46,15 +51,6 @@ const UpcomingExercises = (props) => {
       sessionStorage.setItem('userProgram', JSON.stringify(programArray));
       router.push(`/training`);
     }
-  }
-
-  /* 
-  Convert the array of discreetnessValues into an object for fast look up
-  */
-  const discreetnessMapping = {}
-  for (let i = 0; i < discreetnessArray.length; i++) {
-    const { level, description} = discreetnessArray[i];
-    discreetnessMapping[level] = description;
   }
 
   const buttonProps = {

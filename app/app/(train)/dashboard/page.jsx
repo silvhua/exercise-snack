@@ -127,7 +127,6 @@ export default function Dashboard() {
               userObject={userObject}
               programArray={programArray}
               setProgramArray={setProgramArray}
-              discreetnessArray={discreetnessArray}
             />
             <Button buttonProps={buttonProps} />
             <FilterMenu filterProps={filterProps} />

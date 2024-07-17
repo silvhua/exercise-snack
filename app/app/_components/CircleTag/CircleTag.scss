@@ -18,3 +18,30 @@
   margin: 0;
   line-height: 100%;
 }
+
+.discreetness {
+
+  & > .tag-text {
+    color: white;
+  }
+
+  &--1 {
+    background-color: $dark-blue-10;
+  }
+
+  &--2 {
+    background-color: $dark-blue-20;
+  }
+
+  &--3 {
+    background-color: $dark-blue-40;
+  }
+
+  &--4 {
+    background-color: $dark-blue-60;
+  }
+
+  &--5 {
+    background-color: $dark-blue-80;
+  }
+}
