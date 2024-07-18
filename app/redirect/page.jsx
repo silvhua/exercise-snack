@@ -17,7 +17,7 @@ const ErrorPage = () => {
         text='Sorry!'
       />
       <p>
-        The server is likely overloaded.
+        It appears this app is more popular than its servers can currently handle!
       </p>
       <p>
         Please check back later and hopefully things will be back.
