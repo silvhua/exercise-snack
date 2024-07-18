@@ -29,6 +29,7 @@ export default async function sqlSelect(query, getFirst, binaryColumns) {
     db.release();
     return rows;
   } catch (error) {
+    db.release();
     if (error) {
       console.log(error);
     }
@@ -70,6 +71,7 @@ export async function apiSqlQuery(query, getFirst, binaryColumns) {
     }
     
   } catch (error) {
+    db.release();
     return NextResponse.json({
       error: 'Unable to perform request.'
     }, { status: 500 })
