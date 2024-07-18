@@ -5,6 +5,7 @@ import { getUser } from "./_libs/clientCrud";
 
 import Button from "./_components/Button/Button";
 import FormField from "./_components/FormField/FormField";
+import { checkForSuccess } from "./_libs/ApiClient";
 
 export default function Home() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function Home() {
     
     if (formUsername?.length > 1) {
       const response = await getUser(formUsername);
-      if (response)  {
+      if (checkForSuccess(response))  {
         setUserObject(response);
       } else {
         router.push('/redirect');
