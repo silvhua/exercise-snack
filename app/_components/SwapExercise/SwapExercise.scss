@@ -8,12 +8,21 @@ $swap-exercise-width: 32.5rem;
 .exercise-list {
   @include modal-mixin;
   gap: 0;
-  width: $swap-exercise-width;
+  min-width: 100vw;
 
-  & > .close-icon {
-    left: calc($swap-exercise-width - $spacing--mobile);
-    transform: translateX(-100%);
+  & .close-icon {
+    right: $spacing--mobile;
   }
+
+  @include tablet {
+    min-width: $swap-exercise-width;
+    max-width: $swap-exercise-width;
+    
+    & .close-icon {
+      left: calc($swap-exercise-width - $spacing--mobile);
+    }
+  }
+
   
   &__section {
     border-bottom: $input-border;
