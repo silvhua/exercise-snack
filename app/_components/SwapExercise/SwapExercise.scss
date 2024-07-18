@@ -12,6 +12,7 @@ $swap-exercise-width: 32.5rem;
 
   & .close-icon {
     right: $spacing--mobile;
+    transform: translateX(-150%);
   }
 
   @include tablet {
