@@ -2,7 +2,7 @@
  
 import { createContext } from 'react'
 import { useEffect, useState } from "react";
-import { getStreak } from "@/app/_libs/userData";
+import { getStreak, getUserActivity } from "@/app/_libs/userData";
 import { checkForSuccess } from '@/app/_libs/ApiClient';
 import {getLastWeeksSessions} from '@/app/_libs/clientCrud';
 import { generateProgram, readProgram, saveProgram } from '@/app/_libs/clientCrud';
@@ -81,6 +81,8 @@ export default function DataProvider({ children }) {
     const activityResponse = await getActivityPerDate(userId);
     if (checkForSuccess(activityResponse)) {
       setActivityArray(activityResponse);
+      const allActivities = await getUserActivity(userId);
+      console.log('all activities\n', allActivities)
     }
   }
 

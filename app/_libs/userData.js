@@ -90,3 +90,29 @@ export async function getActivityPerDate(userId) {
   return data;
   
 }
+
+
+export async function getUserActivity(userId) {
+  const userTableName = "`user`"
+  // backticks required because `user` is a SQL keyword
+  const query = `
+  SELECT 
+    activity.created_time,
+    reps,
+    duration,
+    notes,
+    exercise.name AS exercise
+  FROM activity
+  LEFT JOIN session
+    ON (session_id = session.id)
+  LEFT JOIN ${userTableName}
+    ON user_id = user.id
+  LEFT JOIN exercise
+    ON (exercise_id = exercise.id)
+  WHERE ${userTableName}.id = "${userId}"
+  ORDER BY DATE(activity.created_time) DESC
+  `
+  const data = await sqlSelect(query);
+  return data;
+  
+}
