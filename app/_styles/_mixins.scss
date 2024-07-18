@@ -93,11 +93,11 @@
   min-height: 100vh;
   max-height: 100vh;
   box-sizing: border-box;
-  padding: $page-margin--mobile $spacing--mobile; 
+  padding: $padding-top--mobile $spacing--mobile $padding-bottom--mobile; 
   right: 0;
   top: 0;
   overflow: auto;
-  justify-self: flex-end;
+  // justify-self: flex-end;
   border: none;
   outline: none;
   z-index:5;

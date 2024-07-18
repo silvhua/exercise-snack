@@ -42,6 +42,10 @@ $form-spacing--mobile: 1.5rem;
 $form-spacing--tablet: 1.5rem;
 $border-radius: .625rem;
 
+// modal padding
+$padding-bottom--mobile: 70px;
+$padding-top--mobile: 32px;
+
 // interactive element widths
 $item-width-1: 12.5rem;
 $item-width-2: calc($item-width-1 * 2 + $spacing--mobile);

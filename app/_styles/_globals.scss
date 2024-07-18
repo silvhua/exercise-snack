@@ -208,3 +208,9 @@ p {
   margin: 0;
   padding: 0;
 }
+
+.modal-top {
+  @include flex-mixin--row(100%);
+  align-items: flex-start;
+  justify-content: space-between;
+}
