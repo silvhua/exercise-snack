@@ -22,13 +22,13 @@ const UpcomingExercises = (props) => {
   
   const context = useContext(DataContext);
   const { discreetnessMapping } = context;
+  const router = useRouter();
   const {
     userObject,
     programArray, 
     placeholderText
   } = props;
 
-  const router = useRouter();
   const {
     username, first_name, id,
   } = userObject;
@@ -37,6 +37,9 @@ const UpcomingExercises = (props) => {
     return <Placeholder text={placeholderText} />
   }
   const nextExerciseId = programArray[0]?.id;
+  if (!nextExerciseId) {
+    router.push('/redirect');
+  }
   const latestExerciseId = localStorage.getItem('latestExerciseId');
   if (latestExerciseId === nextExerciseId) {
     // Rotate the exercises 
