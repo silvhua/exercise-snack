@@ -1,6 +1,10 @@
 "use server"
 
+import 'dotenv/config';
 import sqlSelect from "./utils";
+
+
+const dateExpression = process.env?.['IS_LOCAL'] ? "${dateExpression}" : "activity.created_time";
 
 export default async function readUser(username) {
   const query = `
@@ -20,7 +24,7 @@ export async function getStreak(userId) {
   const query = `
   WITH DistinctDates AS (
     SELECT DISTINCT DATE(
-      CONVERT_TZ(activity.created_time, '+00:00', 'US/Pacific')
+      ${dateExpression}
       ) AS activity_date
     FROM activity
     LEFT JOIN session
@@ -79,15 +83,15 @@ export async function getActivityPerDate(userId) {
   SELECT 
     MIN(session.id) AS id,
     COUNT(activity.id) AS n_sets,
-    DATE(CONVERT_TZ(activity.created_time, '+00:00', 'US/Pacific')) AS date
+    DATE(${dateExpression}) AS date
   FROM activity
   LEFT JOIN session
     ON (session_id = session.id)
   LEFT JOIN ${userTableName}
     ON user_id = user.id
   WHERE ${userTableName}.id = "${userId}"
-  GROUP BY DATE(CONVERT_TZ(activity.created_time, '+00:00', 'US/Pacific'))
-  ORDER BY DATE(CONVERT_TZ(activity.created_time, '+00:00', 'US/Pacific')) DESC
+  GROUP BY DATE(${dateExpression})
+  ORDER BY DATE(${dateExpression}) DESC
   `
   const data = await sqlSelect(query);
   return data;
@@ -101,7 +105,7 @@ export async function getUserActivity(userId) {
   const query = `
   SELECT 
     activity.created_time,
-    CONVERT_TZ(activity.created_time, '+00:00', 'US/Pacific') AS local_time, 
+    ${dateExpression} AS local_time, 
     reps,
     duration,
     notes,
