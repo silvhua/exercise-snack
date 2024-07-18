@@ -92,10 +92,8 @@ const FilterMenu = ({ filterProps }) => {
       ref={filterRef}
       className="filter-menu"
     >
-      <div className='modal-top'>
-        <h2 className='modal-heading'>Filters</h2>
-        <CloseIcon closeIconProps={closeIconProps} />
-      </div>
+      <h2 className='modal-heading'>Filters</h2>
+      <CloseIcon closeIconProps={closeIconProps} />
       {formContent}
       
     </dialog>

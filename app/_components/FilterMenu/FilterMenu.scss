@@ -6,6 +6,10 @@
   @include modal-mixin;
   width: $filter-menu-width;
 
+  & > .close-icon {
+    left: calc($filter-menu-width - $spacing--mobile);
+  }
+
   &__button {
     position: fixed;
     bottom: $padding-bottom--mobile;

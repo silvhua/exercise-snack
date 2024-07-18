@@ -3,11 +3,17 @@
 @use '../../_styles/mixins' as *;
 
 $collapsible-header-height: 3rem;
+$swap-exercise-width: 32.5rem;
 
 .exercise-list {
   @include modal-mixin;
   gap: 0;
-  width: 32.5rem;
+  width: $swap-exercise-width;
+
+  & > .close-icon {
+    left: calc($swap-exercise-width - $spacing--mobile);
+    transform: translateX(-100%);
+  }
   
   &__section {
     border-bottom: $input-border;

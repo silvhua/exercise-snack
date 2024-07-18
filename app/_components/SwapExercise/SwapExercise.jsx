@@ -142,12 +142,10 @@ const SwapExercise = (props) => {
       ref={exerciseListRef}
       className="exercise-list"
     >
-      <div className="modal-top">
-        <h2 className="modal-heading">
-          Swap Exercise
-        </h2> 
-        <CloseIcon closeIconProps={closeIconProps} />
-      </div>
+      <h2 className="modal-heading">
+        Swap Exercise
+      </h2> 
+      <CloseIcon closeIconProps={closeIconProps} />
       {
       movements.map(movement => {
         const makeVisible = isVisible[movement.id] || expanded[movement.id]

@@ -24,16 +24,24 @@ $font-family: 'Graphik Medium', 'Circular Air Book', 'Gill Sans', 'Gill Sans MT'
 $font-family--secondary: 'Circular Air Book', 'Graphik Medium', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 
+// account for iPhone screen space taken up by stuff other than content
+$padding-bottom--mobile: 70px;
+$padding-top--mobile: 32px;
+
 // header and nav
 $header-height--tablet: 5rem;
 $nav-bar-height--mobile: 4.75rem;
 $main-height--tablet: calc(100vh - $header-height--tablet);
 $main-height--mobile: calc(100vh - $nav-bar-height--mobile);
 
+// modal padding
+$padding-bottom--mobile: 70px;
+$padding-top--mobile: 32px;
+
 // spacing
+
 $page-margin--mobile: 1.5rem;
 $spacing--mobile: 1rem;
-$bottom-padding--mobile: calc($nav-bar-height--mobile + $page-margin--mobile);
 
 $page-margin--tablet: 3rem;
 $spacing--tablet: 1.5rem;
@@ -41,10 +49,6 @@ $spacing--tablet: 1.5rem;
 $form-spacing--mobile: 1.5rem;
 $form-spacing--tablet: 1.5rem;
 $border-radius: .625rem;
-
-// modal padding
-$padding-bottom--mobile: 70px;
-$padding-top--mobile: 32px;
 
 // interactive element widths
 $item-width-1: 12.5rem;

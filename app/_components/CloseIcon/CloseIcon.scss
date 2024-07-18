@@ -3,6 +3,9 @@
 @use '../../_styles/mixins' as *;
 
 .close-icon {
+  position: fixed;
   width: .875rem;
+  top: $padding-top--mobile;
   cursor: pointer;
+  transform: translateX(-100%);
 }
