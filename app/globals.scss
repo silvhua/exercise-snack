@@ -15,4 +15,8 @@
   @include tablet {
     padding: $page-margin--tablet;
   }
+  @include desktop {
+    width: $form-width--tablet;
+    margin: 0 auto;
+  }
 }
