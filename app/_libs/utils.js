@@ -6,8 +6,10 @@ export default async function sqlSelect(query, getFirst, binaryColumns) {
   /* 
     Helper function for client components to query the database.
   */
+  
+  let db;
   try {
-    const db = await pool.getConnection();
+    db = await pool.getConnection();
     const result = await db.execute(query);
     let [rows] = result;
     rows.map(row => {
@@ -29,20 +31,25 @@ export default async function sqlSelect(query, getFirst, binaryColumns) {
     db.release();
     return rows;
   } catch (error) {
-    db.release();
     if (error) {
       console.log(error);
     }
     redirect('/redirect')
     return null;
+  } finally {
+    if (db) {
+      
+      db.release();
+    }
   }
 }
 
 export async function apiSqlQuery(query, getFirst, binaryColumns) {
   /* Helper function for API endpoints to query the database. */
   
+  let db;
   try {
-    const db = await pool.getConnection();
+    db = await pool.getConnection();
     const result = await db.execute(query);
     let [rows] = result;
     if (rows?.[0]?.id) {
@@ -71,10 +78,13 @@ export async function apiSqlQuery(query, getFirst, binaryColumns) {
     }
     
   } catch (error) {
-    db.release();
     return NextResponse.json({
       error: 'Unable to perform request.'
     }, { status: 500 })
+  } finally {
+    if (db) {
+      db.release();
+    }
   }
 }
 
