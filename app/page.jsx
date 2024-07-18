@@ -9,7 +9,6 @@ import FormField from "./_components/FormField/FormField";
 export default function Home() {
   const router = useRouter();
   const [userObject, setUserObject] = useState(null);
-  
 
   const verifyUser = async (event) => {
     event.preventDefault();
@@ -19,6 +18,8 @@ export default function Home() {
       const response = await getUser(formUsername);
       if (response)  {
         setUserObject(response);
+      } else {
+        router.push('/redirect');
       }
     }
   }
