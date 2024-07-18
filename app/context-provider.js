@@ -107,7 +107,6 @@ export default function DataProvider({ children }) {
         createProgramResponse
       );
     } else {
-      console.log('error:', error)
     }
   }
 

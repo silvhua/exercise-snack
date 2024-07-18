@@ -1,5 +1,6 @@
 import pool from "@/app/_libs/mysql";
 import { NextResponse } from "next/server";
+import { redirect } from 'next/navigation'
 
 export default async function sqlSelect(query, getFirst, binaryColumns) {
   /* 
@@ -28,7 +29,10 @@ export default async function sqlSelect(query, getFirst, binaryColumns) {
     db.release();
     return rows;
   } catch (error) {
-    console.log(error);
+    if (error) {
+      console.log(error);
+    }
+    redirect('/redirect')
     return null;
   }
 }

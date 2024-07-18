@@ -86,10 +86,6 @@ ul {
   gap: $spacing--mobile;
 }
 
-a {
-  text-decoration: none;
-}
-
 li {
   list-style: none;
 }
@@ -149,6 +145,12 @@ p {
 
 .p2 {
   font-size: .75rem;
+}
+
+a {
+  @extend p;
+  text-decoration: none;
+  color: $secondary-text-color;
 }
 
 .card-container {
