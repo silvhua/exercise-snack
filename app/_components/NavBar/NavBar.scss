@@ -5,7 +5,7 @@
 .nav-bar {
   position: fixed;
   z-index: 3;
-  padding: $page-margin--mobile;
+  padding: $spacing--mobile $page-margin--mobile;
   background-color: $off-white;
   height: $nav-bar-height--mobile;
   width: 100%;
