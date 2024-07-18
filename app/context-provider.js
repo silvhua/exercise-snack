@@ -81,8 +81,10 @@ export default function DataProvider({ children }) {
     const activityResponse = await getActivityPerDate(userId);
     if (checkForSuccess(activityResponse)) {
       setActivityArray(activityResponse);
-      const allActivities = await getUserActivity(userId);
-      console.log('all activities\n', allActivities)
+      console.log('activityResponse\n', activityResponse)
+      // const allActivities = await getUserActivity(userId);
+      // console.log('all activities\n', allActivities)
+      // console.log('current date', new Date())
     }
   }
 

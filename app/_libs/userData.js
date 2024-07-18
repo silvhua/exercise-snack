@@ -19,7 +19,9 @@ export async function getStreak(userId) {
   // backticks required because `user` is a SQL keyword
   const query = `
   WITH DistinctDates AS (
-    SELECT DISTINCT DATE(activity.created_time) AS activity_date
+    SELECT DISTINCT DATE(
+      CONVERT_TZ(activity.created_time, '+00:00', 'US/Pacific')
+      ) AS activity_date
     FROM activity
     LEFT JOIN session
     ON (session_id = session.id)
@@ -72,19 +74,20 @@ export async function getStreak(userId) {
 export async function getActivityPerDate(userId) {
   const userTableName = "`user`"
   // backticks required because `user` is a SQL keyword
+
   const query = `
   SELECT 
     MIN(session.id) AS id,
     COUNT(activity.id) AS n_sets,
-    DATE(activity.created_time) AS date
+    DATE(CONVERT_TZ(activity.created_time, '+00:00', 'US/Pacific')) AS date
   FROM activity
   LEFT JOIN session
     ON (session_id = session.id)
   LEFT JOIN ${userTableName}
     ON user_id = user.id
   WHERE ${userTableName}.id = "${userId}"
-  GROUP BY DATE(activity.created_time)
-  ORDER BY DATE(activity.created_time) DESC
+  GROUP BY DATE(CONVERT_TZ(activity.created_time, '+00:00', 'US/Pacific'))
+  ORDER BY DATE(CONVERT_TZ(activity.created_time, '+00:00', 'US/Pacific')) DESC
   `
   const data = await sqlSelect(query);
   return data;
@@ -98,6 +101,7 @@ export async function getUserActivity(userId) {
   const query = `
   SELECT 
     activity.created_time,
+    CONVERT_TZ(activity.created_time, '+00:00', 'US/Pacific') AS local_time, 
     reps,
     duration,
     notes,
