@@ -9,6 +9,7 @@ import { generateProgram, readProgram, saveProgram } from '@/app/_libs/clientCru
 import { getActivityPerDate } from '@/app/_libs/userData';
 import { readAllExercises, readDiscreetness, readMovements } from './_libs/exerciseData';
 import { isSameDate } from './_libs/dataProcessing';
+import { timeSeries } from './_libs/TimeSeries';
 
 /* 
 This file retrieves server data than can be accessed by child components. 
@@ -52,7 +53,7 @@ export default function DataProvider({ children }) {
     const storedUserInfo = JSON.parse(localStorage.getItem('userDetails'));
     setUserObject(storedUserInfo);
     const userId = storedUserInfo.id
-    loadRecentSessions(userId);
+    loadStreak(userId);
     loadActivity(userId);
     loadProgram(userId);
     getDiscreetness();
@@ -60,31 +61,29 @@ export default function DataProvider({ children }) {
     getMovements();
   }, []);
 
-  async function loadRecentSessions(userId) {
+  async function loadStreak(userId) {
     const streakResponse = await getStreak(userId);
     if (checkForSuccess(streakResponse)) {
       setStreakValue(streakResponse);
     }
-    const sessionsResponse = await getLastWeeksSessions(userId);
-    if (checkForSuccess(sessionsResponse)) {
-      setRecentSessions(sessionsResponse);
-      if (
-        !isSameDate(new Date(sessionsResponse[0].date), new Date())
-      ) {
-        // reset the value if the most recent session is not today
-        sessionStorage.setItem('sessionActivityCount', 0);
-      } 
-    }
+    // const sessionsResponse = await getLastWeeksSessions(userId);
+    // if (checkForSuccess(sessionsResponse)) {
+    //   setRecentSessions(sessionsResponse);
+    // }
   }
 
   async function loadActivity(userId) {
     const activityResponse = await getActivityPerDate(userId);
     if (checkForSuccess(activityResponse)) {
       setActivityArray(activityResponse);
-      console.log('activityResponse\n', activityResponse)
-      // const allActivities = await getUserActivity(userId);
-      // console.log('all activities\n', allActivities)
-      // console.log('current date', new Date())
+      const pastWeekSessions = activityResponse.filter(activity => activity.date > timeSeries.nDaysAgoDate(7));
+      setRecentSessions(pastWeekSessions);
+      if (
+        !isSameDate(new Date(activityResponse[0].date), new Date())
+      ) {
+        // reset the value if the most recent session is not today
+        sessionStorage.setItem('sessionActivityCount', 0);
+      } 
     }
   }
 
