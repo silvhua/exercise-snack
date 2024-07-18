@@ -56,6 +56,9 @@ export default function Home() {
         <FormField formFieldProps={passwordInputProps} />
         <Button buttonProps={buttonProps} />
       </form>
+      <p>
+        Tip: If you just want to browse, leave the fields blank.
+      </p>
     </section>
   );
 }
