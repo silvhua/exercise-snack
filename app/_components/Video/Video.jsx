@@ -1,6 +1,6 @@
 import './Video.scss';
 
-const Video = ({src, title}) => {
+const Video = ({src, title, className}) => {
   src = src || 'https://youtu.be/9DkWqGqiT60'
   let youtubeSrc = null;
   if (src.includes('youtube') || src.includes('youtu.be')) {
@@ -10,6 +10,7 @@ const Video = ({src, title}) => {
   if (youtubeSrc) {
     return (
       <iframe
+        className={className}
         src={`https://www.youtube.com/embed/${youtubeSrc}`}
         title={title}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -20,7 +21,7 @@ const Video = ({src, title}) => {
     )
   } else {
     return (
-      <video>
+      <video className={className}>
         <source
           src={src}
           controls

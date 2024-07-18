@@ -16,3 +16,17 @@ video, iframe {
     width: calc(100% - $form-width--tablet - $spacing--tablet);
   }
 }
+
+.video--responsive {
+  // max-width: 100%;
+  // max-height: $max-hero-height--mobile;
+
+  // @include tablet {
+  //   max-height: $max-hero-height--tablet;
+  // }
+  @include desktop {
+    width: 100%;
+  }
+
+
+}
