@@ -2,7 +2,7 @@
 .env
 **/.env
 **/.env.local
-# data
+src/data
 *.css.map
 **/scratchpad.js
 server/utils/tracking.json
