@@ -13,7 +13,7 @@
   &__button {
     position: fixed;
     bottom: $padding-bottom--mobile;
-    width: $filter-menu-content-width;
+    width: $filter-menu-content-width !important;
     box-sizing: border-box;
     color: white;
     opacity: 1;
