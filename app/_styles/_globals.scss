@@ -14,6 +14,7 @@
 body {
   height: 100vh;
   overflow: hidden;
+  background-color: $off-white;
 }
 h1 {
   font-size: 2rem;
@@ -25,7 +26,6 @@ h1 {
   @include flex-mixin--column(100%);
   @include component-spacing;
   padding: $padding-top--mobile $page-margin--mobile $padding-bottom--mobile;
-  background-color: $off-white;
   height: $main-height--mobile;
   justify-content: flex-start;
   overflow:  visible scroll;
@@ -151,6 +151,7 @@ a {
   @extend p;
   text-decoration: none;
   color: $secondary-text-color;
+  margin: 0;
 }
 
 .card-container {
@@ -158,7 +159,16 @@ a {
   gap: $spacing--mobile;
 }
 
-.form, form {
+form {
+  @include flex-mixin--column(100%);
+  gap: $spacing--mobile;
+
+  @include tablet {
+    width: auto;
+  }
+}
+
+.form {
   @extend section;
 
   @include tablet {

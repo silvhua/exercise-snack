@@ -6,6 +6,7 @@ import { getUser } from "./_libs/clientCrud";
 import Button from "./_components/Button/Button";
 import FormField from "./_components/FormField/FormField";
 import { checkForSuccess } from "./_libs/ApiClient";
+import Video from "./_components/Video/Video";
 
 export default function Home() {
   const router = useRouter();
@@ -51,16 +52,28 @@ export default function Home() {
     placeholder: 'password'
   }
   return (
-    <section className="login">
-      <form onSubmit={verifyUser}
-      >
-        <FormField formFieldProps={usernameInputProps} />
-        <FormField formFieldProps={passwordInputProps} />
-        <Button buttonProps={buttonProps} />
-      </form>
-      <p>
-        Tip: If you just want to browse, leave the fields blank.
-      </p>
-    </section>
+    <main className="main">
+      <section className="login">
+        <div className="login__div">
+          <form onSubmit={verifyUser}
+          >
+            <FormField formFieldProps={usernameInputProps} />
+            <FormField formFieldProps={passwordInputProps} />
+            <Button buttonProps={buttonProps} />
+          </form>
+          <p>
+            Tip: If you just want to browse, leave the fields blank.
+          </p>
+        </div>
+        <div className="login__div">
+          {/* <h2 className="headline6">Demo Video</h2> */}
+          <Video
+            src='./videos/app-demo.mp4'
+            title='app demo video'
+            className='app-demo__video'
+          />
+        </div>
+      </section>
+    </main>
   );
 }

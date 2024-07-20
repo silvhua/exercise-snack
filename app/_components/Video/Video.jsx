@@ -21,12 +21,13 @@ const Video = ({src, title, className}) => {
     )
   } else {
     return (
-      <video className={className}>
+      <video
+        className={className} 
+        controls
+      >
         <source
           src={src}
-          controls
           poster=''
-          loop
         />
       </video>
     )

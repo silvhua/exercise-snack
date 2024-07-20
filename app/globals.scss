@@ -7,16 +7,45 @@
 }
 
 .login {
+  @extend .responsive-section;
+  top: 50vh;
+  transform: translateY(-5rem);
   height: calc(100vh - $nav-bar-height--mobile - $header-height--tablet);
   justify-content: center;
   height: 100vh;
   background-color: $off-white;
-  padding: $page-margin--mobile;
   @include tablet {
-    padding: $page-margin--tablet;
+    flex-direction: column;
+    top: 50%;
+    align-items: center;
   }
   @include desktop {
-    width: $form-width--tablet;
+    flex-direction: row;
+    top: 0;
+    transform: none;
     margin: 0 auto;
+    align-items: center;
+  }
+
+  &__div {
+    @include responsive-column(100%);
+    align-items: center;
+  }
+}
+
+.app-demo {
+  &__video {
+    margin: 3rem 0;
+    width: 100%;
+    aspect-ratio: auto;
+
+    @include tablet {
+      max-height: $max-hero-height--tablet;
+      max-width: 375px;
+    }
+
+    @include desktop {
+      margin: 0;
+    }
   }
 }

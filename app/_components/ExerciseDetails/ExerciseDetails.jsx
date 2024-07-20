@@ -49,7 +49,10 @@ const ExerciseDetails = ({ exerciseId, onSubmit, handleInputChange }) => {
           src={src}
           title={name}
         />
-        <form onSubmit={onSubmit}>
+        <form
+          onSubmit={onSubmit}
+          className='form'
+        >
           <TrainingFormElements handleInputChange={handleInputChange} />
           <Button buttonProps={formButtonProps} />
         </form>
