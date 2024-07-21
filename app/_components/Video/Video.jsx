@@ -1,6 +1,6 @@
 import './Video.scss';
 
-const Video = ({src, title, className}) => {
+const Video = ({src, title, className, poster}) => {
   src = src || 'https://youtu.be/9DkWqGqiT60'
   let youtubeSrc = null;
   if (src.includes('youtube') || src.includes('youtu.be')) {
@@ -27,7 +27,8 @@ const Video = ({src, title, className}) => {
       >
         <source
           src={src}
-          poster=''
+          poster={poster}
+          preload="none"
         />
       </video>
     )
