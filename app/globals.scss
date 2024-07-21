@@ -38,6 +38,7 @@
     margin: 3rem 0;
     width: 100%;
     aspect-ratio: auto;
+    background-color: $dark-blue;
 
     @include tablet {
       max-height: $max-hero-height--tablet;
