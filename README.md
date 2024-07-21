@@ -1,8 +1,6 @@
 # Project Title
 
-Check out the live demo of this project [here](https://www.defytimefitness.com/)
-
-To run this project, see [implementation-instructions.md](implementation-instructions.md).
+Check out the live demo of this project [here](https://www.defytimefitness.com/).
 
 ## Overview
 
