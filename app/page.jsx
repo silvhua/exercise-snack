@@ -71,6 +71,7 @@ export default function Home() {
             src='./videos/app-demo.mp4'
             title='app demo video'
             className='app-demo__video'
+            poster='./images/dashboard-page.png'
           />
         </div>
       </section>
