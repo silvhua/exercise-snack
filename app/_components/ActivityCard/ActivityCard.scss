@@ -1,0 +1,8 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+.activity-card {
+  @include card;
+  background-color: $turquoise;
+}
