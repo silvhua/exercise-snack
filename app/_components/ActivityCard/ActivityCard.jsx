@@ -9,9 +9,9 @@ const ActivityCard = ({ activityObject }) => {
     // exercise,
     // reps, duration, notes
   } = activityObject;
-  console.log('activity object', activityObject)
+  
   return (
-    <div key={id} className='activity-card'>
+    <div className='activity-card'>
       <h3 className='subtitle'>
         {formatDate(date, {
             year: 'numeric',

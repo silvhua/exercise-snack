@@ -11,14 +11,15 @@ const User = () => {
     programArray, setProgramArray
   } = context;
 
-  console.log(activityArray)
-
   return (
     <section className="activity-list">
       <h1 className="heading1">
         My Activity History
       </h1>
-      {activityArray.map(activity => <ActivityCard activityObject={activity}/>)}
+      {activityArray.map(activity => <ActivityCard
+        activityObject={activity}
+        key={activity.id} 
+      />)}
     </section>
   )
 }
