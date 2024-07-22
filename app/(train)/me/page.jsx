@@ -7,8 +7,7 @@ import ActivityCard from "@/app/_components/ActivityCard/ActivityCard";
 const User = () => {
   const context = useContext(DataContext);
   const {
-    activityArray, movements, exercisesArray, 
-    programArray, setProgramArray
+    allActivities
   } = context;
 
   return (
@@ -16,7 +15,7 @@ const User = () => {
       <h1 className="heading1">
         My Activity History
       </h1>
-      {activityArray.map(activity => <ActivityCard
+      {allActivities.map(activity => <ActivityCard
         activityObject={activity}
         key={activity.id} 
       />)}

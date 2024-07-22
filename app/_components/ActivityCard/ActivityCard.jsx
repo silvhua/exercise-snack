@@ -4,16 +4,15 @@ import './ActivityCard.scss';
 const ActivityCard = ({ activityObject }) => {
   const {
     id,
-    date, n_sets,
-    // created_time, local_time,
-    // exercise,
-    // reps, duration, notes
+    created_time, local_time,
+    exercise,
+    reps, duration, notes
   } = activityObject;
   
   return (
-    <div className='activity-card'>
+    <div className='activity-card' >
       <h3 className='subtitle'>
-        {formatDate(date, {
+        {formatDate(created_time, {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit',
@@ -23,12 +22,21 @@ const ActivityCard = ({ activityObject }) => {
           }
         )}
       </h3>
-      <p className='p1'>{n_sets} sets</p>
-      {/* {created_time} ({local_time})
-      {exercise}
-      {reps}
-      {duration}
-      {notes} */}
+      {/* <p className='p1'>
+        {formatDate(local_time, {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: 'numeric',
+            minute: 'numeric',
+            timeZoneName: 'short',
+          }
+        )}
+      </p> */}
+      <p className='p1' key={`exercise-${id}`}>{exercise}</p>
+      <p className='p1' key={`reps-${id}`}>{reps} reps</p>
+      <p className='p1' key={`duration-${id}`}>{duration ? `${duration} sec` : null}</p>
+      <p className='p1' key={`notes-${id}`}>Notes: {notes}</p>
     </div>
   )
 }

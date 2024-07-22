@@ -4,7 +4,6 @@ import { createContext } from 'react'
 import { useEffect, useState } from "react";
 import { getStreak, getUserActivity } from "@/app/_libs/userData";
 import { checkForSuccess } from '@/app/_libs/ApiClient';
-import {getLastWeeksSessions} from '@/app/_libs/clientCrud';
 import { generateProgram, readProgram, saveProgram } from '@/app/_libs/clientCrud';
 import { getActivityPerDate } from '@/app/_libs/userData';
 import { readAllExercises, readDiscreetness, readMovements } from './_libs/exerciseData';
@@ -33,6 +32,7 @@ export default function DataProvider({ children }) {
   const [movements, setMovements] = useState(null);
   const [exercisesArray, setExercisesArray] = useState(null);
   const [discreetnessMapping, setDiscreetnessMapping] = useState(null);
+  const [allActivities, setAllActivities] = useState(null);
 
   const context = {
     userObject: userObject,
@@ -41,7 +41,9 @@ export default function DataProvider({ children }) {
     recentSessions: recentSessions,
     activityArray: activityArray,
     programArray: programArray,
+    allActivities: allActivities, 
     setProgramArray: setProgramArray,
+    setAllActivities: setAllActivities,
     placeholderText: placeholderText,
     discreetnessArray: discreetnessArray,
     movements: movements, 
@@ -56,6 +58,7 @@ export default function DataProvider({ children }) {
     loadStreak(userId);
     loadActivity(userId);
     loadProgram(userId);
+    loadAllActivity(userId);
     getDiscreetness();
     getAllExercises();
     getMovements();
@@ -66,10 +69,6 @@ export default function DataProvider({ children }) {
     if (checkForSuccess(streakResponse)) {
       setStreakValue(streakResponse);
     }
-    // const sessionsResponse = await getLastWeeksSessions(userId);
-    // if (checkForSuccess(sessionsResponse)) {
-    //   setRecentSessions(sessionsResponse);
-    // }
   }
 
   async function loadActivity(userId) {
@@ -107,6 +106,13 @@ export default function DataProvider({ children }) {
         createProgramResponse
       );
     } else {
+    }
+  }
+
+  async function loadAllActivity(userId) {
+    const userActivityResponse = await getUserActivity(userId);
+    if (checkForSuccess(userActivityResponse)) {
+      setAllActivities(userActivityResponse);
     }
   }
 
