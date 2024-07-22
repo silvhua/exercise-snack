@@ -105,7 +105,7 @@ export default function Dashboard() {
         <div className="flex-column-div">
           <h3 className="streak__text">
             <span className="streak__number">
-              {streakValue.consecutive_days}
+              {streakValue.consecutive_days || "0"}
             </span> day streak 
           </h3>
           <Streak
