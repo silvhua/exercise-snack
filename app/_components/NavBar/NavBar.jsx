@@ -13,7 +13,7 @@ const NavBar = () => {
 
   const profileIconProps = {
     src: '/icons/person.svg',
-    href: '/dashboard',
+    href: '/me',
     className: 'nav-bar__icon',
     alt: 'profile icon'
   }
