@@ -76,6 +76,10 @@ ul {
 .flex-column-div {
   @include flex-mixin--column(auto);
   @include component-spacing;
+
+  &--no-gap {
+    @include flex-mixin--column(auto);
+  }
 }
 
 .flex-row-div {
@@ -223,4 +227,8 @@ form {
 .no-spacing {
   margin: 0;
   padding: 0;
+}
+
+.display-none {
+  display: none;
 }

@@ -2,7 +2,75 @@
 @use '../../_styles/globals' as *;
 @use '../../_styles/mixins' as *;
 
+.activity-list {
+  @include tablet {
+    gap: 0;
+  }
+}
+
 .activity-card {
   @include card;
   background-color: $turquoise;
+
+  @include tablet {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    border-radius: 0;
+
+    &:nth-of-type(even) {
+      background-color: $turquoise-40;
+    }
+  }
+
+  &--header-row {
+    display: none;
+    @extend .activity-card;
+    background-color: transparent;
+    @include tablet {
+      display: grid;
+    }
+  }
+
+  &__top {
+    @include flex-mixin--column(100%);
+
+    @include tablet {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__middle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+  }
+
+  &__bottom {
+
+  }
+
+  &__date {
+    @extend .subtitle;
+    text-decoration: underline;
+    margin-right: $spacing--mobile;
+  }
+
+  &__heading {
+    @extend .subtitle;
+    margin: $spacing--mobile 0 0;
+    @include tablet {
+      display: none;
+    }
+
+    &--header-row {
+      @extend .subtitle;
+      margin: 0;
+
+      & p {
+        display: none;
+      }
+    }
+  }
+
 }

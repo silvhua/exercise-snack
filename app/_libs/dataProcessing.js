@@ -58,6 +58,8 @@ export const formatDate = (dateObject, options = null) => {
 
   To get the month, options are:
   `{month: 'long'}`, `{month: 'short'}`
+
+  To show time in 24-hour format, include `hour12: false` in the `options` object.
   */
 
     // format a date to the "MM/DD/YYYY" by default

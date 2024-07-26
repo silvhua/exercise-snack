@@ -7,7 +7,7 @@ const dbTimezone = 'UTC';
 const userTimezone = 'America/Vancouver';
 const serverTimezone = process.env?.['IS_LOCAL'] ? userTimezone : dbTimezone;
 
-const timeConversionExpression = `CONVERT_TZ(activity.created_time, '${dbTimezone}', '${userTimezone}')`
+const timeConversionExpression = process.env?.['IS_LOCAL'] ? 'activity.created_time' : `CONVERT_TZ(activity.created_time, '${dbTimezone}', '${userTimezone}')`
 const dateExpression = `CONVERT_TZ(DATE(${timeConversionExpression}), '${userTimezone}', '${serverTimezone}')`;
 
 export default async function readUser(username) {

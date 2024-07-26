@@ -11,13 +11,14 @@ const User = () => {
   } = context;
 
   return (
-    <section className="activity-list">
-      <h1 className="heading1">
+    <section className="activity-list" key='activity-list'>
+      <h1 className="heading1" key='heading'>
         My Activity History
       </h1>
-      {allActivities.map(activity => <ActivityCard
+      <ActivityCard />
+      {allActivities.map((activity, index) => <ActivityCard
         activityObject={activity}
-        key={activity.id} 
+        key={index}
       />)}
     </section>
   )
