@@ -6,7 +6,7 @@ import sqlSelect from "./utils";
 const timeConversionExpression = "CONVERT_TZ(activity.created_time, 'UTC', 'America/Vancouver')"
 // const timeConversionExpression = "CONVERT_TZ(activity.created_time, 'UTC', 'America/Vancouver')"
 // const dateExpression = process.env?.['IS_LOCAL'] ? `${timeConversionExpression}` : "activity.created_time";
-const dateExpression = timeConversionExpression;
+const dateExpression = `CONVERT_TZ(DATE(${timeConversionExpression}), 'America/Vancouver', 'UTC')`;
 
 export default async function readUser(username) {
   const query = `
@@ -85,15 +85,15 @@ export async function getActivityPerDate(userId) {
   SELECT 
     MIN(session.id) AS id,
     COUNT(activity.id) AS n_sets,
-    DATE(${dateExpression}) AS date
+    ${dateExpression} AS date
   FROM activity
   LEFT JOIN session
     ON (session_id = session.id)
   LEFT JOIN ${userTableName}
     ON user_id = user.id
   WHERE ${userTableName}.id = "${userId}"
-  GROUP BY DATE(${dateExpression})
-  ORDER BY DATE(${dateExpression}) DESC
+  GROUP BY ${dateExpression}
+  ORDER BY ${dateExpression} DESC
   `
   const data = await sqlSelect(query);
   return data;
