@@ -3,8 +3,10 @@
 import 'dotenv/config';
 import sqlSelect from "./utils";
 
-
-const dateExpression = process.env?.['IS_LOCAL'] ? "${dateExpression}" : "activity.created_time";
+const timeConversionExpression = "CONVERT_TZ(activity.created_time, 'UTC', 'America/Vancouver')"
+// const timeConversionExpression = "CONVERT_TZ(activity.created_time, 'UTC', 'America/Vancouver')"
+// const dateExpression = process.env?.['IS_LOCAL'] ? `${timeConversionExpression}` : "activity.created_time";
+const dateExpression = timeConversionExpression;
 
 export default async function readUser(username) {
   const query = `
