@@ -12,17 +12,6 @@ const ActivityCard = ({ activityObject }) => {
   return (
     <div className='activity-card' >
       <h3 className='subtitle'>
-        {formatDate(created_time, {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: 'numeric',
-            minute: 'numeric',
-            timeZoneName: 'short',
-          }
-        )}
-      </h3>
-      {/* <p className='p1'>
         {formatDate(local_time, {
             year: 'numeric',
             month: '2-digit',
@@ -32,11 +21,13 @@ const ActivityCard = ({ activityObject }) => {
             timeZoneName: 'short',
           }
         )}
-      </p> */}
+      </h3>
       <p className='p1' key={`exercise-${id}`}>{exercise}</p>
-      <p className='p1' key={`reps-${id}`}>{reps} reps</p>
-      <p className='p1' key={`duration-${id}`}>{duration ? `${duration} sec` : null}</p>
-      <p className='p1' key={`notes-${id}`}>Notes: {notes}</p>
+      <p className='p1' key={`reps-${id}`}>Reps: {reps}</p>
+      <p className='p1' key={`duration-${id}`}>Duration: {duration ? `${duration} sec` : null}</p>
+      <p className='p1' key={`notes-${id}`}>
+        Notes: {notes === 'null' ? '' : notes}
+      </p>
     </div>
   )
 }
