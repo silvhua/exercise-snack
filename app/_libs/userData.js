@@ -3,8 +3,12 @@
 import 'dotenv/config';
 import sqlSelect from "./utils";
 
+const dbTimezone = 'UTC';
+const userTimezone = 'America/Vancouver';
+const serverTimezone = process.env?.['IS_LOCAL'] ? userTimezone : dbTimezone;
 
-const dateExpression = process.env?.['IS_LOCAL'] ? "DATE(CONVERT_TZ(activity.created_time, '+00:00', 'US/Pacific'))" : "activity.created_time";
+const timeConversionExpression = `CONVERT_TZ(activity.created_time, '${dbTimezone}', '${userTimezone}')`
+const dateExpression = `CONVERT_TZ(DATE(${timeConversionExpression}), '${userTimezone}', '${serverTimezone}')`;
 
 export default async function readUser(username) {
   const query = `
@@ -83,15 +87,15 @@ export async function getActivityPerDate(userId) {
   SELECT 
     MIN(session.id) AS id,
     COUNT(activity.id) AS n_sets,
-    DATE(${dateExpression}) AS date
+    ${dateExpression} AS date
   FROM activity
   LEFT JOIN session
     ON (session_id = session.id)
   LEFT JOIN ${userTableName}
     ON user_id = user.id
   WHERE ${userTableName}.id = "${userId}"
-  GROUP BY DATE(${dateExpression})
-  ORDER BY DATE(${dateExpression}) DESC
+  GROUP BY ${dateExpression}
+  ORDER BY ${dateExpression} DESC
   `
   const data = await sqlSelect(query);
   return data;
@@ -105,7 +109,7 @@ export async function getUserActivity(userId) {
   const query = `
   SELECT 
     activity.created_time,
-    ${dateExpression} AS local_time, 
+    ${timeConversionExpression} AS local_time, 
     reps,
     duration,
     notes,
