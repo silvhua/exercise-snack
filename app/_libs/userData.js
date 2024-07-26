@@ -5,10 +5,12 @@ import sqlSelect from "./utils";
 
 const dbTimezone = 'UTC';
 const userTimezone = 'America/Vancouver';
-const serverTimezone = process.env?.['IS_LOCAL'] ? userTimezone : dbTimezone;
-
-const timeConversionExpression = process.env?.['IS_LOCAL'] ? 'activity.created_time' : `CONVERT_TZ(activity.created_time, '${dbTimezone}', '${userTimezone}')`
-const dateExpression = `CONVERT_TZ(DATE(${timeConversionExpression}), '${userTimezone}', '${serverTimezone}')`;
+let serverTimezone = dbTimezone;
+let timeConversionExpression = `CONVERT_TZ(activity.created_time, '${dbTimezone}', '${userTimezone}')`;
+let dateExpression = `CONVERT_TZ(DATE(${timeConversionExpression}), '${userTimezone}', '${serverTimezone}')`;
+if (process.env?.['IS_LOCAL']) {
+  serverTimezone = userTimezone;
+}
 
 export default async function readUser(username) {
   const query = `
@@ -122,7 +124,7 @@ export async function getUserActivity(userId) {
   LEFT JOIN exercise
     ON (exercise_id = exercise.id)
   WHERE ${userTableName}.id = "${userId}"
-  ORDER BY DATE(activity.created_time) DESC
+  ORDER BY ${timeConversionExpression} DESC
   `
   const data = await sqlSelect(query);
   return data;
