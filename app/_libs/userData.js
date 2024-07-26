@@ -8,8 +8,10 @@ const userTimezone = 'America/Vancouver';
 let serverTimezone = dbTimezone;
 let timeConversionExpression = `CONVERT_TZ(activity.created_time, '${dbTimezone}', '${userTimezone}')`;
 let dateExpression = `CONVERT_TZ(DATE(${timeConversionExpression}), '${userTimezone}', '${serverTimezone}')`;
+let timestampExpression = 'activity.created_time';
 if (process.env?.['IS_LOCAL']) {
   serverTimezone = userTimezone;
+  timestampExpression = timeConversionExpression;
 }
 
 export default async function readUser(username) {
@@ -111,7 +113,7 @@ export async function getUserActivity(userId) {
   const query = `
   SELECT 
     activity.created_time,
-    ${timeConversionExpression} AS local_time, 
+    ${timestampExpression} AS local_time, 
     reps,
     duration,
     notes,
@@ -124,7 +126,7 @@ export async function getUserActivity(userId) {
   LEFT JOIN exercise
     ON (exercise_id = exercise.id)
   WHERE ${userTableName}.id = "${userId}"
-  ORDER BY ${timeConversionExpression} DESC
+  ORDER BY ${timestampExpression} DESC
   `
   const data = await sqlSelect(query);
   return data;
