@@ -9,9 +9,13 @@ let serverTimezone = dbTimezone;
 let timeConversionExpression = `CONVERT_TZ(activity.created_time, '${dbTimezone}', '${userTimezone}')`;
 let dateExpression = `CONVERT_TZ(DATE(${timeConversionExpression}), '${userTimezone}', '${serverTimezone}')`;
 let timestampExpression = 'activity.created_time';
+
+// If app is run on localhost, avoid `CONVERT_TZ` since it will throw error due to timezones not being populated
 if (process.env?.['IS_LOCAL']) {
   serverTimezone = userTimezone;
-  timestampExpression = timeConversionExpression;
+  timestampExpression = process.env?.['REMOTE_DB'] ? timeConversionExpression : 'activity.created_time';
+  timeConversionExpression = 'activity.created_time';
+  dateExpression = `DATE(${timeConversionExpression})`;
 }
 
 export default async function readUser(username) {
