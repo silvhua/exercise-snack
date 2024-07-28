@@ -1,17 +1,17 @@
 -- Active: 1718904400861@@127.0.0.1@3306@movement_snack
 
-    WITH randomized AS (
+    WITH details AS (
   SELECT
-    exercise.id, exercise.name,
+    exercise.id, 
+    exercise.name AS name,
     movement.name AS "movement",
     context.name AS "context",
     discreetness.level AS discreetness,
     focus.name AS focus,
     environment.name AS environment,
     muscle.name AS muscle,
-    movement.id AS movement_id,
-    ROW_NUMBER() OVER (PARTITION BY movement.name ORDER BY RAND()) AS random_number,
-    ROW_NUMBER() OVER (PARTITION BY exercise_movement.exercise_id ORDER BY RAND()) AS random_number2
+    -- movement.id AS movement_id,
+    exercise_movement.exercise_id 
   FROM exercise
   LEFT JOIN exercise_movement ON (exercise.id = exercise_id)
     LEFT JOIN movement ON (movement_id = movement.id)
@@ -26,37 +26,35 @@
     LEFT JOIN environment ON (environment_id = environment.id)
   WHERE context.name = 'limited space' OR context.name = 'high heels'
   ), 
-  contexts AS (
-    SELECT 
-      MIN(id) AS id,
-      MIN(name) AS name,
-      MIN(movement) AS movement,
-      COUNT(DISTINCT context) AS context_count
-    FROM randomized
-    GROUP BY id
-  )
-  -- SELECT * FROM contexts
-  -- WHERE context_count >=2
-  -- ORDER BY context_count DESC
-  SELECT 
-    MIN(id) AS id, 
-    MIN(name) AS name, 
-    MIN(movement) AS movement, 
-    MIN(context) AS context, 
-    MIN(discreetness) AS discreetness, 
-    MIN(focus) AS focus, 
-    MIN(environment) AS environment, 
-    MIN(muscle) AS muscle,
-    MIN(movement_id) AS movement_id,
-    MIN(random_number) AS random_number
-  FROM randomized
-  WHERE id IN (
-    SELECT id
-    FROM randomized
-    WHERE random_number2 = 1
-  ) AND (random_number = 1)
-  AND id IN (
-    SELECT id FROM contexts
-    WHERE context_count = 2
-  )
+  consolidated AS (
+  SELECT
+    id, 
+    MIN(name) AS name,
+    MIN(movement) AS "movement",
+    COUNT(DISTINCT context) AS context_count,
+    MIN(discreetness) AS discreetness,
+    MIN(focus) AS focus,
+    MIN(environment) AS environment,
+    MIN(muscle) AS muscle
+    -- MIN(movement_id) AS movement_id
+  FROM details
   GROUP BY id
+  
+  ),
+  filtered AS (
+    SELECT * 
+    FROM consolidated
+    WHERE id IN (
+      SELECT id FROM consolidated
+      WHERE context_count = 2
+    )
+    ORDER BY movement
+  ),
+  randomized AS (
+    SELECT *,
+      ROW_NUMBER() OVER (PARTITION BY movement ORDER BY RAND()) AS random_number
+    FROM filtered
+    ORDER BY movement, random_number
+  )
+  SELECT * FROM randomized
+  WHERE random_number = 1
