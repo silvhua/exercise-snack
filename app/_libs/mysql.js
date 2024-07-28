@@ -2,7 +2,7 @@ import mysql from 'mysql2/promise'
 import 'dotenv/config';
 
 // const connectionLimit = process.env.CONNECTION_LIMIT || 8;
-const connectionLimit = 8;
+const connectionLimit = 5;
 console.log(`User: ${process.env.DB_USER}`)
 console.log(`Connection limit: ${connectionLimit}`);
 const pool = mysql.createPool({
