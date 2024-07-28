@@ -6,7 +6,7 @@ console.log(`User: ${process.env.DB_USER}`)
 console.log(`Connection limit: ${connectionLimit}`);
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
-    connectionLimit: connectionLimit,
+    connectionLimit: 5,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
