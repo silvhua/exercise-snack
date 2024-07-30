@@ -3,6 +3,7 @@
 import Placeholder from '@/app/_components/Placeholder/Placeholder';
 import Button from '../_components/Button/Button';
 import Video from '../_components/Video/Video';
+import pool from '../_libs/mysql';
 // import './ErrorPage.scss';
 
 const ErrorPage = () => {
@@ -11,7 +12,9 @@ const ErrorPage = () => {
     text: "Log out",
     href: "/"
   }
-  
+
+  pool.end()
+  console.log('ending connection pool in /redirect')
   return (
     <main className='main'>
       <Placeholder
