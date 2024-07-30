@@ -6,6 +6,7 @@ import CloseIcon from '../CloseIcon/CloseIcon';
 import { readProperty } from './properties';
 import FilterMenuSection from '../FilterMenuSection/FilterMenuSection';
 import Button from '../Button/Button';
+import { checkForSuccess } from '@/app/_libs/ApiClient';
 
 const FilterMenu = ({ filterProps }) => {
   /* 
@@ -36,10 +37,15 @@ const FilterMenu = ({ filterProps }) => {
     for (let i = 0; i < properties.length; i++) {
       const property = properties[i];
       const result = await readProperty(property);
-      filterOptionsResults[property] = result;
+      if (checkForSuccess(result)) {
+        filterOptionsResults[property] = result;
+      } 
     }
-    setFilterOptions(filterOptionsResults);
-    setIsLoading(false);
+    if (Object.keys(filterOptionsResults).length > 0) {
+      setFilterOptions(filterOptionsResults);
+      setIsLoading(false);
+      console.log('filter options set')
+    }
   }
 
   useEffect(() => {

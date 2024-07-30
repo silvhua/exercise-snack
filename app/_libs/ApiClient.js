@@ -76,7 +76,7 @@ export function checkForSuccess(response) {
   if (response && typeof response === 'object') {
     return !response.error;
   } else {
-    console.error(`Response error in ApiClient: ${response?.error}`)
+    // console.error(`Response error in ApiClient: ${response?.error}`)
     return false
   }
 }
