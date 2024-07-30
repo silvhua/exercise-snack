@@ -4,7 +4,7 @@ import 'dotenv/config';
 // const connectionLimit = process.env.CONNECTION_LIMIT || 8;
 const connectionLimit = 4;
 console.log(`User: ${process.env.DB_USER}`)
-console.log(`Connection limit: ${connectionLimit}`);
+// console.log(`Connection limit: ${connectionLimit}`);
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     // connectionLimit: connectionLimit,
