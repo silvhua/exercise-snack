@@ -28,6 +28,7 @@ export default async function sqlSelect(query, getFirst, binaryColumns) {
         return rows;
       })
     }
+    console.log(`rows in utils.js sqlQuery`, rows)
     db.release();
     return rows;
   } catch (error) {
@@ -65,7 +66,7 @@ export async function apiSqlQuery(query, getFirst, binaryColumns) {
         return rows;
       })
     }
-    console.log(`rows in utils.js`, rows)
+    console.log(`rows in utils.js apiSqlQuery`, rows)
     db.release();
     if (!getFirst) {
       return NextResponse.json(rows)
