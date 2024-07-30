@@ -32,7 +32,7 @@ export default async function sqlSelect(query, getFirst, binaryColumns) {
     return rows;
   } catch (error) {
     if (error) {
-      console.log(error);
+      console.error(error);
     }
     redirect('/redirect')
     return null;
@@ -78,6 +78,7 @@ export async function apiSqlQuery(query, getFirst, binaryColumns) {
     }
     
   } catch (error) {
+    console.error(error);
     return NextResponse.json({
       error: 'Unable to perform request.'
     }, { status: 500 })
