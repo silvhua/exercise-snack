@@ -65,6 +65,7 @@ export async function apiSqlQuery(query, getFirst, binaryColumns) {
         return rows;
       })
     }
+    console.log(`rows in utils.js`, rows)
     db.release();
     if (!getFirst) {
       return NextResponse.json(rows)
