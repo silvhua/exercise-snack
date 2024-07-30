@@ -6,6 +6,7 @@ SHOW PROCESSLIST;
 SELECT CONCAT('KILL ', id, ';') 
 FROM information_schema.processlist 
 WHERE user != 'system_user' AND id != CONNECTION_ID();
+-- After running this query, copy, paste, and run the resulting `KILL <process_id>` commands.
 
 
 KILL 1554672;
