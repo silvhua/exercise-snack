@@ -56,5 +56,6 @@ export async function GET(request, {params}) {
   ) AND (random_number = 1)
   GROUP BY id
   `
+  console.log('updateProgram query:\n', query)
   return await apiSqlQuery(query, false, ['movement_id']);
 }

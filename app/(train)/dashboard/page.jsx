@@ -72,6 +72,17 @@ export default function Dashboard() {
         }
       }
     }
+
+    // If both the high-heels and boots filters are selected, only apply the high-heels filter
+    if (
+      sqlFilterStatements.includes('(context.name LIKE "high-heels")') &&
+      sqlFilterStatements.includes('(context.name LIKE "boots")')
+    ) {
+      sqlFilterStatements = sqlFilterStatements.filter(string => 
+        string !== '(context.name LIKE "boots")'
+      )
+    }
+    
     let filterString = sqlFilterStatements.join(' AND ');
     filterString = encodeURIComponent(filterString);
     const createProgramResponse = await generateProgram(filterString);
@@ -79,8 +90,12 @@ export default function Dashboard() {
       setProgramArray(createProgramResponse);
       /* Save the newly generated program after filter form is submitted */
       const updateProgramResponse = await updateProgram(userId, createProgramResponse);
-      if (checkForSuccess(updateProgramResponse)) {
-        filterRef.current.close();
+      if (createProgramResponse.length > 0) {
+        if (checkForSuccess(updateProgramResponse)) {
+          filterRef.current.close();
+        }
+      } else {
+        console.log(`Problem generating program:\n`, updateProgramResponse)
       }
     } else {
       alert('Sorry! There was a problem saving your activity.')
