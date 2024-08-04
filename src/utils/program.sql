@@ -36,7 +36,6 @@
     MIN(focus) AS focus,
     MIN(environment) AS environment,
     MIN(muscle) AS muscle
-    -- MIN(movement_id) AS movement_id
   FROM details
   GROUP BY id
   

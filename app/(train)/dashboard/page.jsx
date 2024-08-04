@@ -83,7 +83,7 @@ export default function Dashboard() {
       )
     }
     
-    let filterString = sqlFilterStatements.join(' AND ');
+    let filterString = sqlFilterStatements.join(' OR ');
     filterString = encodeURIComponent(filterString);
     const createProgramResponse = await generateProgram(filterString);
     if (checkForSuccess(createProgramResponse)) {
