@@ -2,7 +2,7 @@ import Link from 'next/link';
 import './ActionIcon.scss';
 
 const ActionIcon = ({ iconProps }) => {
-  const { src, href, onClick, className, alt } = iconProps;
+  const { src, href, onClick, className, alt, title } = iconProps;
 
   const ImgElement = () => {
     return (
@@ -11,6 +11,7 @@ const ActionIcon = ({ iconProps }) => {
         className={className}
         onClick={onClick}
         alt={alt}
+        title={title}
       />
     )
   }

@@ -13,6 +13,7 @@ import {
 import { checkForSuccess } from '@/app/_libs/ApiClient';
 import Streak from "@/app/_components/Streak/Streak";
 import './dashboard.scss';
+import LogoutButton from "@/app/_components/LogoutButton/LogoutButton";
 
 export default function Dashboard() {
   const context = useContext(DataContext);
@@ -39,11 +40,6 @@ export default function Dashboard() {
 
   if (!userObject) {
     return <Placeholder text='Verifying your details...' />
-  }
-
-  const buttonProps = {
-    href: '/',
-    text: 'Log out'
   }
 
   function handleFilterClick (event) {
@@ -143,7 +139,7 @@ export default function Dashboard() {
               programArray={programArray}
               setProgramArray={setProgramArray}
             />
-            <Button buttonProps={buttonProps} />
+            <LogoutButton />
             <FilterMenu filterProps={filterProps} />
           </>
           : null

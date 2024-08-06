@@ -18,6 +18,13 @@
     width: $button-width--tablet;
   }
 
+  &--white {
+    // @extend .button;
+    background-color: $off-white;
+    color: $dark-blue;
+    border: 1px solid $dark-blue;
+  }
+
   &--activity-form {
     @include tablet {
       width: 100%;

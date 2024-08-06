@@ -8,21 +8,32 @@ const NavBar = () => {
     src: '/icons/home.svg',
     href: '/dashboard',
     className: 'nav-bar__icon',
-    alt: 'home icon'
+    alt: 'home icon',
+    title: 'Home'
   }
 
   const profileIconProps = {
     src: '/icons/person.svg',
     href: '/me',
     className: 'nav-bar__icon',
-    alt: 'profile icon'
+    alt: 'profile icon',
+    title: 'Me'
   }
 
   const dataIconProps = {
     src: '/icons/barChart.svg',
     href: '/stats',
     className: 'nav-bar__icon',
-    alt: 'bar chart icon'
+    alt: 'bar chart icon',
+    title: 'Stats'
+  }
+
+  const logoutIconProps = {
+    src: '/icons/logout.svg',
+    href: '/',
+    className: 'nav-bar__icon',
+    alt: 'logout icon',
+    title: 'Logout'
   }
   
   return (
@@ -31,6 +42,7 @@ const NavBar = () => {
         <ActionIcon iconProps={homeIconProps} />
         <ActionIcon iconProps={profileIconProps} />
         <ActionIcon iconProps={dataIconProps} />
+        <ActionIcon iconProps={logoutIconProps} />
       </nav>
     </section>
   )
