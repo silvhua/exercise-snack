@@ -10,7 +10,6 @@
     focus.name AS focus,
     environment.name AS environment,
     muscle.name AS muscle,
-    -- movement.id AS movement_id,
     exercise_movement.exercise_id 
   FROM exercise
   LEFT JOIN exercise_movement ON (exercise.id = exercise_id)
@@ -38,7 +37,6 @@
     MIN(muscle) AS muscle
   FROM details
   GROUP BY id
-  
   ),
   filtered AS (
     SELECT * 
