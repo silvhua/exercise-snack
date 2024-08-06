@@ -121,3 +121,7 @@
     transition: transform 0.5s;
   }
 }
+
+@mixin error-state {
+  background-color: $turquoise-20;
+}

@@ -1,0 +1,30 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+.error {
+  @include error-state;
+
+  &__container {
+  }
+
+  &__text {
+    @extend .p2;
+    position: relative;
+    color: $dark-blue-60;
+
+    &:before {
+      content: "";
+      display: inline-block;
+      background-image: url("/icons/error.svg");
+      height: 0.75rem;
+      width: 0.75rem;
+      background-size: contain;
+      background-position: left bottom;
+    }
+  }
+}
+
+.no-error {
+  display: none;
+}
