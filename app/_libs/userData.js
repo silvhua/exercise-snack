@@ -2,6 +2,7 @@
 
 import 'dotenv/config';
 import sqlSelect from "./utils";
+import crypto from 'crypto';
 
 const dbTimezone = 'UTC';
 const userTimezone = 'America/Vancouver';
@@ -16,6 +17,48 @@ if (process.env?.['IS_LOCAL']) {
   timestampExpression = process.env?.['REMOTE_DB'] ? timeConversionExpression : 'activity.created_time';
   timeConversionExpression = 'activity.created_time';
   dateExpression = `DATE(${timeConversionExpression})`;
+}
+
+export async function getUserNames() {
+  const query = `SELECT username FROM user;`
+  const response = await sqlSelect(query);
+  return response;
+}
+
+export async function createUser(username, password, first_name) {
+  const uuid = crypto.randomUUID()
+  const query = `
+  INSERT INTO user (
+    id,
+    username,
+    password,
+    first_name
+  )
+  VALUES (
+    "${uuid}",
+    "${username}",
+    "${password}",
+    "${first_name}"
+  )
+  `
+  const postResponse = await sqlSelect(query);
+  if (Math.floor(postResponse.status / 100) === 2) {
+    const query2 = `
+    SELECT
+      id,
+      username,
+      password,
+      first_name
+    FROM user
+    WHERE id = "${uuid}"
+    `
+    const newRecord = await apiSqlQuery(
+      query2, true
+    );
+    return newRecord;
+  }
+  const response = postResponse;
+  return response;
 }
 
 export default async function readUser(username) {
