@@ -5,7 +5,7 @@ import getUserNames from "../_libs/userData";
 
 // import './signUp.scss';
 
-const signUp = () => {
+const SignUp = () => {
   const [formData, setFormData] = useState({
     first_name: null,
     username: null,
@@ -53,4 +53,4 @@ const signUp = () => {
   )
 }
 
-export default signUp
+export default SignUp
