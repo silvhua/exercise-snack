@@ -16,6 +16,7 @@ body {
   overflow: hidden;
   background-color: $off-white;
 }
+
 h1 {
   font-size: 2rem;
   text-transform: capitalize;
@@ -25,7 +26,7 @@ h1 {
 .main {
   @include flex-mixin--column(100%);
   @include component-spacing;
-  padding: $padding-top--mobile $page-margin--mobile $padding-bottom--mobile;
+  @include section-padding;
   height: $main-height--mobile;
   justify-content: flex-start;
   overflow:  visible scroll;
@@ -36,6 +37,10 @@ h1 {
     height: $main-height--tablet;
     padding: $page-margin--mobile $page-margin--tablet
   }
+}
+
+footer {
+  @include section-padding;
 }
 
 section, article, ul {

@@ -1,6 +1,4 @@
-import Header from "./_components/Header/Header";
 import "./globals.scss";
-
 
 export const metadata = {
   title: "Movement Snack App",
@@ -11,7 +9,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Header />
           {children}
       </body>
     </html>

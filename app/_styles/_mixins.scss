@@ -63,6 +63,13 @@
   line-height: 100%;
 }
 
+@mixin section-padding {
+  padding: $padding-top--mobile $page-margin--mobile $padding-bottom--mobile;
+  @include tablet {
+    padding: $page-margin--mobile $page-margin--tablet;
+  }
+}
+
 @mixin responsive-container($width) {
   @include flex-mixin($width);
   @include component-spacing;
