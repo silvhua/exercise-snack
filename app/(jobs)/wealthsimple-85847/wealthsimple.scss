@@ -2,10 +2,15 @@
 @use '../../_styles/globals' as *;
 @use '../../_styles/mixins' as *;
 
-$text-color: rgb(50, 48, 47);
+$text-color-dark: #32302f;
+$text-color: #615e5c;
+$ws-color-1: #faf8f5;
+$ws-color-2: #e1dcd0;
+$ws-off-white: #fcfcfc;
 
 h1, h2, h3 {
   font-family: Georgia, serif;
+  color: $text-color-dark;
 }
 
 .title {
@@ -18,4 +23,25 @@ h1, h2, h3 {
 
 p {
   font-family: "Futura PT Light";
+  color: $text-color;
+  font-weight: 600;
+}
+
+.job-background {
+  background-color: $ws-off-white;
+}
+
+.footer-wealthsimple {
+  background-color: $ws-color-1;
+
+  & p, & a {
+    color: $text-color;
+  }
+}
+
+.container {
+  padding: $spacing--mobile;
+  border-radius: 16px;
+  inset: 0px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px 0px, rgba(0, 0, 0, 0.04) 0px 2px 8px 0px;
 }
