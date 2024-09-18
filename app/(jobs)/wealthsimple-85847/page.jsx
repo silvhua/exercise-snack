@@ -1,4 +1,4 @@
-import './Wealthsimple.scss';
+import './wealthsimple.scss';
 
 const Wealthsimple = () => {
   return (
