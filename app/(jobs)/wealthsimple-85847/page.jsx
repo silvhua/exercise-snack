@@ -8,6 +8,7 @@ const Wealthsimple = () => {
       <div className=''>
         <p>Thank you for helping me grow my wealth. 🙋🏻‍♀️</p>
         <p>PS: Pardon the plain design; I am a fullstack developer, but <i>not</i> a designer.</p>
+        <p>Give me the requirements and mockup and I will do a great job!</p>
       </div>
     </main>
   )
