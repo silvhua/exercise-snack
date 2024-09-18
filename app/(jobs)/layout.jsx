@@ -14,13 +14,15 @@ export default function JobLayout({ children }) {
     )
   }
 
+  const footerClass = {
+    85847: "footer-wealthsimple"
+  }
+
   return (
     <>
       {/* <HeaderJob /> */}
-      <main className="main--jobs">
-        {children}
-      </main>
-      <footer>
+      {children}
+      <footer className={footerClass[companyId]}>
         <p className='p2'>{fontCredit[companyId]}</p>
       </footer>
     </>
