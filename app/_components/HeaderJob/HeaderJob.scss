@@ -3,6 +3,9 @@
 @use '../../_styles/mixins' as *;
 
 header {
-  @include section-padding;
   background-color: pink;
+  padding: $padding-top--mobile $page-margin--mobile;
+  @include tablet {
+    padding: $page-margin--mobile $page-margin--tablet;
+  }
 }

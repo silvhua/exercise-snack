@@ -70,3 +70,6 @@ $max-hero-height--mobile: calc($main-height--mobile - $spacing--mobile * 5);
 $max-hero-height--tablet: calc($main-height--tablet - $spacing--tablet * 5);
 
 $max-content-width: calc(1280px - 8 * $page-margin--tablet);
+
+$footer-height: calc($spacing--mobile * 2 + 1.375rem);
+// $footer-height: 3rem;

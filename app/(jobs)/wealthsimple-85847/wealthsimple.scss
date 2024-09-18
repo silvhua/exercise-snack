@@ -1,0 +1,21 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+$text-color: rgb(50, 48, 47);
+
+h1, h2, h3 {
+  font-family: Georgia, serif;
+}
+
+.title {
+  @extend .headline6;
+
+  @include tablet {
+    font-size: 2.4375rem;
+  }
+}
+
+p {
+  font-family: "Futura PT Light";
+}

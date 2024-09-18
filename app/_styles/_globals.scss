@@ -37,10 +37,20 @@ h1 {
     height: $main-height--tablet;
     padding: $page-margin--mobile $page-margin--tablet
   }
+
+  &--jobs {
+    background-color: yellow;
+    @extend .main;
+    top: 0;
+    height: calc(100vh - $footer-height);
+  }
 }
 
 footer {
-  @include section-padding;
+  padding: $spacing--mobile $page-margin--mobile;
+  @include tablet {
+    padding: $spacing--mobile $page-margin--tablet;
+  }
 }
 
 section, article, ul {
