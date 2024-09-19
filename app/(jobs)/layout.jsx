@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname } from 'next/navigation'
-import HeaderJob from "@/app/_components/HeaderJob/HeaderJob";
+import '@/app/_components/Header/Header.scss';
 
 export default function JobLayout({ children }) {
   const path = usePathname();
@@ -23,7 +23,12 @@ export default function JobLayout({ children }) {
       {/* <HeaderJob /> */}
       {children}
       <footer className={footerClass[companyId]}>
-        <p className='p2'>{fontCredit[companyId]}</p>
+        <div className='header-container flex-row-container'>
+          <p className='p2'>{fontCredit[companyId]}</p>
+          <p className='p2'>
+            Check out the rest of the web app <a href='/' className='p2'>here</a>
+          </p>
+        </div>
       </footer>
     </>
   );
