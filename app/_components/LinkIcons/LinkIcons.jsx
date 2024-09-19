@@ -6,7 +6,7 @@ const LinkIcons = ({ iconProps }) => {
   } = iconProps;
   return (
     <a href={href}>
-      <img src={src} alt={alt} className='link-icon'/>
+      <img src={src} alt={alt} className='link-icon' title={alt} />
     </a>
   )
 }
