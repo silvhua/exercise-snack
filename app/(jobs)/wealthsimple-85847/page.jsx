@@ -7,6 +7,7 @@ const Wealthsimple = () => {
       <section>
         <h1>Hi, Wealthsimple!</h1>
         <p>Thank you for helping me grow my wealth. 🙋🏻‍♀️</p>
+        <p>Sincerely, Silvia Hua (your #1 fan)</p>
         <img className='' src='./images/jobs/85847.PNG' />
         <h2>Check out my links</h2>
         <div className='container'>
