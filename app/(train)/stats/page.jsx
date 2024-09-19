@@ -32,9 +32,9 @@ const Stats = () => {
   const interval = daysFromFirstSession;
 
   return (
-    <>
+    <section>
       <h1>Check out how you are doing!</h1>
-      <section className='responsive-section'>
+      <article className='responsive-section'>
         <PlotComponent activityArray={activityArray} />
         <div className='responsive-column--50'>
           <ConsistencyDisplay
@@ -51,9 +51,9 @@ const Stats = () => {
             />
           </div>
         </div>
-      </section>
+      </article>
       
-    </>
+    </section>
   )
 }
 

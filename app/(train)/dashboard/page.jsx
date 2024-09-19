@@ -125,12 +125,13 @@ export default function Dashboard() {
           />
         </div>
       </section>
-      <div className="flex-row-container">
+      <section className="flex-row-container">
         <h2 className='headline6'>Upcoming Exercises</h2>
         <FilterIcon
           handleClick={handleFilterClick}
         />
-      </div>
+      </section>
+      <section>
       {
         programArray ? 
           <>
@@ -143,7 +144,8 @@ export default function Dashboard() {
             <FilterMenu filterProps={filterProps} />
           </>
           : null
-      }
+        }
+      </section>
     </>
   );
 }

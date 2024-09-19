@@ -18,4 +18,17 @@ header {
     padding: 1rem $page-margin--tablet;
     box-sizing: border-box;
   }
+  @include desktop {
+    padding: 0;
+  }
+}
+
+.header-container {
+  @include desktop {
+    margin: 0 auto;
+    box-sizing: border-box;
+    // Add 16px to max content width to align it with <main> content, since header doesn't have a scrollbar
+    min-width: calc($max-content-width + 16px);
+    max-width: calc($max-content-width + 16px);
+  }
 }

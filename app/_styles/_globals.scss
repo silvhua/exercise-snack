@@ -37,6 +37,9 @@ h1 {
     height: $main-height--tablet;
     padding: $page-margin--mobile $page-margin--tablet
   }
+  @include desktop {
+    padding: $page-margin--mobile 0;
+  }
 
   &--jobs {
     background-color: yellow;
@@ -56,6 +59,13 @@ footer {
 section, article, ul {
   @include flex-mixin--column(100%);
   margin: 0;
+}
+
+section {
+  @include desktop {
+    max-width: $max-content-width;
+    margin: 0 auto;
+  }
 }
 
 section, article {
@@ -246,4 +256,16 @@ form {
 
 .display-none {
   display: none;
+}
+
+.hero {
+  box-sizing: content-box;
+  aspect-ratio: 16 / 9;
+  border-radius: $border-radius;
+  max-height: $max-hero-height--mobile;
+
+  @include tablet {
+    max-height: $max-hero-height--tablet;
+  }
+  
 }

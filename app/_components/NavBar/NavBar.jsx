@@ -37,14 +37,14 @@ const NavBar = () => {
   }
   
   return (
-    <section className='nav-bar'>
+    <div className='nav-bar'>
       <nav className='nav-bar__container'>
         <ActionIcon iconProps={homeIconProps} />
         <ActionIcon iconProps={profileIconProps} />
         <ActionIcon iconProps={dataIconProps} />
         <ActionIcon iconProps={logoutIconProps} />
       </nav>
-    </section>
+    </div>
   )
 }
 

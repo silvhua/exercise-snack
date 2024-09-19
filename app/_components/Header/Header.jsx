@@ -3,7 +3,9 @@ import './Header.scss';
 const Header = () => {
   return (
     <header>
-      <p>Movement Snack App</p>
+      <section className='header-container'>
+        Movement Snack App
+      </section>
     </header>
   )
 }

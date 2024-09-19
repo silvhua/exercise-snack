@@ -11,7 +11,6 @@
   width: 100%;
   bottom: 0;
   border-top: $divider;
-
   @include tablet {
     top: calc($header-height--tablet / 2);
     transform: translateY(-50%);
@@ -21,7 +20,10 @@
     right: 0;
     border: none;
   }
-
+  @include desktop {
+    right: calc(50% - $max-content-width / 2);
+    padding: 0;
+  }
   &__container {
     @include flex-mixin--row(100%);
     width: 100%;
@@ -30,6 +32,9 @@
 
     @include tablet {
       gap: $spacing--tablet;
+    }
+    @include desktop {
+      padding: 0;
     }
   }
 
