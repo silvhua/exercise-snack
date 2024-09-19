@@ -50,6 +50,14 @@ h1 {
     & p, i {
       @extend .responsive-p;
     }
+
+    & h1 {
+      @extend .responsive-h1;
+    }
+
+    & h2 {
+      @extend .responsive-h2;
+    }
   }
 }
 
@@ -119,6 +127,11 @@ ul {
   gap: $spacing--mobile;
 }
 
+.flex-centred {
+  justify-content: center;
+  align-items: center;
+}
+
 li {
   list-style: none;
 }
@@ -186,6 +199,20 @@ p {
 
 .responsive-p {
   font-size: .875rem;
+  @include tablet {
+    font-size: 1.3125rem;
+  }
+}
+
+.responsive-h1 {
+  @extend .headline6;
+  @include tablet {
+    font-size: 2.4375rem;
+  }
+}
+
+.responsive-h2 {
+  font-size: 1rem;
   @include tablet {
     font-size: 1.3125rem;
   }

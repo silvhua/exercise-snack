@@ -13,13 +13,13 @@ h1, h2, h3 {
   color: $text-color-dark;
 }
 
-.title {
-  @extend .headline6;
+// .title {
+//   @extend .headline6;
 
-  @include tablet {
-    font-size: 2.4375rem;
-  }
-}
+//   @include tablet {
+//     font-size: 2.4375rem;
+//   }
+// }
 
 p {
   font-family: "Futura PT Light";
