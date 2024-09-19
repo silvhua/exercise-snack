@@ -1,0 +1,9 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+.my-links {
+  @extend .flex-row-container;
+  justify-content: center;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,10 @@
+@use '../../_styles/variables' as *;
+@use '../../_styles/globals' as *;
+@use '../../_styles/mixins' as *;
+
+.link-icon {
+  width: 3rem;
+  @include tablet {
+    width: 5rem;
+  }
+}
