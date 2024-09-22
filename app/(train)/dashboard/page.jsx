@@ -107,6 +107,12 @@ export default function Dashboard() {
   }
 
   const { id, username, first_name, last_name, password } = userObject;
+
+  const csvMapping = {
+    movement: "movement category",
+    name: "exercise",
+    id: "id"
+  }
   return (
     <>
       <section className="responsive-section">
@@ -146,6 +152,7 @@ export default function Dashboard() {
                 data={programArray}
                 fileName='movement_snack_program'
                 appendTimestamp={true}
+                csvMapping={csvMapping}
               />
               <FilterMenu filterProps={filterProps} />
             </>

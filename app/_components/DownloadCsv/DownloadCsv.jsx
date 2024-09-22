@@ -2,21 +2,31 @@
 import Button from '../Button/Button';
 import { formatDate } from '@/app/_libs/dataProcessing';
 
-const DownloadCsv = ({ data, fileName, appendTimestamp }) => {
+const DownloadCsv = ({ data, fileName, csvMapping, appendTimestamp }) => {
   if (appendTimestamp) {
     fileName = `${fileName}_${formatDate(new Date(), 'filename')}`;
   }
 
   const convertToCSV = (objArray, addHeader) => {
     let array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
-    array = array.map(object => {
-      const simplifiedObject = {
-        "movement category": object.movement,
-        exercise: object.name,
-        id: object.id
-      }
-      return simplifiedObject
-    })
+    if (csvMapping) {
+      array = array.map(object => {
+        const simplifiedObject = {};
+        Object.keys(csvMapping).forEach(property => {
+          const mappedColumn = csvMapping[property];
+          simplifiedObject[mappedColumn] = object[property]
+        })
+        return simplifiedObject
+      })
+    }
+    // array = array.map(object => {
+    //   const simplifiedObject = {
+    //     "movement category": object.movement,
+    //     exercise: object.name,
+    //     id: object.id
+    //   }
+    //   return simplifiedObject
+    // })
     let str = '';
 
     if (addHeader) {
