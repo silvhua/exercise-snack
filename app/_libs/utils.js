@@ -1,3 +1,5 @@
+"use server"
+
 import pool from "@/app/_libs/mysql";
 import { NextResponse } from "next/server";
 import { redirect } from 'next/navigation'
@@ -91,7 +93,7 @@ export async function apiSqlQuery(query, getFirst, binaryColumns) {
   }
 }
 
-export function binaryToString(object, key) {
+export async function binaryToString(object, key) {
   try {
     object[key] = object[key].toString('ascii');
   } catch (error) {
