@@ -14,19 +14,17 @@ const DownloadCsv = ({ data, fileName, csvMapping, appendTimestamp }) => {
         const simplifiedObject = {};
         Object.keys(csvMapping).forEach(property => {
           const mappedColumn = csvMapping[property];
-          simplifiedObject[mappedColumn] = object[property]
+          let value = object[property];
+          if (value === null || value === 'null') {
+            value = "";
+          } else if (value instanceof Date) {
+            value = formatDate(value, 'readable timestamp')
+          }
+          simplifiedObject[mappedColumn] = value
         })
         return simplifiedObject
       })
     }
-    // array = array.map(object => {
-    //   const simplifiedObject = {
-    //     "movement category": object.movement,
-    //     exercise: object.name,
-    //     id: object.id
-    //   }
-    //   return simplifiedObject
-    // })
     let str = '';
 
     if (addHeader) {

@@ -77,6 +77,10 @@ export const formatDate = (dateObject, options = null, removeColons=false) => {
     options = {
       year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
     }
+  } else if (options == 'readable timestamp') {
+    options = {
+      year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+    }
   }
   let formattedDate = dateObject.toLocaleDateString('en-CA', options) // format the date to string
   .replace(/,/g, ''); // remove commas
