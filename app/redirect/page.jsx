@@ -16,9 +16,11 @@ const ErrorPage = () => {
     <>
       <Header />
       <main className='main'>
-        <Placeholder
-          text='Sorry!'
-        />
+        <section>
+          <Placeholder
+            text='Sorry!'
+          />
+        </section>
         <section className='responsive-section'>
           <div className='responsive-column--50'>
             <p>
@@ -41,9 +43,11 @@ const ErrorPage = () => {
             />
           </div>
         </section>
+        <section>
         <Button
           buttonProps={buttonProps}
-        />
+          />
+        </section>
       </main>
     </>
   )
