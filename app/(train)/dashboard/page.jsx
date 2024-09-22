@@ -15,6 +15,7 @@ import Streak from "@/app/_components/Streak/Streak";
 import './dashboard.scss';
 import LogoutButton from "@/app/_components/LogoutButton/LogoutButton";
 import DownloadCsv from "@/app/_components/DownloadCsv/DownloadCsv";
+import DownloadCsv from "@/app/_components/DownloadCsv/DownloadCsv";
 
 export default function Dashboard() {
   const context = useContext(DataContext);
