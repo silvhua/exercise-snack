@@ -1,10 +1,10 @@
 // import './DownloadCsv.scss';
 import Button from '../Button/Button';
-import { getReadableTimestamp } from '@/app/_libs/dataProcessing';
+import { formatDate } from '@/app/_libs/dataProcessing';
 
 const DownloadCsv = ({ data, fileName, appendTimestamp }) => {
   if (appendTimestamp) {
-    fileName = `${fileName}_${getReadableTimestamp(true)}`;
+    fileName = `${fileName}_${formatDate(new Date(), 'filename')}`;
   }
 
   const convertToCSV = (objArray, addHeader) => {
