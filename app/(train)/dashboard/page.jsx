@@ -14,6 +14,7 @@ import { checkForSuccess } from '@/app/_libs/ApiClient';
 import Streak from "@/app/_components/Streak/Streak";
 import './dashboard.scss';
 import LogoutButton from "@/app/_components/LogoutButton/LogoutButton";
+import DownloadCsv from "@/app/_components/DownloadCsv/DownloadCsv";
 
 export default function Dashboard() {
   const context = useContext(DataContext);
@@ -140,10 +141,14 @@ export default function Dashboard() {
               programArray={programArray}
               setProgramArray={setProgramArray}
             />
-            <LogoutButton />
-            <FilterMenu filterProps={filterProps} />
-          </>
-          : null
+              <LogoutButton />
+              <DownloadCsv
+                data={programArray}
+                fileName='employees'
+              />
+              <FilterMenu filterProps={filterProps} />
+            </>
+            : null
         }
       </section>
     </>
